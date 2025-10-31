@@ -47,78 +47,178 @@ ClaudeSkills 是一个综合性仓库,旨在帮助开发者、研究人员和 AI
 
 ```
 ClaudeSkills/
-├── prompts/              # 按类别分类的提示词模板
-│   ├── coding/          # 编程和开发
-│   ├── writing/         # 内容创作和编辑
-│   ├── analysis/        # 数据分析和研究
-│   └── creative/        # 创意任务
-├── skills/              # 高级技术和技能
-├── integrations/        # 集成指南
-└── docs/               # 附加文档
+├── prompts/                    # 按类别分类的提示词模板
+│   ├── coding/                # 编程和开发
+│   └── writing/               # 内容创作和编辑
+├── skills/                    # Claude 技能集合
+│   ├── code-review/          # 代码审查专家技能
+│   ├── coze-api/             # Coze API 集成技能
+│   ├── crewai-developer/     # CrewAI API 技能
+│   ├── document-skills/      # Anthropic 官方文档技能
+│   ├── flutter-api/          # Flutter API 技能
+│   ├── mcp-builder/          # MCP 服务器构建器技能(官方)
+│   ├── podcast/              # 播客生成器(使用火山引擎)
+│   └── wechat-article-writer/ # 微信公众号文章写作助手
+└── docs/                     # 附加文档
 ```
 
-## 🎯 精选技能
+## 🎯 可用技能
 
-### 1. 代码生成与审查
-- 生成生产就绪的代码
-- 执行全面的代码审查
-- 调试和优化现有代码
+### 1. 🔍 代码审查专家
+**路径**: `skills/code-review/`
 
-### 2. 内容创作
-- 撰写博客文章和文章
-- 创建技术文档
-- 生成营销文案
+基于 2025 年最佳实践的专业代码审查技能,帮助你进行全面、高质量的代码审查。
 
-### 3. 数据分析
-- 分析数据集并提取洞察
-- 创建可视化和报告
-- 执行统计分析
+**功能特点**:
+- 结构化的三步审查流程
+- 8 大审查维度(功能、质量、安全、性能、测试、文档、架构、可维护性)
+- 优先级反馈(🔴 必须修复、🟡 强烈建议、🟢 建议、💡 可选)
+- 建设性反馈指南
 
-### 4. 研究与学习
-- 总结研究论文
-- 解释复杂概念
-- 生成学习材料
+### 2. 🤖 Coze API 集成
+**路径**: `skills/coze-api/`
+
+字节跳动扣子(Coze) AI 智能体平台的完整集成指南。
+
+**功能特点**:
+- 对话 API 进行会话交互
+- 工作流 API 执行工作流
+- 消息管理和状态跟踪
+- 支持流式和非流式模式
+
+### 3. 🚢 CrewAI 开发者
+**路径**: `skills/crewai-developer/`
+
+使用 CrewAI 框架构建多智能体 AI 系统的技能。
+
+**功能特点**:
+- 多智能体协作模式
+- 任务编排和工作流管理
+- 智能体角色定义和配置
+- 与各种 AI 模型集成
+
+### 4. 📄 文档技能(官方)
+**路径**: `skills/document-skills/`
+
+Anthropic 官方的文档处理技能,支持多种格式。
+
+**功能特点**:
+- **DOCX**: Word 文档创建和操作
+- **PDF**: PDF 生成和表单处理
+- **PPTX**: PowerPoint 演示文稿创建
+- **XLSX**: Excel 电子表格操作
+
+### 5. 📱 Flutter API
+**路径**: `skills/flutter-api/`
+
+包含 API 参考的综合 Flutter 开发技能。
+
+**功能特点**:
+- Flutter 组件和 API 文档
+- Flutter 开发最佳实践
+- 跨平台移动应用开发指导
+- 状态管理模式
+
+### 6. 🔧 MCP 构建器(官方)
+**路径**: `skills/mcp-builder/`
+
+构建高质量模型上下文协议(MCP)服务器的官方技能。
+
+**功能特点**:
+- 以智能体为中心的设计原则
+- 支持 Python (FastMCP) 和 Node.js/TypeScript
+- 工具设计最佳实践
+- 全面的评估指南
+
+### 7. 🎙️ 播客生成器
+**路径**: `skills/podcast/`
+
+使用火山引擎的播客模型生成 AI 播客。
+
+**功能特点**:
+- 双人对话生成
+- 多种音频格式(MP3、OGG、PCM、AAC)
+- 可调节语速和音色
+- 流式音频接收
+- 断点续传支持
+
+### 8. ✍️ 微信文章写作助手
+**路径**: `skills/wechat-article-writer/`
+
+专业的微信公众号文章创作助手。
+
+**功能特点**:
+- 将网页内容、文本或图像转换为微信文章
+- 官方文案风格优化
+- 使用经过验证的公式优化标题
+- 使用搜索工具丰富内容
+- 质量检查清单和风格指南
 
 ## 💻 使用示例
 
-### 示例 1: 代码审查提示词
+### 示例 1: 使用代码审查技能
 
-```markdown
-请审查以下代码:
-1. 代码质量和最佳实践
-2. 潜在的 bug 或安全问题
-3. 性能优化
-4. 改进建议
+只需上传代码或在对话中粘贴:
+
+```
+请审查这段代码的安全问题和性能优化。
 
 [你的代码]
 ```
 
-### 示例 2: 技术写作
+技能会自动提供带有优先级的结构化反馈。
 
-```markdown
-创建一篇关于 [主题] 的技术博客文章:
-- 为初学者清晰解释概念
-- 包含实际示例
-- 遵循 SEO 最佳实践
-- 大约 1000 字
+### 示例 2: 生成播客
+
+```
+生成一个关于"人工智能的未来"的播客,保存为 podcast.mp3
 ```
 
-### 示例 3: API 集成
+播客技能将使用火山引擎创建中文双人对话。
+
+### 示例 3: 创建微信文章
+
+```
+将这篇博客文章转换为微信公众号文章:
+[粘贴 URL 或内容]
+
+目标受众: 科技专业人士
+风格: 专业且信息丰富
+```
+
+### 示例 4: 构建 MCP 服务器
+
+```
+我想构建一个 GitHub API 集成的 MCP 服务器。
+请帮我按照最佳实践设计工具。
+```
+
+### 示例 5: Coze API 集成
 
 ```python
-import anthropic
+import requests
 
-client = anthropic.Anthropic(api_key="your-api-key")
-
-message = client.messages.create(
-    model="claude-3-5-sonnet-20241022",
-    max_tokens=1024,
-    messages=[
-        {"role": "user", "content": "你的提示词"}
+url = "https://api.coze.cn/v3/chat"
+headers = {
+    "Authorization": "Bearer YOUR_PAT_TOKEN",
+    "Content-Type": "application/json"
+}
+data = {
+    "bot_id": "your_bot_id",
+    "user_id": "user_123",
+    "stream": False,
+    "auto_save_history": True,
+    "additional_messages": [
+        {
+            "role": "user",
+            "content": "你好!",
+            "content_type": "text"
+        }
     ]
-)
+}
 
-print(message.content)
+response = requests.post(url, headers=headers, json=data)
+print(response.json())
 ```
 
 ## 🤝 贡献
@@ -141,13 +241,26 @@ print(message.content)
 
 ## 📋 技能分类
 
-- **🔧 开发** - 编码、调试、架构
-- **✍️ 写作** - 内容创作、编辑、文案
-- **📊 分析** - 数据分析、研究、洞察
-- **🎨 创意** - 设计、头脑风暴、讲故事
-- **🏢 商业** - 战略、规划、沟通
-- **🎓 教育** - 教学、学习、辅导
-- **🔬 研究** - 学术、科学、技术
+我们的技能按以下类别组织:
+
+- **🔧 开发与代码质量**
+  - 代码审查专家
+  - Flutter API
+  - CrewAI 开发者
+
+- **🤖 AI 与集成**
+  - Coze API 集成
+  - MCP 构建器(官方)
+
+- **📄 文档处理**
+  - 文档技能(DOCX、PDF、PPTX、XLSX)
+
+- **✍️ 内容创作**
+  - 微信文章写作助手
+  - 播客生成器
+
+- **🎙️ 媒体与音频**
+  - 播客生成器(火山引擎)
 
 ## 🌟 最佳实践
 
@@ -195,5 +308,5 @@ print(message.content)
 
 **由 Claude 社区用 ❤️ 制作**
 
-*最后更新: 2024年10月*
+*最后更新: 2024年10月31日*
 

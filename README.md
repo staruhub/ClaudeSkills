@@ -47,78 +47,178 @@ ClaudeSkills is a comprehensive repository designed to help developers, research
 
 ```
 ClaudeSkills/
-├── prompts/              # Prompt templates by category
-│   ├── coding/          # Programming and development
-│   ├── writing/         # Content creation and editing
-│   ├── analysis/        # Data analysis and research
-│   └── creative/        # Creative tasks
-├── skills/              # Advanced techniques and skills
-├── integrations/        # Integration guides
-└── docs/               # Additional documentation
+├── prompts/                    # Prompt templates by category
+│   ├── coding/                # Programming and development
+│   └── writing/               # Content creation and editing
+├── skills/                    # Claude Skills collection
+│   ├── code-review/          # Code review expert skill
+│   ├── coze-api/             # Coze API integration skill
+│   ├── crewai-developer/     # CrewAI API skill
+│   ├── document-skills/      # Anthropic official document skills
+│   ├── flutter-api/          # Flutter API skill
+│   ├── mcp-builder/          # MCP server builder skill (official)
+│   ├── podcast/              # Podcast generator using Volcano Engine
+│   └── wechat-article-writer/ # WeChat official account article writer
+└── docs/                     # Additional documentation
 ```
 
-## 🎯 Featured Skills
+## 🎯 Available Skills
 
-### 1. Code Generation & Review
-- Generate production-ready code
-- Perform comprehensive code reviews
-- Debug and optimize existing code
+### 1. 🔍 Code Review Expert
+**Path**: `skills/code-review/`
 
-### 2. Content Creation
-- Write blog posts and articles
-- Create technical documentation
-- Generate marketing copy
+A professional code review skill that helps you conduct comprehensive, high-quality code reviews based on 2025 best practices.
 
-### 3. Data Analysis
-- Analyze datasets and extract insights
-- Create visualizations and reports
-- Perform statistical analysis
+**Features**:
+- Structured 3-step review process
+- 8 comprehensive review dimensions (functionality, quality, security, performance, testing, documentation, architecture, maintainability)
+- Priority-based feedback (🔴 Must Fix, 🟡 Strongly Recommended, 🟢 Suggested, 💡 Optional)
+- Constructive feedback guidelines
 
-### 4. Research & Learning
-- Summarize research papers
-- Explain complex concepts
-- Generate study materials
+### 2. 🤖 Coze API Integration
+**Path**: `skills/coze-api/`
+
+Complete guide for integrating with Coze (扣子) AI agent platform by ByteDance.
+
+**Features**:
+- Chat API for conversational interactions
+- Workflow API for executing workflows
+- Message management and status tracking
+- Support for both streaming and non-streaming modes
+
+### 3. 🚢 CrewAI Developer
+**Path**: `skills/crewai-developer/`
+
+Skill for building multi-agent AI systems using CrewAI framework.
+
+**Features**:
+- Multi-agent collaboration patterns
+- Task orchestration and workflow management
+- Agent role definition and configuration
+- Integration with various AI models
+
+### 4. 📄 Document Skills (Official)
+**Path**: `skills/document-skills/`
+
+Anthropic's official document processing skills for various formats.
+
+**Features**:
+- **DOCX**: Word document creation and manipulation
+- **PDF**: PDF generation and form handling
+- **PPTX**: PowerPoint presentation creation
+- **XLSX**: Excel spreadsheet operations
+
+### 5. 📱 Flutter API
+**Path**: `skills/flutter-api/`
+
+Comprehensive Flutter development skill with API references.
+
+**Features**:
+- Flutter widget and API documentation
+- Best practices for Flutter development
+- Cross-platform mobile app development guidance
+- State management patterns
+
+### 6. 🔧 MCP Builder (Official)
+**Path**: `skills/mcp-builder/`
+
+Official skill for building high-quality Model Context Protocol (MCP) servers.
+
+**Features**:
+- Agent-centric design principles
+- Support for Python (FastMCP) and Node.js/TypeScript
+- Best practices for tool design
+- Comprehensive evaluation guidelines
+
+### 7. 🎙️ Podcast Generator
+**Path**: `skills/podcast/`
+
+Generate AI podcasts using Volcano Engine's podcast model.
+
+**Features**:
+- Dual-speaker dialogue generation
+- Multiple audio formats (MP3, OGG, PCM, AAC)
+- Adjustable speech rate and voice
+- Streaming audio reception
+- Resume from breakpoint support
+
+### 8. ✍️ WeChat Article Writer
+**Path**: `skills/wechat-article-writer/`
+
+Professional WeChat official account article creation assistant.
+
+**Features**:
+- Convert web content, text, or images into WeChat articles
+- Official copywriting style optimization
+- Title optimization with proven formulas
+- Content enrichment using search tools
+- Quality checklist and style guide
 
 ## 💻 Usage Examples
 
-### Example 1: Code Review Prompt
+### Example 1: Using Code Review Skill
 
-```markdown
-Please review the following code for:
-1. Code quality and best practices
-2. Potential bugs or security issues
-3. Performance optimizations
-4. Suggestions for improvement
+Simply upload your code or paste it in the conversation:
+
+```
+Please review this code for security issues and performance optimizations.
 
 [Your code here]
 ```
 
-### Example 2: Technical Writing
+The skill will automatically provide structured feedback with priority levels.
 
-```markdown
-Create a technical blog post about [topic] that:
-- Explains the concept clearly for beginners
-- Includes practical examples
-- Follows SEO best practices
-- Is approximately 1000 words
+### Example 2: Generating a Podcast
+
+```
+Generate a podcast about "The Future of AI" and save it as podcast.mp3
 ```
 
-### Example 3: API Integration
+The podcast skill will create a dual-speaker dialogue in Chinese using Volcano Engine.
+
+### Example 3: Creating WeChat Articles
+
+```
+Convert this blog post into a WeChat official account article:
+[Paste URL or content]
+
+Target audience: Tech professionals
+Style: Professional and informative
+```
+
+### Example 4: Building an MCP Server
+
+```
+I want to build an MCP server for GitHub API integration.
+Help me design the tools following best practices.
+```
+
+### Example 5: Coze API Integration
 
 ```python
-import anthropic
+import requests
 
-client = anthropic.Anthropic(api_key="your-api-key")
-
-message = client.messages.create(
-    model="claude-3-5-sonnet-20241022",
-    max_tokens=1024,
-    messages=[
-        {"role": "user", "content": "Your prompt here"}
+url = "https://api.coze.cn/v3/chat"
+headers = {
+    "Authorization": "Bearer YOUR_PAT_TOKEN",
+    "Content-Type": "application/json"
+}
+data = {
+    "bot_id": "your_bot_id",
+    "user_id": "user_123",
+    "stream": False,
+    "auto_save_history": True,
+    "additional_messages": [
+        {
+            "role": "user",
+            "content": "Hello!",
+            "content_type": "text"
+        }
     ]
-)
+}
 
-print(message.content)
+response = requests.post(url, headers=headers, json=data)
+print(response.json())
 ```
 
 ## 🤝 Contributing
@@ -141,13 +241,26 @@ We welcome contributions from the community! Here's how you can help:
 
 ## 📋 Skill Categories
 
-- **🔧 Development** - Coding, debugging, architecture
-- **✍️ Writing** - Content creation, editing, copywriting
-- **📊 Analysis** - Data analysis, research, insights
-- **🎨 Creative** - Design, brainstorming, storytelling
-- **🏢 Business** - Strategy, planning, communication
-- **🎓 Education** - Teaching, learning, tutoring
-- **🔬 Research** - Academic, scientific, technical
+Our skills are organized into the following categories:
+
+- **🔧 Development & Code Quality**
+  - Code Review Expert
+  - Flutter API
+  - CrewAI Developer
+
+- **🤖 AI & Integration**
+  - Coze API Integration
+  - MCP Builder (Official)
+
+- **📄 Document Processing**
+  - Document Skills (DOCX, PDF, PPTX, XLSX)
+
+- **✍️ Content Creation**
+  - WeChat Article Writer
+  - Podcast Generator
+
+- **🎙️ Media & Audio**
+  - Podcast Generator (Volcano Engine)
 
 ## 🌟 Best Practices
 
@@ -195,5 +308,5 @@ If you find this repository helpful, please consider giving it a star! ⭐
 
 **Made with ❤️ by the Claude community**
 
-*Last updated: October 2024*
+*Last updated: October 31, 2024*
 

@@ -28,13 +28,52 @@ English | [简体中文](./CONTRIBUTING.zh-CN.md)
 
 ## 📝 Skill/Prompt Format
 
-Each skill should include:
+### For Claude Skills (.skill files)
+
+Claude Skills should follow this format:
 
 ```markdown
+---
+name: skill-name
+description: Brief description of what this skill does. When to use it and what it helps with.
+---
+
 # Skill Name
 
+## Overview
+Detailed description of the skill's purpose and capabilities.
+
+## Core Features
+1. Feature 1
+2. Feature 2
+3. Feature 3
+
+## Usage
+How to use this skill with examples.
+
+## Examples
+Concrete examples of using the skill.
+
+## References (Optional)
+Additional reference materials in the `references/` subdirectory.
+```
+
+**Important Notes for Skills**:
+- Skill name must use lowercase letters, numbers, and hyphens only
+- No spaces or uppercase letters in the skill name
+- Must start with YAML frontmatter (enclosed in `---`)
+- Include comprehensive documentation
+- Add reference materials in a `references/` subdirectory if needed
+
+### For Prompt Templates
+
+Each prompt template should include:
+
+```markdown
+# Prompt Name
+
 ## Description
-Brief description of what this skill does
+Brief description of what this prompt does
 
 ## Category
 - Primary: [category]
@@ -90,15 +129,25 @@ Brief description of what this skill does
 
 ## 🏷️ Categories
 
-When adding a skill, place it in the appropriate category:
+When adding content, place it in the appropriate category:
 
+### Prompts
 - `prompts/coding/` - Programming and development
 - `prompts/writing/` - Content creation
-- `prompts/analysis/` - Data analysis and research
-- `prompts/creative/` - Creative tasks
-- `skills/` - Advanced techniques
-- `integrations/` - Integration guides
-- `examples/` - Real-world use cases
+
+### Skills
+- `skills/` - Claude Skills (.skill files)
+  - Each skill should be in its own subdirectory
+  - Include a SKILL.md file with documentation
+  - Add reference materials in a `references/` subdirectory if needed
+  - Follow the naming convention: lowercase with hyphens
+
+### Skill Categories
+- **Development & Code Quality** - Code review, API development, frameworks
+- **AI & Integration** - AI platform integrations, MCP servers
+- **Document Processing** - Document creation and manipulation
+- **Content Creation** - Article writing, podcast generation
+- **Media & Audio** - Audio and media generation tools
 
 ## 🚀 Getting Started
 
