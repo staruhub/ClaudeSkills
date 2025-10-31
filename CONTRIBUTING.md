@@ -2,6 +2,8 @@
 
 Thank you for your interest in contributing to ClaudeSkills! This document provides guidelines for contributing to this repository.
 
+English | [简体中文](./CONTRIBUTING.zh-CN.md)
+
 ## 🎯 How to Contribute
 
 ### Reporting Issues

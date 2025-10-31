@@ -1,5 +1,7 @@
 # Blog Post Writing Prompt
 
+English | [简体中文](./blog-post.zh-CN.md)
+
 ## Description
 Generate high-quality blog posts on any topic with proper structure and SEO optimization.
 

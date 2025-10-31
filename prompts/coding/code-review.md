@@ -1,5 +1,7 @@
 # Code Review Prompt
 
+English | [简体中文](./code-review.zh-CN.md)
+
 ## Description
 A comprehensive prompt for conducting thorough code reviews with Claude AI.
 

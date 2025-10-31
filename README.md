@@ -6,6 +6,8 @@ A curated collection of skills, prompts, and best practices for Claude AI by Ant
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![GitHub stars](https://img.shields.io/github/stars/staruhub/ClaudeSkills.svg?style=social&label=Star)](https://github.com/staruhub/ClaudeSkills)
 
+English | [简体中文](./README.zh-CN.md)
+
 ## 📖 About
 
 ClaudeSkills is a comprehensive repository designed to help developers, researchers, and AI enthusiasts maximize their productivity with Claude AI. This collection includes:
