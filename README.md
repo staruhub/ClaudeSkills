@@ -51,14 +51,7 @@ ClaudeSkills/
 │   ├── analysis/        # Data analysis and research
 │   └── creative/        # Creative tasks
 ├── skills/              # Advanced techniques and skills
-│   ├── chain-of-thought/
-│   ├── few-shot-learning/
-│   └── task-decomposition/
 ├── integrations/        # Integration guides
-│   ├── api/            # API usage examples
-│   ├── mcp/            # Model Context Protocol
-│   └── tools/          # Third-party tools
-├── examples/            # Real-world use cases
 └── docs/               # Additional documentation
 ```
 
