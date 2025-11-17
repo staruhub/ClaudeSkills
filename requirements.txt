@@ -1,0 +1,31 @@
+# Core dependencies
+requests>=2.31.0
+websockets>=12.0
+
+# Document processing
+pypdf>=3.17.0
+python-pptx>=0.6.23
+openpyxl>=3.1.2
+defusedxml>=0.7.1
+lxml>=4.9.3
+pillow>=10.1.0
+
+# API clients
+anthropic>=0.39.0
+httpx>=0.25.0
+
+# Validation and schemas
+pydantic>=2.5.0
+
+# Development tools (optional, install with: pip install -r requirements.txt -r requirements-dev.txt)
+# pytest>=7.4.3
+# black>=23.12.0
+# flake8>=6.1.0
+# mypy>=1.7.1
+
+# Optional dependencies for specific skills
+# Uncomment as needed:
+# crewai>=0.1.0
+# crewai-tools>=0.1.0
+# mcp>=1.1.0
+

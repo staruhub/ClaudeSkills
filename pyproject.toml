@@ -1,0 +1,120 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claudeskills"
+version = "1.0.0"
+description = "A curated collection of skills, prompts, and best practices for Claude AI"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "ClaudeSkills Contributors", email = "121173520@qq.com"}
+]
+keywords = ["claude", "ai", "skills", "prompts", "anthropic", "mcp", "crewai"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "requests>=2.31.0",
+    "websockets>=12.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.3",
+    "black>=23.12.0",
+    "flake8>=6.1.0",
+    "mypy>=1.7.1",
+]
+docs = [
+    "pypdf>=3.17.0",
+    "python-pptx>=0.6.23",
+    "openpyxl>=3.1.2",
+    "defusedxml>=0.7.1",
+    "lxml>=4.9.3",
+    "pillow>=10.1.0",
+]
+api = [
+    "anthropic>=0.39.0",
+    "httpx>=0.25.0",
+    "pydantic>=2.5.0",
+]
+all = [
+    "anthropic>=0.39.0",
+    "httpx>=0.25.0",
+    "pydantic>=2.5.0",
+    "pypdf>=3.17.0",
+    "python-pptx>=0.6.23",
+    "openpyxl>=3.1.2",
+    "defusedxml>=0.7.1",
+    "lxml>=4.9.3",
+    "pillow>=10.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/staruhub/ClaudeSkills"
+Repository = "https://github.com/staruhub/ClaudeSkills"
+Issues = "https://github.com/staruhub/ClaudeSkills/issues"
+Documentation = "https://github.com/staruhub/ClaudeSkills#readme"
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --strict-markers"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".eggs",
+    "*.egg-info",
+]
+
