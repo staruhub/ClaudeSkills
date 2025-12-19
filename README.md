@@ -1,5 +1,8 @@
 # 🤖 ClaudeSkills
 
+[![Run in Smithery](https://smithery.ai/badge/skills/staruhub)](https://smithery.ai/skills?ns=staruhub&utm_source=github&utm_medium=badge)
+
+
 A curated collection of skills, prompts, and best practices for Claude AI by Anthropic.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
