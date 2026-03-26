@@ -1,41 +1,68 @@
-# Skills 2.0 Collection
+# Geek Skills Collection
 
 Vibe Coding 时代社群共享技能集合 — 基于 Claude Code Skills 2.0 格式构建的高质量提示工程技能库。
 
+所有技能统一使用 `Geek-skills-xxx` 命名规范，以 `.skill` (ZIP) 格式发布。
+
 ## Skills 列表
+
+### 开发与架构
 
 | 技能文件 | 说明 |
 |---------|------|
-| Product Manager Skill - Claude.skill | 产品经理需求文档撰写技能（2.0 升级版） |
-| Wechat Article Writer Skill.skill | 微信公众号文章写作技能（2.0 升级版） |
-| A Share Analyst Skill.skill | A 股分析师技能 |
-| C Drive Cleaner Skill.skill | Windows C 盘清理技能 |
-| MinerU PDF解析技能.skill | PDF 文档解析技能 |
-| Three.js 性能技能.skill | Three.js 性能优化技能 |
-| pair-programming.skill | 结对编程技能 |
-| security-audit.skill | 安全审计技能 |
-| 大学备考辅导课本依赖问题.skill | 大学备考辅导技能 |
-| 天气要素预报研究报告.skill | 天气预报研究技能 |
-| 高考专家技能开发.skill | 高考专家技能 |
-| 高考命题专家技能.skill | 高考命题专家技能 |
-| PowerPoint Skill.zip | PPT 制作技能（含资源包） |
-| seedream-imagegen.zip | 图像生成技能（含资源包） |
+| `Geek-skills-pair-programming.skill` | 结对编程搭档，代码生成后自动审查质量、安全性和最佳实践 |
+| `Geek-skills-security-audit.skill` | 全面的代码安全检查和服务器安全审计（SAST/DAST/SCA） |
+| `Geek-skills-solution-architect.skill` | 解决方案架构师，系统架构设计、技术选型、架构评审 |
+| `Geek-skills-threejs-performance.skill` | Three.js 性能优化专家（WebGPU、绘制调用、内存管理等） |
 
-## Skills 2.0 核心改进
+### 产品与内容
 
-### Product Manager Skill 改进点
+| 技能文件 | 说明 |
+|---------|------|
+| `Geek-skills-product-manager.skill` | 资深产品经理助手，PRD 文档创作与评审、产品策略咨询 |
+| `Geek-skills-wechat-article-writer.skill` | 微信公众号文章创作助手，多风格适配 |
+| `Geek-skills-ppt-designer.skill` | 专业 PPT 设计与制作，排版、配色、视觉层次 |
 
-- **5 步创作流程**：替代原来的 4 步，新增「需求拆解」（已知/推断/确认三分法，减少无效提问）和「写作质量打磨」（信息密度、确定性表达、数据支撑）
-- **逐章节达标标准表**：需求背景、用户场景、功能需求、非功能需求、验收标准、数据埋点，每个章节都有「开发读完能动手」的检查线和常见不达标表现
-- **IPO 功能描述模式**（Input → Process → Output → Exception）：让功能需求不再是一句话描述，而是开发可以直接映射代码结构的规格说明
+### 工具与效率
 
-### Wechat Article Writer Skill 改进点
+| 技能文件 | 说明 |
+|---------|------|
+| `Geek-skills-a-share-analyst.skill` | A 股专业分析师，技术面/基本面分析、选股策略 |
+| `Geek-skills-c-drive-cleaner.skill` | Windows C 盘清理和磁盘空间管理 |
+| `Geek-skills-mineru-pdf-parser.skill` | PDF 解析工具，转换为 LLM 友好的 Markdown/JSON |
+| `Geek-skills-seedream-imagegen.skill` | Seedream 4.0 AI 图像生成（2K/4K 分辨率） |
 
-引入四种风格模式，覆盖全部使用场景：
+### 教育与研究
 
-- **官方文案**（原有强项，88% → 100%）— 产品发布、企业宣传。保留完整的 style-guide 规范、敏感词规避、CTA 模板
-- **技术博客**（新增，25% → 88%）— 改动最大的部分。定义了「一个技术人跟朋友聊技术」的语气，允许「我」视角 + 主观判断 + 口语化，新增代码块规范、命令行展示、技术概念「先说人话再给术语」的写法，5 种开发者向标题公式（实操型/解析型/观点型/踩坑型/对比型），以及反面教材检查
+| 技能文件 | 说明 |
+|---------|------|
+| `Geek-skills-gaokao-expert.skill` | 高考命题专家，试题创作与评审 |
+| `Geek-skills-university-exam-prep.skill` | 大学备考苏格拉底式学习助手 |
+| `Geek-skills-weather-forecast-report.skill` | 天气要素专题研究报告生成器 |
+
+### 工作流（OpenSpec）
+
+| 技能文件 | 说明 |
+|---------|------|
+| `Geek-skills-openspec-explore.skill` | 探索模式，思考伙伴 |
+| `Geek-skills-openspec-propose.skill` | 提出变更提案 |
+| `Geek-skills-openspec-apply-change.skill` | 实施变更任务 |
+| `Geek-skills-openspec-archive-change.skill` | 归档已完成变更 |
 
 ## 使用方式
 
 将 `.skill` 文件导入 Claude Code 即可使用。
+
+## 技能格式规范
+
+每个 `.skill` 文件是一个 ZIP 压缩包，内部结构：
+
+```
+skill-name/
+├── SKILL.md          # 必需 - 核心技能文件（含 YAML frontmatter）
+├── scripts/          # 可选 - 可执行脚本
+├── references/       # 可选 - 参考文档
+└── assets/           # 可选 - 模板、资源文件
+```
+
+YAML frontmatter 必需字段：`name`（Geek-skills-xxx 格式）、`description`、`version`。
