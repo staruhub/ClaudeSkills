@@ -1,12 +1,24 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-This repository is a collection of standalone skill artifacts stored at the repository root. You will primarily work with:
-- `*.skill`: individual skill documents (source of truth)
-- `*.zip`: packaged assets that accompany a skill (name should match the skill)
-- `README.md`, `AGENTS.md`: minimal repository docs
+Skills are stored as unpacked directories under `skills/`:
 
-There is no nested source tree and no dedicated tests directory at the moment. Prefer iterating on existing skills instead of introducing new parallel variants.
+```
+skills/
+├── Geek-skills-xxx/
+│   ├── SKILL.md        # Core skill definition (source of truth)
+│   ├── scripts/        # Optional executable scripts
+│   ├── references/     # Optional reference documents
+│   └── assets/         # Optional templates and resources
+├── Geek-skills-yyy/
+│   └── ...
+```
+
+Other top-level files:
+- `README.md`: project overview and skill index
+- `AGENTS.md`: repository guidelines (this file)
+
+Prefer iterating on existing skills instead of introducing new parallel variants.
 
 ## Build, Test, and Development Commands
 There are currently no standard build/test/dev-server commands. Most changes are content edits to skill files.
@@ -16,8 +28,8 @@ If automation is introduced later, document the canonical commands here (example
 - `npm test`: run any added unit tests
 
 ## Coding Style & Naming Conventions
-- Prefer ASCII in `.skill` files unless non-ASCII is required by the skill content.
-- Use clear Title Case filenames and the `.skill` suffix, for example `New Feature Skill.skill`.
+- Prefer ASCII in `SKILL.md` files unless non-ASCII is required by the skill content.
+- Skill directories use `Geek-skills-xxx` naming convention (lowercase kebab-case after prefix).
 - Keep artifacts small and focused; avoid single files growing beyond ~200-300 lines without refactoring.
 - Avoid duplication: update existing skills instead of copying large sections across files.
 

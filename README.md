@@ -6,130 +6,69 @@ A curated collection of Claude Code skills for daily work efficiency — built o
 
 ## Installation
 
-### Quick Install
-
 ```bash
 # Install all skills at once
 npx skills add staruhub/ClaudeSkills
 ```
 
-### Manual Install
+Or manually download a `.skill` file and import via `/skill install <path>`.
 
-1. Download the `.skill` file you need from this repository
-2. Import it into Claude Code via `/skill install <path-to-file>`
-
-## Available Skills
-
-Skills are organized into five categories:
+## Skills
 
 ### 🔧 Development & Architecture
 
-#### Geek-skills-pair-programming
-
-Pair programming partner with automatic code review for quality, security, and best practices.
-
-```
-Help me implement a user authentication module with JWT tokens.
-```
-
-#### Geek-skills-security-audit
-
-Comprehensive code security audit covering SAST, DAST, and SCA analysis.
-
-```
-Audit this project for security vulnerabilities and provide a remediation plan.
-```
-
-#### Geek-skills-solution-architect
-
-Solution architect for system design, technology selection, and architecture review.
-
-#### Geek-skills-threejs-performance
-
-Three.js performance optimization expert — WebGPU, draw calls, memory management, and more.
+| Skill | Description |
+|-------|-------------|
+| [pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | Pair programming partner with automatic code review |
+| [security-audit](skills/Geek-skills-security-audit/SKILL.md) | Comprehensive code security audit (SAST/DAST/SCA) |
+| [solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | System design, tech selection & architecture review |
+| [threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js performance optimization — WebGPU, draw calls, memory |
 
 ### ✍️ Product & Content
 
-#### Geek-skills-product-manager
-
-Senior product manager assistant for PRD writing, product strategy, and requirement analysis. Features a 5-step creation workflow with IPO function description pattern.
-
-```
-Write a PRD for a mobile payment feature supporting WeChat Pay and Alipay.
-```
-
-#### Geek-skills-wechat-article-writer
-
-WeChat Official Account article writer with 4 writing style modes — Official Copy, Tech Blog, Tutorial, and Storytelling.
-
-```
-Convert this blog post into a WeChat article with Tech Blog style.
-```
-
-#### Geek-skills-ppt-designer
-
-Professional PowerPoint designer — layout, color schemes, visual hierarchy, and OOXML generation.
+| Skill | Description |
+|-------|-------------|
+| [product-manager](skills/Geek-skills-product-manager/SKILL.md) | PRD writing, product strategy & requirement analysis |
+| [wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | WeChat article writer with multiple style modes |
+| [ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | Professional PPT design — layout, color, visual hierarchy |
 
 ### 🛠️ Tools & Utilities
 
-#### Geek-skills-a-share-analyst
-
-A-share stock analyst — technical analysis, fundamental analysis, and stock screening strategies.
-
-#### Geek-skills-c-drive-cleaner
-
-Windows C: drive cleanup and disk space management utility.
-
-#### Geek-skills-mineru-pdf-parser
-
-PDF parser that converts documents into LLM-friendly Markdown/JSON format.
-
-#### Geek-skills-seedream-imagegen
-
-Seedream 4.0 AI image generation with 2K/4K resolution support.
-
-```
-Generate a tech-style cover image for an article about AI agents.
-```
+| Skill | Description |
+|-------|-------------|
+| [a-share-analyst](skills/Geek-skills-a-share-analyst/SKILL.md) | A-share stock analysis — technical & fundamental |
+| [c-drive-cleaner](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C: drive cleanup & disk space management |
+| [mineru-pdf-parser](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | PDF → Markdown/JSON converter for LLM workflows |
+| [seedream-imagegen](skills/Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 AI image generation (2K/4K) |
 
 ### 📚 Education & Research
 
-#### Geek-skills-gaokao-expert
-
-Gaokao (Chinese college entrance exam) question design expert.
-
-#### Geek-skills-university-exam-prep
-
-University exam preparation assistant using Socratic learning methodology.
-
-#### Geek-skills-weather-forecast-report
-
-Weather element research report generator for meteorological analysis.
+| Skill | Description |
+|-------|-------------|
+| [gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | Gaokao question design expert |
+| [university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | University exam prep with Socratic learning |
+| [weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | Weather element research report generator |
 
 ### ⚙️ Workflow (OpenSpec)
 
-A structured workflow system for managing changes through exploration, proposal, implementation, and archival.
-
 | Skill | Description |
 |-------|-------------|
-| `Geek-skills-openspec-explore` | Explore mode — thinking partner for ideas and requirements |
-| `Geek-skills-openspec-propose` | Propose changes with design, specs, and task breakdown |
-| `Geek-skills-openspec-apply-change` | Implement tasks from a proposed change |
-| `Geek-skills-openspec-archive-change` | Archive completed changes |
+| [openspec-explore](skills/Geek-skills-openspec-explore/SKILL.md) | Explore mode — thinking partner for ideas & requirements |
+| [openspec-propose](skills/Geek-skills-openspec-propose/SKILL.md) | Propose changes with design, specs & task breakdown |
+| [openspec-apply-change](skills/Geek-skills-openspec-apply-change/SKILL.md) | Implement tasks from a proposed change |
+| [openspec-archive-change](skills/Geek-skills-openspec-archive-change/SKILL.md) | Archive completed changes |
 
 ## Skill Format
 
-Each `.skill` file is a ZIP archive with the following structure:
+Each skill directory follows this structure:
 
 ```
-skill-name/
-├── SKILL.md          # Required — core skill file with YAML frontmatter
+skills/Geek-skills-xxx/
+├── SKILL.md          # Core skill definition (YAML frontmatter + instructions)
 ├── scripts/          # Optional — executable scripts
 ├── references/       # Optional — reference documents
 └── assets/           # Optional — templates and resources
 ```
-
-YAML frontmatter fields: `name` (Geek-skills-xxx format), `description`, `version`.
 
 ## License
 
@@ -146,33 +85,52 @@ MIT
 ## 安装
 
 ```bash
-# 一键安装所有技能
 npx skills add staruhub/ClaudeSkills
 ```
 
-或手动下载 `.skill` 文件后通过 `/skill install <文件路径>` 导入 Claude Code。
+或手动下载 `.skill` 文件后通过 `/skill install <文件路径>` 导入。
 
-## 技能列表
+## 技能索引
 
-| 分类 | 技能 | 说明 |
-|------|------|------|
-| 🔧 开发 | `pair-programming` | 结对编程搭档，自动审查代码质量与安全性 |
-| 🔧 开发 | `security-audit` | 全面代码安全审计（SAST/DAST/SCA） |
-| 🔧 开发 | `solution-architect` | 解决方案架构师，系统设计与技术选型 |
-| 🔧 开发 | `threejs-performance` | Three.js 性能优化专家 |
-| ✍️ 内容 | `product-manager` | 资深产品经理，PRD 文档创作与评审 |
-| ✍️ 内容 | `wechat-article-writer` | 微信公众号文章创作，4 种写作风格 |
-| ✍️ 内容 | `ppt-designer` | 专业 PPT 设计与制作 |
-| 🛠️ 工具 | `a-share-analyst` | A 股分析师，技术面/基本面分析 |
-| 🛠️ 工具 | `c-drive-cleaner` | Windows C 盘清理与空间管理 |
-| 🛠️ 工具 | `mineru-pdf-parser` | PDF 转 Markdown/JSON |
-| 🛠️ 工具 | `seedream-imagegen` | Seedream 4.0 AI 图像生成 |
-| 📚 教育 | `gaokao-expert` | 高考命题专家 |
-| 📚 教育 | `university-exam-prep` | 大学备考苏格拉底式学习助手 |
-| 📚 教育 | `weather-forecast-report` | 天气要素研究报告生成器 |
-| ⚙️ 工作流 | `openspec-explore` | 探索模式，思考伙伴 |
-| ⚙️ 工作流 | `openspec-propose` | 提出变更提案 |
-| ⚙️ 工作流 | `openspec-apply-change` | 实施变更任务 |
-| ⚙️ 工作流 | `openspec-archive-change` | 归档已完成变更 |
+### 🔧 开发与架构
 
-所有技能文件名均以 `Geek-skills-` 为前缀，后缀为 `.skill`。
+| 技能 | 说明 |
+|------|------|
+| [pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | 结对编程搭档，自动审查代码质量与安全性 |
+| [security-audit](skills/Geek-skills-security-audit/SKILL.md) | 全面代码安全审计（SAST/DAST/SCA） |
+| [solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | 解决方案架构师，系统设计与技术选型 |
+| [threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js 性能优化专家 |
+
+### ✍️ 产品与内容
+
+| 技能 | 说明 |
+|------|------|
+| [product-manager](skills/Geek-skills-product-manager/SKILL.md) | 资深产品经理，PRD 文档创作与评审 |
+| [wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | 微信公众号文章创作，多种写作风格 |
+| [ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | 专业 PPT 设计与制作 |
+
+### 🛠️ 工具
+
+| 技能 | 说明 |
+|------|------|
+| [a-share-analyst](skills/Geek-skills-a-share-analyst/SKILL.md) | A 股分析师，技术面/基本面分析 |
+| [c-drive-cleaner](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C 盘清理与空间管理 |
+| [mineru-pdf-parser](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | PDF 转 Markdown/JSON |
+| [seedream-imagegen](skills/Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 AI 图像生成 |
+
+### 📚 教育与研究
+
+| 技能 | 说明 |
+|------|------|
+| [gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | 高考命题专家 |
+| [university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | 大学备考苏格拉底式学习助手 |
+| [weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | 天气要素研究报告生成器 |
+
+### ⚙️ 工作流 (OpenSpec)
+
+| 技能 | 说明 |
+|------|------|
+| [openspec-explore](skills/Geek-skills-openspec-explore/SKILL.md) | 探索模式，思考伙伴 |
+| [openspec-propose](skills/Geek-skills-openspec-propose/SKILL.md) | 提出变更提案 |
+| [openspec-apply-change](skills/Geek-skills-openspec-apply-change/SKILL.md) | 实施变更任务 |
+| [openspec-archive-change](skills/Geek-skills-openspec-archive-change/SKILL.md) | 归档已完成变更 |
