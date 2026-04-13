@@ -33,6 +33,7 @@ Or manually download a `.skill` file and import via `/skill install <path>`.
 | [ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | Professional PPT design — layout, color, visual hierarchy |
 
 ### 🛠️ Tools & Utilities
+- [CCHub](https://github.com/Moresl/cchub) - A desktop control panel for the Claude Code / Codex / Gemini CLI ecosystem. Manage MCP servers, config profiles, agent skills, CLAUDE.md, hooks, and workflow templates from a single Tauri app (Windows / macOS / Linux).
 
 | Skill | Description |
 |-------|-------------|
