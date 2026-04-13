@@ -7,11 +7,11 @@ A curated collection of Claude Code skills for daily work efficiency — built o
 ## Installation
 
 ```bash
-# Install all skills at once
-npx skills add staruhub/ClaudeSkills
+# Install from a skills repository
+npx skills add <owner>/<repo>
 ```
 
-Or manually download a `.skill` file and import via `/skill install <path>`.
+Replace `<owner>/<repo>` with the repository you want to install from, or manually download a `.skill` file and import via `/skill install <path>`.
 
 ## Skills
 
@@ -49,15 +49,6 @@ Or manually download a `.skill` file and import via `/skill install <path>`.
 | [university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | University exam prep with Socratic learning |
 | [weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | Weather element research report generator |
 
-### ⚙️ Workflow (OpenSpec)
-
-| Skill | Description |
-|-------|-------------|
-| [openspec-explore](skills/Geek-skills-openspec-explore/SKILL.md) | Explore mode — thinking partner for ideas & requirements |
-| [openspec-propose](skills/Geek-skills-openspec-propose/SKILL.md) | Propose changes with design, specs & task breakdown |
-| [openspec-apply-change](skills/Geek-skills-openspec-apply-change/SKILL.md) | Implement tasks from a proposed change |
-| [openspec-archive-change](skills/Geek-skills-openspec-archive-change/SKILL.md) | Archive completed changes |
-
 ## Skill Format
 
 Each skill directory follows this structure:
@@ -85,10 +76,10 @@ MIT
 ## 安装
 
 ```bash
-npx skills add staruhub/ClaudeSkills
+npx skills add <owner>/<repo>
 ```
 
-或手动下载 `.skill` 文件后通过 `/skill install <文件路径>` 导入。
+将 `<owner>/<repo>` 替换为你要安装的仓库，或手动下载 `.skill` 文件后通过 `/skill install <文件路径>` 导入。
 
 ## 技能索引
 
@@ -125,12 +116,3 @@ npx skills add staruhub/ClaudeSkills
 | [gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | 高考命题专家 |
 | [university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | 大学备考苏格拉底式学习助手 |
 | [weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | 天气要素研究报告生成器 |
-
-### ⚙️ 工作流 (OpenSpec)
-
-| 技能 | 说明 |
-|------|------|
-| [openspec-explore](skills/Geek-skills-openspec-explore/SKILL.md) | 探索模式，思考伙伴 |
-| [openspec-propose](skills/Geek-skills-openspec-propose/SKILL.md) | 提出变更提案 |
-| [openspec-apply-change](skills/Geek-skills-openspec-apply-change/SKILL.md) | 实施变更任务 |
-| [openspec-archive-change](skills/Geek-skills-openspec-archive-change/SKILL.md) | 归档已完成变更 |
