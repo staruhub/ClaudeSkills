@@ -1,175 +1,164 @@
-# Report Assembly V7 — Draft from Notes
+# Report Assembly V8
 
-## Core Rule
+## Core rule
 
-The report is written from task notes and the citation registry.
-The lead agent never references raw search results — only the distilled
-findings in task files and approved sources in registry.md.
+Write the final artifact from:
+- the research plan
+- the notes
+- the approved registry
+- raw/fetched sources only when you need to resolve a critical conflict or verify a high-stakes claim
 
-## Section Design
+The goal is **notes-first synthesis**, not blind copy-paste from search results.
 
-Adapt to topic type. Do NOT use a fixed template.
+---
 
-| Topic Type | Recommended Sections |
-|------------|---------------------|
-| Historical comparison | Background per case, Cross-case patterns, Modern parallel, Speed analysis |
-| Technology survey | Background, Architecture, Key features, Ecosystem, Comparison, Outlook |
-| Competitive analysis | Market overview, Player profiles, Comparison matrix, Strategic insights |
-| Policy analysis | Context, Current framework, Stakeholder views, Impact, Recommendations |
-| Scientific review | Background, Methods landscape, Evidence, Debates, Open questions |
+## Pick the right artifact shape
 
-Rename sections to be topic-specific.
+### A. Brief memo
+Use when the user wants a compact but defensible answer.
 
-## Cross-Topic Synthesis Section (NEW — from Wave 2)
+Suggested structure:
+1. Direct answer / recommendation
+2. Key evidence
+3. Trade-offs / limitations
+4. Optional next step
 
-Reports with 3+ research lines MUST include a cross-topic synthesis section
-drawing from `W2-cross-topic-synthesis.md`:
+### B. Full report
+Use when the user asked for comprehensive analysis.
 
-```markdown
-## Cross-Topic Analysis
+Suggested structure:
+1. Executive summary
+2. Background / framing
+3. Main analysis sections
+4. Limitations & trade-offs
+5. Decision framework (if needed)
+6. References
 
-### Shared Foundations
-{Facts that hold across all research lines} [n][m] **[FACT]**
+### C. Delta update
+Use when continuing a prior round.
 
-### Structural Patterns
-{What appears different but shares underlying mechanism} [n][m] **[ANALYSIS]**
+Suggested structure:
+1. What changed
+2. New evidence
+3. Impact on prior conclusion
+4. Remaining uncertainty
 
-### Divergent Findings
-{Where research lines genuinely disagree, with evidence} [n][m] **[ANALYSIS]**
+---
 
-### Tracking Priorities
-{Entities worth long-term monitoring and why} [n] **[TREND]**
-```
+## Mandatory sections / elements
 
-## Evidence Classification Tags (NEW)
+Every final artifact must contain:
+- a clear answer to the question
+- source-backed findings
+- limitations / trade-offs
+- calibrated uncertainty
+- references or inline source mapping
 
-Every conclusion paragraph ends with a classification:
+### Decision framework
+Include only when the user is making a choice.
+Do not force it into descriptive overviews.
 
-- **[FACT]** — directly verifiable, supported by primary evidence
-- **[ANALYSIS]** — interpretive synthesis, evidence-informed
-- **[TREND]** — time-dependent projection, may become outdated
+### Non-obvious insight
+Every good artifact should surface at least one useful nuance.
+For contested or hype-heavy topics, this may be an assumption the evidence challenged.
+For stable topics, this can simply be the most decision-relevant nuance the user might otherwise miss.
 
-Example:
-```markdown
-The protocol achieves consensus through three-phase commit. [4][6] **[FACT]**
+---
 
-This design likely reflects Paxos-family influence, though not explicitly
-cited by the authors. [4][7] **[ANALYSIS]**
+## Writing order
 
-Given the 2025-2026 trend toward Byzantine-tolerant designs, BFT guarantees
-may become expected within 2 years. [5][12] **[TREND]**
-```
+1. Body / main analysis
+2. Limitations & trade-offs
+3. Decision framework (if needed)
+4. Executive summary / opening answer
+5. References
 
-For mixed paragraphs: tag the dominant type.
+Do **not** write the summary first.
 
-## Conflict Sections (from P3.5)
+---
 
-Same as V6:
-```markdown
-### Disputed: {Topic}
-{Source A}: {claim [n]}. {Source B}: {claim [m]}.
-Discrepancy stems from {analysis}. [n][m]
-```
+## Evidence and wording rules
 
-Rules: never silently pick one side; present both; explain source of disagreement.
+- Every important factual claim should be cited
+- Every important number should be cited
+- If the evidence is mixed, say it is mixed
+- Do not turn thin evidence into precise certainty
+- If you infer, label it as your analysis
 
-## Generation Order
+### Good phrasing
+- “The evidence reviewed suggests ...”
+- “Based on these sources, the most likely interpretation is ...”
+- “This appears stronger in X than in Y because ...”
 
-1. Body sections (outline order from P4)
-2. Cross-Topic Analysis (from Wave 2)
-3. Key Findings (synthesize from body)
-4. Limitations (from task Gaps sections)
-5. Executive Summary (compress whole report)
-6. References (from registry)
-7. Metadata header
+### Bad phrasing
+- “It is proven that ...” (when the evidence is actually mixed)
+- “Experts agree ...” (without named support)
+- “Clearly / obviously ...” (when it is not)
 
-Never write the summary first.
+---
 
-## Per-Section Protocol
+## Limitations & trade-offs
 
-```
-For each section:
-  1. Re-read mapped task notes (from P4 outline)
-  2. Write section
-  3. Insert [n] citations — ONLY from Approved list
-  4. Add evidence classification tags to conclusion paragraphs
-  5. Checkpoint: uncited claims? Wrong [n]? Missing tags?
-  6. Add confidence marker
-  7. Next section
-```
+This section is mandatory.
 
-## Dynamic Word Count Targets
+Include:
+- where the evidence is thin, dated, indirect, or conflicting
+- what important conditions could flip the conclusion
+- operational costs / risks / failure modes when relevant
+- what the report did not establish
 
-| Topic Type | Words/Section (Standard) | Words/Section (Lightweight) |
-|------------|-------------------------|---------------------------|
-| Data-heavy | 800-1200 | 500-750 |
-| Narrative | 600-1000 | 400-650 |
-| Comparative | 500-800 | 350-550 |
-| Exploratory | 500-800 | 350-550 |
+A report without limitations is not production-ready.
 
-## Citation Rules
+---
 
-- [n] from P3 registry are final
-- Each source gets one [n], reuse for multiple citations
-- Cross-check: every [n] in text has matching Reference entry
-- Every Reference is cited at least once
-
-## Confidence Markers
-
-```
-**Confidence:** High/Medium/Low
-**Basis:** {reason}
-```
-
-- **High:** 3+ agreeing high-authority sources, specific data
-- **Medium:** 2+ sources but some gaps
-- **Low:** Few sources, mostly indirect
-
-## Final Report Structure (V7)
+## Brief template
 
 ```markdown
 # {Title}
 
-> Date: YYYY-MM-DD | Sources: N | Words: ~XXXX | Mode: Standard/Lightweight
-> Complexity: Medium | Topic: Comparative | Evaluator: Passed R2
-> Research Lines: 4 | Progressive Round: 1 (or "Single")
+## Answer
+{Direct answer with citations.}
 
-## Executive Summary
-{200-400 words, written LAST}
+## Key evidence
+- ... [1][2]
+- ... [3]
 
-## {Section 1 — topic-specific title}
-{content with [n] citations}
-{conclusion} **[FACT/ANALYSIS/TREND]**
-Confidence: High — {reason}
+## Limitations / trade-offs
+- ... [4]
+- ... [5]
 
-## {Section 2}
-...
-
-### Disputed: {Conflict Topic}  ← if P3.5 found conflicts
-{debate format}
-
-## Cross-Topic Analysis  ← if 3+ research lines
-{from Wave 2 synthesis}
-
-## Key Findings
-- Finding 1 [n][m] **[FACT]**
-- Finding 2 [n] **[ANALYSIS]**
-- Finding 3 [n] **[TREND]**
-
-## Limitations
-- {from task Gaps}
-- {methodological limitations}
+## Non-obvious insight
+{One useful nuance or challenged assumption.}
 
 ## References
-[1] Author/Org. Title. URL. Accessed YYYY-MM-DD.
-[2] ...
+[1] ...
 ```
 
-## Limitations Section
+---
 
-Draw from subagent Gaps sections + stop condition gaps:
-```
-- No Chinese-language academic sources found (task-w1-01 gap)
-- Counterevidence for line 02 limited to 1 source (stop condition partial)
-- Limited to web-accessible sources; paywalled journals not accessible
+## Full report template skeleton
+
+```markdown
+# {Title}
+
+> Date: YYYY-MM-DD | Output: Brief / Full / Delta | Sources: N
+> Stakes: Low / Medium / High | Evaluation: Passed / Not run / Needs review
+
+## Executive Summary
+- Direct answer
+- Why it matters
+- Main trade-off
+- Confidence / boundary
+
+## Main Analysis
+...
+
+## Limitations & Trade-offs
+...
+
+## Decision Framework
+... (only if needed)
+
+## References
+...
 ```

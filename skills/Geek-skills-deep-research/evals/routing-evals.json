@@ -1,0 +1,74 @@
+[
+  {
+    "id": "rt-01",
+    "prompt": "帮我调研一下 MCP 在企业里落地的主要安全风险，给我一个带引用的决策 brief。",
+    "should_trigger": true,
+    "reason": "multi-source decision brief"
+  },
+  {
+    "id": "rt-02",
+    "prompt": "做一份关于 RAG 评估方法的综述报告，要有来源、有局限性。",
+    "should_trigger": true,
+    "reason": "literature-style research artifact"
+  },
+  {
+    "id": "rt-03",
+    "prompt": "继续上一轮，把支付风控方案再深挖一轮，重点看失败模式。",
+    "should_trigger": true,
+    "reason": "delta / progressive research"
+  },
+  {
+    "id": "rt-04",
+    "prompt": "比较 OpenAI 和 Anthropic 在 agent skills 上的思路，输出 1500 字带引用分析。",
+    "should_trigger": true,
+    "reason": "comparative multi-source memo"
+  },
+  {
+    "id": "rt-05",
+    "prompt": "帮我做个竞品研究：对比 5 家客服 AI 厂商的定位、能力、局限。",
+    "should_trigger": true,
+    "reason": "competitive research"
+  },
+  {
+    "id": "rt-06",
+    "prompt": "MCP 是什么？一句话说清楚。",
+    "should_trigger": false,
+    "reason": "quick definition"
+  },
+  {
+    "id": "rt-07",
+    "prompt": "把这篇文章总结成 5 句话。",
+    "should_trigger": false,
+    "reason": "single-source summary"
+  },
+  {
+    "id": "rt-08",
+    "prompt": "给我一个关于 WebRTC 的简短解释，不用查资料。",
+    "should_trigger": false,
+    "reason": "user explicitly wants short non-research answer"
+  },
+  {
+    "id": "rt-09",
+    "prompt": "列一下 Stripe 的主要产品。",
+    "should_trigger": false,
+    "reason": "simple lookup"
+  },
+  {
+    "id": "rt-10",
+    "prompt": "帮我写一个研究计划，先别开始调研。",
+    "should_trigger": false,
+    "reason": "planning-only, no research execution yet"
+  },
+  {
+    "id": "rt-11",
+    "prompt": "深度研究一下 AI browser use 的真实落地边界，别只讲 demo。",
+    "should_trigger": true,
+    "reason": "contested evidence-based research"
+  },
+  {
+    "id": "rt-12",
+    "prompt": "帮我快速比较一下 Supabase 和 Firebase，用 6 句话以内。",
+    "should_trigger": false,
+    "reason": "brief direct comparison better handled without deep research"
+  }
+]

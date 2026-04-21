@@ -1,223 +1,183 @@
-# Quality Gates V7.1
+# Quality Gates V8
 
-## Hard Gate vs Soft Gate (V7.1)
-
-Not all gates are equal. In degraded mode (no subagents), Hard Gates MUST produce visible output. Soft Gates can be inlined or simplified.
-
-| Gate | Type | Degraded Simplification |
-|------|:----:|------------------------|
-| Gate 0.7 (Topic Registry) | **HARD** | Inline list OK, but must_answer questions required |
-| Gate W0 (Shared Ground Truth) | Soft | Implicit: just do shared searches first |
-| Gate W1 (Per-Topic + Stop Conditions) | **HARD** | 5-Lens required; stop condition table required |
-| Gate 2 (Registry) | Soft | Inline source list at report end |
-| Gate W2 (Cross-Synthesis) | Soft | Section in report body |
-| Gate 3 (Draft + Evidence Classification) | **HARD** | FACT/ANALYSIS/TREND tags required |
-| Gate 4 (Evaluator) | **HARD** | Self-critique: find 3+ issues, spot-check 3 claims |
-| Gate 5 (Final Report) | Soft | Executive Summary required; Harness Log optional |
-
-**Enforcement principle:** Hard Gates correspond to features that directly improve result quality. Soft Gates are process overhead that helps in full mode but can be compressed in degraded mode without quality loss.
-
-## Self-Heal Loop (applies to ALL gates)
-
-```
-For each gate:
-  1. Run all checks
-  2. Any check fails? → Apply the Fix action
-  3. Re-check (Round 2)
-  4. Still fails? → Apply Fix again
-  5. Re-check (Round 3 — final)
-  6. Still fails? → Escalate to user:
-     - Which gate and check failed
-     - What fixes were attempted
-     - Specific ask (e.g., "Can you suggest alternative search terms for X?")
-```
-
-Max 2 fix rounds per gate. After that, escalate — don't loop forever.
+V8 gates are organized by the same five questions you should use in production:
+**Did it trigger correctly? Did it execute the right process? Is the output good? Was it efficient enough? Can we explain what happened?**
 
 ---
 
-## Gate 0.7: Topic Registry (after P0.7)
+## Gate 0 — Routing correctness
 
-| Check | Threshold | Fix |
-|-------|-----------|-----|
-| All lines have stable NN + slug | 100% | Assign missing |
-| Each line has >= 2 must_answer Qs | 100% | Add questions |
-| No duplicate slugs | 0 | Rename |
-| Registry written to workspace | Yes | Write file |
+Before celebrating the output, confirm the skill should have been used at all.
 
----
+### Pass when
+- the task truly needed multi-source synthesis or a reusable research artifact
+- the user wanted a brief/report, not just a quick answer
+- the selected output type (brief/full/delta) fits the request
 
-## Gate W0: Shared Ground Truth (after Wave 0)
+### Fail when
+- the task was a simple lookup or short answer
+- the skill produced a giant report where a paragraph would do
+- the skill was triggered by generic words like “分析” without real research need
 
-| Check | Standard | Lightweight | Fix |
-|-------|----------|-------------|-----|
-| Total shared docs (composite >= 6) | >= WAVE0_FLOOR | >= 4 | Dispatch additional W0 task |
-| Majority from official sources (Auth >= 7) | > 50% | > 50% | Targeted official search |
-| At least 1 limitation/constraint source | >= 1 | >= 1 | Dedicated limitation search |
-| At least 1 comparison/failure source | >= 1 | >= 1 | Dedicated failure search |
-
-**Gate W0 must pass before Wave 1 dispatches.**
+### Fix
+- narrow the description
+- add more should-not-trigger cases to `evals/routing-evals.json`
+- make the brief mode more attractive so the model stops over-escalating
 
 ---
 
-## Gate W1: Per-Topic Deep Dive (after Wave 1, per line)
+## Gate 1 — Process completeness
 
-| Check | Standard | Lightweight | Fix |
-|-------|----------|-------------|-----|
-| Docs per line (composite >= 6) | >= 8 | >= 4 | Additional searches |
-| Primary sources per line | >= 4 | >= 2 | Targeted primary search |
-| Limitation sources per line | >= 1 | >= 1 | Dedicated limitation search |
-| All must_answer Qs have evidence | 100% | 100% | Targeted Q-specific search |
-| 5-lens coverage | All 5 | At least 3 | Fill missing lenses |
-| Stop conditions self-assessed | 100% | 100% | Subagent self-reports |
-| Stop conditions met | >= 4/5 | >= 3/5 | Re-dispatch or flag |
-| 4-dim scoring present | All sources | All sources | Add missing |
-| Named entities chased | Required | Best effort | Re-dispatch targeted |
+Check the evidence trail.
 
-### Stop Condition Summary
+### Required artifacts by mode
 
-After Gate W1, compile stop condition matrix:
+| Artifact | Brief | Full | Delta |
+|---|---|---|---|
+| `research-plan.md` | Yes | Yes | Yes |
+| task notes | Optional (single-agent inline ok) | Yes | Yes |
+| `registry.md` | Yes | Yes | Yes |
+| `draft.md` | Yes | Yes | Yes |
+| `evaluation.md` | Optional | Recommended / Required for higher stakes | Optional |
+| `run-summary.json` | Yes | Yes | Yes |
 
-```
-| Line | Stable | Returns | must_answer | Counter | Cross-val | Score |
-|------|:------:|:-------:|:-----------:|:-------:|:---------:|:-----:|
-| 01   |  ✓     |   ✓     |     ✓       |   ✓     |    ✓      |  5/5  |
-| 02   |  ✓     |   ✓     |     ✓       |   ✗     |    ✓      |  4/5  |
-```
+### Pass when
+- objectives and scope are written down
+- key notes exist and are traceable
+- gaps and conflicts are explicit
+- top claims have enough support to defend them later
 
-Lines with < 3/5 → re-dispatch or flag as incomplete.
+### Fail when
+- the run jumps straight to drafting without a visible evidence trail
+- notes contain conclusions but not the supporting facts
+- no limitations/counter-evidence search was done when clearly needed
 
----
-
-## Gate 2: Citation Registry (after P3)
-
-| Check | Standard | Lightweight | Fix |
-|-------|----------|-------------|-----|
-| Total approved sources (composite >= 5.0) | >= 12 | >= 6 | Flag thin areas |
-| Unique domains | >= 5 | >= 3 | Diversify |
-| Max single-source share | <= 25% | <= 30% | Find alternatives |
-| Dropped sources listed | All | All | Must be explicit |
-| No duplicate URLs | 0 | 0 | Merge |
-| 4-dim scores present | All | All | Score missing |
-| _INDEX.md generated | Yes | Yes | Generate |
-| Evidence types classified | Yes | Yes | Classify |
+### Fix
+- backfill notes from the actual sources used
+- run reverse search for missing trade-offs or counter-evidence
+- add support snippets/paraphrases for top claims
 
 ---
 
-## Gate W2: Cross-Topic Synthesis (after Wave 2)
+## Gate 2 — Grounding and citation integrity
 
-| Check | Standard | Lightweight | Fix |
-|-------|----------|-------------|-----|
-| Every cross-topic judgment has [n] | 100% | 100% | Add references |
-| Each line >= 2 cross-validated conclusions | Required | 1 | Identify connections |
-| FACT/ANALYSIS/TREND distinguished | 100% | 100% | Tag missing |
-| W2-cross-topic-synthesis.md written | Yes | Yes (may be brief) | Write |
+### Hard fail triggers
+- any cited source is invented or not present in the approved pool
+- more than 3 uncited factual claims in a full report
+- the report cites dropped sources
+- legal / financial / safety-critical wording is unsupported or obviously over-compressed
 
-**Skip Gate W2 if complexity = Low.**
+### Pass when
+- every core claim has a fitting source type
+- reference numbers resolve cleanly
+- conflicts are surfaced instead of hidden
+- evidence strength matches claim strength
 
----
+### Use scripts
+- `scripts/verify_citations.py`
+- `scripts/source_evaluator.py` as a helper
 
-## Gate 3: Draft Quality (after P5)
-
-### Static Thresholds
-
-| Check | Standard | Lightweight | Fix |
-|-------|----------|-------------|-----|
-| Every [n] in registry | 100% | 100% | Remove or fix |
-| No dropped source cited | 0 violations | 0 | Remove immediately |
-| Every section has confidence marker | 100% | 100% | Add missing |
-| Conflict sections use debate format | All | All | Rewrite |
-| Evidence classification tags present | >= 80% conclusions | >= 60% | Add tags |
-| Classification accuracy (spot-check 5) | >= 80% correct | >= 60% | Fix tags |
-
-### Dynamic Thresholds (by topic type)
-
-| Check | Data-heavy | Narrative | Comparative | Exploratory |
-|-------|-----------|-----------|-------------|-------------|
-| Citation density | >= 1/100w | >= 1/300w | >= 1/150w | >= 1/200w |
-| Total word count | 4000-8000 | 3000-6000 | 3000-7000 | 2500-5000 |
-| Min sections | 5 | 4 | 4 | 4 |
-
-Lightweight: reduce word count by 40%, density thresholds by 30%.
+### Fix
+- remove weak or dangling citations
+- downgrade confidence where support is thin
+- re-open raw support for the most important disputed claims
 
 ---
 
-## Gate 4: Evaluator Quality (after P6-P7)
+## Gate 3 — Output quality
 
-| Check | Threshold | Fix |
-|-------|-----------|-----|
-| All 7 dimensions scored | 100% | Re-run Evaluator |
-| Spot-check completed (5 claims) | 100% | Re-run |
-| Any dimension FAIL | 0 FAILs to pass | Lead fixes → resubmit (max 3 rounds) |
-| Spot-check plausibility | >= 4/5 | Fix suspicious claims |
-| 30-second back-reference (3 claims) | 3/3 traceable | Fix broken chains |
-| Stop condition audit | All lines >= 3/5 | Re-research weak lines |
-| Evidence classification | < 20% misclassified | Fix tags |
+Judge the artifact the user actually sees.
 
-### Evaluator Escalation
+### Required for every output
+- direct answer to the question
+- explicit limitations / trade-offs
+- source-backed findings separated from synthesis
+- uncertainty calibrated to the evidence
 
-If after 3 rounds any dimension still FAILs:
-1. Output issues to user
-2. Ask: adjust scope, accept lower quality, or provide context
-3. Proceed with best-effort + disclaimer
+### Additional requirements by output type
 
----
+**Brief memo**
+- gets to the point fast
+- no unnecessary ceremony
+- still grounded and reusable
 
-## Gate 5: Final Report (after P8)
+**Full report**
+- coverage is broad enough for the stated scope
+- sections build logically
+- references and evidence quality are strong enough to survive scrutiny
 
-| Check | Threshold | Fix |
-|-------|-----------|-----|
-| Executive Summary present | Yes | Write it |
-| References match registry | 100% | Sync |
-| Every reference cited once | 100% | Remove uncited |
-| Metadata header complete | Yes | Add missing |
-| Harness Log present | Yes (Medium/High) | Write it |
-| Limitations from Gaps | Yes | Cross-reference |
-| _INDEX.md up to date | Yes | Update |
+**Delta update**
+- clearly states what changed since the prior round
+- avoids repeating the whole old report unless needed
 
-### Living Docs Gate (progressive mode only)
+### V8 nuance on “contrarian” thinking
+Do not force a contrarian stance for stable descriptive topics.
+Instead ask:
+- Did the report surface at least one **decision-relevant non-obvious insight**?
+- If the topic was contested, did it test at least one important assumption?
 
-| Check | Threshold | Fix |
-|-------|-----------|-----|
-| Seed files updated with new evidence | All lines | Update |
-| Topic Registry updated (answered Qs marked) | Yes | Update |
-| round-summary.md written | Yes | Write |
+### Fix
+- cut generic filler
+- add missing trade-offs
+- replace forced hot takes with useful nuance
+- add a decision framework only when a decision is being made
 
 ---
 
-## Readiness Check (Final Verification)
+## Gate 4 — Efficiency and operational health
 
-Before declaring research DONE, verify all 4:
+A good artifact that wastes 10x the work is still a problem.
 
-1. **30-second back-reference**: Pick any important judgment → find local support doc in 30s
-2. **Narrative coherence**: For each line, can you write "mechanism + trend + difficulty" without re-searching?
-3. **Cross-topic structure**: Can you write "what's the overall picture" beyond parallel descriptions?
-4. **Handoff continuity**: A new agent reading seed dir + reference dir can continue without briefing
+Track:
+- total searches / fetches
+- number of subagents
+- draft length vs requested output type
+- evaluation loops
+- time or token cost if available
 
-If any fails → research is NOT complete.
+### Warning signs
+- subagents used for a task that one lead agent could handle
+- long report produced when brief was enough
+- many duplicate searches
+- repeated fetches of already-resolved sources
+- evaluation run even when the task stakes were trivial
+
+### Fix
+- tighten mode selection
+- default to brief memo more often
+- reduce subagent count
+- move repetitive checks into scripts
 
 ---
 
-## Anti-Hallucination Patterns
+## Gate 5 — Observability and learning
 
-| Pattern | Where to detect | Fix |
-|---------|----------------|-----|
-| URL not from any subagent search | Gate 2 registry | Remove citation |
-| Claim not in any task note | Gate 4 Evaluator spot-check | Remove or mark [unverified] |
-| Number more precise than source | Gate 4 | Use note's precision |
-| Source authority inflated | Gate 2 | Re-score |
-| "Studies show..." without naming study | Gate 4 | Name or remove |
-| Dropped source reappears | Gate 3 + Gate 5 | Remove immediately |
-| Subagent invented a URL | Gate W1 | Remove from notes |
-| FACT tag on speculation | Gate 3 + Gate 4 | Downgrade to ANALYSIS or TREND |
-| TREND tag on verified fact | Gate 3 + Gate 4 | Upgrade to FACT |
+A production skill should leave behind enough structure to debug regressions.
 
-## Chinese-Specific Patterns
+### Pass when
+- `run-summary.json` exists
+- the summary captures route, mode, artifacts, sources, and evaluation status
+- the run explains which optional modules were used and whether they helped
+- failures can become future tests
 
-| Pattern | Fix |
-|---------|-----|
-| Fake CNKI URL format | Remove, note gap |
-| "某专家表示" without name/institution | Name or remove |
-| "据统计" without data source | Add source or qualitative language |
-| Fabricated institution report | Verify existence or remove |
-| "核心期刊" claim without journal name | Verify or downgrade authority |
+### Fail when
+- only a narrative harness log exists
+- you cannot tell why the skill triggered or why it got expensive
+- a regression happens and there is no comparable structured record
+
+### Fix
+- emit `run-summary.json`
+- add the failure as a routing or output eval case
+- compare against previous version or a no-skill baseline
+
+---
+
+## Release checklist
+
+Before shipping or publishing a new skill version:
+1. Run routing evals (`evals/routing-evals.json`)
+2. Run at least a few representative output cases
+3. Compare against the previous skill version or a simple baseline
+4. Check citation integrity with the script
+5. Confirm observability output is present and readable
+6. Record what changed in the skill version

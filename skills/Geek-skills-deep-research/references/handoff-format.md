@@ -1,43 +1,48 @@
-# Context Reset + Handoff Protocol V7
+# Context Reset + Handoff Protocol
 
 ## Why Context Reset
 
-Long research pipelines accumulate context that degrades later phases.
+Long research pipelines (5+ tasks, 30+ searches) accumulate context that
+degrades output quality in later phases. The lead agent's P5 draft quality
+suffers when its context is full of P2 search results and P3 registry building.
+
 Context reset means: write a structured handoff file, start a fresh session
 that reads ONLY the handoff + referenced artifacts.
 
-## Session Boundaries (V7)
+## Session Boundaries
 
 ```
-Session 1: P0 → P0.7 (Topic Registry) → P1 → Wave 0 → Gate W0 → Wave 1
-  Output: topic-registry.md, task-w0-*.md, task-w1-*.md
+Session 1: P0 → P1 → dispatch P2 → wait for subagents
+  Output: task-board.md, subagent prompts dispatched
   
   ── handoff-1.md ──
 
-Session 2: Read notes → P2.5 → P3 + _INDEX.md → P3.5 → Wave 2 → P4
-  Input: handoff-1.md + all task-*.md + topic-registry.md
-  Output: registry.md, _INDEX.md, W2-cross-topic-synthesis.md, outline.md
+Session 2: Read notes → P2.5 → P3 → P3.5 → P4
+  Input: handoff-1.md + task-*.md files
+  Output: registry.md, outline.md, conflicts.md (if any)
   
   ── handoff-2.md ──
 
 Session 3: P5 draft
-  Input: handoff-2.md + registry.md + _INDEX.md + outline.md + W2 synthesis
+  Input: handoff-2.md + registry.md + outline.md
   Output: draft.md
   
   ── handoff-3.md ──
 
 Session 4: Evaluator Agent
-  Input: handoff-3.md + draft.md + registry.md + _INDEX.md + topic-registry.md
+  Input: handoff-3.md + draft.md + registry.md
   Output: evaluation.md
   
   ── handoff-4.md (if fix needed) ──
 
 Session 5: P8 polish (or fix → resubmit)
-  Input: handoff + draft.md + evaluation.md + registry.md
-  Output: final-report.md + harness-log.md (+ living docs if progressive)
+  Input: handoff-3.md or handoff-4.md + draft.md + evaluation.md + registry.md
+  Output: final-report.md + harness-log.md
 ```
 
-## Handoff File Format (V7)
+## Handoff File Format
+
+Each handoff file follows this structure:
 
 ```markdown
 # Handoff — Session {N} → Session {N+1}
@@ -46,61 +51,54 @@ Session 5: P8 polish (or fix → resubmit)
 {original question, verbatim — never paraphrase}
 
 ## Current Phase
-Completed: {list of completed phases including Wave 0, Wave 1, Wave 2}
-Next: {next phase}
+Completed: {list of completed phases}
+Next: {next phase to execute}
 
 ## Mode & Complexity
 Mode: {Standard/Lightweight}
 Complexity: {Low/Medium/High}
 Topic Type: {Data-heavy/Narrative/Comparative/Exploratory}
-Progressive Round: {N or "Single"}
-
-## Topic Registry
-Path: workspace/topic-registry.md
-Lines: {N} research lines
-  - 01 / {slug}: must_answer {answered/total}
-  - 02 / {slug}: must_answer {answered/total}
-
-## Wave Status
-- Wave 0: {complete/partial} — {N} shared docs, Gate W0: {PASS/FAIL}
-- Wave 1:
-  - 01-{slug}: {complete/partial} — stop conditions: {n}/5
-  - 02-{slug}: {complete/partial} — stop conditions: {n}/5
-- Wave 2: {complete/skipped} — {N} shared foundations, {M} cross-validated
 
 ## Artifacts (read these files)
-- workspace/topic-registry.md
-- workspace/research-notes/task-w0-a.md
-- workspace/research-notes/task-w1-01.md
-- workspace/research-notes/task-w1-02.md
+- workspace/research-notes/task-a.md
+- workspace/research-notes/task-b.md
 - workspace/registry.md
-- workspace/_INDEX.md
 - workspace/outline.md
-- workspace/W2-cross-topic-synthesis.md
 
 ## Key Decisions Made
-- {decision 1}
-- {decision 2}
+- {decision 1, e.g., "Dropped 4 sources below threshold 5.0"}
+- {decision 2, e.g., "Classified as Comparative topic type"}
+- {decision 3, e.g., "Chased 2 leads in P2.5: Glean™, FUTURE trial"}
 
 ## Known Issues
-- {issue 1}
-- {issue 2}
+- {issue 1, e.g., "task-c gap: no Chinese-language sources found"}
+- {issue 2, e.g., "1 conflict detected: AI displacement 30% vs 80%"}
+
+## Acceptance Status
+- task-a: met
+- task-b: met
+- task-c: partial (only 2 sources, below threshold)
+- task-d: met
+- task-f1: met (follow-up for Glean™)
 
 ## Quality Baselines (for Evaluator)
-- Citation density: {target}
-- Expected confidence: {profile}
-- Expectation: "{one-line}"
+- Citation density: 1 per 150 words
+- Expected confidence: mostly Medium
+- Expectation: "Reads like a balanced comparison with evidence for each position"
 ```
 
 ## Rules
 
-1. Research question ALWAYS copied verbatim
-2. Artifact paths must be exact
-3. Topic Registry path always included
-4. Wave status with stop condition scores included
-5. Known issues prevent re-discovering gaps
+1. The research question is ALWAYS copied verbatim — never summarized or reworded
+2. Artifact paths must be exact — the next session reads only these files
+3. Key decisions provide context the next session needs to understand WHY
+   certain sources were dropped or phases were skipped
+4. Known issues prevent the next session from re-discovering known gaps
+5. Acceptance status lets the next session know which tasks are reliable
 
 ## Degraded Mode (no filesystem)
+
+If context reset via files isn't possible (Claude.ai), use a visible block:
 
 ```
 ═══════════════════════════════════════════
@@ -109,18 +107,22 @@ From here forward, reference ONLY the information below.
 ═══════════════════════════════════════════
 
 Research Question: {verbatim}
-Topic Registry: {inline}
-Completed: P0, P0.7, P1, W0, W1, P2.5, P3, P3.5, W2, P4
+Completed: P0, P1, P2, P2.5, P3, P3.5, P4
 Next: P5
 
-Registry: [inline]
-_INDEX: [inline]
-Outline: [inline]
-W2 Synthesis: [inline]
+Registry: [inline registry from P3]
+Outline: [inline outline from P4]
+Conflicts: [inline from P3.5]
 Known Issues: {list}
 ```
 
+The lead agent mentally discards everything above this block.
+Less effective than true session reset but better than nothing.
+
 ## When to Skip Context Reset
 
-For Low complexity (2-3 tasks, < 15 searches), skip if total context < 50% window.
-Always reset for Medium and High complexity.
+For Low complexity research (2-3 tasks, < 15 searches), context reset
+may be unnecessary overhead. Skip if total context is estimated < 50%
+of window capacity.
+
+Always do context reset for Medium and High complexity.

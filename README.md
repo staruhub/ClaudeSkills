@@ -6,9 +6,9 @@ A curated repository of unpacked Claude Code skills. This repo keeps normalized 
 
 ## Recent Updates
 
-- Synced `deep-research` V7.1 into [skills/Geek-skills-deep-research](skills/Geek-skills-deep-research/SKILL.md).
-- Verified [wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) already matches the latest downloaded package content, so the normalized repo version stays as-is.
-- Rewrote this README to match the current folder layout and Claude Code skill authoring best practices.
+- Updated original skills from the latest matching download packages on 2026-04-21.
+- Synced `deep-research` to V8.0 and added its latest `evals/`, observability references, and run-summary helper.
+- Updated `product-manager` with the latest PRD anti-translation guidance and refreshed `wechat-article-writer` with stronger Chinese polish checks plus new linguistic reference material.
 
 ## Install in Claude Code
 
@@ -29,7 +29,8 @@ Claude Code skills are directory-based: each skill needs a `SKILL.md` entrypoint
 │       ├── SKILL.md
 │       ├── references/
 │       ├── assets/
-│       └── scripts/
+│       ├── scripts/
+│       └── evals/                  # Optional, when a skill ships evaluation assets
 ├── llm-wiki/                       # Upstream-synced skill kept in original layout
 │   ├── SKILL.md
 │   └── references/
@@ -43,6 +44,7 @@ Claude Code skills are directory-based: each skill needs a `SKILL.md` entrypoint
 - Keep `SKILL.md` focused on activation, workflow, and navigation.
 - Move large reference material into `references/` or `assets/`.
 - Put executable helpers in `scripts/`.
+- Keep evaluation fixtures in `evals/` when the skill includes repeatable routing or quality checks.
 - Preserve upstream structure only when syncing external skills with minimal changes.
 
 ## Curated Skills
@@ -77,7 +79,7 @@ Claude Code skills are directory-based: each skill needs a `SKILL.md` entrypoint
 
 | Skill | Path | Description |
 |-------|------|-------------|
-| `deep-research` | [skills/Geek-skills-deep-research](skills/Geek-skills-deep-research/SKILL.md) | Subagent-powered cited research pipeline with evaluation gates |
+| `deep-research` | [skills/Geek-skills-deep-research](skills/Geek-skills-deep-research/SKILL.md) | Evidence-based research workflow with observability, evals, and decision briefs |
 | `gaokao-expert` | [skills/Geek-skills-gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | Gaokao question design expert |
 | `university-exam-prep` | [skills/Geek-skills-university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | University exam prep with Socratic learning |
 | `weather-forecast-report` | [skills/Geek-skills-weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | Weather element research report generator |
@@ -102,9 +104,9 @@ MIT
 
 ## 最近更新
 
-- 已同步 `deep-research` V7.1 到 [skills/Geek-skills-deep-research](skills/Geek-skills-deep-research/SKILL.md)。
-- 已核对 [wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) 与下载目录中的最新包内容，当前仓库版本已是规范化后的最新内容，无需覆盖。
-- 已重写 README，使其同时符合当前目录结构和 Claude Code skills 的最佳实践。
+- 已按 2026-04-21 下载目录中的最新匹配包更新原有 skills。
+- 已将 `deep-research` 升级到 V8.0，并补齐最新的 `evals/`、可观测性参考材料和 run-summary 脚本。
+- 已更新 `product-manager` 的 PRD 反翻译腔写作规范，以及 `wechat-article-writer` 的中文润色检查和语言学参考资料。
 
 ## 在 Claude Code 中安装
 
@@ -125,7 +127,8 @@ Claude Code 的 skill 以目录为单位组织：每个 skill 至少包含一个
 │       ├── SKILL.md
 │       ├── references/
 │       ├── assets/
-│       └── scripts/
+│       ├── scripts/
+│       └── evals/                  # 可选，用于路由或质量评估资产
 ├── llm-wiki/                       # 按上游结构保留的同步技能
 │   ├── SKILL.md
 │   └── references/
@@ -139,6 +142,7 @@ Claude Code 的 skill 以目录为单位组织：每个 skill 至少包含一个
 - `SKILL.md` 只保留触发条件、主流程和导航信息。
 - 大块参考资料优先拆到 `references/` 或 `assets/`。
 - 可执行辅助脚本放到 `scripts/`。
+- 需要重复验证的路由或质量检查资源，放到 `evals/`。
 - 同步外部技能时，只有在低风险情况下才做结构规范化；否则保留上游原始布局。
 
 ## 自维护技能
@@ -173,7 +177,7 @@ Claude Code 的 skill 以目录为单位组织：每个 skill 至少包含一个
 
 | 技能 | 路径 | 说明 |
 |------|------|------|
-| `deep-research` | [skills/Geek-skills-deep-research](skills/Geek-skills-deep-research/SKILL.md) | 带引用校验和评估门禁的深度研究流水线 |
+| `deep-research` | [skills/Geek-skills-deep-research](skills/Geek-skills-deep-research/SKILL.md) | 带可观测性、评估资产和决策简报能力的深度研究流水线 |
 | `gaokao-expert` | [skills/Geek-skills-gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | 高考命题专家 |
 | `university-exam-prep` | [skills/Geek-skills-university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | 大学备考苏格拉底式学习助手 |
 | `weather-forecast-report` | [skills/Geek-skills-weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | 天气要素研究报告生成器 |
