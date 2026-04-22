@@ -2,73 +2,104 @@
 
 [English](#english) | [中文](#中文)
 
-A curated collection of Claude Code skills for daily work efficiency — built on Skills 2.0 format.
+A curated repository of unpacked Claude Code skills. This repo keeps normalized in-house skills under `skills/` and preserves selected upstream imports when they are synced in their original layout.
 
-## Installation
+## Recent Updates
 
-```bash
-# Install all skills at once
-npx skills add staruhub/ClaudeSkills
+- Added five new curated skills on 2026-04-22: `ai-sales-champion`, `keqian-method`, `xuefeng-method`, `podcast-generator`, and `notion-infographic` (v2, PPTX + infographic pipeline).
+- Updated original skills from the latest matching download packages on 2026-04-21.
+- Synced `deep-research` to V8.0 and added its latest `evals/`, observability references, and run-summary helper.
+- Updated `product-manager` with the latest PRD anti-translation guidance and refreshed `wechat-article-writer` with stronger Chinese polish checks plus new linguistic reference material.
+
+## Install in Claude Code
+
+Claude Code skills are directory-based: each skill needs a `SKILL.md` entrypoint and can include supporting files such as references, templates, examples, and scripts.
+
+1. Pick a skill directory from this repository.
+2. Copy the whole directory into one of these locations:
+   - Personal: `~/.claude/skills/<skill-name>/`
+   - Project: `.claude/skills/<skill-name>/`
+3. Keep `SKILL.md` and its supporting files in the same directory.
+
+## Repository Layout
+
+```text
+.
+├── skills/                         # Curated, normalized Geek skills
+│   └── Geek-skills-xxx/
+│       ├── SKILL.md
+│       ├── references/
+│       ├── assets/
+│       ├── scripts/
+│       └── evals/                  # Optional, when a skill ships evaluation assets
+├── llm-wiki/                       # Upstream-synced skill kept in original layout
+│   ├── SKILL.md
+│   └── references/
+├── README.md
+└── AGENTS.md
 ```
 
-Or manually download a `.skill` file and import via `/skill install <path>`.
+### Layout Rules
 
-## Skills
+- Add new curated skills under `skills/Geek-skills-xxx/`.
+- Keep `SKILL.md` focused on activation, workflow, and navigation.
+- Move large reference material into `references/` or `assets/`.
+- Put executable helpers in `scripts/`.
+- Keep evaluation fixtures in `evals/` when the skill includes repeatable routing or quality checks.
+- Preserve upstream structure only when syncing external skills with minimal changes.
 
-### 🔧 Development & Architecture
+## Curated Skills
 
-| Skill | Description |
-|-------|-------------|
-| [pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | Pair programming partner with automatic code review |
-| [security-audit](skills/Geek-skills-security-audit/SKILL.md) | Comprehensive code security audit (SAST/DAST/SCA) |
-| [solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | System design, tech selection & architecture review |
-| [threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js performance optimization — WebGPU, draw calls, memory |
+### Development & Architecture
 
-### ✍️ Product & Content
+| Skill | Path | Description |
+|-------|------|-------------|
+| `pair-programming` | [skills/Geek-skills-pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | Pair programming partner with automatic code review |
+| `security-audit` | [skills/Geek-skills-security-audit](skills/Geek-skills-security-audit/SKILL.md) | Comprehensive code security audit |
+| `solution-architect` | [skills/Geek-skills-solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | System design, tech selection, and architecture review |
+| `threejs-performance` | [skills/Geek-skills-threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js performance optimization |
 
-| Skill | Description |
-|-------|-------------|
-| [product-manager](skills/Geek-skills-product-manager/SKILL.md) | PRD writing, product strategy & requirement analysis |
-| [wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | WeChat article writer with multiple style modes |
-| [ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | Professional PPT design — layout, color, visual hierarchy |
+### AI-Native Methodology
 
-### 🛠️ Tools & Utilities
+| Skill | Path | Description |
+|-------|------|-------------|
+| `keqian-method` | [skills/Geek-skills-keqian-method](skills/Geek-skills-keqian-method/SKILL.md) | Keqian's AI-Native product dev methodology: single-agent, SDD, quality gates |
+| `xuefeng-method` | [skills/Geek-skills-xuefeng-method](skills/Geek-skills-xuefeng-method/SKILL.md) | Xuefeng's AI-Native methodology for open-behavior, model-driven products |
+| `ai-sales-champion` | [skills/Geek-skills-ai-sales-champion](skills/Geek-skills-ai-sales-champion/SKILL.md) | AI sales/consulting dialogue helper — turn tech into business language |
 
-| Skill | Description |
-|-------|-------------|
-| [a-share-analyst](skills/Geek-skills-a-share-analyst/SKILL.md) | A-share stock analysis — technical & fundamental |
-| [c-drive-cleaner](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C: drive cleanup & disk space management |
-| [mineru-pdf-parser](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | PDF → Markdown/JSON converter for LLM workflows |
-| [seedream-imagegen](skills/Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 AI image generation (2K/4K) |
+### Product & Content
 
-### 📚 Education & Research
+| Skill | Path | Description |
+|-------|------|-------------|
+| `product-manager` | [skills/Geek-skills-product-manager](skills/Geek-skills-product-manager/SKILL.md) | PRD writing, requirement analysis, and product strategy |
+| `wechat-article-writer` | [skills/Geek-skills-wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | Multi-style WeChat article writing |
+| `ppt-designer` | [skills/Geek-skills-ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | PPT structure, layout, and visual hierarchy |
+| `notion-infographic` | [skills/Geek-skills-notion-infographic](skills/Geek-skills-notion-infographic/SKILL.md) | Outline → PPTX or Notion-style infographic prompts (v2 pipeline) |
+| `podcast-generator` | [skills/Geek-skills-podcast-generator](skills/Geek-skills-podcast-generator/SKILL.md) | Volcano Engine dual-speaker AI podcast generator |
 
-| Skill | Description |
-|-------|-------------|
-| [gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | Gaokao question design expert |
-| [university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | University exam prep with Socratic learning |
-| [weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | Weather element research report generator |
+### Tools & Utilities
 
-### ⚙️ Workflow (OpenSpec)
+| Skill | Path | Description |
+|-------|------|-------------|
+| `a-share-analyst` | [skills/Geek-skills-a-share-analyst](skills/Geek-skills-a-share-analyst/SKILL.md) | A-share technical and fundamental analysis |
+| `c-drive-cleaner` | [skills/Geek-skills-c-drive-cleaner](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C drive cleanup and disk space management |
+| `mineru-pdf-parser` | [skills/Geek-skills-mineru-pdf-parser](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | PDF to Markdown or JSON for LLM workflows |
+| `seedream-imagegen` | [skills/Geek-skills-seedream-imagegen](skills/Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 image generation |
 
-| Skill | Description |
-|-------|-------------|
-| [openspec-explore](skills/Geek-skills-openspec-explore/SKILL.md) | Explore mode — thinking partner for ideas & requirements |
-| [openspec-propose](skills/Geek-skills-openspec-propose/SKILL.md) | Propose changes with design, specs & task breakdown |
-| [openspec-apply-change](skills/Geek-skills-openspec-apply-change/SKILL.md) | Implement tasks from a proposed change |
-| [openspec-archive-change](skills/Geek-skills-openspec-archive-change/SKILL.md) | Archive completed changes |
+### Education & Research
 
-## Skill Format
+| Skill | Path | Description |
+|-------|------|-------------|
+| `deep-research` | [skills/Geek-skills-deep-research](skills/Geek-skills-deep-research/SKILL.md) | Evidence-based research workflow with observability, evals, and decision briefs |
+| `gaokao-expert` | [skills/Geek-skills-gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | Gaokao question design expert |
+| `university-exam-prep` | [skills/Geek-skills-university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | University exam prep with Socratic learning |
+| `weather-forecast-report` | [skills/Geek-skills-weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | Weather element research report generator |
 
-Each skill directory follows this structure:
+## Upstream-Synced Skills
 
-```
-skills/Geek-skills-xxx/
-├── SKILL.md          # Core skill definition (YAML frontmatter + instructions)
-├── scripts/          # Optional — executable scripts
-├── references/       # Optional — reference documents
-└── assets/           # Optional — templates and resources
-```
+| Skill | Path | Notes |
+|-------|------|-------|
+| `llm-wiki` | [llm-wiki](llm-wiki/SKILL.md) | Preserved in original upstream layout at repo root |
 
 ## License
 
@@ -80,57 +111,101 @@ MIT
 
 # Geek Skills（中文）
 
-基于 Claude Code Skills 2.0 格式构建的高质量技能集合，提升日常工作效率。
+这是一个以“解包目录”形式维护的 Claude Code skills 仓库。仓库会把自维护技能统一放在 `skills/` 下，同时在必要时保留少量上游技能的原始目录结构。
 
-## 安装
+## 最近更新
 
-```bash
-npx skills add staruhub/ClaudeSkills
+- 2026-04-22 新增 5 个自维护技能：`ai-sales-champion`、`keqian-method`、`xuefeng-method`、`podcast-generator`、`notion-infographic`（v2，PPTX + 信息图双模式）。
+- 已按 2026-04-21 下载目录中的最新匹配包更新原有 skills。
+- 已将 `deep-research` 升级到 V8.0，并补齐最新的 `evals/`、可观测性参考材料和 run-summary 脚本。
+- 已更新 `product-manager` 的 PRD 反翻译腔写作规范，以及 `wechat-article-writer` 的中文润色检查和语言学参考资料。
+
+## 在 Claude Code 中安装
+
+Claude Code 的 skill 以目录为单位组织：每个 skill 至少包含一个 `SKILL.md` 入口文件，并可按需附带参考资料、模板、示例或脚本。
+
+1. 从本仓库选择一个 skill 目录。
+2. 将整个目录复制到以下任一位置：
+   - 个人级：`~/.claude/skills/<skill-name>/`
+   - 项目级：`.claude/skills/<skill-name>/`
+3. 保持 `SKILL.md` 与 supporting files 在同一个目录内。
+
+## 仓库结构
+
+```text
+.
+├── skills/                         # 规范化维护的 Geek 技能
+│   └── Geek-skills-xxx/
+│       ├── SKILL.md
+│       ├── references/
+│       ├── assets/
+│       ├── scripts/
+│       └── evals/                  # 可选，用于路由或质量评估资产
+├── llm-wiki/                       # 按上游结构保留的同步技能
+│   ├── SKILL.md
+│   └── references/
+├── README.md
+└── AGENTS.md
 ```
 
-或手动下载 `.skill` 文件后通过 `/skill install <文件路径>` 导入。
+### 维护约定
 
-## 技能索引
+- 新增自维护技能时，优先放在 `skills/Geek-skills-xxx/`。
+- `SKILL.md` 只保留触发条件、主流程和导航信息。
+- 大块参考资料优先拆到 `references/` 或 `assets/`。
+- 可执行辅助脚本放到 `scripts/`。
+- 需要重复验证的路由或质量检查资源，放到 `evals/`。
+- 同步外部技能时，只有在低风险情况下才做结构规范化；否则保留上游原始布局。
 
-### 🔧 开发与架构
+## 自维护技能
 
-| 技能 | 说明 |
-|------|------|
-| [pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | 结对编程搭档，自动审查代码质量与安全性 |
-| [security-audit](skills/Geek-skills-security-audit/SKILL.md) | 全面代码安全审计（SAST/DAST/SCA） |
-| [solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | 解决方案架构师，系统设计与技术选型 |
-| [threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js 性能优化专家 |
+### 开发与架构
 
-### ✍️ 产品与内容
+| 技能 | 路径 | 说明 |
+|------|------|------|
+| `pair-programming` | [skills/Geek-skills-pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | 结对编程搭档，自动审查代码质量 |
+| `security-audit` | [skills/Geek-skills-security-audit](skills/Geek-skills-security-audit/SKILL.md) | 全面代码安全审计 |
+| `solution-architect` | [skills/Geek-skills-solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | 系统设计与技术选型 |
+| `threejs-performance` | [skills/Geek-skills-threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js 性能优化 |
 
-| 技能 | 说明 |
-|------|------|
-| [product-manager](skills/Geek-skills-product-manager/SKILL.md) | 资深产品经理，PRD 文档创作与评审 |
-| [wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | 微信公众号文章创作，多种写作风格 |
-| [ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | 专业 PPT 设计与制作 |
+### AI-Native 方法论
 
-### 🛠️ 工具
+| 技能 | 路径 | 说明 |
+|------|------|------|
+| `keqian-method` | [skills/Geek-skills-keqian-method](skills/Geek-skills-keqian-method/SKILL.md) | 克谦式 AI-Native 产品开发方法论：单 Agent、SDD、质量门禁 |
+| `xuefeng-method` | [skills/Geek-skills-xuefeng-method](skills/Geek-skills-xuefeng-method/SKILL.md) | 雪峰式 AI-Native 方法论，面向行为开放、模型驱动的产品 |
+| `ai-sales-champion` | [skills/Geek-skills-ai-sales-champion](skills/Geek-skills-ai-sales-champion/SKILL.md) | AI 销售/咨询对话助手，把技术讲成业务语言 |
 
-| 技能 | 说明 |
-|------|------|
-| [a-share-analyst](skills/Geek-skills-a-share-analyst/SKILL.md) | A 股分析师，技术面/基本面分析 |
-| [c-drive-cleaner](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C 盘清理与空间管理 |
-| [mineru-pdf-parser](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | PDF 转 Markdown/JSON |
-| [seedream-imagegen](skills/Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 AI 图像生成 |
+### 产品与内容
 
-### 📚 教育与研究
+| 技能 | 路径 | 说明 |
+|------|------|------|
+| `product-manager` | [skills/Geek-skills-product-manager](skills/Geek-skills-product-manager/SKILL.md) | PRD 创作、需求分析与产品策略 |
+| `wechat-article-writer` | [skills/Geek-skills-wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | 多风格微信公众号文章创作 |
+| `ppt-designer` | [skills/Geek-skills-ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | PPT 结构设计、排版与视觉层次 |
+| `notion-infographic` | [skills/Geek-skills-notion-infographic](skills/Geek-skills-notion-infographic/SKILL.md) | 大纲 → PPTX 或 Notion 手绘风信息图（v2 Pipeline） |
+| `podcast-generator` | [skills/Geek-skills-podcast-generator](skills/Geek-skills-podcast-generator/SKILL.md) | 火山引擎双人 AI 播客生成 |
 
-| 技能 | 说明 |
-|------|------|
-| [gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | 高考命题专家 |
-| [university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | 大学备考苏格拉底式学习助手 |
-| [weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | 天气要素研究报告生成器 |
+### 工具与效率
 
-### ⚙️ 工作流 (OpenSpec)
+| 技能 | 路径 | 说明 |
+|------|------|------|
+| `a-share-analyst` | [skills/Geek-skills-a-share-analyst](skills/Geek-skills-a-share-analyst/SKILL.md) | A 股技术面与基本面分析 |
+| `c-drive-cleaner` | [skills/Geek-skills-c-drive-cleaner](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C 盘清理与空间管理 |
+| `mineru-pdf-parser` | [skills/Geek-skills-mineru-pdf-parser](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | 面向 LLM 工作流的 PDF 解析 |
+| `seedream-imagegen` | [skills/Geek-skills-seedream-imagegen](skills/Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 图像生成 |
 
-| 技能 | 说明 |
-|------|------|
-| [openspec-explore](skills/Geek-skills-openspec-explore/SKILL.md) | 探索模式，思考伙伴 |
-| [openspec-propose](skills/Geek-skills-openspec-propose/SKILL.md) | 提出变更提案 |
-| [openspec-apply-change](skills/Geek-skills-openspec-apply-change/SKILL.md) | 实施变更任务 |
-| [openspec-archive-change](skills/Geek-skills-openspec-archive-change/SKILL.md) | 归档已完成变更 |
+### 教育与研究
+
+| 技能 | 路径 | 说明 |
+|------|------|------|
+| `deep-research` | [skills/Geek-skills-deep-research](skills/Geek-skills-deep-research/SKILL.md) | 带可观测性、评估资产和决策简报能力的深度研究流水线 |
+| `gaokao-expert` | [skills/Geek-skills-gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | 高考命题专家 |
+| `university-exam-prep` | [skills/Geek-skills-university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | 大学备考苏格拉底式学习助手 |
+| `weather-forecast-report` | [skills/Geek-skills-weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | 天气要素研究报告生成器 |
+
+## 上游同步技能
+
+| 技能 | 路径 | 备注 |
+|------|------|------|
+| `llm-wiki` | [llm-wiki](llm-wiki/SKILL.md) | 当前保留上游原始目录结构，位于仓库根目录 |
