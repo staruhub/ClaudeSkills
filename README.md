@@ -6,6 +6,7 @@ A curated repository of unpacked Claude Code skills. This repo keeps normalized 
 
 ## Recent Updates
 
+- Added five new curated skills on 2026-04-22: `ai-sales-champion`, `keqian-method`, `xuefeng-method`, `podcast-generator`, and `notion-infographic` (v2, PPTX + infographic pipeline).
 - Updated original skills from the latest matching download packages on 2026-04-21.
 - Synced `deep-research` to V8.0 and added its latest `evals/`, observability references, and run-summary helper.
 - Updated `product-manager` with the latest PRD anti-translation guidance and refreshed `wechat-article-writer` with stronger Chinese polish checks plus new linguistic reference material.
@@ -58,6 +59,14 @@ Claude Code skills are directory-based: each skill needs a `SKILL.md` entrypoint
 | `solution-architect` | [skills/Geek-skills-solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | System design, tech selection, and architecture review |
 | `threejs-performance` | [skills/Geek-skills-threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js performance optimization |
 
+### AI-Native Methodology
+
+| Skill | Path | Description |
+|-------|------|-------------|
+| `keqian-method` | [skills/Geek-skills-keqian-method](skills/Geek-skills-keqian-method/SKILL.md) | Keqian's AI-Native product dev methodology: single-agent, SDD, quality gates |
+| `xuefeng-method` | [skills/Geek-skills-xuefeng-method](skills/Geek-skills-xuefeng-method/SKILL.md) | Xuefeng's AI-Native methodology for open-behavior, model-driven products |
+| `ai-sales-champion` | [skills/Geek-skills-ai-sales-champion](skills/Geek-skills-ai-sales-champion/SKILL.md) | AI sales/consulting dialogue helper — turn tech into business language |
+
 ### Product & Content
 
 | Skill | Path | Description |
@@ -65,6 +74,8 @@ Claude Code skills are directory-based: each skill needs a `SKILL.md` entrypoint
 | `product-manager` | [skills/Geek-skills-product-manager](skills/Geek-skills-product-manager/SKILL.md) | PRD writing, requirement analysis, and product strategy |
 | `wechat-article-writer` | [skills/Geek-skills-wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | Multi-style WeChat article writing |
 | `ppt-designer` | [skills/Geek-skills-ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | PPT structure, layout, and visual hierarchy |
+| `notion-infographic` | [skills/Geek-skills-notion-infographic](skills/Geek-skills-notion-infographic/SKILL.md) | Outline → PPTX or Notion-style infographic prompts (v2 pipeline) |
+| `podcast-generator` | [skills/Geek-skills-podcast-generator](skills/Geek-skills-podcast-generator/SKILL.md) | Volcano Engine dual-speaker AI podcast generator |
 
 ### Tools & Utilities
 
@@ -104,6 +115,7 @@ MIT
 
 ## 最近更新
 
+- 2026-04-22 新增 5 个自维护技能：`ai-sales-champion`、`keqian-method`、`xuefeng-method`、`podcast-generator`、`notion-infographic`（v2，PPTX + 信息图双模式）。
 - 已按 2026-04-21 下载目录中的最新匹配包更新原有 skills。
 - 已将 `deep-research` 升级到 V8.0，并补齐最新的 `evals/`、可观测性参考材料和 run-summary 脚本。
 - 已更新 `product-manager` 的 PRD 反翻译腔写作规范，以及 `wechat-article-writer` 的中文润色检查和语言学参考资料。
@@ -156,6 +168,14 @@ Claude Code 的 skill 以目录为单位组织：每个 skill 至少包含一个
 | `solution-architect` | [skills/Geek-skills-solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | 系统设计与技术选型 |
 | `threejs-performance` | [skills/Geek-skills-threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js 性能优化 |
 
+### AI-Native 方法论
+
+| 技能 | 路径 | 说明 |
+|------|------|------|
+| `keqian-method` | [skills/Geek-skills-keqian-method](skills/Geek-skills-keqian-method/SKILL.md) | 克谦式 AI-Native 产品开发方法论：单 Agent、SDD、质量门禁 |
+| `xuefeng-method` | [skills/Geek-skills-xuefeng-method](skills/Geek-skills-xuefeng-method/SKILL.md) | 雪峰式 AI-Native 方法论，面向行为开放、模型驱动的产品 |
+| `ai-sales-champion` | [skills/Geek-skills-ai-sales-champion](skills/Geek-skills-ai-sales-champion/SKILL.md) | AI 销售/咨询对话助手，把技术讲成业务语言 |
+
 ### 产品与内容
 
 | 技能 | 路径 | 说明 |
@@ -163,6 +183,8 @@ Claude Code 的 skill 以目录为单位组织：每个 skill 至少包含一个
 | `product-manager` | [skills/Geek-skills-product-manager](skills/Geek-skills-product-manager/SKILL.md) | PRD 创作、需求分析与产品策略 |
 | `wechat-article-writer` | [skills/Geek-skills-wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | 多风格微信公众号文章创作 |
 | `ppt-designer` | [skills/Geek-skills-ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | PPT 结构设计、排版与视觉层次 |
+| `notion-infographic` | [skills/Geek-skills-notion-infographic](skills/Geek-skills-notion-infographic/SKILL.md) | 大纲 → PPTX 或 Notion 手绘风信息图（v2 Pipeline） |
+| `podcast-generator` | [skills/Geek-skills-podcast-generator](skills/Geek-skills-podcast-generator/SKILL.md) | 火山引擎双人 AI 播客生成 |
 
 ### 工具与效率
 
