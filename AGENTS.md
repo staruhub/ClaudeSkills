@@ -21,11 +21,10 @@ Other top-level files:
 Prefer iterating on existing skills instead of introducing new parallel variants.
 
 ## Build, Test, and Development Commands
-There are currently no standard build/test/dev-server commands. Most changes are content edits to skill files.
+Most changes are content edits to skill files. Two canonical checks exist:
 
-If automation is introduced later, document the canonical commands here (examples):
-- `make validate`: validate formatting/structure
-- `npm test`: run any added unit tests
+- `python3 scripts/validate.py` — structural L1 assertions for every curated skill (frontmatter, line caps, 三件套 sections, orphan files, platform-path/CVE hardcoding). Run before publishing any skill change.
+- `python3 scripts/run_routing_evals.py` — validates all `evals/routing-evals.json` files (schema, global id uniqueness, route_to targets, cross-skill prompt conflicts). Add `--emit-prompts` to produce an agent-based L2 routing test bundle. Run after changing any skill `description`.
 
 ## Coding Style & Naming Conventions
 - Prefer ASCII in `SKILL.md` files unless non-ASCII is required by the skill content.
