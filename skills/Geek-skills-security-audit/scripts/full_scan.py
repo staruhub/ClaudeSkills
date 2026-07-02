@@ -29,9 +29,10 @@ class SecurityScanner:
                 "low": [],
                 "info": []
             },
-            "summary": {}
+            "summary": {},
+            "skipped_tools": []  # 工具缺失时记录，用于声明覆盖范围缩窄
         }
-        
+
     def setup_output_dir(self):
         """创建输出目录"""
         self.output_dir.mkdir(parents=True, exist_ok=True)
@@ -166,6 +167,7 @@ class SecurityScanner:
             print("npm audit 超时")
         except FileNotFoundError:
             print("npm 未安装")
+            self.results["skipped_tools"].append("npm audit（依赖漏洞）")
         except Exception as e:
             print(f"npm audit 出错: {e}")
             
@@ -223,6 +225,7 @@ class SecurityScanner:
                         })
             except:
                 print("safety 和 pip-audit 都未安装")
+                self.results["skipped_tools"].append("pip-audit / safety（Python 依赖漏洞）")
         except Exception as e:
             print(f"Python依赖审计出错: {e}")
             
@@ -261,6 +264,7 @@ class SecurityScanner:
                     
         except FileNotFoundError:
             print("Bandit未安装，跳过Python SAST")
+            self.results["skipped_tools"].append("bandit（Python SAST 代码扫描）")
         except Exception as e:
             print(f"Bandit扫描出错: {e}")
             
@@ -361,7 +365,18 @@ class SecurityScanner:
             f.write(f"| 🔵 Low | {summary['low']} |\n")
             f.write(f"| ⚪ Info | {summary['info']} |\n")
             f.write(f"| **总计** | **{summary['total']}** |\n\n")
-            
+
+            # 覆盖范围声明：工具缺失时明确告知，避免"零发现=安全"的误读
+            skipped = self.results.get("skipped_tools", [])
+            f.write("## 覆盖范围\n\n")
+            if skipped:
+                f.write("⚠️ **以下扫描器缺失，本次覆盖范围已缩窄，零发现不代表安全**：\n\n")
+                for tool in skipped:
+                    f.write(f"- {tool}\n")
+                f.write("\n请安装缺失工具后重跑，或用实时搜索补充依赖漏洞确认。\n\n")
+            else:
+                f.write("本次已运行的扫描器均可用；仍需注意扫描器只覆盖已知模式，非零发现即安全。\n\n")
+
             # 详细发现
             if summary['critical'] > 0 or summary['high'] > 0:
                 f.write("## 高危发现\n\n")

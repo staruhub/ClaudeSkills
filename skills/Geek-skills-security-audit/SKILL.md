@@ -161,21 +161,20 @@ find / -perm -002 -type f 2>/dev/null
 
 ## 报告格式
 
-扫描完成后生成的报告包含：
+`full_scan.py` 在 `security_report/` 下生成：
 
 ```
 security_report/
-├── summary.md           # 执行摘要
-├── critical.json        # 高危漏洞
-├── dependencies.json    # 依赖漏洞
-├── code_issues.json     # 代码问题
-├── secrets.json         # 泄露的密钥
-└── recommendations.md   # 修复建议
+├── summary.md            # 执行摘要 + 覆盖范围声明（工具缺失时列出缩窄项）
+└── security_report.json  # 结构化发现，按 critical/high/medium/low/info 分级 + skipped_tools
 ```
+
+`secrets_scan.py` 另行生成 `secrets_report.{json,md}`（命中值已脱敏）。
+汇总多来源发现、按严重性分文件时，从 `security_report.json` 的分级结构派生即可，不必依赖固定的六文件布局。
 
 ## 验收标准（完成前逐条自查）
 
-- [ ] 报告目录六件套齐全（summary / critical / dependencies / code_issues / secrets / recommendations）
+- [ ] 报告含 summary.md（带覆盖范围声明）与结构化 JSON；缺失的扫描器已在报告中列出
 - [ ] 每个 Critical/High 发现都有：证据位置（文件+行号或配置项）+ 影响说明 + 可执行的修复建议
 - [ ] 依赖漏洞结论基于**本次运行**的扫描或搜索结果，未引用过时的内置CVE知识
 - [ ] 未给出"已确认安全"式结论——只报告"在已执行的检查范围内未发现"，并列出未覆盖项

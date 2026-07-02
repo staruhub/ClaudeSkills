@@ -45,7 +45,9 @@
   （原声称 6 个策略脚本，实际仅 4 个）。
 - **security-audit**：`secrets_scan.py` 新增脱敏，命中的密钥、上下文、JWT payload 只保留首尾+长度
   （兑现"不回显明文"）；`dependency_check.py` 的硬编码 CVE 表标注为"离线基线、会过时、需实时确认"，
-  消除与"不维护 CVE 清单"的文档矛盾；去除 SKILL.md 中 `--break-system-packages` 危险安装命令。
+  消除与"不维护 CVE 清单"的文档矛盾；去除 SKILL.md 中 `--break-system-packages` 危险安装命令；
+  `full_scan.py` 记录缺失的扫描器并在报告中声明覆盖范围缩窄（兑现"零发现≠安全"），
+  报告结构声明对齐脚本实际输出。
 - `deep-research`：`verify_citations.py` 的 URL 归一化重写（保留合法查询串语法）；
   `subagent-prompt.md` 修正 `reference/` → `references/` 路径。
 
@@ -54,8 +56,8 @@
 - `Geek-skills-notion-infographic/` 与 `Geek-skills-ppt-designer/` 目录（合并入 deck-studio；
   v2 资产保留在 `deck-studio/references/v2-pipeline/`，无内容丢失）。
 
-### 已知遗留（非阻塞）
+### 已知遗留（非阻塞，需外部输入或决策）
 
-- name 前缀大小写统一（18 skill 用 `Geek-skills-` 大写前缀）属破坏性变更，待治理决策。
-- ClawTime/WorkBuddy 风格色值为初稿，待品牌资产校准。
-- deck-studio 后续批次：风格推荐 evals、image 分支实测、风格库扩至 24+。
+- name 前缀大小写统一（18 skill 用 `Geek-skills-` 大写前缀）属破坏性变更，会影响用户 slash command，待治理决策。
+- ClawTime/WorkBuddy 风格色值为初稿，待品牌资产校准后锁定。
+- deck-studio 后续批次：风格推荐 evals、image 分支实测、风格库扩至 24+（新范围，待明确启动）。
