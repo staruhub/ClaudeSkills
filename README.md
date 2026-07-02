@@ -12,6 +12,7 @@ A curated repository of unpacked Claude Code skills. This repo keeps normalized 
 - The README skill tables use short display names; the actual slash command comes from each `SKILL.md` frontmatter `name` field.
 - Last download-folder sync: 2026-04-21, covering existing matching skills only.
 - 2026-07-02: `notion-infographic` and `ppt-designer` merged into `deck-studio` (v3); old directories removed, v2 assets preserved under `references/v2-pipeline/`.
+- 2026-07-02: full-repo quality overhaul (the "Fable 5 refactor") — every skill converged on Skill Quality Standard v1.0 with acceptance criteria, boundaries, pitfall tables, and routing evals. See [CHANGELOG.md](CHANGELOG.md) for the complete record.
 
 ## Install in Claude Code
 
@@ -82,7 +83,7 @@ The `rg` command should produce no output (confirms AppleDouble files are not tr
 
 | Skill | Path | Description |
 |-------|------|-------------|
-| `pair-programming` | [skills/Geek-skills-pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | Pair programming partner with automatic code review |
+| `pair-programming` | [skills/Geek-skills-pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | Pair-programming partner: delivers code with a structured self-review, focused on AI-specific defects |
 | `security-audit` | [skills/Geek-skills-security-audit](skills/Geek-skills-security-audit/SKILL.md) | Comprehensive code security audit |
 | `solution-architect` | [skills/Geek-skills-solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | System design, tech selection, and architecture review |
 | `threejs-performance` | [skills/Geek-skills-threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js performance optimization |
@@ -148,6 +149,7 @@ MIT
 - README 表格中的技能名是短展示名；真正的 slash command 以对应 `SKILL.md` frontmatter 里的 `name` 为准。
 - 最近一次按下载目录同步：2026-04-21，只更新仓库中已有的匹配技能。
 - 2026-07-02：`notion-infographic` 与 `ppt-designer` 合并为 `deck-studio`（v3）；旧目录已移除，v2 资产保留在 `references/v2-pipeline/`。
+- 2026-07-02：全仓库质量重构（"Fable 5 重构版"）——所有 skill 统一到质量标准 v1.0：可判定验收标准、能力边界、陷阱表与路由 evals。完整记录见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 在 Claude Code 中安装
 
@@ -218,7 +220,7 @@ python3 scripts/run_routing_evals.py   # 路由 evals 格式与一致性
 
 | 技能 | 路径 | 说明 |
 |------|------|------|
-| `pair-programming` | [skills/Geek-skills-pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | 结对编程搭档，自动审查代码质量 |
+| `pair-programming` | [skills/Geek-skills-pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | 结对编程搭档，交付代码附带结构化自审，重点盯 AI 生成代码特有缺陷 |
 | `security-audit` | [skills/Geek-skills-security-audit](skills/Geek-skills-security-audit/SKILL.md) | 全面代码安全审计 |
 | `solution-architect` | [skills/Geek-skills-solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | 系统设计与技术选型 |
 | `threejs-performance` | [skills/Geek-skills-threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js 性能优化 |
