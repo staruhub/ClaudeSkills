@@ -3,3 +3,5 @@
 .claude/
 .omx/
 *.skill
+__pycache__/
+*.pyc
