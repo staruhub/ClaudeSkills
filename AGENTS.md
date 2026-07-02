@@ -33,7 +33,7 @@ Most changes are content edits to skill files. Two canonical checks exist:
 - Avoid duplication: update existing skills instead of copying large sections across files.
 
 ## Testing Guidelines
-No automated tests are present. If you add tests:
+No full unit/integration test suite is present yet. Two pre-publish validation scripts act as **L1 quality gates** (see Build, Test, and Development Commands above): `scripts/validate.py` and `scripts/run_routing_evals.py`; both should print `L1 PASS`. If you add deeper tests:
 - State the framework and how to run it (one command).
 - Use consistent naming (for example `*.test.*`).
 - Define any coverage expectations and what counts as "done".

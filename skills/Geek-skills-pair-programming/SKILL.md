@@ -1,5 +1,5 @@
 ---
-name: Geek-skills-pair-programming
+name: pair-programming
 version: 1.1.0
 description: 结对编程搭档。当用户要求"边写边审"、"结对编程"、"写完自己 review 一遍"、"高可靠地实现"，或明确希望代码交付时附带自我审查意见时使用。交付代码的同时输出结构化审查（正确性/安全/性能/可读性/健壮性五维度），重点捕捉 AI 生成代码的特有缺陷。不用于：对已有 PR 的正式评审（用 code review 流程）、安全专项扫描（用 security-audit）、10 行以内的简单片段。
 ---

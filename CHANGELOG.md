@@ -2,10 +2,30 @@
 
 本仓库遵循语义化的变更记录。日期为 `YYYY-MM-DD`（本地时区）。
 
+## [外部评审修复 P0] — 2026-07-03
+
+针对一次外部评审的 P0 反馈，修正安装/调用链路的事实性错误（均已用 Claude Code 官方文档核验）。
+
+### 修复
+
+- **命令名说明纠错**：官方规则是 slash command 来自**安装后的目录名**，而非 frontmatter `name`。
+  README 双语安装章节改为"复制并重命名到目标命令名"，并说明 `name` 只是显示标签、Claude 也会按
+  `description` 自动加载。
+- **frontmatter `name` 统一为短名**：此前 18 个写 `Geek-skills-xxx`、1 个写短名，自相矛盾；
+  全部统一为短名（`deck-studio`、`product-manager` 等）。`name` 是显示标签、不决定命令名，
+  故此改动非破坏性。
+- **计数口径修正**：README/CHANGELOG 多处"20 个自维护 skill" → "19 个自维护 + 1 个上游 `llm-wiki`"。
+- **security-audit OWASP 去年份**："OWASP Top 10 2024" → "以官方当前版本为准（现行 2025），
+  离线清单标注可能过时"，消除与"时效性硬编码清零"的自相矛盾。
+- **AGENTS.md 消除矛盾**："No automated tests are present" 改为承认两个 L1 quality gate 脚本存在。
+- **措辞降调**："Fable 5 重构认证 / Certified" → "自审报告 / Self-Audit Report"，避免被误读为第三方背书，
+  并给出可复现的校验命令。
+
 ## [Fable 5 重构版] — 2026-07-02
 
-由 Claude Fable 5 主导的一次全仓库质量重构。目标：把 20 个自维护 skill 从
-"能用但松散"提升到统一的可验证质量标准，并沉淀可回归的校验基建。
+由 Claude Fable 5 主导的一次全仓库质量重构。目标：把 19 个自维护 skill
+（外加上游同步的 `llm-wiki`）从"能用但松散"提升到统一的可验证质量标准，
+并沉淀可回归的校验基建。
 
 ### 新增
 
@@ -28,7 +48,7 @@
 
 ### 变更
 
-- **20 个 skill 全部达标**：description 从"它是什么"改为"何时触发"并补负触发；
+- **19 个自维护 skill 全部达标**：description 从"它是什么"改为"何时触发"并补负触发；
   统一补齐可判定的验收标准、"不做什么"、带具体表现的陷阱表。
 - **deep-research（8.0 → 8.1.1）**：收敛 description（移除会诱导跳过正文的 "Success=" 总结句），
   修复负触发措辞使"简短但需证据"的请求正确命中 brief 模式（经 L2 回归确认）。
@@ -58,6 +78,6 @@
 
 ### 已知遗留（非阻塞，需外部输入或决策）
 
-- name 前缀大小写统一（18 skill 用 `Geek-skills-` 大写前缀）属破坏性变更，会影响用户 slash command，待治理决策。
+- ~~name 前缀大小写统一~~ → 已在 2026-07-03 批次解决（见下）。
 - ClawTime/WorkBuddy 风格色值为初稿，待品牌资产校准后锁定。
 - deck-studio 后续批次：风格推荐 evals、image 分支实测、风格库扩至 24+（新范围，待明确启动）。

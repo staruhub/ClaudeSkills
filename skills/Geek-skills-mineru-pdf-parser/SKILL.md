@@ -1,5 +1,5 @@
 ---
-name: Geek-skills-mineru-pdf-parser
+name: mineru-pdf-parser
 version: 1.1.0
 description: 用 MinerU 将复杂PDF文档转换为LLM友好的Markdown/JSON格式。适用于：(1) PDF转Markdown/JSON，(2) 提取PDF中的文本、表格、公式、图像，(3) 解析学术论文、技术文档、商业报告，(4) 为RAG应用准备文档数据，(5) 批量处理PDF。触发关键词："PDF解析"、"PDF转Markdown"、"提取PDF表格/公式"、"MinerU"、"parse PDF"等。不用于：PDF的阅读/填表/签名/拆分合并（用宿主pdf工具）、Word/PPT等非PDF格式解析、只需读几页内容的场景（直接读即可，不必转换）。
 ---

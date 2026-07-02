@@ -1,5 +1,5 @@
 ---
-name: Geek-skills-deck-studio
+name: deck-studio
 version: 3.0.0
 description: PPT 生产 Agent：理解场景 → 推荐风格 → 先出大纲 → 定义页面 → 双通路交付（PPT 内容稿 / 逐页视觉图 / 信息图组图）。当用户要做汇报、路演、培训课件、提案、咨询报告的演示文稿，或要把大纲/文章做成 slides、deck、PPT、信息图、小红书图文、可视化传播图时使用。支持指定风格或从风格库推荐，支持 image 模型逐页出视觉稿。前身为 notion-infographic（v2）并吸收 ppt-designer 的设计原则。不用于：pptx 文件的纯技术操作（拆分/合并/提取，用宿主 pptx skill）、演讲稿或文章本体的写作（用 wechat-article-writer）、需要先做研究的内容调研（先走 deep-research 再回来）、单张海报或 logo 设计。
 ---

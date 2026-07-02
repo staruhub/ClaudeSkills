@@ -4,9 +4,9 @@
 
 A curated repository of unpacked Claude Code skills. This repo keeps normalized in-house skills under `skills/` and preserves selected upstream imports when they are synced in their original layout.
 
-## ✳️ Fable 5 Refactor — Certified 2026-07-02
+## ✳️ Fable 5 Refactor — Self-Audit Report (Skill Quality Standard v1.0), 2026-07-02
 
-Every curated skill in this repo was audited and rebuilt by **Claude Fable 5** against a single **Skill Quality Standard v1.0**. This is the "certificate": what the standard guarantees, and what changed to meet it.
+Every curated skill in this repo was audited and rebuilt by **Claude Fable 5** against a single **Skill Quality Standard v1.0**. This is a *self-audit* (not a third-party certification): what the standard guarantees, and what changed to meet it. Reproduce the gate with `python3 scripts/validate.py` and `python3 scripts/run_routing_evals.py` — both should print `L1 PASS`.
 
 **What every skill now guarantees**
 
@@ -22,7 +22,7 @@ Every curated skill in this repo was audited and rebuilt by **Claude Fable 5** a
 | Area | Change |
 |------|--------|
 | Merge | `notion-infographic` + `ppt-designer` → **`deck-studio`** (v3): a full PPT-production agent (scene → style library of 13 styles → outline → page schema → deck or per-page visuals). Old dirs removed; v2 assets kept under `references/v2-pipeline/`. |
-| Refactor | All 20 skills converged on Quality Standard v1.0 (三件套: acceptance criteria / boundaries / pitfalls). `deep-research` 8.0 → 8.1.1. |
+| Refactor | All 19 curated skills (plus the upstream-synced `llm-wiki`) converged on Quality Standard v1.0 (三件套: acceptance criteria / boundaries / pitfalls). `deep-research` 8.0 → 8.1.1. |
 | Script fixes | Behavior aligned with documented safety promises — `c-drive-cleaner` system-dir protection; `a-share-analyst` de-directivized output + ST filtering; `security-audit` secret redaction, CVE-table baseline disclaimer, and reduced-coverage declaration. |
 | Tooling | New `scripts/validate.py` (structural L1 assertions) and `scripts/run_routing_evals.py` (routing eval schema + consistency). Both must print `L1 PASS`. |
 
@@ -44,7 +44,7 @@ Four flagship skills, each an end-to-end workflow rather than a single prompt:
 - Curated skills live in `skills/Geek-skills-xxx/`.
 - Each skill is kept as an unpacked directory with `SKILL.md` as the required entrypoint.
 - Supporting material is split into `references/`, `assets/`, `scripts/`, and optional `evals/`.
-- The README skill tables use short display names; the actual slash command comes from each `SKILL.md` frontmatter `name` field.
+- The README skill tables use short display names. Per Claude Code's rules, the slash command comes from the **installed directory name**, not the frontmatter `name` (which is only the display label shown in skill listings; the plugin-root `SKILL.md` is the sole exception).
 - Last download-folder sync: 2026-04-21, covering existing matching skills only.
 - 2026-07-02: Fable 5 refactor (see the section above and [CHANGELOG.md](CHANGELOG.md)).
 
@@ -52,12 +52,12 @@ Four flagship skills, each an end-to-end workflow rather than a single prompt:
 
 Claude Code skills are directory-based: each skill needs a `SKILL.md` entrypoint and can include supporting files such as references, templates, examples, and scripts. The official guidance is to keep `SKILL.md` focused, reference supporting files from it, and move large details out of the entrypoint.
 
-1. Pick a skill directory from this repository.
-2. Copy the whole directory into one of these locations:
-   - Personal: `~/.claude/skills/<skill-name>/`
-   - Project: `.claude/skills/<skill-name>/`
-3. Keep `SKILL.md` and its supporting files in the same directory.
-4. Invoke the skill by the `name` declared in `SKILL.md`, for example `/deep-research`.
+1. Pick a skill directory from this repository (e.g. `skills/Geek-skills-deep-research`).
+2. Copy it **and rename it to the command you want** — the installed directory name *is* the slash command:
+   - Personal: `cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research`
+   - Project: `cp -r skills/Geek-skills-deep-research .claude/skills/deep-research`
+3. Keep `SKILL.md` and its supporting files together in that directory.
+4. Invoke it by the target directory name, e.g. `/deep-research`. (If you copy without renaming, the command becomes `/Geek-skills-deep-research`.) Claude also auto-loads a skill when its `description` matches — `/command` is just the explicit way to invoke it.
 
 ## Repository Layout
 
@@ -175,9 +175,9 @@ MIT
 
 这是一个以“解包目录”形式维护的 Claude Code skills 仓库。仓库会把自维护技能统一放在 `skills/` 下，同时在必要时保留少量上游技能的原始目录结构。
 
-## ✳️ Fable 5 重构认证 — 2026-07-02
+## ✳️ Fable 5 重构 — 自审报告（Skill 质量标准 v1.0），2026-07-02
 
-本仓库全部自维护 skill 由 **Claude Fable 5** 按统一的 **Skill 质量标准 v1.0** 逐个审计并重构。这份"认证"说明两件事：标准保证了什么，以及为达标改了什么。
+本仓库全部自维护 skill 由 **Claude Fable 5** 按统一的 **Skill 质量标准 v1.0** 逐个审计并重构。这是一次*自审*（非第三方认证），说明两件事：标准保证了什么，以及为达标改了什么。可用 `python3 scripts/validate.py` 与 `python3 scripts/run_routing_evals.py` 复现校验，两者都应打印 `L1 PASS`。
 
 **每个 skill 现在保证**
 
@@ -193,7 +193,7 @@ MIT
 | 方面 | 改动 |
 |------|------|
 | 合并 | `notion-infographic` + `ppt-designer` → **`deck-studio`**（v3）：完整的 PPT 生产 Agent（场景 → 13 个风格库 → 大纲 → 页面语法 → 内容稿或逐页视觉图）。旧目录移除，v2 资产保留在 `references/v2-pipeline/`。 |
-| 重构 | 20 个 skill 全部统一到质量标准 v1.0（三件套：验收标准 / 边界 / 陷阱）。`deep-research` 8.0 → 8.1.1。 |
+| 重构 | 19 个自维护 skill（外加上游同步的 `llm-wiki`）统一到质量标准 v1.0（三件套：验收标准 / 边界 / 陷阱）。`deep-research` 8.0 → 8.1.1。 |
 | 脚本修复 | 让代码行为兑现文档承诺——`c-drive-cleaner` 系统目录保护；`a-share-analyst` 去指令化 + ST 过滤；`security-audit` 密钥脱敏、CVE 表基线声明、覆盖范围缩窄声明。 |
 | 工具链 | 新增 `scripts/validate.py`（结构断言）与 `scripts/run_routing_evals.py`（路由 eval 校验）。两者都必须打印 `L1 PASS`。 |
 
@@ -215,7 +215,7 @@ MIT
 - 自维护技能统一放在 `skills/Geek-skills-xxx/`。
 - 每个 skill 都以解包目录形式保存，`SKILL.md` 是必需入口。
 - 支持资料按用途拆到 `references/`、`assets/`、`scripts/` 和可选的 `evals/`。
-- README 表格中的技能名是短展示名；真正的 slash command 以对应 `SKILL.md` frontmatter 里的 `name` 为准。
+- README 表格里的技能名是短展示名。按 Claude Code 官方规则，slash command 来自**安装后的目录名**，而非 frontmatter 的 `name`（`name` 只是技能列表里的显示标签；唯一例外是 plugin 根目录的 `SKILL.md`）。
 - 最近一次按下载目录同步：2026-04-21，只更新仓库中已有的匹配技能。
 - 2026-07-02：Fable 5 重构（见上方板块与 [CHANGELOG.md](CHANGELOG.md)）。
 
@@ -223,12 +223,12 @@ MIT
 
 Claude Code 的 skill 以目录为单位组织：每个 skill 至少包含一个 `SKILL.md` 入口文件，并可按需附带参考资料、模板、示例或脚本。官方建议让 `SKILL.md` 保持聚焦，从入口文件引用 supporting files，并把大块细节拆到单独文件。
 
-1. 从本仓库选择一个 skill 目录。
-2. 将整个目录复制到以下任一位置：
-   - 个人级：`~/.claude/skills/<skill-name>/`
-   - 项目级：`.claude/skills/<skill-name>/`
-3. 保持 `SKILL.md` 与 supporting files 在同一个目录内。
-4. 调用时使用 `SKILL.md` 中声明的 `name`，例如 `/deep-research`。
+1. 从本仓库选择一个 skill 目录（例如 `skills/Geek-skills-deep-research`）。
+2. 复制并**重命名成你想要的命令**——安装后的目录名就是 slash command：
+   - 个人级：`cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research`
+   - 项目级：`cp -r skills/Geek-skills-deep-research .claude/skills/deep-research`
+3. 保持 `SKILL.md` 与 supporting files 在同一目录内。
+4. 用目标目录名调用，例如 `/deep-research`。（若不改名直接复制，命令则是 `/Geek-skills-deep-research`。）Claude 也会在 `description` 匹配时自动加载该 skill，`/命令` 只是显式调用方式之一。
 
 ## 仓库结构
 

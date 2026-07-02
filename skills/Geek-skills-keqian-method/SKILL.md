@@ -1,5 +1,5 @@
 ---
-name: Geek-skills-keqian-method
+name: keqian-method
 version: 1.1.0
 description: 胥克谦式AI-Native产品开发方法论。适用于：(1) 使用AI Agent（Claude Code、Codex、Cursor等）进行产品级软件开发，(2) 设计和优化Harness/Skill体系，(3) 文档驱动开发(SDD)流程，(4) 构建自动化质量门禁和eval机制，(5) Token成本优化与缓存策略，(6) 产品人转型开发者的AI编程实践。触发场景包括"帮我设计开发流程"、"怎么降低token成本"、"怎么提高AI编码质量"、"文档驱动"、"质量门禁"、"harness设计"、"单agent vs multi-agent"、"自动化迭代"、"AI产品开发"、"SDD"、"eval机制"等。即使用户只是说"帮我用AI写代码"或"怎么让agent干活更靠谱"也应触发。注意：如果产品是行为开放、用户输入不可穷举的AI-native类型，请改用 xuefeng-method skill。不用于：单个bug修复或小改动（无需方法论）、PRD需求文档写作（用product-manager）。
 ---

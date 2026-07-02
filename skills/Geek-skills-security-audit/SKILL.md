@@ -1,5 +1,5 @@
 ---
-name: Geek-skills-security-audit
+name: security-audit
 version: 1.1.0
 description: 全面的代码安全检查和服务器安全审计skill。适用于：(1) 代码漏洞扫描 - 检测SQL注入、XSS、SSRF等OWASP Top 10漏洞，(2) 依赖安全检查 - 识别过时或有漏洞的第三方库，结合实时搜索确认最新CVE，(3) 服务器配置审计 - 检查SSH、防火墙、权限等安全配置，(4) 敏感信息泄露检测 - API密钥、密码、令牌等硬编码检测，(5) 容器安全扫描 - Docker镜像和Kubernetes配置审计，(6) CI/CD安全检查。触发关键词："安全检查"、"漏洞扫描"、"代码审计"、"security audit"、"vulnerability scan"、"SAST"、"dependency check"、"CVE检测"等。不用于：修复单个已定位的bug、编写新的安全功能代码、对无授权的第三方系统做扫描或渗透测试。
 ---
@@ -67,7 +67,9 @@ python3 /path/to/skill/scripts/full_scan.py /path/to/project
 
 框架级 RCE 层出不穷（React/Next.js 等生态近年多次爆出），检查依赖前先 web search 该框架当年的 CVE 列表。
 
-### 2. OWASP Top 10 2024
+### 2. OWASP Top 10（以官方当前版本为准）
+
+> 运行时先 web search 确认当前版本（现行为 2025 版）；无法联网时使用下面这份记录时点的离线清单，并在报告中标注可能过时。以下条目为通用类别参考：
 
 - **A01**: Broken Access Control - 访问控制缺陷
 - **A02**: Cryptographic Failures - 加密失败

@@ -1,5 +1,5 @@
 ---
-name: Geek-skills-solution-architect
+name: solution-architect
 version: 1.1.0
 description: 解决方案架构师助手。当用户要设计新系统架构、评审现有架构、做技术选型决策、诊断性能/可扩展性/可用性问题、规划架构演进或重构时使用。覆盖微服务、事件驱动、云原生等架构模式，技术趋势通过实时搜索获取而非依赖内置知识。不用于：具体功能的代码实现、安全漏洞审计（用security-audit）、产品需求分析（用product-manager）、只需一句话回答的技术常识问题。
 ---
