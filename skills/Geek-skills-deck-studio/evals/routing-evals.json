@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ds-01",
+    "prompt": "帮我做一套 15 页的产品路演 PPT，下周见投资人用。",
+    "should_trigger": true,
+    "expected_mode": "content",
+    "reason": "explicit deck creation for pitch"
+  },
+  {
+    "id": "ds-02",
+    "prompt": "把这份大纲做成培训课件的幻灯片。",
+    "should_trigger": true,
+    "expected_mode": "content",
+    "reason": "outline to training slides"
+  },
+  {
+    "id": "ds-03",
+    "prompt": "用图像模型帮我把这个方案一页一页画成好看的视觉稿。",
+    "should_trigger": true,
+    "expected_mode": "visual",
+    "reason": "per-page visual generation, mode C"
+  },
+  {
+    "id": "ds-04",
+    "prompt": "我还没想清楚讲什么，先帮我出个 PPT 大纲看看结构。",
+    "should_trigger": true,
+    "expected_mode": "outline",
+    "reason": "structure-first request, mode A stops at outline"
+  },
+  {
+    "id": "ds-05",
+    "prompt": "把这篇文章做成一组小红书风格的图。",
+    "should_trigger": true,
+    "expected_mode": "visual",
+    "reason": "infographic card set, absorbed from notion-infographic; mirrors wcw-05 / rt-17"
+  },
+  {
+    "id": "ds-06",
+    "prompt": "直接用图片模型画 10 页 PPT，别啰嗦大纲了。",
+    "should_trigger": true,
+    "expected_mode": "visual",
+    "reason": "triggers mode C, but iron rule requires outline first — behavioral assertion checked in L2 output evals"
+  },
+  {
+    "id": "ds-07",
+    "prompt": "把这个 pptx 文件拆成两个，前 10 页一个后 10 页一个。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "pure pptx file operation, host pptx skill territory"
+  },
+  {
+    "id": "ds-08",
+    "prompt": "帮我写一篇公众号文章介绍这次发布会。",
+    "should_trigger": false,
+    "route_to": "wechat-article-writer",
+    "reason": "prose writing, not deck production"
+  },
+  {
+    "id": "ds-09",
+    "prompt": "先帮我调研一下这个市场的竞品格局，输出带引用的报告。",
+    "should_trigger": false,
+    "route_to": "deep-research",
+    "reason": "research first; deck production may follow later"
+  },
+  {
+    "id": "ds-10",
+    "prompt": "帮我把年终总结弄得好看一点。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "两可：未说明是文档还是 PPT。倾向触发并在 Step 2 追问载体；若用户答'Word 文档'则移交"
+  }
+]

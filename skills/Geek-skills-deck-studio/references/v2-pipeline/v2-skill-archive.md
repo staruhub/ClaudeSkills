@@ -82,7 +82,7 @@ Lead Agent (你 — 永远不搜索)
 
 Lead Agent 将用户大纲拆解为 3-6 个研究任务。每个任务分配一个专家角色。
 
-**Read `reference/subagent-prompt.md` for the prompt template.**
+**Read `references/subagent-prompt.md` for the prompt template.**
 
 ### 任务板格式
 
@@ -149,13 +149,13 @@ Lead Agent 阅读所有研究笔记，执行:
 
 ## P3: 设计决策
 
-**Read `reference/design-system.md` for the complete design system.**
+**Read `references/design-system.md` for the complete design system.**
 
 这是 V2 的核心升级点 — 把美学决策系统化而不是凭感觉。
 
 ### 3.1 选择配色方案
 
-**Read `reference/design-system.md` → Color Palette Reference**
+**Read `references/design-system.md` → Color Palette Reference**
 
 根据主题和受众选择配色：
 
@@ -216,99 +216,17 @@ Lead Agent 阅读所有研究笔记，执行:
 
 ### Mode A: PPTX (PptxGenJS)
 
-**Read `reference/pptx-generation.md` for complete PptxGenJS guidance.**
+**Read `references/pptx-generation.md` for complete PptxGenJS guidance.**
 
-#### 技术约束
-
-| 项目 | 值 |
-|------|---|
-| **尺寸** | 10" x 5.625" (LAYOUT_16x9) |
-| **颜色** | 6位hex不带# (如 `"FF0000"`) |
-| **英文字体** | Arial (默认) |
-| **中文字体** | Microsoft YaHei (微软雅黑) |
-| **页码位置** | x: 9.3", y: 5.1" |
-| **Theme keys** | `primary`, `secondary`, `accent`, `light`, `bg` |
-
-#### 工作流
-
-1. 创建 `slides/` 目录
-2. 每页一个 JS 文件: `slide-01.js`, `slide-02.js`, ...
-3. 每个文件 export 同步 `createSlide(pres, theme)` 函数
-4. 创建 `slides/compile.js` 编排所有页
-5. 运行 `cd slides && node compile.js`
-6. 输出 `slides/output/presentation.pptx`
-
-#### Theme Object Contract (强制)
-
-```javascript
-const theme = {
-  primary: "22223b",    // 最深色，标题
-  secondary: "4a4e69",  // 深色辅助，正文
-  accent: "9a8c98",     // 中间色调强调
-  light: "c9ada7",      // 浅色辅助
-  bg: "f2e9e4"          // 背景色
-};
-```
-
-**绝对不要**使用其他 key name 如 `background`, `text`, `muted`, `darkest`。
-
-#### Slide 文件模板
-
-```javascript
-// slide-XX.js
-const slideConfig = {
-  type: 'content',  // cover | toc | section | content | summary
-  index: 2,
-  title: 'Slide Title'
-};
-
-function createSlide(pres, theme) {
-  const slide = pres.addSlide();
-  slide.background = { color: theme.bg };
-  // ... 构建页面内容
-  return slide;
-}
-
-if (require.main === module) {
-  const pptxgen = require("pptxgenjs");
-  const pres = new pptxgen();
-  pres.layout = 'LAYOUT_16x9';
-  const theme = { primary:"22223b", secondary:"4a4e69",
-                   accent:"9a8c98", light:"c9ada7", bg:"f2e9e4" };
-  createSlide(pres, theme);
-  pres.writeFile({ fileName: `slide-${String(slideConfig.index).padStart(2,'0')}-preview.pptx` });
-}
-
-module.exports = { createSlide, slideConfig };
-```
-
-#### 页码徽章 (Cover 页除外必须有)
-
-```javascript
-// Circle Badge (默认)
-slide.addShape(pres.shapes.OVAL, {
-  x: 9.3, y: 5.1, w: 0.4, h: 0.4,
-  fill: { color: theme.accent }
-});
-slide.addText("3", {
-  x: 9.3, y: 5.1, w: 0.4, h: 0.4,
-  fontSize: 12, fontFace: "Arial",
-  color: "FFFFFF", bold: true,
-  align: "center", valign: "middle"
-});
-```
-
-#### PptxGenJS 关键陷阱
-
-- **绝不复用选项对象** — PptxGenJS 会原地修改对象(如 shadow 值转 EMU)。用工厂函数生成新对象。
-- **createSlide 必须同步** — 不能是 async function
-- **颜色不带 #** — `"FF0000"` 不是 `"#FF0000"`
-- **正文不加粗** — bold 只用于标题和 heading
-- **只用 theme 里的颜色** — 不要自己发明颜色
+执行时只保留这 4 条入口约束：
+1. 每页一个 `slide-XX.js`，导出同步 `createSlide(pres, theme)`。
+2. `theme` 只能使用 `primary/secondary/accent/light/bg`。
+3. Cover 外每页必须有固定页码徽章。
+4. 生成后运行 `cd slides && node compile.js`，输出 `slides/output/presentation.pptx`。
 
 ### Mode B: 信息图提示词
 
-**Read `reference/style-guide.md` for style specifications.**
+**Read `references/style-guide.md` for style specifications.**
 
 每张图的提示词 = 风格前缀 + 内容描述 + 风格后缀
 
@@ -350,38 +268,9 @@ slide.addText("3", {
 
 ---
 
-## 美学设计原则 (Aesthetic Design Codex)
+## 美学设计原则
 
-这些原则同时约束 Mode A 和 Mode B 的视觉输出。
-
-### 核心六律
-
-1. **一页一观点** — 每页/每图只传达一个核心信息。如果要说两件事，就用两页。
-2. **留白即呼吸** — 最少 30% 面积留白。不要把内容撑满每个角落。眼睛需要休息的地方。
-3. **层次即导航** — 用字号、颜色、位置建立信息层级。观者应 2 秒内知道先看什么。
-4. **对比即注意力** — 相邻元素字号差 ≥20%。标题至少是正文的 2-3 倍。
-5. **一致即专业** — 同一演示/组图内：配色、字体、间距、风格保持统一。
-6. **多样即节奏** — 连续页不重复相同布局。通过版式变化创造视觉节奏感。
-
-### 排版铁律
-
-| 规则 | 说明 |
-|------|------|
-| 字体 ≤ 2 种 | 标题/正文各一种，不要混搭三种以上 |
-| 配色 ≤ 5 色 | 使用设计系统中的配色方案 |
-| 关键词不超过 6 词/行 | 6×6 规则：每张不超过 6 个要点，每行不超过 6 词 |
-| 对齐方式统一 | 左对齐或居中，不要混用 |
-| 元素间距一致 | 相关元素近，无关元素远 (Proximity) |
-
-### 2025-2026 视觉趋势
-
-可在设计决策阶段参考引入：
-- **大标题时代** — 大胆夸张的标题字号，快速抓住注意力
-- **极简美学** — 柔和配色 + 大量留白 + 清爽版式
-- **深色模式** — 深色背景+亮色强调，适合科技和夜经济主题
-- **流动形状** — 椭圆、圆形代替传统矩形块，创造有机感
-- **涂鸦信息图** — 手绘风格的图表和图标，增加亲和力
-- **莫兰迪色系** — 低饱和雾面感，适合时尚/艺术/高端品牌
+设计决策阶段阅读 `references/aesthetic-design.md`。入口文件只保留执行流程；长参考规则集中放入 references。
 
 ---
 
