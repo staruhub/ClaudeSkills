@@ -2,6 +2,19 @@
 
 本仓库遵循语义化的变更记录。日期为 `YYYY-MM-DD`（本地时区）。
 
+## [P1 产品化] — 2026-07-03
+
+把发布/安装链路从"看 README 手动复制"升级为可自动化、可一键安装。
+
+### 新增
+
+- **CI**：`.github/workflows/validate.yml` 在每次 push / PR 上跑两个 L1 gate（`validate.py`、
+  `run_routing_evals.py`）+ 全量脚本编译检查 + AppleDouble 追踪检查。README 顶部加 CI badge。
+- **一键安装脚本**：`scripts/install_skill.py <name>` 以**干净命令名**（去 `Geek-skills-` 前缀）
+  把 skill 装到 `~/.claude/skills/<name>/` 或（`--project`）`./.claude/skills/<name>/`，`/deep-research`
+  直接可用；支持 `--list / --force / --dry-run`，自动忽略 `__pycache__`。相比 `dist/` 方案，
+  不产生重复入库的中间产物。README 安装章节改为"脚本安装（推荐）+ 手动"两条路径。
+
 ## [外部评审修复 P0] — 2026-07-03
 
 针对一次外部评审的 P0 反馈，修正安装/调用链路的事实性错误（均已用 Claude Code 官方文档核验）。

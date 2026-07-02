@@ -25,6 +25,9 @@ Most changes are content edits to skill files. Two canonical checks exist:
 
 - `python3 scripts/validate.py` — structural L1 assertions for every curated skill (frontmatter, line caps, 三件套 sections, orphan files, platform-path/CVE hardcoding). Run before publishing any skill change.
 - `python3 scripts/run_routing_evals.py` — validates all `evals/routing-evals.json` files (schema, global id uniqueness, route_to targets, cross-skill prompt conflicts). Add `--emit-prompts` to produce an agent-based L2 routing test bundle. Run after changing any skill `description`.
+- `python3 scripts/install_skill.py <name>` — install a skill under a clean command name (`--list`, `--project`, `--force`, `--dry-run`).
+
+CI (`.github/workflows/validate.yml`) runs the two L1 gates plus a script compile-check on every push and PR.
 
 ## Coding Style & Naming Conventions
 - Prefer ASCII in `SKILL.md` files unless non-ASCII is required by the skill content.

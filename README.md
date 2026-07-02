@@ -1,5 +1,7 @@
 # Geek Skills
 
+[![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
+
 [English](#english) | [中文](#中文)
 
 A curated repository of unpacked Claude Code skills. This repo keeps normalized in-house skills under `skills/` and preserves selected upstream imports when they are synced in their original layout.
@@ -52,12 +54,20 @@ Four flagship skills, each an end-to-end workflow rather than a single prompt:
 
 Claude Code skills are directory-based: each skill needs a `SKILL.md` entrypoint and can include supporting files such as references, templates, examples, and scripts. The official guidance is to keep `SKILL.md` focused, reference supporting files from it, and move large details out of the entrypoint.
 
-1. Pick a skill directory from this repository (e.g. `skills/Geek-skills-deep-research`).
-2. Copy it **and rename it to the command you want** — the installed directory name *is* the slash command:
-   - Personal: `cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research`
-   - Project: `cp -r skills/Geek-skills-deep-research .claude/skills/deep-research`
+**Quickest — the installer (recommended):** it copies the skill under a clean command name (prefix stripped), so `/deep-research` just works.
+
+```bash
+python3 scripts/install_skill.py --list            # see installable names
+python3 scripts/install_skill.py deep-research      # -> ~/.claude/skills/deep-research  (command: /deep-research)
+python3 scripts/install_skill.py deep-research --project   # -> ./.claude/skills/deep-research
+```
+
+**Manual:** the installed directory name *is* the slash command, so copy-and-rename.
+
+1. Pick a skill directory (e.g. `skills/Geek-skills-deep-research`).
+2. `cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research` (Personal) or `.claude/skills/deep-research` (Project).
 3. Keep `SKILL.md` and its supporting files together in that directory.
-4. Invoke it by the target directory name, e.g. `/deep-research`. (If you copy without renaming, the command becomes `/Geek-skills-deep-research`.) Claude also auto-loads a skill when its `description` matches — `/command` is just the explicit way to invoke it.
+4. Invoke by the target directory name, e.g. `/deep-research`. (Copy without renaming → the command is `/Geek-skills-deep-research`.) Claude also auto-loads a skill when its `description` matches — `/command` is just the explicit way to invoke it.
 
 ## Repository Layout
 
@@ -223,12 +233,20 @@ MIT
 
 Claude Code 的 skill 以目录为单位组织：每个 skill 至少包含一个 `SKILL.md` 入口文件，并可按需附带参考资料、模板、示例或脚本。官方建议让 `SKILL.md` 保持聚焦，从入口文件引用 supporting files，并把大块细节拆到单独文件。
 
-1. 从本仓库选择一个 skill 目录（例如 `skills/Geek-skills-deep-research`）。
-2. 复制并**重命名成你想要的命令**——安装后的目录名就是 slash command：
-   - 个人级：`cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research`
-   - 项目级：`cp -r skills/Geek-skills-deep-research .claude/skills/deep-research`
+**最快——用安装脚本（推荐）：** 它会以干净的命令名（去掉前缀）复制 skill，`/deep-research` 直接可用。
+
+```bash
+python3 scripts/install_skill.py --list            # 查看可安装的名字
+python3 scripts/install_skill.py deep-research      # -> ~/.claude/skills/deep-research（命令：/deep-research）
+python3 scripts/install_skill.py deep-research --project   # -> ./.claude/skills/deep-research
+```
+
+**手动：** 安装后的目录名就是 slash command，所以复制时改名。
+
+1. 选一个 skill 目录（例如 `skills/Geek-skills-deep-research`）。
+2. `cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research`（个人级）或 `.claude/skills/deep-research`（项目级）。
 3. 保持 `SKILL.md` 与 supporting files 在同一目录内。
-4. 用目标目录名调用，例如 `/deep-research`。（若不改名直接复制，命令则是 `/Geek-skills-deep-research`。）Claude 也会在 `description` 匹配时自动加载该 skill，`/命令` 只是显式调用方式之一。
+4. 用目标目录名调用，例如 `/deep-research`。（不改名直接复制 → 命令是 `/Geek-skills-deep-research`。）Claude 也会在 `description` 匹配时自动加载，`/命令` 只是显式调用方式之一。
 
 ## 仓库结构
 

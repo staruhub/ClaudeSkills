@@ -1,0 +1,35 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  l1-gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Structural assertions (validate.py)
+        run: python3 scripts/validate.py
+
+      - name: Routing eval consistency (run_routing_evals.py)
+        run: python3 scripts/run_routing_evals.py
+
+      - name: Compile-check all skill scripts
+        run: |
+          fail=0
+          while IFS= read -r f; do
+            python3 -m py_compile "$f" || { echo "compile failed: $f"; fail=1; }
+          done < <(find skills -name '*.py' -not -path '*__pycache__*')
+          exit $fail
+
+      - name: No AppleDouble metadata tracked
+        run: |
+          if git ls-files | grep -E '(^|/)\._'; then
+            echo "AppleDouble files are tracked"; exit 1
+          fi
