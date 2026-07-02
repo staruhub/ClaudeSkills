@@ -11,6 +11,7 @@ A curated repository of unpacked Claude Code skills. This repo keeps normalized 
 - Supporting material is split into `references/`, `assets/`, `scripts/`, and optional `evals/`.
 - The README skill tables use short display names; the actual slash command comes from each `SKILL.md` frontmatter `name` field.
 - Last download-folder sync: 2026-04-21, covering existing matching skills only.
+- 2026-07-02: `notion-infographic` and `ppt-designer` merged into `deck-studio` (v3); old directories removed, v2 assets preserved under `references/v2-pipeline/`.
 
 ## Install in Claude Code
 
@@ -69,9 +70,11 @@ Before publishing, run lightweight checks:
 git status --short
 find skills llm-wiki -name SKILL.md | sort
 git ls-files | rg '(^|/)\._'
+python3 scripts/validate.py            # structural assertions for every skill
+python3 scripts/run_routing_evals.py   # routing eval schema + consistency
 ```
 
-The last command should produce no output. This confirms AppleDouble metadata files are not tracked.
+The `rg` command should produce no output (confirms AppleDouble files are not tracked); the two Python checks should both end with `L1 PASS`.
 
 ## Curated Skills
 
@@ -98,8 +101,7 @@ The last command should produce no output. This confirms AppleDouble metadata fi
 |-------|------|-------------|
 | `product-manager` | [skills/Geek-skills-product-manager](skills/Geek-skills-product-manager/SKILL.md) | PRD writing, requirement analysis, and product strategy |
 | `wechat-article-writer` | [skills/Geek-skills-wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | Multi-style WeChat article writing |
-| `ppt-designer` | [skills/Geek-skills-ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | PPT structure, layout, and visual hierarchy |
-| `notion-infographic` | [skills/Geek-skills-notion-infographic](skills/Geek-skills-notion-infographic/SKILL.md) | Outline → PPTX or Notion-style infographic prompts (v2 pipeline) |
+| `deck-studio` | [skills/Geek-skills-deck-studio](skills/Geek-skills-deck-studio/SKILL.md) | PPT production agent: scene → style library → outline → page schema → deck or per-page visuals (v3; merges `notion-infographic` + `ppt-designer`) |
 | `podcast-generator` | [skills/Geek-skills-podcast-generator](skills/Geek-skills-podcast-generator/SKILL.md) | Volcano Engine dual-speaker AI podcast generator |
 
 ### Tools & Utilities
@@ -145,6 +147,7 @@ MIT
 - 支持资料按用途拆到 `references/`、`assets/`、`scripts/` 和可选的 `evals/`。
 - README 表格中的技能名是短展示名；真正的 slash command 以对应 `SKILL.md` frontmatter 里的 `name` 为准。
 - 最近一次按下载目录同步：2026-04-21，只更新仓库中已有的匹配技能。
+- 2026-07-02：`notion-infographic` 与 `ppt-designer` 合并为 `deck-studio`（v3）；旧目录已移除，v2 资产保留在 `references/v2-pipeline/`。
 
 ## 在 Claude Code 中安装
 
@@ -203,9 +206,11 @@ Claude Code 的 skill 以目录为单位组织：每个 skill 至少包含一个
 git status --short
 find skills llm-wiki -name SKILL.md | sort
 git ls-files | rg '(^|/)\._'
+python3 scripts/validate.py            # 全部 skill 的结构断言
+python3 scripts/run_routing_evals.py   # 路由 evals 格式与一致性
 ```
 
-最后一条命令应当没有输出，用来确认 AppleDouble 元数据文件没有被 Git 跟踪。
+`rg` 那条应当没有输出（确认 AppleDouble 文件未被跟踪）；两条 Python 检查都应以 `L1 PASS` 结尾。
 
 ## 自维护技能
 
@@ -232,8 +237,7 @@ git ls-files | rg '(^|/)\._'
 |------|------|------|
 | `product-manager` | [skills/Geek-skills-product-manager](skills/Geek-skills-product-manager/SKILL.md) | PRD 创作、需求分析与产品策略 |
 | `wechat-article-writer` | [skills/Geek-skills-wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | 多风格微信公众号文章创作 |
-| `ppt-designer` | [skills/Geek-skills-ppt-designer](skills/Geek-skills-ppt-designer/SKILL.md) | PPT 结构设计、排版与视觉层次 |
-| `notion-infographic` | [skills/Geek-skills-notion-infographic](skills/Geek-skills-notion-infographic/SKILL.md) | 大纲 → PPTX 或 Notion 手绘风信息图（v2 Pipeline） |
+| `deck-studio` | [skills/Geek-skills-deck-studio](skills/Geek-skills-deck-studio/SKILL.md) | PPT 生产 Agent：场景识别 → 风格库 → 大纲 → 页面语法 → 内容稿或逐页视觉图（v3，合并自 `notion-infographic` + `ppt-designer`） |
 | `podcast-generator` | [skills/Geek-skills-podcast-generator](skills/Geek-skills-podcast-generator/SKILL.md) | 火山引擎双人 AI 播客生成 |
 
 ### 工具与效率
