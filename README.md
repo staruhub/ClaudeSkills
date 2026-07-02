@@ -28,6 +28,17 @@ Every curated skill in this repo was audited and rebuilt by **Claude Fable 5** a
 
 Full record: **[CHANGELOG.md](CHANGELOG.md)**.
 
+## ⭐ Featured Skills
+
+Four flagship skills, each an end-to-end workflow rather than a single prompt:
+
+| Skill | What it does | Reach for it when |
+|-------|--------------|-------------------|
+| 🔬 **[deep-research](skills/Geek-skills-deep-research/SKILL.md)** (v8.1) | Evidence-based research pipeline: scoped plan → parallel investigation → verified citations → decision brief. Single-agent by default, fans out only when it pays off; ships with evals and a degraded mode. | You need a cited memo, literature review, market/tech landscape, or a decision brief — not a quick lookup. |
+| 🎞️ **[deck-studio](skills/Geek-skills-deck-studio/SKILL.md)** (v3) | PPT production agent: scene → recommend from a 13-style library → outline → page schema → deck content **or** per-page visual images. Iron rule: outline first, visuals second. | Making a report, pitch, course, or proposal deck — or turning an outline/article into slides or infographics. |
+| 📋 **[product-manager](skills/Geek-skills-product-manager/SKILL.md)** | Senior PM: PRD authoring & review, retention/growth diagnosis, competitive research, feature prioritization — framework-driven, with "dev can start from this" acceptance bars. | Writing/reviewing a PRD, diagnosing low retention, or prioritizing features. |
+| ✍️ **[wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md)** | Multi-style WeChat article writing with a built-in anti-translationese (反翻译腔) pass so Chinese long-form reads natively, not machine-translated. | Turning material into a publishable Chinese article (tech blog, product intro, event recap). |
+
 ## Repository Status
 
 - Curated skills live in `skills/Geek-skills-xxx/`.
@@ -187,6 +198,17 @@ MIT
 | 工具链 | 新增 `scripts/validate.py`（结构断言）与 `scripts/run_routing_evals.py`（路由 eval 校验）。两者都必须打印 `L1 PASS`。 |
 
 完整记录见 **[CHANGELOG.md](CHANGELOG.md)**。
+
+## ⭐ 核心推荐
+
+四个旗舰 skill，每个都是端到端的工作流，而不是单条 prompt：
+
+| Skill | 做什么 | 什么时候用 |
+|-------|--------|-----------|
+| 🔬 **[deep-research](skills/Geek-skills-deep-research/SKILL.md)**（v8.1） | 循证研究流水线：定范围 → 并行调查 → 校验引用 → 决策简报。默认单 Agent，值得时才并行；内置 evals 与降级模式。 | 需要带引用的备忘、综述、市场/技术全景或决策简报——而不是快速查一下。 |
+| 🎞️ **[deck-studio](skills/Geek-skills-deck-studio/SKILL.md)**（v3） | PPT 生产 Agent：识别场景 → 从 13 个风格库推荐 → 先出大纲 → 定义页面 → 输出内容稿**或**逐页视觉图。铁律：先大纲后视觉。 | 做汇报/路演/课件/提案的 PPT，或把大纲、文章做成 slides、信息图。 |
+| 📋 **[product-manager](skills/Geek-skills-product-manager/SKILL.md)** | 资深 PM：PRD 创作与评审、留存/增长诊断、竞品研究、功能优先级——框架驱动，验收标准做到"开发照着就能动手"。 | 写/评审 PRD、诊断留存低、给功能排优先级。 |
+| ✍️ **[wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md)** | 多风格公众号文章创作，内置反翻译腔精修，让中文长文读起来是"人写的"而非机翻。 | 把素材写成可发布的中文长文（技术博客、产品介绍、活动回顾）。 |
 
 ## 仓库状态
 
