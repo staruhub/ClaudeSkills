@@ -239,6 +239,17 @@ INCLUDED_EXTENSIONS = {
 }
 
 
+def redact_secret(secret: str) -> str:
+    """脱敏：只暴露长度和首尾各 2 个字符，中间打码。
+    合规原则见 SKILL.md——只报告位置与类型，不回显完整明文。"""
+    if not secret:
+        return ""
+    s = secret.strip()
+    if len(s) <= 8:
+        return f"<redacted len={len(s)}>"
+    return f"{s[:2]}…{s[-2:]} <redacted len={len(s)}>"
+
+
 def is_likely_false_positive(match: str, filepath: str) -> bool:
     """检查是否可能是误报"""
     # 检查是否在测试文件中
@@ -282,7 +293,12 @@ def decode_jwt_preview(token: str) -> str:
             if padding != 4:
                 payload += '=' * padding
             decoded = base64.urlsafe_b64decode(payload)
-            return decoded.decode('utf-8')[:100] + "..."
+            # 只报告 payload 里出现了哪些 claim 键名，不回显具体值（可能含敏感信息）
+            import json as _json
+            claims = _json.loads(decoded.decode('utf-8'))
+            if isinstance(claims, dict):
+                return f"<JWT claims: {', '.join(sorted(claims.keys()))}>"
+            return "<JWT payload present, redacted>"
     except:
         pass
     return ""
@@ -308,12 +324,13 @@ def scan_file(filepath: Path) -> List[Dict]:
                 if is_likely_false_positive(matched_text, str(filepath)):
                     continue
                     
-                # 获取上下文行
+                # 上下文行：把命中的密钥本身脱敏后再保留，避免报告泄露明文
                 if line_start <= len(lines):
-                    context_line = lines[line_start - 1].strip()[:100]
+                    raw_context = lines[line_start - 1].strip()[:100]
+                    context_line = raw_context.replace(matched_text, redact_secret(matched_text))
                 else:
                     context_line = ""
-                    
+
                 finding = {
                     "type": pattern_def.name,
                     "severity": pattern_def.severity,
@@ -321,7 +338,7 @@ def scan_file(filepath: Path) -> List[Dict]:
                     "line": line_start,
                     "description": pattern_def.description,
                     "context": context_line,
-                    "match_preview": matched_text[:50] + "..." if len(matched_text) > 50 else matched_text
+                    "match_preview": redact_secret(matched_text)
                 }
                 
                 # JWT特殊处理

@@ -27,6 +27,17 @@ def safe_remove(path, dry_run=True):
     Returns:
         删除的字节数
     """
+    # 系统关键目录保护:即使清理范围被误配置,也绝不触碰这些路径
+    # 用纯字符串归一化(统一小写+反斜杠),不依赖运行平台的路径解析
+    protected = (
+        'c:\\windows\\system32', 'c:\\windows\\winsxs',
+        'c:\\program files', 'c:\\program files (x86)',
+        'c:\\programdata', 'c:\\windows\\prefetch',
+    )
+    normalized = path.lower().replace('/', '\\').rstrip('\\')
+    if any(normalized == p or normalized.startswith(p + '\\') for p in protected):
+        print(f"  [保护] 跳过系统关键路径: {path}")
+        return 0
     try:
         size = 0
         if os.path.isfile(path):

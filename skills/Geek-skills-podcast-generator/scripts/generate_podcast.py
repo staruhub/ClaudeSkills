@@ -14,6 +14,12 @@ from typing import Optional, Dict, Any
 import websockets
 
 
+MAX_INPUT_TEXT_CHARS = 25000
+MIN_SPEECH_RATE = -50
+MAX_SPEECH_RATE = 100
+DEFAULT_APP_KEY = "aGjiRDfUWi"  # Public fixed header value from the Volcano podcast API docs.
+
+
 class PodcastGenerator:
     """播客生成器类"""
     
@@ -22,7 +28,7 @@ class PodcastGenerator:
         app_id: str,
         access_key: str,
         resource_id: str = "volc.bigmodel.podcaster",
-        app_key: str = "aGjiRDfUWi"
+        app_key: Optional[str] = None
     ):
         """
         初始化播客生成器
@@ -31,13 +37,29 @@ class PodcastGenerator:
             app_id: 火山引擎APP ID
             access_key: 火山引擎Access Token
             resource_id: 资源ID
-            app_key: 固定值
+            app_key: API App Key。默认读取 VOLCANO_PODCAST_APP_KEY；
+                未设置时使用官方文档中的公共固定值。
         """
         self.app_id = app_id
         self.access_key = access_key
         self.resource_id = resource_id
-        self.app_key = app_key
+        self.app_key = app_key or os.getenv("VOLCANO_PODCAST_APP_KEY") or DEFAULT_APP_KEY
         self.url = "wss://openspeech.bytedance.com/api/v3/sami/podcasttts"
+
+    def _validate_generate_args(self, input_text: str, speech_rate: int) -> None:
+        """Fail fast before sending requests that the API will reject or truncate."""
+        if not input_text or not input_text.strip():
+            raise ValueError("input_text must not be empty")
+        if len(input_text) > MAX_INPUT_TEXT_CHARS:
+            raise ValueError(
+                f"input_text must be <= {MAX_INPUT_TEXT_CHARS} characters; "
+                f"got {len(input_text)}"
+            )
+        if not (MIN_SPEECH_RATE <= speech_rate <= MAX_SPEECH_RATE):
+            raise ValueError(
+                f"speech_rate must be between {MIN_SPEECH_RATE} and "
+                f"{MAX_SPEECH_RATE}; got {speech_rate}"
+            )
         
     def _create_header(
         self,
@@ -147,6 +169,8 @@ class PodcastGenerator:
         Returns:
             生成结果信息
         """
+        self._validate_generate_args(input_text, speech_rate)
+
         if input_id is None:
             input_id = str(uuid.uuid4())
         
@@ -314,12 +338,14 @@ async def main():
     parser.add_argument('--sample-rate', type=int, default=24000, help='采样率')
     parser.add_argument('--speech-rate', type=int, default=0, help='语速(-50到100)')
     parser.add_argument('--use-music', action='store_true', help='使用开头音效')
+    parser.add_argument('--app-key', default=None, help='API App Key；默认读取 VOLCANO_PODCAST_APP_KEY 或官方公共固定值')
     
     args = parser.parse_args()
     
     generator = PodcastGenerator(
         app_id=args.app_id,
-        access_key=args.access_key
+        access_key=args.access_key,
+        app_key=args.app_key
     )
     
     result = await generator.generate_podcast(

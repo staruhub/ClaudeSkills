@@ -20,19 +20,26 @@ import json
 import re
 import sys
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 
 def normalize_url(url: str) -> str:
-    """Normalize URL for comparison: lowercase, strip trailing slash, remove fragments."""
-    url = url.strip().rstrip("/").lower()
-    # Remove fragment
-    url = re.sub(r"#.*$", "", url)
-    # Remove common tracking params
-    url = re.sub(r"[?&](utm_\w+|ref|source|fbclid|gclid)=[^&]*", "", url)
-    # Clean up leftover ? or &
-    url = re.sub(r"\?$", "", url)
-    return url
+    """Normalize URL for comparison while preserving valid query syntax."""
+    parsed = urlparse(url.strip().rstrip("/").lower())
+    kept_query = [
+        (key, value)
+        for key, value in parse_qsl(parsed.query, keep_blank_values=True)
+        if not (
+            key.startswith("utm_")
+            or key in {"ref", "source", "fbclid", "gclid"}
+        )
+    ]
+    normalized = parsed._replace(
+        netloc=parsed.netloc.lower(),
+        query=urlencode(kept_query, doseq=True),
+        fragment="",
+    )
+    return urlunparse(normalized).rstrip("/")
 
 
 def get_url_signature(url: str) -> tuple:

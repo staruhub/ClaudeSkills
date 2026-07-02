@@ -30,6 +30,14 @@ def generate_stock_report(symbol: str) -> str:
     if len(stock_spot) == 0:
         return f"未找到股票代码: {symbol}"
     stock_spot = stock_spot.iloc[0]
+
+    # ST/退市/停牌过滤（SKILL.md 陷阱表要求）
+    name = str(stock_spot.get('名称', ''))
+    if any(flag in name for flag in ('ST', '退', '*ST')):
+        return f"{name}({symbol}) 为 ST/退市风险股，本工具不对其出具技术分析，请自行谨慎判断。"
+    turnover = stock_spot.get('换手率', None)
+    if turnover is not None and float(turnover or 0) == 0:
+        return f"{name}({symbol}) 当前疑似停牌（换手率为 0），无有效行情数据。"
     
     # 获取历史K线
     df = ak.stock_zh_a_hist(symbol=symbol, period="daily", adjust="qfq")
@@ -95,39 +103,32 @@ def generate_stock_report(symbol: str) -> str:
 
 """
     
+    # 只做中性分析描述，不给买卖指令（合规边界，见 SKILL.md 验收标准）
     score = analysis['score']['score']
     if score >= 70:
         report += """
-✅ **建议买入**
+**技术面评估：偏多**
 
-当前技术面表现良好，各项指标偏多，可考虑逢低布局。
-
-**注意事项**:
-- 建议分批建仓，控制单只股票仓位不超过20%
-- 设置止损位在支撑位下方3-5%
-- 关注成交量变化，无量上涨需谨慎
+各项技术指标当前整体偏多。以下为中性观察，不构成任何操作指令：
+- 上涨若无成交量配合，持续性存疑
+- 支撑位下方 3-5% 是常见的风险参考区间
+- 单一标的的集中度风险需自行评估
 """
     elif score >= 50:
         report += """
-⚠️ **建议观望**
+**技术面评估：震荡**
 
-当前技术面处于震荡整理阶段，方向不明确。
-
-**注意事项**:
-- 等待趋势明朗后再做决策
-- 关注是否突破关键支撑/阻力位
-- 可设置价格提醒，突破后再介入
+技术面处于震荡整理，方向不明确。以下为中性观察：
+- 关键支撑/阻力位是否被有效突破值得关注
+- 方向未明时的信号可靠性通常较低
 """
     else:
         report += """
-❌ **建议回避**
+**技术面评估：偏弱**
 
-当前技术面偏弱，多项指标发出卖出信号。
-
-**注意事项**:
-- 如持有建议逢高减仓
-- 等待企稳信号出现后再考虑
-- 关注下方支撑位是否有效
+多项技术指标当前偏弱。以下为中性观察：
+- 下方支撑位的有效性需持续跟踪
+- 企稳信号出现前，趋势判断的确定性较低
 """
     
     report += """

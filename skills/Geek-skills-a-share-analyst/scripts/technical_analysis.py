@@ -265,21 +265,21 @@ def technical_score(macd_signal: str, kdj_signal: str, rsi_signal: str,
     elif trend == "下降趋势":
         score -= 15
     
-    # 评级
+    # 技术面强弱描述（中性表述，非买卖评级——合规边界，见 SKILL.md）
     if score >= 80:
-        rating = "强烈买入"
+        rating = "偏多（强）"
         stars = 5
     elif score >= 65:
-        rating = "买入"
+        rating = "偏多"
         stars = 4
     elif score >= 50:
         rating = "中性"
         stars = 3
     elif score >= 35:
-        rating = "卖出"
+        rating = "偏弱"
         stars = 2
     else:
-        rating = "强烈卖出"
+        rating = "偏弱（强）"
         stars = 1
     
     return {

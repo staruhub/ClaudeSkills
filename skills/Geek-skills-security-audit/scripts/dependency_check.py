@@ -12,8 +12,12 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 import re
 
-# 已知高危漏洞版本
-KNOWN_VULNERABLE = {
+# 离线基线漏洞表（BASELINE，非权威、非最新）。
+# 这是一份快速离线预筛清单，仅用于在无网环境给出初步命中；它会过时。
+# 权威结论必须以 pip-audit/npm audit/safety 等工具的实时结果，
+# 或对官方 advisory 的现场搜索为准（与 SKILL.md 的"不维护 CVE 清单"原则一致：
+# 此表是工具，不是清单来源）。命中本表只代表"值得进一步用实时工具确认"。
+KNOWN_VULNERABLE_BASELINE = {
     # React2Shell (CVE-2025-55182)
     "react": {
         "vulnerable": ["19.0.0", "19.1.0", "19.1.1", "19.2.0"],
@@ -103,10 +107,10 @@ def check_npm_dependencies(project_path: Path) -> List[Dict]:
         all_deps.update(pkg.get("dependencies", {}))
         all_deps.update(pkg.get("devDependencies", {}))
         
-        # 检查已知漏洞
+        # 用离线基线表做初步预筛（结果需实时工具/搜索确认，见表头说明）
         for dep_name, dep_version in all_deps.items():
-            if dep_name in KNOWN_VULNERABLE:
-                vuln_info = KNOWN_VULNERABLE[dep_name]
+            if dep_name in KNOWN_VULNERABLE_BASELINE:
+                vuln_info = KNOWN_VULNERABLE_BASELINE[dep_name]
                 is_vulnerable = False
                 
                 # 精确版本匹配
@@ -126,7 +130,9 @@ def check_npm_dependencies(project_path: Path) -> List[Dict]:
                         "version": dep_version,
                         "cve": vuln_info["cve"],
                         "severity": vuln_info["severity"],
-                        "fix": vuln_info["fix"]
+                        "fix": vuln_info["fix"],
+                        "source": "offline-baseline",
+                        "note": "基线预筛命中，请用 pip-audit/npm audit 或官方 advisory 实时确认"
                     })
                     
         # 特殊检查：Next.js版本
