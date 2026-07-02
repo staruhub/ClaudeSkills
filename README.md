@@ -4,6 +4,30 @@
 
 A curated repository of unpacked Claude Code skills. This repo keeps normalized in-house skills under `skills/` and preserves selected upstream imports when they are synced in their original layout.
 
+## ✳️ Fable 5 Refactor — Certified 2026-07-02
+
+Every curated skill in this repo was audited and rebuilt by **Claude Fable 5** against a single **Skill Quality Standard v1.0**. This is the "certificate": what the standard guarantees, and what changed to meet it.
+
+**What every skill now guarantees**
+
+- **Trigger accuracy** — `description` says *when to use* (not *what it is*) and lists explicit negatives so the skill stays out of the way when another one fits.
+- **Checkable acceptance criteria** — a self-check list the agent can answer yes/no before claiming done.
+- **Boundaries** — an explicit "不做什么 / when NOT to use", with hand-offs to sibling skills.
+- **Pitfall tables** — concrete failure modes + fixes, drawn from real traps, not generic advice.
+- **No stale hardcoding** — CVE numbers, years, and platform paths (`/mnt/...`, `/home/claude`) replaced with live-search instructions or relative paths.
+- **Routing evals** — `evals/routing-evals.json` cases proving each skill triggers when it should and defers when it shouldn't.
+
+**What changed in this refactor**
+
+| Area | Change |
+|------|--------|
+| Merge | `notion-infographic` + `ppt-designer` → **`deck-studio`** (v3): a full PPT-production agent (scene → style library of 13 styles → outline → page schema → deck or per-page visuals). Old dirs removed; v2 assets kept under `references/v2-pipeline/`. |
+| Refactor | All 20 skills converged on Quality Standard v1.0 (三件套: acceptance criteria / boundaries / pitfalls). `deep-research` 8.0 → 8.1.1. |
+| Script fixes | Behavior aligned with documented safety promises — `c-drive-cleaner` system-dir protection; `a-share-analyst` de-directivized output + ST filtering; `security-audit` secret redaction, CVE-table baseline disclaimer, and reduced-coverage declaration. |
+| Tooling | New `scripts/validate.py` (structural L1 assertions) and `scripts/run_routing_evals.py` (routing eval schema + consistency). Both must print `L1 PASS`. |
+
+Full record: **[CHANGELOG.md](CHANGELOG.md)**.
+
 ## Repository Status
 
 - Curated skills live in `skills/Geek-skills-xxx/`.
@@ -11,8 +35,7 @@ A curated repository of unpacked Claude Code skills. This repo keeps normalized 
 - Supporting material is split into `references/`, `assets/`, `scripts/`, and optional `evals/`.
 - The README skill tables use short display names; the actual slash command comes from each `SKILL.md` frontmatter `name` field.
 - Last download-folder sync: 2026-04-21, covering existing matching skills only.
-- 2026-07-02: `notion-infographic` and `ppt-designer` merged into `deck-studio` (v3); old directories removed, v2 assets preserved under `references/v2-pipeline/`.
-- 2026-07-02: full-repo quality overhaul (the "Fable 5 refactor") — every skill converged on Skill Quality Standard v1.0 with acceptance criteria, boundaries, pitfall tables, and routing evals. See [CHANGELOG.md](CHANGELOG.md) for the complete record.
+- 2026-07-02: Fable 5 refactor (see the section above and [CHANGELOG.md](CHANGELOG.md)).
 
 ## Install in Claude Code
 
@@ -141,6 +164,30 @@ MIT
 
 这是一个以“解包目录”形式维护的 Claude Code skills 仓库。仓库会把自维护技能统一放在 `skills/` 下，同时在必要时保留少量上游技能的原始目录结构。
 
+## ✳️ Fable 5 重构认证 — 2026-07-02
+
+本仓库全部自维护 skill 由 **Claude Fable 5** 按统一的 **Skill 质量标准 v1.0** 逐个审计并重构。这份"认证"说明两件事：标准保证了什么，以及为达标改了什么。
+
+**每个 skill 现在保证**
+
+- **触发准确**——`description` 写"何时用"而非"是什么"，并列出负触发，别的 skill 更合适时主动让路。
+- **可判定验收标准**——一份 agent 能自答是/否的自查清单，答完才算完成。
+- **能力边界**——明确的"不做什么"，并给出移交给兄弟 skill 的指引。
+- **陷阱表**——来自真实踩坑的失败模式 + 应对，而非泛泛而谈。
+- **无过时硬编码**——写死的 CVE 编号、年份、平台路径（`/mnt/...`、`/home/claude`）改为实时搜索指令或相对路径。
+- **路由 evals**——`evals/routing-evals.json` 用例证明该触发时触发、不该触发时让路。
+
+**本次重构改了什么**
+
+| 方面 | 改动 |
+|------|------|
+| 合并 | `notion-infographic` + `ppt-designer` → **`deck-studio`**（v3）：完整的 PPT 生产 Agent（场景 → 13 个风格库 → 大纲 → 页面语法 → 内容稿或逐页视觉图）。旧目录移除，v2 资产保留在 `references/v2-pipeline/`。 |
+| 重构 | 20 个 skill 全部统一到质量标准 v1.0（三件套：验收标准 / 边界 / 陷阱）。`deep-research` 8.0 → 8.1.1。 |
+| 脚本修复 | 让代码行为兑现文档承诺——`c-drive-cleaner` 系统目录保护；`a-share-analyst` 去指令化 + ST 过滤；`security-audit` 密钥脱敏、CVE 表基线声明、覆盖范围缩窄声明。 |
+| 工具链 | 新增 `scripts/validate.py`（结构断言）与 `scripts/run_routing_evals.py`（路由 eval 校验）。两者都必须打印 `L1 PASS`。 |
+
+完整记录见 **[CHANGELOG.md](CHANGELOG.md)**。
+
 ## 仓库状态
 
 - 自维护技能统一放在 `skills/Geek-skills-xxx/`。
@@ -148,8 +195,7 @@ MIT
 - 支持资料按用途拆到 `references/`、`assets/`、`scripts/` 和可选的 `evals/`。
 - README 表格中的技能名是短展示名；真正的 slash command 以对应 `SKILL.md` frontmatter 里的 `name` 为准。
 - 最近一次按下载目录同步：2026-04-21，只更新仓库中已有的匹配技能。
-- 2026-07-02：`notion-infographic` 与 `ppt-designer` 合并为 `deck-studio`（v3）；旧目录已移除，v2 资产保留在 `references/v2-pipeline/`。
-- 2026-07-02：全仓库质量重构（"Fable 5 重构版"）——所有 skill 统一到质量标准 v1.0：可判定验收标准、能力边界、陷阱表与路由 evals。完整记录见 [CHANGELOG.md](CHANGELOG.md)。
+- 2026-07-02：Fable 5 重构（见上方板块与 [CHANGELOG.md](CHANGELOG.md)）。
 
 ## 在 Claude Code 中安装
 
