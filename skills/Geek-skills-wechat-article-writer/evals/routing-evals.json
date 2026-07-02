@@ -1,0 +1,48 @@
+[
+  {
+    "id": "wcw-01",
+    "prompt": "帮我把这次 AI 沙龙活动写成一篇推文，明天发公众号。",
+    "should_trigger": true,
+    "reason": "explicit WeChat article creation"
+  },
+  {
+    "id": "wcw-02",
+    "prompt": "我有一份产品发布的素材和几张截图，帮我整理成一篇能发的长文。",
+    "should_trigger": true,
+    "reason": "场景触发：中文长文创作，未出现'公众号'等关键词"
+  },
+  {
+    "id": "wcw-03",
+    "prompt": "用这个 GitHub 项目的 README 写一篇技术评测文章，读者是国内开发者。",
+    "should_trigger": true,
+    "reason": "tech review article from provided source material"
+  },
+  {
+    "id": "wcw-04",
+    "prompt": "帮我调研一下 AI 编程工具的市场格局，要有引用和局限性说明。",
+    "should_trigger": false,
+    "route_to": "deep-research",
+    "reason": "research artifact with citations, not an article"
+  },
+  {
+    "id": "wcw-05",
+    "prompt": "把这篇文章做成一组小红书风格的图。",
+    "should_trigger": false,
+    "route_to": "deck-studio",
+    "reason": "visual output, not prose writing"
+  },
+  {
+    "id": "wcw-06",
+    "prompt": "这段话帮我润色一下语法。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "too small; direct answer without skill overhead"
+  },
+  {
+    "id": "wcw-07",
+    "prompt": "帮我写篇文章介绍我们的新功能，之后可能也要发到知乎和掘金。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "两可：多平台分发超出公众号范围，但创作主体仍是中文长文；当前倾向触发，按公众号规范产出并提示其他平台需自行调整"
+  }
+]

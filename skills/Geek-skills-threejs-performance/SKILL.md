@@ -1,334 +1,94 @@
 ---
 name: Geek-skills-threejs-performance
-version: 1.0.0
-description: Three.js 性能优化专家指南，涵盖 WebGPU 渲染器、资源压缩、绘制调用优化、内存管理、着色器优化、光照阴影、React Three Fiber、后处理等100+最佳实践。适用于：(1) 优化 Three.js 项目性能，(2) 迁移到 WebGPU 渲染器，(3) 减少绘制调用和内存泄漏，(4) 实现高效粒子系统和物理模拟，(5) 配置后处理效果，(6) React Three Fiber 性能调优。触发关键词："Three.js 优化"、"WebGPU"、"绘制调用"、"draw calls"、"性能瓶颈"、"内存泄漏"、"TSL 着色器"、"InstancedMesh"、"BatchedMesh"、"R3F 优化"等。
+version: 1.1.0
+description: Three.js 性能优化指南。当 Three.js/React Three Fiber 项目出现掉帧、内存增长、加载缓慢、绘制调用过多，或需要迁移 WebGPU、实现大规模粒子/实例化渲染、配置资源压缩管线时使用。触发关键词："Three.js 优化"、"WebGPU"、"draw calls"、"内存泄漏"、"TSL"、"InstancedMesh"、"R3F 优化"等。不用于：通用 React 性能问题（用 vercel-react-best-practices）、WebGL/Three.js 入门教学、3D 美术资产的制作本身。
 ---
 
-# Three.js 性能优化指南 (2026)
+# Three.js 性能优化指南
 
-## 核心原则
+## 黄金法则
 
-**黄金法则：绘制调用 < 100 次/帧**
+**绘制调用 < 100 次/帧。** 三角形数量不如绘制调用数量重要；超过 500 次绘制调用，强大 GPU 也会吃力。用 `renderer.info.render.calls` 监控（完整监控代码见 `references/examples.md`）。
 
-- 三角形数量不如绘制调用数量重要
-- 使用 `renderer.info.render.calls` 监控
-- 超过 500 次绘制调用，即使强大 GPU 也会吃力
+## 诊断决策树
 
-## 快速诊断清单
+| 症状 | 先查 | 深入 |
+|------|------|------|
+| 掉帧、卡顿 | `renderer.info.render.calls` 是否 >100 | 实例化/合批（下文），后处理链 |
+| 内存持续增长 | `renderer.info.memory` 的 geometries/textures 计数是否只增不减 | dispose 铁律（下文），`references/examples.md` 完整清理代码 |
+| 加载慢、显存爆 | 模型是否未压缩 | `references/assets.md` 压缩管线 |
+| 粒子/物理瓶颈 | CPU 粒子是否 >5 万 | WebGPU 计算着色器，`references/webgpu.md` |
+| R3F 项目莫名重渲染 | useFrame 里是否 setState | R3F 三规则（下文） |
 
-```javascript
-// 性能监控必备
-setInterval(() => {
-  console.log('调用:', renderer.info.render.calls);
-  console.log('三角形:', renderer.info.render.triangles);
-  console.log('几何体:', renderer.info.memory.geometries);
-  console.log('纹理:', renderer.info.memory.textures);
-}, 1000);
-```
+## 各领域规则速查
 
-如果数值持续增长，存在内存泄漏。
+### WebGPU：何时迁移
+绘制调用密集掉帧 / 需要计算着色器做物理粒子（CPU 约 5 万上限，GPU 可达数百万）/ 复杂后处理链卡顿。
+`WebGPURenderer` 必须 `await renderer.init()`。TSL 写一次自动编译 WGSL/GLSL。
+浏览器支持下限（记录时点数据，现查 caniuse 为准）：Chrome/Edge 113+，Firefox 141+，Safari 26+。
+初始化回退、TSL 完整指南、计算着色器示例：`references/webgpu.md`。
 
-## WebGPU 渲染器
+### 绘制调用优化
+- 大量**相同**几何体（树、石头）→ `InstancedMesh`：1000 棵树 = 1 次绘制
+- 多个**不同**几何体共享材质 → `BatchedMesh`
+- 静态小物件 → `mergeGeometries` 合并
+- 材质**共享复用**，永远不要在循环里 `new Material`
 
-### 何时迁移
+### 资源压缩（收益数字）
+- Draco 几何体压缩：体积减 90-95%
+- KTX2 纹理：GPU 内存约降 10 倍
+- 一条命令：`gltf-transform optimize model.glb out.glb --texture-compress ktx2 --compress draco`
+- 解码器路径配置与 Meshopt/Draco 选型：`references/assets.md`
 
-在以下情况迁移到 WebGPU：
-- 绘制调用密集场景掉帧
-- 需要计算着色器进行物理/粒子模拟
-- 复杂后处理链导致卡顿
+### 内存铁律
+**Three.js 不会自动回收 GPU 资源。** 移除对象必须：geometry.dispose() + 遍历 material 的所有 texture 属性逐个 dispose + material.dispose()；GLTF 的 ImageBitmap 还要 `texture.source.data.close()`。频繁增删对象用对象池。完整代码：`references/examples.md`。
 
-### 基础设置
+### 着色器三规则
+① 移动端 `precision mediump float`（约快 2 倍）② 用 `mix/step` 替代 if 分支（分支破坏 GPU 并行）③ 数据打包进 vec4，一次纹理取 4 个值。
 
-```javascript
-import { WebGPURenderer } from 'three/webgpu';
+### 光照阴影预算
+活动光源 ≤3；PointLight 阴影 = 每光源 6 次阴影贴图渲染；贴图尺寸移动端 512-1024、桌面 1024-2048；静态场景 `shadowMap.autoUpdate = false` 手动触发 + 烘焙光照。
 
-const renderer = new WebGPURenderer();
-await renderer.init(); // 必需！
+### React Three Fiber 三规则
+① 动画走 `useFrame` 直改 ref，**永远不在 useFrame 里 setState** ② 静态场景用 `frameloop="demand"` + `invalidate()` 按需渲染 ③ 显隐切 `visible` 属性，不要条件挂载 `{show && <Model/>}`（重挂载重建资源）。完整优化模板：`references/examples.md`。
 
-function animate() {
-  renderer.render(scene, camera);
-  requestAnimationFrame(animate);
-}
-```
+### 后处理选型
+WebGL → `pmndrs/postprocessing`（多效果合并 EffectPass）；WebGPU → 原生 TSL 后处理管线。两者完整设置：`references/examples.md`。
 
-浏览器支持：Chrome/Edge v113+，Firefox v141+，Safari v26+
+## 验收标准（优化任务完成前自查）
 
-### TSL (Three 着色器语言)
+- [ ] `renderer.info.render.calls` < 100（超出需给出场景理由）
+- [ ] `renderer.info.memory` 计数在增删对象后回落，无单调增长
+- [ ] 目标设备实测帧率达标（移动端也要测，不只桌面）
+- [ ] 发布资源经过 Draco/KTX2 压缩管线
+- [ ] 每条优化建议都对应用户场景的实测症状，不是清单式全量套用
 
-编写一次，自动编译为 WGSL (WebGPU) 或 GLSL (WebGL)：
+## 不做什么
 
-```javascript
-import { color, positionLocal, sin, time, Fn, float } from 'three/tsl';
+- React 组件层的通用性能问题（memo/useMemo/bundle）→ `vercel-react-best-practices`
+- Three.js 基础教学、场景搭建入门
+- 模型/贴图美术制作本身（只管加载与渲染性能）
+- 未量测先优化：没有 renderer.info 或帧率数据时，先装监控再动手
 
-// 基础用法
-material.colorNode = color(1, 0, 0).mul(sin(time).mul(0.5).add(0.5));
+## 已知陷阱
 
-// 可复用函数
-const fresnel = Fn(([normal, viewDir, power]) => {
-  const dotNV = normal.dot(viewDir).saturate();
-  return float(1).sub(dotNV).pow(power);
-});
-```
-
-### 计算着色器粒子系统
-
-CPU 粒子约 50,000 个遇到瓶颈，GPU 计算着色器可达数百万：
-
-```javascript
-import { instancedArray, storage, compute } from 'three/tsl';
-
-const positions = instancedArray(particleCount, 'vec3');
-const velocities = instancedArray(particleCount, 'vec3');
-
-const physicsCompute = compute(() => {
-  const pos = positions.element(instanceIndex);
-  const vel = velocities.element(instanceIndex);
-  positions.element(instanceIndex).assign(pos.add(vel.mul(deltaTime)));
-});
-
-renderer.compute(physicsCompute);
-```
-
-## 绘制调用优化
-
-### InstancedMesh (重复对象)
-
-1,000 棵树 → 从 1,000 次绘制调用降为 1 次：
-
-```javascript
-const mesh = new InstancedMesh(geometry, material, 1000);
-for (let i = 0; i < 1000; i++) {
-  matrix.setPosition(positions[i]);
-  mesh.setMatrixAt(i, matrix);
-}
-```
-
-### BatchedMesh (不同几何体)
-
-共享材质的多个不同几何体合并为单次绘制：
-
-```javascript
-const batchedMesh = new BatchedMesh(maxGeometries, maxVertices, maxIndices, material);
-```
-
-### 共享材质
-
-```javascript
-// ❌ 每个网格新材质
-meshes.forEach(m => m.material = new MeshStandardMaterial({ color: 'red' }));
-
-// ✅ 共享材质
-const sharedMaterial = new MeshStandardMaterial({ color: 'red' });
-meshes.forEach(m => m.material = sharedMaterial);
-```
-
-### 合并静态几何体
-
-```javascript
-import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-const merged = mergeGeometries([geo1, geo2, geo3]);
-```
-
-## 资源优化
-
-### 压缩命令
-
-```bash
-# Draco 几何体压缩 (减少 90-95%)
-gltf-transform draco model.glb compressed.glb --method edgebreaker
-
-# KTX2 纹理压缩 (GPU 内存减少约 10 倍)
-gltf-transform uastc model.glb optimized.glb  # 高质量
-gltf-transform etc1s model.glb optimized.glb  # 小体积
-
-# 完整优化管线
-gltf-transform optimize model.glb output.glb \
-  --texture-compress ktx2 \
-  --compress draco
-```
-
-### 解码器配置
-
-```javascript
-import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
-
-const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath('/draco/');
-
-const ktx2Loader = new KTX2Loader();
-ktx2Loader.setTranscoderPath('/basis/');
-```
-
-## 内存管理
-
-**关键：Three.js 不会自动垃圾回收 GPU 资源！**
-
-### 完整释放模式
-
-```javascript
-function cleanupMesh(mesh) {
-  mesh.geometry.dispose();
-  
-  if (Array.isArray(mesh.material)) {
-    mesh.material.forEach(mat => {
-      Object.values(mat).forEach(prop => {
-        if (prop?.isTexture) prop.dispose();
-      });
-      mat.dispose();
-    });
-  } else {
-    Object.values(mesh.material).forEach(prop => {
-      if (prop?.isTexture) prop.dispose();
-    });
-    mesh.material.dispose();
-  }
-  
-  scene.remove(mesh);
-}
-
-// GLTF ImageBitmap 特殊处理
-texture.source.data.close?.();
-texture.dispose();
-```
-
-### 对象池模式
-
-```javascript
-class ObjectPool {
-  constructor(factory, reset, initialSize = 20) {
-    this.factory = factory;
-    this.reset = reset;
-    this.pool = Array.from({ length: initialSize }, () => {
-      const obj = factory();
-      obj.visible = false;
-      return obj;
-    });
-  }
-  
-  acquire() {
-    const obj = this.pool.pop() || this.factory();
-    obj.visible = true;
-    return obj;
-  }
-  
-  release(obj) {
-    this.reset(obj);
-    obj.visible = false;
-    this.pool.push(obj);
-  }
-}
-```
-
-## 着色器优化
-
-### 移动端优先
-
-```glsl
-precision mediump float;  // 比 highp 快约 2 倍
-```
-
-### 无分支替代
-
-```glsl
-// ❌ 分支破坏 GPU 并行性
-if (value > 0.5) color = colorA; else color = colorB;
-
-// ✅ 无分支
-color = mix(colorB, colorA, step(0.5, value));
-```
-
-### 数据打包
-
-```glsl
-vec4 data = texture2D(dataTex, uv);
-// 4 个值只需 1 次纹理获取
-float v1 = data.r, v2 = data.g, v3 = data.b, v4 = data.a;
-```
-
-## 光照和阴影
-
-- 活动光源 ≤ 3 个
-- PointLight 阴影 = 6 次阴影贴图渲染/光源
-- 阴影贴图尺寸：移动 512-1024，桌面 1024-2048
-- 静态场景烘焙光照贴图
-
-```javascript
-// 静态场景禁用阴影自动更新
-renderer.shadowMap.autoUpdate = false;
-renderer.shadowMap.needsUpdate = true; // 需要时手动触发
-```
-
-## React Three Fiber
-
-### 核心规则
-
-```javascript
-// ❌ 触发 React 重新渲染
-const [rotation, setRotation] = useState(0);
-useFrame(() => setRotation(r => r + 0.01));
-
-// ✅ 直接修改
-const meshRef = useRef();
-useFrame((state, delta) => {
-  meshRef.current.rotation.x += delta * speed; // 帧率无关
-});
-```
-
-### 按需渲染
-
-```jsx
-<Canvas frameloop="demand">
-  <Scene />
-</Canvas>
-
-// 需要时触发
-const invalidate = useThree(state => state.invalidate);
-invalidate();
-```
-
-### 切换可见性而非重新挂载
-
-```jsx
-// ❌ 卸载/挂载重建资源
-{showModel && <Model />}
-
-// ✅ 可见性切换
-<Model visible={showModel} />
-```
-
-## 后处理
-
-### WebGL 使用 pmndrs/postprocessing
-
-```javascript
-import { EffectComposer, Bloom, Vignette } from 'postprocessing';
-
-const composer = new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene, camera));
-composer.addPass(new EffectPass(camera, new Bloom(), new Vignette()));
-```
-
-### WebGPU 使用原生 TSL 后处理
-
-```javascript
-import { pass, bloom, fxaa } from 'three/tsl';
-
-const postProcessing = new PostProcessing(renderer);
-const scenePass = pass(scene, camera);
-postProcessing.outputNode = scenePass.pipe(bloom()).pipe(fxaa());
-```
+| 陷阱 | 具体表现 | 应对 |
+|------|---------|------|
+| dispose 不彻底 | 只 dispose 了 geometry，material 上挂的 texture 全泄漏 | 遍历 material 属性逐个 dispose；GLTF ImageBitmap 还需 close() |
+| useFrame 里 setState | 每帧触发 React 重渲染，帧率断崖 | 直改 ref；状态只在交互事件里更新 |
+| 条件挂载切换模型 | `{show && <Model/>}` 每次重建几何体和纹理 | 切 visible 属性 |
+| demand 模式忘 invalidate | 相机动了画面不动，被当成"卡死" | 交互回调里调用 invalidate() |
+| 循环里 new Material | 1000 个网格 1000 个材质，合批全部失效 | 材质提到循环外共享 |
+| PointLight 随手加阴影 | 一个点光 6 次阴影渲染，移动端直接跪 | 优先 SpotLight/DirectionalLight 阴影，点光阴影只留一个 |
 
 ## 调试工具
 
-- **stats-gl**: FPS/CPU/GPU 监控
-- **lil-gui**: 实时参数调整
-- **Spector.js**: WebGL 帧捕获
-- **three-mesh-bvh**: 快速射线检测 (80,000+ 多边形 @ 60fps)
-- **r3f-perf**: React Three Fiber 性能监控
+**stats-gl**（FPS/CPU/GPU）· **lil-gui**（实时调参）· **Spector.js**（WebGL 帧捕获）· **three-mesh-bvh**（8 万+ 面 @60fps 射线检测）· **r3f-perf**（R3F 监控）
 
-## 详细参考
+## 参考文档（按需加载）
 
-- **WebGPU 详解**: 见 [references/webgpu.md](references/webgpu.md)
-- **资源优化指南**: 见 [references/assets.md](references/assets.md)
-- **完整代码示例**: 见 [references/examples.md](references/examples.md)
+| 文件 | 何时读 |
+|------|--------|
+| `references/webgpu.md` | 迁移 WebGPU / 写 TSL / 计算着色器时 |
+| `references/assets.md` | 配置压缩管线、LOD、渐进加载时 |
+| `references/examples.md` | 需要完整可粘贴代码时（监控/内存清理/对象池/粒子/R3F 模板/后处理/上下文丢失恢复） |

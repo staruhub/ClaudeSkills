@@ -1,0 +1,48 @@
+[
+  {
+    "id": "kq-01",
+    "prompt": "我要做一个记账 App，功能明确，帮我按规范流程从需求推到实现。",
+    "should_trigger": true,
+    "reason": "closed-behavior product with enumerable flows, SDD fits"
+  },
+  {
+    "id": "kq-02",
+    "prompt": "这个项目要过质量门禁，单 agent 一步步来，别并行。",
+    "should_trigger": true,
+    "reason": "quality-gate + single-agent trigger keywords"
+  },
+  {
+    "id": "kq-03",
+    "prompt": "带我用 AI 把这个 CRUD 后台从需求文档一路写到测试全部通过。",
+    "should_trigger": true,
+    "reason": "场景触发：确定性交付流程，未出现 description 中的任何关键词"
+  },
+  {
+    "id": "kq-04",
+    "prompt": "我想做一个行为开放的 AI 陪聊产品，模型说了算，怎么设计？",
+    "should_trigger": false,
+    "route_to": "xuefeng-method",
+    "reason": "open-behavior model-driven product; 已知失败风险：keqian description 缺少反向负触发声明"
+  },
+  {
+    "id": "kq-05",
+    "prompt": "帮我评审这份 PRD 的需求优先级排得对不对。",
+    "should_trigger": false,
+    "route_to": "product-manager",
+    "reason": "PRD review is product management, not dev methodology"
+  },
+  {
+    "id": "kq-06",
+    "prompt": "修一下这个函数里的空指针 bug。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "single fix, no methodology overhead needed"
+  },
+  {
+    "id": "kq-07",
+    "prompt": "做一个客服机器人，大部分流程固定，但兜底要靠模型自由发挥。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "混合型产品。xuefeng 第零步规则：混合型=两者结合、按模块选用，所以本例双侧都可触发（镜像 xf-07），由确定性主流程侧主导"
+  }
+]

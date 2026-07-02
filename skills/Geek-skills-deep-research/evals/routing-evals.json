@@ -70,5 +70,47 @@
     "prompt": "帮我快速比较一下 Supabase 和 Firebase，用 6 句话以内。",
     "should_trigger": false,
     "reason": "brief direct comparison better handled without deep research"
+  },
+  {
+    "id": "rt-13",
+    "prompt": "对比一下主流向量数据库的选型，给个有依据的简短结论就行，不用写长报告。",
+    "should_trigger": true,
+    "expected_mode": "brief",
+    "reason": "needs multi-source evidence but explicitly short -> brief memo"
+  },
+  {
+    "id": "rt-14",
+    "prompt": "写一份 AI 编程工具市场的完整综述报告，要有文献级引用、局限性和决策建议。",
+    "should_trigger": true,
+    "expected_mode": "full",
+    "reason": "comprehensive literature-style request -> full report"
+  },
+  {
+    "id": "rt-15",
+    "prompt": "接着上次的 MCP 安全调研再补一轮，只看最近三个月的新漏洞和防护实践。",
+    "should_trigger": true,
+    "expected_mode": "delta",
+    "reason": "continuation of a prior round -> delta update"
+  },
+  {
+    "id": "rt-16",
+    "prompt": "帮我写一篇介绍 RAG 技术的公众号文章。",
+    "should_trigger": false,
+    "route_to": "wechat-article-writer",
+    "reason": "content creation task; belongs to wechat-article-writer"
+  },
+  {
+    "id": "rt-17",
+    "prompt": "把上次的调研结论做成一组信息图。",
+    "should_trigger": false,
+    "route_to": "deck-studio",
+    "reason": "visualization of existing findings; belongs to deck-studio"
+  },
+  {
+    "id": "rt-18",
+    "prompt": "分析一下低空经济这个赛道值不值得进，要有依据，也要有反面证据。",
+    "should_trigger": true,
+    "expected_mode": "brief",
+    "reason": "says 分析 but requires multi-source evidence and counter-evidence"
   }
 ]

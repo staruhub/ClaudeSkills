@@ -16,6 +16,11 @@ Use this folder to keep routing and output checks close to the skill.
 - delta / follow-up tasks
 - high-stakes tasks that require stronger grounding
 
+## Mode assertions
+Cases with `expected_mode` also assert the P0 orchestration choice (brief / full / delta) after triggering.
+A case fails if the skill triggers correctly but picks a different mode.
+Cases without `expected_mode` only assert trigger / no-trigger.
+
 ## Ground rule
 Do not declare V8 better because one demo looked nicer.
 Treat it like code: compare runs, check artifacts, and look for regressions.

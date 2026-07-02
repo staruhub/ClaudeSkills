@@ -1,0 +1,47 @@
+[
+  {
+    "id": "xf-01",
+    "prompt": "我在做一个 AI 日历助手，用户想怎么说就怎么说，行为根本没法穷举，怎么开发？",
+    "should_trigger": true,
+    "reason": "open-behavior AI-native product, canonical case"
+  },
+  {
+    "id": "xf-02",
+    "prompt": "多个 agent 怎么分工？不同环节想用不同的模型来路由。",
+    "should_trigger": true,
+    "reason": "multi-agent split + model routing keywords"
+  },
+  {
+    "id": "xf-03",
+    "prompt": "我们的 AI 助手上线之后回答越来越怪，怎么系统性地发现和纠正这种变化？",
+    "should_trigger": true,
+    "reason": "场景触发：模型漂移与校准，未出现 description 中的任何关键词"
+  },
+  {
+    "id": "xf-04",
+    "prompt": "我想做一个行为开放的 AI 陪聊产品，模型说了算，怎么设计？",
+    "should_trigger": true,
+    "reason": "镜像 kq-04：开放行为产品归本 skill"
+  },
+  {
+    "id": "xf-05",
+    "prompt": "我要做一个发票 OCR 归档工具，流程完全固定，AI 只负责识别这一步。",
+    "should_trigger": false,
+    "route_to": "keqian-method",
+    "reason": "+AI 场景依赖型：行为可枚举，第零步规则应转 keqian"
+  },
+  {
+    "id": "xf-06",
+    "prompt": "帮我选个便宜的大模型 API，我写个爬虫玩玩。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "关键词陷阱：出现'选模型'但只是一次性工具咨询，无产品方法论需求"
+  },
+  {
+    "id": "xf-07",
+    "prompt": "做一个客服机器人，大部分流程固定，但兜底要靠模型自由发挥。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "混合型产品，镜像 kq-07。第零步规则：两者结合、按模块选用，开放兜底模块由本 skill 负责"
+  }
+]

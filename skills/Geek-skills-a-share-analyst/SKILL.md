@@ -1,7 +1,7 @@
 ---
 name: Geek-skills-a-share-analyst
-version: 1.0.0
-description: A股专业分析师助手，提供每日股价分析、选股策略和投资建议。适用于：(1) 获取A股实时行情和历史数据，(2) 技术面分析（K线形态、MACD、KDJ、RSI、布林带等），(3) 基本面分析（财务指标、估值分析），(4) 板块热点追踪，(5) 选股策略筛选，(6) 量化因子分析，(7) 生成每日股市分析报告。当用户询问"帮我分析股票"、"今日选股"、"A股行情分析"、"技术分析"、"基本面分析"、"量化选股"等相关问题时触发。
+version: 1.1.0
+description: A股分析研究助手，提供行情数据获取与技术面/基本面分析框架（仅供研究参考，不构成投资建议）。适用于：(1) 获取A股行情和历史数据，(2) 技术面分析（K线形态、MACD、KDJ、RSI、布林带等），(3) 基本面分析（财务指标、估值分析），(4) 板块热点追踪，(5) 选股策略筛选与量化因子分析，(6) 生成股市分析报告。当用户询问"帮我分析股票"、"今日选股"、"A股行情分析"、"技术分析"、"量化选股"时触发。不用于：预测明日涨跌或给出确定性买卖指令、代客决策、港股美股（数据源不同）、加密货币。
 ---
 
 # A股分析师 Skill
@@ -31,8 +31,8 @@ df = ak.stock_zh_a_hist(symbol="000001", period="daily", adjust="qfq")
 df = ak.stock_board_concept_name_em()  # 概念板块
 df = ak.stock_board_industry_name_em()  # 行业板块
 
-# 龙虎榜
-df = ak.stock_lhb_detail_em(start_date="20241201", end_date="20241209")
+# 龙虎榜（日期用实际查询区间，格式 YYYYMMDD）
+df = ak.stock_lhb_detail_em(start_date="<起始日>", end_date="<结束日>")
 
 # 资金流向
 df = ak.stock_individual_fund_flow(stock="000001", market="sz")
@@ -70,10 +70,8 @@ df = ak.stock_individual_fund_flow(stock="000001", market="sz")
 ### 4. 智能选股策略
 
 **策略类型选择：**
-- 趋势突破策略 → 执行 `scripts/strategy_breakout.py`
-- 价值低估策略 → 执行 `scripts/strategy_value.py`
-- 动量因子策略 → 执行 `scripts/strategy_momentum.py`
-- 多因子综合策略 → 执行 `scripts/strategy_multi_factor.py`
+- 多因子综合策略 → 执行 `scripts/strategy_multi_factor.py`（已实现，内置 ST/停牌过滤）
+- 趋势突破 / 价值低估 / 动量因子等单因子策略 → 目前无独立脚本，在 multi_factor 基础上调整因子权重，或按需自行实现
 
 ## 输出格式
 
@@ -136,12 +134,9 @@ df = ak.stock_individual_fund_flow(stock="000001", market="sz")
 ## 关键脚本
 
 - `scripts/fetch_market_data.py` - 市场数据获取
-- `scripts/technical_analysis.py` - 技术指标计算
-- `scripts/strategy_breakout.py` - 趋势突破选股
-- `scripts/strategy_value.py` - 价值投资选股
-- `scripts/strategy_momentum.py` - 动量因子选股
-- `scripts/strategy_multi_factor.py` - 多因子选股
-- `scripts/generate_report.py` - 报告生成
+- `scripts/technical_analysis.py` - 技术指标计算（输出中性强弱描述，非买卖评级）
+- `scripts/strategy_multi_factor.py` - 多因子选股（含 ST/停牌过滤）
+- `scripts/generate_report.py` - 报告生成（需在 scripts/ 目录内运行，依赖 technical_analysis）
 
 ## 参考文档
 
@@ -150,9 +145,27 @@ df = ak.stock_individual_fund_flow(stock="000001", market="sz")
 - `references/fundamental_metrics.md` - 基本面指标说明
 - `references/factor_library.md` - 量化因子库
 
-## 重要提示
+## 验收标准（每份分析交付前自查）
 
-1. **数据延迟**：实时数据可能有15分钟延迟
-2. **风险警示**：所有分析仅供参考，不构成投资建议
-3. **回测验证**：新策略需先进行历史回测
-4. **仓位管理**：建议单只股票仓位不超过总资金20%
+- [ ] 报告末尾含"仅供参考，不构成投资建议"声明（模板已内置，不许删）
+- [ ] 数据来自**本次运行**的 akshare 调用，标注数据时间戳与延迟（可能有15分钟延迟）
+- [ ] 技术面/基本面结论与展示的指标数据一一对应，没有无数据支撑的判断
+- [ ] 给出的是"分析+风险"而非"买卖指令"：无"满仓""抄底""必涨"类表述
+- [ ] 新策略未经历史回测时明确标注"未回测"
+
+## 不做什么
+
+- 不预测明日涨跌，不给确定性买卖点位
+- 不代替用户决策，不推荐仓位以外的杠杆操作（模板建议：单只 ≤20%）
+- 不分析港股/美股/加密货币（数据源与规则不同）
+- 用户情绪化追问"到底买不买"时，重申边界并给风险清单，不给指令
+
+## 已知陷阱
+
+| 陷阱 | 具体表现 | 应对 |
+|------|---------|------|
+| akshare 接口变动 | 库更新后函数名/字段变了，脚本报错 | 报错时先查 akshare 当前版本文档，不硬猜字段 |
+| 延迟数据当实时 | 用 15 分钟前的价格谈"当前" | 报告标注数据获取时间 |
+| 指标堆砌无结论 | MACD/KDJ/RSI 全列一遍但互相矛盾不解释 | 指标冲突时明确说"信号分歧"及其含义 |
+| 幸存者偏差选股 | 用当前成分股回测历史策略 | 回测结论标注该局限 |
+| 节假日/停牌数据 | 停牌股票数据缺失导致计算错误 | 计算前过滤停牌与 ST 异常状态 |

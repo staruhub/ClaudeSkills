@@ -1,7 +1,7 @@
 ---
 name: Geek-skills-keqian-method
-version: 1.0.0
-description: 胥克谦式AI-Native产品开发方法论。适用于：(1) 使用AI Agent（Claude Code、Codex、Cursor等）进行产品级软件开发，(2) 设计和优化Harness/Skill体系，(3) 文档驱动开发(SDD)流程，(4) 构建自动化质量门禁和eval机制，(5) Token成本优化与缓存策略，(6) 产品人转型开发者的AI编程实践。触发场景包括"帮我设计开发流程"、"怎么降低token成本"、"怎么提高AI编码质量"、"文档驱动"、"质量门禁"、"harness设计"、"单agent vs multi-agent"、"自动化迭代"、"AI产品开发"、"SDD"、"eval机制"等。即使用户只是说"帮我用AI写代码"或"怎么让agent干活更靠谱"也应触发。
+version: 1.1.0
+description: 胥克谦式AI-Native产品开发方法论。适用于：(1) 使用AI Agent（Claude Code、Codex、Cursor等）进行产品级软件开发，(2) 设计和优化Harness/Skill体系，(3) 文档驱动开发(SDD)流程，(4) 构建自动化质量门禁和eval机制，(5) Token成本优化与缓存策略，(6) 产品人转型开发者的AI编程实践。触发场景包括"帮我设计开发流程"、"怎么降低token成本"、"怎么提高AI编码质量"、"文档驱动"、"质量门禁"、"harness设计"、"单agent vs multi-agent"、"自动化迭代"、"AI产品开发"、"SDD"、"eval机制"等。即使用户只是说"帮我用AI写代码"或"怎么让agent干活更靠谱"也应触发。注意：如果产品是行为开放、用户输入不可穷举的AI-native类型，请改用 xuefeng-method skill。不用于：单个bug修复或小改动（无需方法论）、PRD需求文档写作（用product-manager）。
 ---
 
 # 克谦方法论：AI-Native产品开发实战体系
@@ -225,8 +225,17 @@ Phase 3: 迭代收敛（占总时间10%）
 
 ---
 
+## 验收标准（按本方法论执行的任务，交付前自查）
+
+- [ ] 写代码之前存在对应的规格文档（SDD：文档先行，不是事后补）
+- [ ] 每个交付环节过了质量门禁（测试/断言/eval），没有"看起来没问题"式放行
+- [ ] 概率乘意识：长链条任务拆成了可独立验证的小环节，而不是一把梭
+- [ ] 用的是单 Agent 主导的流程；引入并行前说明了"为什么单 Agent 不够"
+- [ ] Token 成本有意识：复用缓存、避免重复喂上下文
+
 ## 参考资料
 
 更多方法论细节请查阅：
 - `references/sdd-framework.md` — SDD文档驱动开发框架详细流程
 - `references/eval-patterns.md` — 质量门禁和Eval模式库
+- `evals/routing-evals.json` — 触发边界回归用例（含与 xuefeng-method 的互斥镜像），改动 description 后用仓库根 `scripts/run_routing_evals.py` 校验

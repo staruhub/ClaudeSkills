@@ -1,0 +1,48 @@
+[
+  {
+    "id": "pm-01",
+    "prompt": "帮我写一份社区团购小程序的PRD，目标用户是小区宝妈。",
+    "should_trigger": true,
+    "reason": "explicit PRD creation"
+  },
+  {
+    "id": "pm-02",
+    "prompt": "我们产品次留只有20%，帮我诊断下问题出在哪。",
+    "should_trigger": true,
+    "reason": "场景触发：留存诊断，未出现 PRD/需求文档关键词"
+  },
+  {
+    "id": "pm-03",
+    "prompt": "帮我评审这份 PRD 的需求优先级排得对不对。",
+    "should_trigger": true,
+    "reason": "PRD review; 镜像 kq-05（keqian 负例的移交目标）"
+  },
+  {
+    "id": "pm-04",
+    "prompt": "带我用 AI 把这个产品从需求文档一路开发到测试全部通过。",
+    "should_trigger": false,
+    "route_to": "keqian-method",
+    "reason": "dev methodology execution, not product management"
+  },
+  {
+    "id": "pm-05",
+    "prompt": "帮我调研在线教育赛道的竞品格局，要有引用来源和局限性。",
+    "should_trigger": false,
+    "route_to": "deep-research",
+    "reason": "cited multi-source research artifact"
+  },
+  {
+    "id": "pm-06",
+    "prompt": "把这个功能的后端接口实现一下。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "code implementation, plain dev task"
+  },
+  {
+    "id": "pm-07",
+    "prompt": "设计一个推荐系统功能，顺便给下算法和技术选型建议。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "两可：功能设计归本 skill，深度技术选型归 solution-architect；倾向本 skill 主导、选型部分声明移交"
+  }
+]

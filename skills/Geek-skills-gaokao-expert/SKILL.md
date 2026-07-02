@@ -1,7 +1,7 @@
 ---
 name: Geek-skills-gaokao-expert
-version: 1.0.0
-description: 资深高考命题专家助手,提供专业的命题指导和评审服务。适用于创作高考试题、评审试题质量、分析试卷结构、了解命题趋势等场景。结合文档工具提取解压文件,使用网络搜索了解最新命题趋势,使用分析工具评估题目质量和试卷结构。涵盖"一核四层四翼"评价体系、2025年命题趋势、题型规范、评分标准、命题流程等多个维度,符合高考命题最佳实践。
+version: 1.1.0
+description: 资深高考命题专家助手,提供专业的命题指导和评审服务。适用于创作高考试题、评审试题质量、分析试卷结构、了解命题趋势等场景。结合文档工具提取解压文件,使用网络搜索了解当年最新命题趋势,使用分析工具评估题目质量和试卷结构。涵盖"一核四层四翼"评价体系、题型规范、评分标准、命题流程等多个维度。不用于:大学/考研/中考命题(体系不同,仅可借鉴)、日常作业题编写、直接替考生解题。
 ---
 
 # 高考命题专家
@@ -30,10 +30,7 @@ description: 资深高考命题专家助手,提供专业的命题指导和评审
 
 ### 第二步: 学习命题标准
 
-**必读参考文档**:
-```
-view /home/claude/gaokao-expert/references/命题标准.md
-```
+**必读参考文档**: `references/命题标准.md`
 
 包含:
 - "一核四层四翼"评价体系详解
@@ -42,7 +39,7 @@ view /home/claude/gaokao-expert/references/命题标准.md
 - 试题难度控制标准
 
 **根据需要阅读**:
-- `references/命题趋势.md` - 了解2025年最新命题趋势
+- `references/命题趋势.md` - 命题趋势分析(有记录时点,**会过时**——趋势类结论必须先 web_search 当年信息,文档只作分析框架)
 - `references/题型规范.md` - 学习各类题型的命题规范
 - `references/工作流程.md` - 掌握完整的命题工作流程
 
@@ -82,7 +79,7 @@ view /home/claude/gaokao-expert/references/命题标准.md
 
 #### 任务D: 了解命题趋势
 
-1. **搜索最新信息** - 搜索2025年高考命题趋势
+1. **搜索最新信息** - 搜索当年高考命题趋势（年份用当前年份，不要写死）
 2. **阅读参考文档** - 阅读命题趋势和命题标准文档
 3. **综合分析** - 对比官方文件和专家解读
 4. **案例分析** - 搜索最新真题案例进行分析
@@ -91,38 +88,29 @@ view /home/claude/gaokao-expert/references/命题标准.md
 
 ### 1. 文档工具
 
-- 查看上传的文档: `view /mnt/user-data/uploads/[文件名]`
+- 查看上传的文档: 路径以宿主环境实际上传位置为准
 - 提取Word/PDF内容: 阅读并使用docx/pdf skill
 
 ### 2. 网络搜索工具
 
-- 搜索命题素材: `web_search: 2025年人工智能最新进展`
+- 搜索命题素材: `web_search: [当前年份] 人工智能最新进展`
 - 搜索命题标准: `web_search: 高考命题原则 一核四层四翼`
 - 获取详细内容: `web_fetch: [权威URL]`
 
 ### 3. 分析工具
 
-**题目质量分析**:
-```bash
-# 创建题目JSON文件,然后运行:
-bash_tool: python /home/claude/gaokao-expert/scripts/analyze_question.py question.json
-```
-
-**试卷结构分析**:
-```bash
-# 创建试卷JSON文件,然后运行:
-bash_tool: python /home/claude/gaokao-expert/scripts/analyze_paper.py paper.json
-```
+**题目质量分析**: 创建题目 JSON 后运行 `python scripts/analyze_question.py question.json`
+**试卷结构分析**: 创建试卷 JSON 后运行 `python scripts/analyze_paper.py paper.json`
 
 ### 4. 参考文档
 
 核心参考文档:
 - `references/命题标准.md` - 高考命题标准与评价体系
-- `references/命题趋势.md` - 2025年命题趋势分析
+- `references/命题趋势.md` - 命题趋势分析（记录时点资料，会过时）
 - `references/题型规范.md` - 题型规范与命题技术
 - `references/工作流程.md` - 命题工作流程指南
 
-使用方法: `view /home/claude/gaokao-expert/references/[文档名]`
+使用方法: 直接读取 `references/[文档名]`（相对本 skill 目录）
 
 ## 关键原则
 
@@ -149,6 +137,23 @@ bash_tool: python /home/claude/gaokao-expert/scripts/analyze_paper.py paper.json
 5. **创新性** - 考查角度、题型形式是否有创新
 6. **育人价值** - 是否渗透正确价值观
 7. **科学规范** - 内容是否准确、表述是否清晰
+
+## 验收标准（命题/评审完成前自查）
+
+- [ ] 试题情境来自**本次搜索**的真实素材,标注了来源
+- [ ] 输出包含完整六件套:情境、题干、答案、评分标准、命题说明、预估难度
+- [ ] 对照"四要四不要"逐条过检,无超纲、无套路模板、无价值偏差
+- [ ] 评审报告的每个问题都指向试题的具体位置,不是泛泛而谈
+- [ ] 趋势类结论有当年搜索依据,未引用过时的内置"最新趋势"
+
+## 已知陷阱
+
+| 陷阱 | 具体表现 | 应对 |
+|------|---------|------|
+| 情境造假 | 编造"某研究表明"式虚构素材 | 情境必须来自可检索的真实来源并标注 |
+| 趋势旧闻 | 把参考文档里的记录时点趋势当"今年最新" | 先 web_search 当年信息,文档只作框架 |
+| 难度失准 | 凭感觉标难度系数 | 用 analyze_question.py 辅助,并说明预估依据 |
+| 答案不唯一 | 选择题多解、主观题评分标准含糊 | 自查环节专项验证答案唯一性与评分可操作性 |
 
 ## 输出格式建议
 
@@ -212,7 +217,7 @@ bash_tool: python /home/claude/gaokao-expert/scripts/analyze_paper.py paper.json
 
 ### 参考文档 (references/)
 - `命题标准.md` - 命题标准与评价体系详解
-- `命题趋势.md` - 2025年命题趋势分析
+- `命题趋势.md` - 命题趋势分析（记录时点资料，会过时）
 - `题型规范.md` - 题型规范和技术指南
 - `工作流程.md` - 命题工作流程指南
 

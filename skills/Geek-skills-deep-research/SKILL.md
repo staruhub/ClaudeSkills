@@ -1,27 +1,28 @@
 ---
 name: deep-research
-version: 8.0.0
+version: 8.1.1
 description: >
   Use this skill when the user wants an evidence-based research memo, literature
   review, market/policy/technical landscape, or a multi-source decision brief
   with citations, trade-offs, and a clear conclusion. Best for tasks that need
   synthesis across multiple external sources, iterative follow-up research, or
   a reusable written artifact. Do not use for quick factual lookups,
-  single-source summaries, simple Q&A, or when the user clearly wants a short
-  answer instead of a report. Chinese trigger examples: "帮我调研", "深度研究",
-  "综述报告", "技术选型分析", "竞品研究", "政策分析". Success = scoped plan,
-  grounded notes, verified citations, explicit limitations, and a final
-  brief/report that clearly separates evidence from analysis.
+  single-source summaries, simple Q&A, summarizing one document the user
+  already provided, plan-only requests where the user explicitly defers the
+  actual research, or when the user wants a short answer with no need for
+  cited evidence (a short but evidence-backed conclusion is still a brief
+  memo, which this skill covers). Chinese trigger examples: "帮我调研",
+  "深度研究", "综述报告", "技术选型分析", "竞品研究", "政策分析".
 compatibility: Requires web search plus file read/write. Shell/scripts and subagents are optional accelerators, not hard requirements.
 metadata:
-  version: "8.0"
+  version: "8.1"
   owner: "enterprise-research"
   category: "research"
   maturity: "production-candidate"
   outputs: "workspace/research-plan.md workspace/research-notes/*.md workspace/registry.md workspace/draft.md workspace/evaluation.md workspace/run-summary.json"
 ---
 
-# Deep Research V8.0
+# Deep Research V8.1
 
 This skill is for **evidence-rich research outputs**, not for every question that happens to mention “analysis”.
 
@@ -39,7 +40,7 @@ Choose the lightest artifact that satisfies the task.
 |---|---|---:|---|
 | **Brief memo** | user wants a concise answer with evidence | 800-1800 words | `research-plan.md`, `registry.md`, `draft.md`, `run-summary.json` |
 | **Full report** | user asks for comprehensive analysis / literature review / decision document | 2500-6000 words | all core artifacts + `evaluation.md` |
-| **Delta update** | user says “continue”, “second round”, “what changed”, “deepen round 2” | 600-1800 words | prior round handoff + new notes + delta draft |
+| **Delta update** | user says “continue”, “second round”, “what changed”, “deepen round 2” | 600-1800 words | prior round handoff (`references/handoff-format.md`) + new notes + delta draft |
 
 If the user did **not** ask for a long report, default to **Brief memo**.
 
@@ -77,6 +78,7 @@ At activation time, keep the active bundle small.
 
 **Load on demand**
 - `references/subagent-prompt.md` only if you actually dispatch subagents
+- `references/handoff-format.md` only when a delta update continues a prior round
 - `references/evaluator-prompt.md` only if you run the evaluator
 - `references/quality-gates.md` before finalization
 - `references/observability.md` when emitting metrics or diagnosing regressions
@@ -166,6 +168,7 @@ Evidence rules:
 ### P4 — Synthesize the output
 
 Follow `references/report-assembly.md`.
+For full reports, `assets/report_template.md` is an optional skeleton; adapt it rather than inventing a new structure.
 
 Always include:
 - clear answer to the user’s question
@@ -217,6 +220,7 @@ This skill is only “good” if it performs well on:
 
 See:
 - `evals/routing-evals.json`
+- `evals/runbook.md` — how to run the routing and mode checks
 - `references/quality-gates.md`
 - `references/observability.md`
 

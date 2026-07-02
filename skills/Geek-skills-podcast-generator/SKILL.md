@@ -1,255 +1,69 @@
 ---
 name: Geek-skills-podcast-generator
-version: 1.0.0
-description: Generate AI podcasts using Volcano Engine's Podcast AI Model. Use when user wants to create podcast audio from text input, generate conversational audio content, or transform written content into multi-speaker podcast format. Supports Chinese dual-speaker podcasts with customizable voice options.
+version: 1.1.0
+description: 用火山引擎 Podcast AI 模型生成中文双人对话播客。当用户要把文章、报告、话题文本转成播客音频、生成对话式音频内容时使用，需要环境具备火山引擎 APP_ID 和 ACCESS_KEY。支持 mp3/ogg_opus/pcm/aac、语速调节、自定义音色、断点续传。不用于：单人朗读式 TTS（用普通语音合成）、英文播客（模型主要优化中文）、播客文稿本身的撰写（先用写作类 skill 产出文本再来）。
 ---
 
-# Podcast Generator
+# 播客生成器（火山引擎双人对话）
 
-## Overview
+把中文文本变成双人对话播客音频，接口封装在 `scripts/generate_podcast.py`。
 
-Generate professional AI-powered podcasts using Volcano Engine's Podcast AI Model. This skill transforms text input into engaging dual-speaker podcast audio with natural conversation flow, supporting multiple audio formats and voice customization.
+## 验收标准（每次生成完成前自查）
 
-## Quick Start
+- [ ] 音频文件已落盘，把**实际路径与文件大小**回报用户
+- [ ] 输入文本 ≤25,000 字符（超长必须先与用户确认拆分方案，不能让模型静默截断）
+- [ ] 生成中断时使用了 retry_info 续传而不是从头重来
+- [ ] 参数选择有依据：分发用 mp3，后期加工用 pcm；教学内容语速 -20 左右
+- [ ] 凭证缺失时未硬试：告知用户去火山引擎控制台（speech/service/10028）获取
 
-To generate a podcast:
+## 不做什么
 
-1. Ensure Volcano Engine credentials are available (APP_ID and ACCESS_KEY)
-2. Prepare the podcast topic/content text (up to 25,000 characters)
-3. Run the generation script with required parameters
-4. Receive the output audio file in your preferred format
+- 不写播客文稿——输入文本的质量是上游任务（文稿创作找写作类 skill）
+- 不做单人朗读、配音、音效制作
+- 不在输出里回显用户的 ACCESS_KEY
 
-## Core Workflow
+## 工作流程
 
-### Step 1: Prepare Input
+### 1. 准备输入
+必需：中文文本（≤25k 字符）+ APP_ID + ACCESS_KEY（无则告知获取方式后停止）。
+可选：格式（默认 mp3）/ 采样率（默认 24000）/ 语速（-50~100，0=正常，100=2 倍速）/ 音色 / 开场音乐（默认关）。
 
-**Required information:**
-- Podcast topic or content text (Chinese, up to 25k characters)
-- Volcano Engine APP ID
-- Volcano Engine Access Key
+**最佳文本长度 500-3000 字**——播客时长与听感的最优区间；一篇长文建议先摘要再生成。
 
-**Optional customization:**
-- Audio format (mp3, ogg_opus, pcm, aac)
-- Sample rate (default: 24000 Hz)
-- Speech rate (-50 to 100, where 100 = 2.0x speed)
-- Speaker voices (default: male + female duo)
-- Opening music (default: disabled)
-
-### Step 2: Generate Podcast
-
-Run the generation script:
+### 2. 生成
 
 ```bash
 python scripts/generate_podcast.py \
-  --text "Your podcast topic or content" \
+  --text "播客话题或内容文本" \
   --output "/path/to/output.mp3" \
-  --app-id "YOUR_APP_ID" \
-  --access-key "YOUR_ACCESS_KEY" \
-  --format mp3 \
-  --sample-rate 24000 \
-  --speech-rate 0
+  --app-id "$VOLC_APP_ID" --access-key "$VOLC_ACCESS_KEY" \
+  --format mp3 --sample-rate 24000 --speech-rate 0
 ```
 
-**Alternative: Use as Python module**
+脚本会流式接收音频、按轮次显示进度、落盘后返回统计（大小/轮次数）。
+Python 模块调用、自定义音色 ID、断点续传 retry_info 的写法见脚本内 docstring 与 `references/api_reference.md`。
 
-```python
-import asyncio
-from scripts.generate_podcast import PodcastGenerator
+### 3. 交付
+回报文件路径、大小、时长预估;失败时给出具体错误与下一步(见陷阱表)。
 
-async def create_podcast():
-    generator = PodcastGenerator(
-        app_id="YOUR_APP_ID",
-        access_key="YOUR_ACCESS_KEY"
-    )
-    
-    result = await generator.generate_podcast(
-        input_text="分析下当前的大模型发展",
-        output_path="podcast.mp3",
-        audio_format="mp3",
-        sample_rate=24000,
-        speech_rate=0,
-        use_head_music=False
-    )
-    
-    if result['success']:
-        print(f"✅ Podcast generated: {result['output_path']}")
-    else:
-        print(f"❌ Failed: {result['error']}")
+## 已知陷阱
 
-asyncio.run(create_podcast())
-```
+| 陷阱 | 具体表现 | 应对 |
+|------|---------|------|
+| 超长静默截断 | >25k 字符时模型直接截断，播客缺尾 | 生成前校验长度，超长先与用户确认拆分或摘要 |
+| WebSocket 连不上 | 连接错误/超时 | 依次排查：凭证是否正确 → 网络 → 防火墙是否放行 WebSocket |
+| 中断后从头重试 | 长文本生成到一半断了，重跑烧双倍额度 | 从日志取 task_id 和 last_finished_round_id，用 retry_info 续传 |
+| 输出路径不可写 | 生成完成但保存失败 | 生成前检查目录存在且可写、磁盘空间充足 |
+| 文本结构差出烂稿 | 口水文本生成的对话生硬 | 输入用结构清晰的中文文本；效果差时先改文本再调参数 |
 
-### Step 3: Handle Output
+## 依赖与凭证
 
-The script will:
-- Stream audio data in real-time
-- Display progress for each speaking round
-- Save the complete audio file to the specified path
-- Return generation statistics (file size, round count, etc.)
-
-## Advanced Features
-
-### Resume from Interruption
-
-If generation is interrupted, use the resume capability:
-
-```python
-result = await generator.generate_podcast(
-    input_text="Your topic",
-    output_path="podcast.mp3",
-    retry_info={
-        "retry_task_id": "previous_task_id",
-        "last_finished_round_id": 5
-    }
-)
-```
-
-The system will continue from the last completed round instead of starting over.
-
-### Custom Speaker Configuration
-
-Specify different speaker voices:
-
-```python
-result = await generator.generate_podcast(
-    input_text="Your topic",
-    output_path="podcast.mp3",
-    speakers=[
-        "zh_male_dayixiansheng_v2_saturn_bigtts",
-        "zh_female_mizaitongxue_v2_saturn_bigtts"
-    ]
-)
-```
-
-### Audio Format Options
-
-Supported formats and use cases:
-
-- **mp3**: Best for general distribution (compressed, widely supported)
-- **ogg_opus**: High quality with good compression
-- **pcm**: Uncompressed raw audio (largest file size, highest quality)
-- **aac**: Modern compressed format with good quality
-
-### Speech Rate Adjustment
-
-Control speaking speed:
-
-- `speech_rate=0`: Normal speed (1.0x)
-- `speech_rate=100`: 2x speed (fast)
-- `speech_rate=-50`: 0.5x speed (slow)
-
-## Common Usage Patterns
-
-### Pattern 1: Quick Blog Post to Podcast
-
-```python
-blog_text = """
-[Your blog post content here - can be long form]
-"""
-
-result = await generator.generate_podcast(
-    input_text=blog_text,
-    output_path="blog_podcast.mp3"
-)
-```
-
-### Pattern 2: Research Paper Summary
-
-```python
-paper_summary = "Summarize the key findings of the latest AI research..."
-
-result = await generator.generate_podcast(
-    input_text=paper_summary,
-    output_path="research_podcast.mp3",
-    use_head_music=True  # Add opening music for professional touch
-)
-```
-
-### Pattern 3: Educational Content
-
-```python
-lesson_topic = "Explain quantum computing concepts for beginners"
-
-result = await generator.generate_podcast(
-    input_text=lesson_topic,
-    output_path="lesson.mp3",
-    speech_rate=-20  # Slightly slower for educational content
-)
-```
-
-## Error Handling
-
-Common issues and solutions:
-
-**Connection Errors:**
-- Verify APP_ID and ACCESS_KEY are correct
-- Check network connectivity
-- Ensure firewall allows WebSocket connections
-
-**Text Too Long:**
-- The model truncates at 25,000 characters
-- Split long content into multiple podcasts
-
-**Audio Not Generated:**
-- Check output path is writable
-- Verify sufficient disk space
-- Review error messages for specific issues
-
-**Incomplete Generation:**
-- Use retry_info to resume from last completed round
-- Check logs for the task_id and last_finished_round_id
-
-## Resource Usage
-
-### scripts/generate_podcast.py
-
-Complete WebSocket client implementation for Volcano Engine's Podcast API:
-- Handles binary protocol communication
-- Manages streaming audio reception
-- Implements automatic retry logic
-- Provides both CLI and programmatic interfaces
-
-**Key features:**
-- Async/await pattern for efficient I/O
-- Progress tracking with emoji indicators
-- Comprehensive error handling
-- Flexible parameter configuration
-
-### references/api_reference.md
-
-Detailed API documentation including:
-- Complete parameter specifications
-- WebSocket protocol details
-- Event type reference
-- Error code explanations
-
-Consult this file for:
-- Advanced API usage
-- Protocol-level debugging
-- Custom implementation needs
-
-## Requirements
-
-**Python dependencies:**
 ```bash
 pip install websockets
 ```
+凭证从火山引擎控制台获取（console.volcengine.com/speech/service/10028）。建议走环境变量,不要写进代码。
 
-**Credentials:**
-- Volcano Engine APP ID (obtain from console: https://console.volcengine.com/speech/service/10028)
-- Volcano Engine Access Key
+## 参考文档（按需加载）
 
-## Best Practices
-
-1. **Input Text Quality**: Use clear, well-structured Chinese text for best results
-2. **Length Optimization**: Aim for 500-3000 characters for optimal podcast length
-3. **Format Selection**: Use MP3 for distribution, PCM for further processing
-4. **Error Handling**: Always check the `success` field in results
-5. **Resource Management**: Close connections properly to avoid quota issues
-
-## Limitations
-
-- Maximum text length: 25,000 characters (model truncates longer input)
-- Language support: Primarily optimized for Chinese
-- Concurrent requests: Subject to your account's quota limits
-- Audio quality: Determined by model capabilities, not controllable via parameters
+- `references/api_reference.md` — 完整参数规格、WebSocket 协议细节、事件类型、错误码;协议级调试时读
+- `scripts/generate_podcast.py` — CLI 与模块双接口,含自动重试与流式接收实现

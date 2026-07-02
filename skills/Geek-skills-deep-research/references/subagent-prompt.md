@@ -44,7 +44,7 @@ Stop when one of these becomes true:
 - do not burn budget chasing trivia
 
 ## Output format
-Use the exact structure from `reference/research-notes-format.md`.
+Use the exact structure from `references/research-notes-format.md`.
 ```
 
 ## Notes
