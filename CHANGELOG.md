@@ -2,6 +2,20 @@
 
 本仓库遵循语义化的变更记录。日期为 `YYYY-MM-DD`（本地时区）。
 
+## [P1 路由 evals 扩面] — 2026-07-03
+
+routing evals 覆盖从 7 个 skill 扩到 14 个（113 条用例）。
+
+### 新增
+
+- 为 solution-architect / pair-programming / ai-sales-champion / seedream-imagegen /
+  gaokao-expert / a-share-analyst / university-exam-prep 各补 7 条 routing evals
+  （3 正 + 3 负带 route_to + 1 边界），并互相镜像相邻 skill 的移交边界。
+- a-share 的负例含"预测明日涨跌/该不该满仓"用例，固化合规边界；gaokao 与
+  university-exam-prep 互为镜像（出题 vs 备考）。
+- 仍未覆盖的 5 个纯窄工具（c-drive-cleaner / mineru-pdf-parser / podcast-generator /
+  threejs-performance / weather-forecast-report）误触发面小，暂缓。
+
 ## [P1 产品化] — 2026-07-03
 
 把发布/安装链路从"看 README 手动复制"升级为可自动化、可一键安装。

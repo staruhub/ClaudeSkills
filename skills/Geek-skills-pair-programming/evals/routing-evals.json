@@ -1,0 +1,48 @@
+[
+  {
+    "id": "pp-01",
+    "prompt": "帮我实现这个功能，写完自己 review 一遍再给我。",
+    "should_trigger": true,
+    "reason": "code + self-review, explicit pairing"
+  },
+  {
+    "id": "pp-02",
+    "prompt": "我们结对编程一下，边写边帮我把关质量。",
+    "should_trigger": true,
+    "reason": "explicit pair programming"
+  },
+  {
+    "id": "pp-03",
+    "prompt": "高可靠地把这个支付回调接口实现出来，别留坑。",
+    "should_trigger": true,
+    "reason": "场景触发：要求高可靠交付 + 自审，未出现'结对'关键词"
+  },
+  {
+    "id": "pp-04",
+    "prompt": "帮我对整个项目做一次全面安全审计。",
+    "should_trigger": false,
+    "route_to": "security-audit",
+    "reason": "dedicated security audit, not inline self-review"
+  },
+  {
+    "id": "pp-05",
+    "prompt": "这个变量名改成 userId 就行。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "trivial one-line edit, no review overhead"
+  },
+  {
+    "id": "pp-06",
+    "prompt": "帮我设计这个系统的整体架构。",
+    "should_trigger": false,
+    "route_to": "solution-architect",
+    "reason": "architecture design, not code writing"
+  },
+  {
+    "id": "pp-07",
+    "prompt": "帮我修这个登录接口的 bug，顺便看看有没有别的安全隐患。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "两可：修 bug + 自审属本 skill，但'安全隐患'边缘触及 security-audit；本 skill 交付修复+审查，深度安全扫描才移交"
+  }
+]

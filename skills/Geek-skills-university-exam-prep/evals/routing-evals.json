@@ -1,0 +1,48 @@
+[
+  {
+    "id": "uep-01",
+    "prompt": "我要准备大学期末考试，帮我复习数据结构。",
+    "should_trigger": true,
+    "reason": "镜像 gk-04：学生备考归本 skill"
+  },
+  {
+    "id": "uep-02",
+    "prompt": "[上传了课件 PPT] 帮我从这份材料里划考点、模拟考一下。",
+    "should_trigger": true,
+    "reason": "material-based exam prep with mock exam"
+  },
+  {
+    "id": "uep-03",
+    "prompt": "这章我没看懂，用提问的方式带我搞明白，别直接给答案。",
+    "should_trigger": true,
+    "reason": "场景触发：苏格拉底式引导学习，未出现'备考'关键词"
+  },
+  {
+    "id": "uep-04",
+    "prompt": "帮我出一道高考物理压轴题，带评分标准。",
+    "should_trigger": false,
+    "route_to": "gaokao-expert",
+    "reason": "gaokao item authoring, not student exam prep"
+  },
+  {
+    "id": "uep-05",
+    "prompt": "帮我复习一下，但我没有任何课件或考纲材料。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "本 skill 强制要求原始材料，无材料时只索取不开始通用复习"
+  },
+  {
+    "id": "uep-06",
+    "prompt": "帮我写一篇关于数据结构的科普文章。",
+    "should_trigger": false,
+    "route_to": "wechat-article-writer",
+    "reason": "content writing, not exam prep"
+  },
+  {
+    "id": "uep-07",
+    "prompt": "帮我把这门课的知识点整理成一份复习提纲。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "两可：整理复习提纲接近备考主线，但若用户只要一份静态文档而非苏格拉底式辅导，则更像普通文档整理；有备考意图时归本 skill"
+  }
+]

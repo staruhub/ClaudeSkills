@@ -230,3 +230,5 @@ description: 资深高考命题专家助手,提供专业的命题指导和评审
 - **创作试题**: 参考`工作流程.md`,使用网络搜索工具
 - **评审试题**: 参考`题型规范.md`,使用分析工具
 - **分析试卷**: 使用`analyze_paper.py`,对照标准评价
+
+`evals/routing-evals.json` — 触发边界回归用例，改 description 后用仓库根 `scripts/run_routing_evals.py` 校验。

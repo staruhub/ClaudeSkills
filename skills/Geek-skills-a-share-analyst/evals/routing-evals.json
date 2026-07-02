@@ -1,0 +1,48 @@
+[
+  {
+    "id": "ash-01",
+    "prompt": "帮我分析一下这只 A 股的技术面，MACD、KDJ、支撑阻力都看看。",
+    "should_trigger": true,
+    "reason": "A-share technical analysis"
+  },
+  {
+    "id": "ash-02",
+    "prompt": "今天大盘怎么样，帮我筛几只符合多因子策略的票。",
+    "should_trigger": true,
+    "reason": "market overview + factor screening"
+  },
+  {
+    "id": "ash-03",
+    "prompt": "这家公司的估值和财务指标帮我看看贵不贵。",
+    "should_trigger": true,
+    "reason": "场景触发：基本面/估值分析，未出现'股票'关键词"
+  },
+  {
+    "id": "ash-04",
+    "prompt": "帮我调研新能源汽车行业的政策和市场前景，要有引用。",
+    "should_trigger": false,
+    "route_to": "deep-research",
+    "reason": "cited industry research, not stock TA/FA"
+  },
+  {
+    "id": "ash-05",
+    "prompt": "这只美股 TSLA 帮我分析一下。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "US equity; data source and rules differ, out of scope"
+  },
+  {
+    "id": "ash-06",
+    "prompt": "帮我预测一下明天这只票会涨还是跌，我该不该满仓。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "asks for a directional prediction / buy order — explicitly outside the compliance boundary"
+  },
+  {
+    "id": "ash-07",
+    "prompt": "帮我把这只票的分析结论做成一份可发的图文报告。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "两可：分析主体归本 skill，但'做成可发图文'的视觉化归 deck-studio；本 skill 出分析内容，传播图另行移交"
+  }
+]

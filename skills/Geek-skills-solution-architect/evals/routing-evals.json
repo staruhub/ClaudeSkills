@@ -1,0 +1,48 @@
+[
+  {
+    "id": "sarch-01",
+    "prompt": "帮我设计一个百万日活电商系统的架构，要考虑高可用和技术选型。",
+    "should_trigger": true,
+    "reason": "system architecture design"
+  },
+  {
+    "id": "sarch-02",
+    "prompt": "我们订单查询接口从 100ms 涨到 500ms，数据库 CPU 80%，怎么优化？",
+    "should_trigger": true,
+    "reason": "场景触发：性能/可扩展性诊断，未出现'架构'关键词"
+  },
+  {
+    "id": "sarch-03",
+    "prompt": "PostgreSQL、MongoDB、Cassandra 给社交应用选型，帮我做评估矩阵。",
+    "should_trigger": true,
+    "reason": "tech selection with trade-off analysis"
+  },
+  {
+    "id": "sarch-04",
+    "prompt": "帮我写一份这个功能的 PRD，包含用户场景和验收标准。",
+    "should_trigger": false,
+    "route_to": "product-manager",
+    "reason": "PRD authoring is product management"
+  },
+  {
+    "id": "sarch-05",
+    "prompt": "帮我扫一下这个仓库有没有安全漏洞。",
+    "should_trigger": false,
+    "route_to": "security-audit",
+    "reason": "security scanning, not architecture"
+  },
+  {
+    "id": "sarch-06",
+    "prompt": "Kafka 是什么？一句话解释。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "single fact, no architecture work"
+  },
+  {
+    "id": "sarch-07",
+    "prompt": "帮我设计一个 AI 客服系统的架构，也要给点最新的大模型选型趋势。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "两可：架构设计归本 skill，但'最新趋势'需实时搜索；本 skill 处理架构主体并按时效性规则现搜趋势"
+  }
+]

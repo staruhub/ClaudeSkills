@@ -169,3 +169,5 @@ df = ak.stock_individual_fund_flow(stock="000001", market="sz")
 | 指标堆砌无结论 | MACD/KDJ/RSI 全列一遍但互相矛盾不解释 | 指标冲突时明确说"信号分歧"及其含义 |
 | 幸存者偏差选股 | 用当前成分股回测历史策略 | 回测结论标注该局限 |
 | 节假日/停牌数据 | 停牌股票数据缺失导致计算错误 | 计算前过滤停牌与 ST 异常状态 |
+
+`evals/routing-evals.json` — 触发边界回归用例，改 description 后用仓库根 `scripts/run_routing_evals.py` 校验。

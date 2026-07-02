@@ -77,3 +77,5 @@ Python 调用示例见 `references/quick_start.md`，参数完整说明见 `refe
 | `references/prompt_engineering.md` | 优化提示词、查风格关键词库时 |
 | `references/api_reference.md` | 需要完整参数说明、错误码、性能指标时 |
 | `references/quick_start.md` | 需要 Python 调用示例（参考图/批量/自定义尺寸）时 |
+
+`evals/routing-evals.json` — 触发边界回归用例，改 description 后用仓库根 `scripts/run_routing_evals.py` 校验。

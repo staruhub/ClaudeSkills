@@ -1,0 +1,48 @@
+[
+  {
+    "id": "asc-01",
+    "prompt": "下周要跟客户的业务 VP 聊我们的 AI 方案，帮我准备一下怎么讲。",
+    "should_trigger": true,
+    "reason": "AI sales conversation prep"
+  },
+  {
+    "id": "asc-02",
+    "prompt": "客户说'AI 不靠谱、会出错'，我该怎么回应？",
+    "should_trigger": true,
+    "reason": "objection handling"
+  },
+  {
+    "id": "asc-03",
+    "prompt": "把我这个技术方案翻译成老板听得懂、愿意批预算的话。",
+    "should_trigger": true,
+    "reason": "场景触发：技术转业务语言，未出现'销售'关键词"
+  },
+  {
+    "id": "asc-04",
+    "prompt": "帮我把这套 AI 系统的技术架构文档写出来。",
+    "should_trigger": false,
+    "route_to": "solution-architect",
+    "reason": "technical architecture doc, not business pitch"
+  },
+  {
+    "id": "asc-05",
+    "prompt": "帮我调研一下 AI 客服市场有多大、竞品有哪些。",
+    "should_trigger": false,
+    "route_to": "deep-research",
+    "reason": "market research artifact"
+  },
+  {
+    "id": "asc-06",
+    "prompt": "帮我算一下这个月的销售提成。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "arithmetic, unrelated to AI sales dialogue"
+  },
+  {
+    "id": "asc-07",
+    "prompt": "帮我做一份给客户看的 AI 方案汇报 PPT。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "两可：话术/价值包装归本 skill，但'做 PPT'成品归 deck-studio；本 skill 出内容与话术，视觉成品移交 deck-studio"
+  }
+]

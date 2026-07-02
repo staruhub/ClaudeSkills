@@ -1,0 +1,48 @@
+[
+  {
+    "id": "gk-01",
+    "prompt": "帮我出一道高考物理的压轴题，要真实情境、带评分标准。",
+    "should_trigger": true,
+    "reason": "gaokao item authoring"
+  },
+  {
+    "id": "gk-02",
+    "prompt": "评审一下这道高考模拟题的质量，科学性和难度合不合适。",
+    "should_trigger": true,
+    "reason": "item review"
+  },
+  {
+    "id": "gk-03",
+    "prompt": "分析一下这套卷子的知识点分布和难度梯度合不合理。",
+    "should_trigger": true,
+    "reason": "场景触发：试卷结构分析，未出现'命题'关键词"
+  },
+  {
+    "id": "gk-04",
+    "prompt": "我要准备大学期末考试，帮我复习数据结构。",
+    "should_trigger": false,
+    "route_to": "university-exam-prep",
+    "reason": "exam prep for a student, not item authoring"
+  },
+  {
+    "id": "gk-05",
+    "prompt": "这道高考数学题的答案是多少？帮我解出来。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "solving a problem for a test-taker, not designing/reviewing items"
+  },
+  {
+    "id": "gk-06",
+    "prompt": "帮我给公司出一套入职笔试题。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "corporate assessment, different standard from gaokao"
+  },
+  {
+    "id": "gk-07",
+    "prompt": "帮我出一套高三月考模拟卷。",
+    "should_trigger": true,
+    "boundary": true,
+    "reason": "两可：模拟卷贴近高考命题规范，归本 skill；但若用户实为学生自测复习，则更接近 university-exam-prep。以'出题/命题'意图判定归本 skill"
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "id": "sd-01",
+    "prompt": "帮我用 Seedream 生成一张商务风格的产品海报，2K，16:9。",
+    "should_trigger": true,
+    "reason": "explicit Seedream text-to-image"
+  },
+  {
+    "id": "sd-02",
+    "prompt": "生成一组概念设计图，科技感，深蓝色调，5 张挑一张。",
+    "should_trigger": true,
+    "reason": "场景触发：批量文生图，未点名 Seedream"
+  },
+  {
+    "id": "sd-03",
+    "prompt": "根据这张参考图的风格，生成几张一致的营销素材。",
+    "should_trigger": true,
+    "reason": "reference-guided generation"
+  },
+  {
+    "id": "sd-04",
+    "prompt": "帮我把这个方案做成一套 PPT，一页一页画出来。",
+    "should_trigger": false,
+    "route_to": "deck-studio",
+    "reason": "multi-page deck production; deck-studio owns outline+page flow"
+  },
+  {
+    "id": "sd-05",
+    "prompt": "帮我把这张图里的文字改一下。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "editing an existing image, not text-to-image generation"
+  },
+  {
+    "id": "sd-06",
+    "prompt": "生成一段产品宣传视频。",
+    "should_trigger": false,
+    "route_to": "none",
+    "reason": "video generation, out of scope"
+  },
+  {
+    "id": "sd-07",
+    "prompt": "帮我做一组小红书风格的图文卡片。",
+    "should_trigger": false,
+    "boundary": true,
+    "route_to": "deck-studio",
+    "reason": "两可：单图生成属本 skill，但成套图文卡片(风格+版式+多页)是 deck-studio 的信息图能力；倾向 deck-studio，它再按需调用本 skill 出图"
+  }
+]

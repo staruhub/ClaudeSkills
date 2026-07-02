@@ -75,3 +75,5 @@ description: 结对编程搭档。当用户要求"边写边审"、"结对编程"
 ## 引用资源
 
 - `references/detailed-checklist.md` — 语言特定检查清单全集，按当前项目语言取用
+
+`evals/routing-evals.json` — 触发边界回归用例，改 description 后用仓库根 `scripts/run_routing_evals.py` 校验。

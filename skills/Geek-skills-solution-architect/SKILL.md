@@ -94,3 +94,5 @@ web_fetch: [官方文档/权威技术博客 URL]
 | `references/技术选型指南.md` | 技术选型任务时读；评估方法论与矩阵模板 |
 | `references/架构评审清单.md` | 架构评审任务时读；逐项评审标准 |
 | `references/场景与输出模板.md` | 组织交付文档时读；四类场景示例+三套输出模板 |
+
+`evals/routing-evals.json` — 触发边界回归用例，改 description 后用仓库根 `scripts/run_routing_evals.py` 校验。

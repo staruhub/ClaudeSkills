@@ -200,3 +200,5 @@ description: 大学备考苏格拉底式学习助手，专为应对"面向课本
 3. **不做泛泛而谈** - 不给"通用复习建议"
 4. **不做无聊重复** - 不反复问同样的基础问题
 5. **不做难度失控** - 不要太简单也不要超纲
+
+`evals/routing-evals.json` — 触发边界回归用例，改 description 后用仓库根 `scripts/run_routing_evals.py` 校验。
