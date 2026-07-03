@@ -2,7 +2,9 @@
 
 # Geek Skills
 
-**Claude Code skills that ship with quality gates, routing evals, and blind-eval scores — a product, not a prompt collection.**
+**One sentence in → a deck you'd actually present.**
+
+Tested Claude Code skills for real work — decks, research memos, PRDs, articles. You'll see it in the results, not the pitch.
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
 [![skills](https://img.shields.io/badge/curated_skills-19-blue)](#-all-skills)
@@ -14,37 +16,24 @@
 
 <a id="english"></a>
 
----
+## 🎞️ Type this —
 
-## 🎞️ See it first — `/deck-studio`
+```
+/deck-studio Turn this quarterly review into a consulting-style deck
+```
 
-One sentence in → a full deck out. Every image below was produced by the skill itself (HTML → headless-Chrome screenshot pipeline, fonts locked at render time) and scored by an **independent blind judge on an absolute rubric** (10 = design studio, 7 = professional agency).
-
-| | |
-|:---:|:---:|
-| <img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="100%"><br>**Constructivist Red** — 9 pages, **7.1/10**<br>highest of four rounds, first past the 7.0 studio line | <img src="skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/preview-cover.png" width="100%"><br>**Ink-White Consulting** — 3-judge blind eval<br>**42.3 vs 29.7** against the old pipeline (position-swapped) |
-| <img src="skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/preview-cover.png" width="100%"><br>**Black-Gold Proposal** — **6.6/10** | <img src="skills/Geek-skills-deck-studio/examples/polar-night-ai-native/preview-cover.png" width="100%"><br>**Polar Night Tech** — **6.0/10** |
-
-Each example directory ships the full generator + rendered pages + the lessons the judge caught: [constructivist](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [moshiro](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [yinghuang](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [polar-night](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
-
-**Why the scores go up:** beauty is *inherited, not generated*. The skill freezes taste into a 17-style library with rendered template seeds, 14 registered layouts (L01–L14), and a 22-rule post-render visual gate (Duarte / Tufte / Müller-Brockmann / Butterick / W3C clreq + 10 battle-tested rules). Score trajectory on the same rubric: 6.0 → 6.6 → 6.6 → **7.1**.
+**— and get a full deck back.** Here's page one of a real run:
 
 <p align="center">
-<img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" width="24%">
+<img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="82%">
 </p>
-<p align="center"><sub>Four of the 17 styles — Bauhaus · Constructivist · Neubrutalism · Aicher — each with a rendered, reusable template seed.</sub></p>
+<p align="center"><sub>9 pages, produced by the skill itself — no template picked by hand, no manual touch-up.</sub></p>
 
 ## 🚀 Install in 30 seconds
 
 ```bash
 git clone https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSkills
-python3 scripts/install_skill.py deck-studio      # -> ~/.claude/skills/deck-studio
-```
-
-Then in Claude Code:
-
-```
-/deck-studio Turn this quarterly review into a consulting-style deck
+python3 scripts/install_skill.py deck-studio      # -> ~/.claude/skills/deck-studio, then run /deck-studio
 ```
 
 <details>
@@ -65,6 +54,24 @@ cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
 Copy without renaming → the command becomes `/Geek-skills-deep-research`. Claude also auto-loads a skill when its `description` matches; `/command` is just the explicit way in.
 
 </details>
+
+## 📈 Don't take my word for it
+
+Four more real runs. Each cover was scored by an **independent blind judge on an absolute rubric** (10 = design studio, 7 = pro agency) — not by me.
+
+| | |
+|:---:|:---:|
+| <img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="100%"><br>**Constructivist Red** — 9 pages, **7.1/10**<br>highest of four rounds, first past the 7.0 studio line | <img src="skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/preview-cover.png" width="100%"><br>**Ink-White Consulting** — 3-judge blind eval<br>**42.3 vs 29.7** vs the old pipeline (position-swapped) |
+| <img src="skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/preview-cover.png" width="100%"><br>**Black-Gold Proposal** — **6.6/10** | <img src="skills/Geek-skills-deck-studio/examples/polar-night-ai-native/preview-cover.png" width="100%"><br>**Polar Night Tech** — **6.0/10** |
+
+Every example directory ships the full generator + rendered pages + the lessons the judge caught: [constructivist](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [moshiro](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [yinghuang](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [polar-night](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
+
+**Why the scores climb, run after run:** beauty is *inherited, not generated*. The skill freezes taste into a 17-style library with rendered template seeds, 14 registered layouts, and a 22-rule post-render visual gate. Trajectory on the same rubric: 6.0 → 6.6 → 6.6 → **7.1**.
+
+<p align="center">
+<img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" width="24%">
+</p>
+<p align="center"><sub>Four of the 17 styles — Bauhaus · Constructivist · Neubrutalism · Aicher — each a rendered, reusable seed.</sub></p>
 
 ## ⭐ Featured Skills
 
@@ -176,39 +183,30 @@ MIT
 
 # Geek Skills（中文）
 
-**带质量门禁、路由 evals 和盲评分数的 Claude Code skills 仓库——是产品，不是 prompt 合集。**
+**一句话进 → 一套能直接上台讲的 deck。**
+
+面向真实工作的 Claude Code skills——做 deck、研究简报、PRD、文章。效果看结果,不看吹。
 
 </div>
 
-## 🎞️ 先看效果 — `/deck-studio`
+## 🎞️ 输入这一句 —
 
-一句话进 → 整套 deck 出。下面每张图都由 skill 自己生产（HTML → headless Chrome 截图管线，渲染机锁定字体），并由**独立盲评按绝对标准打分**（10 = 设计工作室，7 = 专业乙方）。
+```
+/deck-studio 把这份季度复盘做成一套咨询风 PPT
+```
 
-| | |
-|:---:|:---:|
-| <img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="100%"><br>**构成主义红** — 9 页，**7.1/10**<br>四轮最高，首破 7 分工作室线 | <img src="skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/preview-cover.png" width="100%"><br>**墨白咨询** — 三评委盲评<br>**42.3 vs 29.7** 击败旧实现（对调组一致） |
-| <img src="skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/preview-cover.png" width="100%"><br>**黑金提案** — **6.6/10** | <img src="skills/Geek-skills-deck-studio/examples/polar-night-ai-native/preview-cover.png" width="100%"><br>**极夜科技** — **6.0/10** |
-
-每套样例目录都含完整生成器 + 渲染页 + 评审抓出的教训：[构成主义](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [墨白](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [英黄](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [极夜](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
-
-**分数为什么在涨：** 美是继承的，不是生成的。skill 把品味冻结进 17 套风格库（含已渲染模板种子）、14 个注册版式（L01–L14）和渲染后 22 条视觉门禁（Duarte / Tufte / Müller-Brockmann / Butterick / W3C clreq + 10 条实战教训）。同一绝对标准下的分数轨迹：6.0 → 6.6 → 6.6 → **7.1**。
+**— 就还你一整套 deck。** 这是一次真实运行的第一页：
 
 <p align="center">
-<img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" width="24%">
+<img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="82%">
 </p>
-<p align="center"><sub>17 套风格中的 4 套——包豪斯 · 构成主义 · Neubrutalism · Aicher——每套带已渲染、可复用的模板种子。</sub></p>
+<p align="center"><sub>共 9 页,由 skill 自己生产——没有手挑模板,没有人工补妆。</sub></p>
 
 ## 🚀 30 秒安装
 
 ```bash
 git clone https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSkills
-python3 scripts/install_skill.py deck-studio      # -> ~/.claude/skills/deck-studio
-```
-
-然后在 Claude Code 里：
-
-```
-/deck-studio 把这份季度复盘做成一套咨询风 PPT
+python3 scripts/install_skill.py deck-studio      # -> ~/.claude/skills/deck-studio，然后运行 /deck-studio
 ```
 
 <details>
@@ -229,6 +227,24 @@ cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
 不改名直接复制 → 命令是 `/Geek-skills-deep-research`。Claude 也会在 `description` 匹配时自动加载，`/命令` 只是显式调用方式之一。
 
 </details>
+
+## 📈 别听我说,看盲评
+
+另外四次真实运行。每张封面都由**独立盲评按绝对标准打分**（10 = 设计工作室,7 = 专业乙方）——不是我自己打的。
+
+| | |
+|:---:|:---:|
+| <img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="100%"><br>**构成主义红** — 9 页，**7.1/10**<br>四轮最高，首破 7 分工作室线 | <img src="skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/preview-cover.png" width="100%"><br>**墨白咨询** — 三评委盲评<br>**42.3 vs 29.7** 击败旧实现（对调组一致） |
+| <img src="skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/preview-cover.png" width="100%"><br>**黑金提案** — **6.6/10** | <img src="skills/Geek-skills-deck-studio/examples/polar-night-ai-native/preview-cover.png" width="100%"><br>**极夜科技** — **6.0/10** |
+
+每套样例目录都含完整生成器 + 渲染页 + 评审抓出的教训：[构成主义](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [墨白](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [英黄](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [极夜](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
+
+**分数为什么一轮轮在涨：** 美是继承的,不是生成的。skill 把品味冻结进 17 套风格库（含已渲染模板种子）、14 个注册版式和渲染后 22 条视觉门禁。同一绝对标准下的轨迹：6.0 → 6.6 → 6.6 → **7.1**。
+
+<p align="center">
+<img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" width="24%">
+</p>
+<p align="center"><sub>17 套风格中的 4 套——包豪斯 · 构成主义 · Neubrutalism · Aicher——每套带已渲染、可复用的模板种子。</sub></p>
 
 ## ⭐ 核心推荐
 
