@@ -2,9 +2,9 @@
 
 # Geek Skills
 
-**One sentence in → a deck you'd actually present.**
+**19 Claude Code skills for the work you'd actually ship — decks, research, PRDs, articles, audits.**
 
-Tested Claude Code skills for real work — decks, research memos, PRDs, articles. You'll see it in the results, not the pitch.
+End-to-end workflows tested like software, not prompt snippets. You'll see it in the results, not the pitch — starting with the one below.
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
 [![skills](https://img.shields.io/badge/curated_skills-19-blue)](#-all-skills)
@@ -183,9 +183,9 @@ MIT
 
 # Geek Skills（中文）
 
-**一句话进 → 一套能直接上台讲的 deck。**
+**19 个把活真正干完的 Claude Code skills——做 deck、研究、PRD、文章、安全审计。**
 
-面向真实工作的 Claude Code skills——做 deck、研究简报、PRD、文章。效果看结果,不看吹。
+端到端工作流,像软件一样被测过,不是 prompt 碎片。效果看结果不看吹——从下面这个开始。
 
 </div>
 
