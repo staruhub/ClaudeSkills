@@ -179,7 +179,7 @@ pages.push(P("03 怎么合作 · 节奏", `
            ["W3","Skill 化","方法论沉淀为 skill","专属 skill ×3"],
            ["W4","项目启动","用真实需求立项","项目立项书"],
            ["W5","交付冲刺","AI 协作产出成品","项目成品"],
-           ["W6","路演结营","作品互评与后续路径","路演 + 互评报告"]].map(([w,t,d,out])=>`
+           ["W6","路演结营","作品互评与后续路径","路演 + 互评报告"]].map(([w,t,d,out],i)=>`
         <div style="width:15.2%;">
           <div style="width:16px;height:16px;background:${T.gold};margin-bottom:22px;"></div>
           <div class="mono" style="font-size:14px;color:${T.gold};font-weight:700;margin-bottom:12px;">${w}</div>
@@ -187,7 +187,7 @@ pages.push(P("03 怎么合作 · 节奏", `
           <div class="body" style="font-size:13px;min-height:64px;">${d}</div>
           <div style="border-top:1px solid ${T.line};padding-top:12px;">
             <div class="mono" style="font-size:10px;letter-spacing:.14em;color:${T.dim};margin-bottom:6px;">交付物</div>
-            <div style="font-size:12.5px;color:${T.gold};font-weight:600;">${out}</div>
+            <div style="font-size:12.5px;color:${i===2||i===5?T.gold:T.txt};font-weight:600;">${out}</div>
           </div>
         </div>`).join("")}
       </div>

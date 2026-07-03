@@ -94,25 +94,29 @@ pages.push(P("目录 · Agenda", `
 pages.push(P("01 是什么 · 分界", `
   <div class="h" style="font-size:44px;">分界线只有一条：<span class="cy">用户行为能否穷举</span></div>
   <div style="flex:1;display:flex;gap:1px;background:${T.line};margin-top:36px;">
-    <!-- 三段等距内部网格:标题区/示意图区/论据+结论区;灰 vs 青顶线对位 -->
-    <div style="flex:1;background:${T.card};border-top:2px solid ${T.faint};padding:34px 38px;display:flex;flex-direction:column;gap:24px;">
-      <div><span class="mono" style="font-size:13px;letter-spacing:.2em;color:${T.dim};">TYPE A</span>
+    <!-- 三段网格(消灭空腹):① 标题头 ② 图形居中占中段固定高 ③ 正文贴中段 + 结论行 -->
+    <div style="flex:1;background:${T.card};border-top:2px solid ${T.faint};padding:36px 40px;display:flex;flex-direction:column;">
+      <div style="margin-bottom:8px;"><span class="mono" style="font-size:13px;letter-spacing:.2em;color:${T.dim};">TYPE A</span>
         <div class="h" style="font-size:29px;margin-top:12px;">＋AI<span class="thin" style="color:${T.dim};font-size:21px;">（场景依赖型）</span></div></div>
-      <div style="display:grid;grid-template-columns:repeat(8,22px);gap:7px;">
-        ${Array.from({length:16},()=>`<div style="width:22px;height:22px;background:${T.line2};"></div>`).join("")}
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+        <div style="display:grid;grid-template-columns:repeat(8,26px);gap:9px;">
+          ${Array.from({length:24},()=>`<div style="width:26px;height:26px;background:${T.line2};"></div>`).join("")}
+        </div>
       </div>
-      <div class="body" style="font-size:14.5px;flex:1;">行为可枚举——有限的格栅。AI 辅助执行<span style="color:${T.txt};font-weight:600;">确定性流程</span>：记账、OCR 归档、CRUD 后台。</div>
+      <div class="body" style="font-size:14.5px;margin-bottom:16px;">行为可枚举——有限的格栅。AI 辅助执行<span style="color:${T.txt};font-weight:600;">确定性流程</span>：记账、OCR 归档、CRUD 后台。</div>
       <div class="mono" style="font-size:13px;color:${T.dim};border-top:1px solid ${T.line};padding-top:16px;">→ 克谦式：单 Agent · SDD · 质量门禁</div>
     </div>
-    <div style="flex:1;background:${T.card2};border-top:2px solid ${T.cyan};padding:34px 38px;display:flex;flex-direction:column;gap:24px;">
-      <div><span class="mono" style="font-size:13px;letter-spacing:.2em;color:${T.cyan};">TYPE B</span>
+    <div style="flex:1;background:${T.card2};border-top:2px solid ${T.cyan};padding:36px 40px;display:flex;flex-direction:column;">
+      <div style="margin-bottom:8px;"><span class="mono" style="font-size:13px;letter-spacing:.2em;color:${T.cyan};">TYPE B</span>
         <div class="h" style="font-size:29px;margin-top:12px;">AI Native<span class="thin" style="color:${T.dim};font-size:21px;">（强模型依赖型）</span></div></div>
-      <svg width="220" height="80" viewBox="0 0 220 80">
-        <circle cx="30" cy="40" r="7" fill="${T.cyan}" style="filter:drop-shadow(0 0 8px ${T.cyan})"/>
-        ${[[90,12],[120,32],[105,58],[150,20],[170,46],[145,70],[200,10],[210,38],[195,66]].map(([x,y])=>
-          `<line x1="30" y1="40" x2="${x}" y2="${y}" stroke="${T.line2}" stroke-width="1"/><circle cx="${x}" cy="${y}" r="3.5" fill="${T.line2}"/>`).join("")}
-      </svg>
-      <div class="body" style="font-size:14.5px;flex:1;">行为开放——发散的节点。AI 驱动<span class="cy" style="font-weight:600;">核心决策</span>：AI 日历、对话助手、智能推荐。</div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+        <svg width="280" height="130" viewBox="0 0 280 130">
+          <circle cx="40" cy="65" r="9" fill="${T.cyan}" style="filter:drop-shadow(0 0 10px ${T.cyan})"/>
+          ${[[120,18],[160,50],[135,92],[200,30],[230,72],[195,112],[260,16],[268,58],[250,104]].map(([x,y])=>
+            `<line x1="40" y1="65" x2="${x}" y2="${y}" stroke="${T.line2}" stroke-width="1"/><circle cx="${x}" cy="${y}" r="4" fill="${T.line2}"/>`).join("")}
+        </svg>
+      </div>
+      <div class="body" style="font-size:14.5px;margin-bottom:16px;">行为开放——发散的节点。AI 驱动<span class="cy" style="font-weight:600;">核心决策</span>：AI 日历、对话助手、智能推荐。</div>
       <div class="mono" style="font-size:13px;color:${T.cyan};border-top:1px solid ${T.line2};padding-top:16px;">→ 雪峰式：多专精 Agent · 快速校准 · 行为审计</div>
     </div>
   </div>`, 3));

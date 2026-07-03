@@ -124,13 +124,24 @@ pages.push(P("01 标准 / 框架", `
     </div>
   </div>`, 4));
 
-/* 5 数据 — 概念:19/19 用 19 格填满可视化 + 条形图,文字主角 */
-const cells = Array.from({length:19},(_,i)=>`<div style="width:34px;height:34px;background:var(--blue);border-radius:3px;"></div>`).join("");
+/* 5 数据 — 前后对比叙事(B2):重构前 21 格(4 实心+17 空心) → 重构后 19 实心;指标下移(B4) */
+const cell=(bg,bd)=>`<div style="width:38px;height:38px;background:${bg};border:${bd};border-radius:3px;"></div>`;
+const rowBefore = Array.from({length:21},(_,i)=>i<4?cell("var(--g3)","none"):cell("transparent","1.5px solid var(--g4)")).join("");
+const rowAfter  = Array.from({length:21},(_,i)=>i<19?cell("var(--blue)","none"):cell("transparent","1.5px solid var(--g4)")).join("");
 pages.push(P("02 成果 / 数据", `
-  <div class="h" style="font-size:40px;margin-bottom:6px;">达标：从 <span class="num" style="color:var(--g3);">4/21</span> 到 <span class="num hl">19/19</span></div>
-  <div class="thin" style="font-size:14px;color:var(--g3);margin-bottom:38px;">每一格代表一个具备完整三件套的 skill</div>
-  <div style="display:grid;grid-template-columns:repeat(19,34px);gap:9px;margin-bottom:44px;">${cells}</div>
-  <div style="display:flex;gap:64px;">
+  <div class="h" style="font-size:40px;margin-bottom:6px;">达标：从 <span class="num" style="color:var(--g3);">4/21</span> 到 <span class="num hl">19/21</span></div>
+  <div class="thin" style="font-size:14px;color:var(--g3);margin-bottom:4px;">同样 21 个槽位——灰=重构前已合格 4 个，蓝=本次新达标至 19 个，空=尚未覆盖的窄工具</div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:34px;">
+    <div>
+      <div class="cap" style="font-size:12px;letter-spacing:.14em;margin-bottom:12px;">重构前 · 4 / 21</div>
+      <div style="display:grid;grid-template-columns:repeat(21,38px);gap:10px;">${rowBefore}</div>
+    </div>
+    <div>
+      <div style="font-size:12px;letter-spacing:.14em;margin-bottom:12px;color:var(--blue);font-weight:700;">重构后 · 19 / 21</div>
+      <div style="display:grid;grid-template-columns:repeat(21,38px);gap:10px;">${rowAfter}</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:64px;margin-top:20px;">
     ${[["113","routing evals · 覆盖 14 个 skill",0],["100%","硬编码清零 · 平台路径 + 时效",0],["2","L1 gate · CI 每次 push 跑",1]].map(([n,c,hot])=>`
     <div style="flex:1;border-top:2px solid ${hot?"var(--blue)":"var(--ink)"};padding-top:16px;">
       <span class="num h" style="font-size:52px;color:${hot?"var(--blue)":"var(--ink)"};">${n}</span>
