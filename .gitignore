@@ -5,3 +5,6 @@
 *.skill
 __pycache__/
 *.pyc
+
+# 本地内部工作笔记（知识树状态、skill 复盘 spec/plan），不公开
+docs/
