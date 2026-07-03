@@ -29,6 +29,14 @@ Most changes are content edits to skill files. Two canonical checks exist:
 
 CI (`.github/workflows/validate.yml`) runs the two L1 gates plus a script compile-check on every push and PR.
 
+## Syncing Downloaded `.skill` Packages
+
+1. Unpack the candidate package into a temporary directory.
+2. Match it only to an existing repository skill unless intentionally adding a new one.
+3. Preserve repo naming conventions: `skills/Geek-skills-xxx/`, `references/`, `assets/`, `scripts/`, and `evals/`.
+4. Keep useful upstream updates, but avoid reverting normalized frontmatter unless the slash command is intentionally changing. (Per Claude Code's rules, the slash command comes from the **installed directory name**, not the frontmatter `name`, which is only a display label.)
+5. Update the README whenever the visible skill list, layout rules, or notable sync status changes. Last download-folder sync: 2026-04-21, covering existing matching skills only.
+
 ## Coding Style & Naming Conventions
 - Prefer ASCII in `SKILL.md` files unless non-ASCII is required by the skill content.
 - Skill directories use `Geek-skills-xxx` naming convention (lowercase kebab-case after prefix).
