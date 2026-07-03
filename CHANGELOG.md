@@ -2,6 +2,30 @@
 
 本仓库遵循语义化的变更记录。日期为 `YYYY-MM-DD`（本地时区）。
 
+## [deck-studio 版式注册表与原典校验] — 2026-07-03
+
+第二轮 deep-research（49 来源，满配并行）落地为两个核心资产 + 第三套实证样例。
+
+### 新增
+
+- **`references/layout-registry.md`**：14 个注册版式（L01–L14），全部来自三套盲评/评审
+  验证过的样例；每页生成前必须选版式并声明 `layout: LXX`，不从零发明构图——对标归藏
+  S01–S22 与 Slidev named-layouts 的"锁定版式"范式。附正交拆维组织原则（视觉流派 ×
+  版式骨架 × 主题色独立策展）。
+- **`references/visual-checklist.md`**：渲染后 L2 视觉门禁——原典量化 12 条（Duarte 75词/3秒、
+  Tufte Lie Factor 0.95–1.05 与 chartjunk=0、Müller-Brockmann 网格、Butterick 行长行距、
+  W3C clreq 中文禁则与混排间距）+ 实战教训 10 条（重锚点、防空腹、垂直重心、母题、对位同构等，
+  每条附盲评/评审出处）。
+- **第三套样例** `examples/yinghuang-bootcamp-proposal/`：黑金提案系（独立评审 6.6/10，
+  三轮最高），含时间线"交付物行"修复与"空腹病"自检记录。
+
+### 研究结论（注册进 registry）
+
+- 中文生态两条生产函数：商业产品靠模板堆量+场景分类（AiPPT 10万+），公认最好看的开源
+  skill（归藏 8.8k★、frontend-slides 17.5k★）反而靠**极小策展库+强约束**——印证"约束换美学"。
+- 最值得逆向的 token 范式：Quarto 的 reveal.js Sass 变量表、Slidev 主题 layouts 词汇表、
+  apple-bento-grid 单文件实现（与本管线同构）。
+
 ## [deck-studio 视觉管线与实证样例] — 2026-07-03
 
 把「美学在线」从口号变成管线 + 证据。
