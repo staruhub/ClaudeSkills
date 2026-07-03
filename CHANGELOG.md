@@ -2,6 +2,23 @@
 
 本仓库遵循语义化的变更记录。日期为 `YYYY-MM-DD`（本地时区）。
 
+## [deck-studio 视觉管线与实证样例] — 2026-07-03
+
+把「美学在线」从口号变成管线 + 证据。
+
+### 新增
+
+- **HTML→Chrome 截图→pptx 视觉管线**：字体由渲染机锁定（根除 pptx 字体 fallback 崩坏），
+  CSS 全效果 2×DPI 确定性输出；render→agent 看图自检→修 的闭环跑通。
+- **两个实证样例**（examples/）：明色系 `moshiro-consulting-report`（墨白咨询，三评委盲评
+  42.3 vs 29.7 击败旧实现，且对调组一致）；暗色系 `polar-night-ai-native`（极夜科技 AI Native
+  方法论，独立评审绝对分 6/10 专业级，按评审四条修复迭代至 v5.1）。
+- **陷阱表新增四条实战教训**：全盘细体假高级（v4 盲评 3:0 落败实证——极端对比=极细与极重共存）、
+  pptx 字体 fallback、中文正文半角标点、JS 中文引号炸脚本。
+- deep-research 产出《如何做好美学在线的 PPT skill》报告：核心结论"美是继承的不是生成的"，
+  对标拆解归藏 guizang-ppt-skill 七层资产（成品模板/锁定版式/封闭主题/节奏规则/排印纪律/
+  checklist/validator），指明下一步是把风格冻结成归藏级模板包。
+
 ## [P1 路由 evals 扩面] — 2026-07-03
 
 routing evals 覆盖从 7 个 skill 扩到 14 个（113 条用例）。
