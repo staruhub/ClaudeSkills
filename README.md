@@ -92,6 +92,7 @@ Most skill repos are prompt collections. This one is maintained like software:
 
 - **Evidence, not adjectives** — visual quality claims above come from blind, position-swapped, multi-judge evals; the score trajectory and every caught defect are recorded in [CHANGELOG.md](CHANGELOG.md) and the example READMEs.
 - **No stale hardcoding** — CVE numbers, years, platform paths replaced with live-search instructions or relative paths.
+- **Know what you install** — [SECURITY.md](SECURITY.md) gives a per-skill capability matrix (reads files / writes / network / shells out / needs credentials / can delete), derived by grepping the bundled scripts. 11 of 19 skills are prompt-only (ship zero code); exactly one can delete files, and it defaults to dry-run.
 
 > ⚠️ This is a **self-audit** by Claude (Fable 5), not a third-party certification. The two commands above let you re-run the gate yourself; full refactor record in [CHANGELOG.md](CHANGELOG.md).
 
@@ -255,6 +256,7 @@ cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
 
 - **证据而非形容词**——上面的视觉质量结论来自盲评（对调分组、多评委）；分数轨迹与每条被抓缺陷都记录在 [CHANGELOG.md](CHANGELOG.md) 和样例 README 里。
 - **无过时硬编码**——写死的 CVE 编号、年份、平台路径全部改为实时搜索指令或相对路径。
+- **装之前先知道它能碰什么**——[SECURITY.md](SECURITY.md) 给出逐 skill 能力矩阵（读文件 / 写文件 / 联网 / 调外部命令 / 需凭证 / 可删文件），由 grep 打包脚本核实得出。19 个里 11 个是纯 prompt（零代码）；只有 1 个能删文件，且默认 dry-run。
 
 > ⚠️ 这是 Claude（Fable 5）的**自审**，不是第三方认证。上面两条命令可自行复跑门禁；完整重构记录见 [CHANGELOG.md](CHANGELOG.md)。
 
