@@ -142,6 +142,7 @@ Most skill repos are prompt collections. This one is maintained like software:
 |-------|------|-------------|
 | `a-share-analyst` | [skills/Geek-skills-a-share-analyst](skills/Geek-skills-a-share-analyst/SKILL.md) | A-share technical and fundamental analysis |
 | `c-drive-cleaner` | [skills/Geek-skills-c-drive-cleaner](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C drive cleanup and disk space management |
+| `hermes-tweet-xquik` | [skills/Geek-skills-hermes-tweet-xquik](skills/Geek-skills-hermes-tweet-xquik/SKILL.md) | Hermes Tweet and Xquik workflows for X/Twitter agents |
 | `mineru-pdf-parser` | [skills/Geek-skills-mineru-pdf-parser](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | PDF to Markdown or JSON for LLM workflows |
 | `seedream-imagegen` | [skills/Geek-skills-seedream-imagegen](skills/Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 image generation |
 
@@ -313,6 +314,7 @@ cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
 |------|------|------|
 | `a-share-analyst` | [skills/Geek-skills-a-share-analyst](skills/Geek-skills-a-share-analyst/SKILL.md) | A 股技术面与基本面分析 |
 | `c-drive-cleaner` | [skills/Geek-skills-c-drive-cleaner](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C 盘清理与空间管理 |
+| `hermes-tweet-xquik` | [skills/Geek-skills-hermes-tweet-xquik](skills/Geek-skills-hermes-tweet-xquik/SKILL.md) | 面向 X/Twitter Agent 的 Hermes Tweet 与 Xquik 工作流 |
 | `mineru-pdf-parser` | [skills/Geek-skills-mineru-pdf-parser](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | 面向 LLM 工作流的 PDF 解析 |
 | `seedream-imagegen` | [skills/Geek-skills-seedream-imagegen](skills/Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 图像生成 |
 
