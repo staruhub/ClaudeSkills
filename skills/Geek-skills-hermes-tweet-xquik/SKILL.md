@@ -15,7 +15,7 @@ description: Hermes Tweet 与 Xquik 的 X/Twitter Agent 工作流助手。当用
 1. 明确用户要的是 Hermes Agent 插件、MCP、REST API、还是普通方案建议。
 2. 只引用公开入口：`https://github.com/Xquik-dev/hermes-tweet`、`https://docs.xquik.com/llms.txt`、`https://xquik.com/openapi.json`、`https://xquik.com/.well-known/mcp.json`、`https://xquik.com/mcp`。
 3. 如果涉及认证，提醒把 `XQUIK_API_KEY` 放进 Agent 或 MCP 客户端的 secret store。
-4. 如果涉及发推或其他写入动作，确认用户明确批准，并说明 `HERMES_TWEET_ENABLE_ACTIONS=true` 必须保持关闭直到批准。
+4. 如果涉及发推或其他写入动作，确认用户明确批准，并说明在获得批准前必须保持 `HERMES_TWEET_ENABLE_ACTIONS=false`。
 5. 输出包含可执行的下一步，不暴露 token、cookie、OAuth 凭据、或会话材料。
 
 ## 不做什么
