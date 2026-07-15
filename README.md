@@ -2,346 +2,235 @@
 
 # Geek Skills
 
-**19 Claude Code skills for the work you'd actually ship — decks, research, PRDs, articles, audits.**
+**19 curated Claude Code skills that turn vague requests into work you can actually ship.**
 
-End-to-end workflows tested like software, not prompt snippets. You'll see it in the results, not the pitch — starting with the one below.
+Cited research briefs · build-ready PRDs · presentation-ready decks · publishable Chinese articles · engineering audits
 
-[![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
-[![skills](https://img.shields.io/badge/curated_skills-19-blue)](#-all-skills)
-[![license](https://img.shields.io/badge/license-MIT-green)](#license)
+**Not 1,000 prompt snippets. Nineteen end-to-end workflows with real examples, acceptance criteria, routing evaluations, and explicit safety boundaries.**
 
-[English](#english) | [中文](#中文)
+[![CI](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
+[![Curated skills](https://img.shields.io/badge/curated_skills-19-00C878)](#all-19-curated-skills)
+[![Security](https://img.shields.io/badge/security-capability_matrix-FF4444)](SECURITY.md)
+[![License](https://img.shields.io/badge/license-MIT-0D1117)](#license)
+
+[English](README.md) · [简体中文](README.zh-CN.md)
+
+[Choose a workflow](#start-with-the-outcome) · [Quick start](#quick-start) · [See a real result](#see-a-real-result) · [Browse all skills](#all-19-curated-skills)
 
 </div>
-
-<a id="english"></a>
-
-## 🎞️ Type this —
-
-```
-/deck-studio Turn this quarterly review into a consulting-style deck
-```
-
-**— and get a full deck back.** Here's page one of a real run:
-
-<p align="center">
-<img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="82%">
-</p>
-<p align="center"><sub>9 pages, produced by the skill itself — no template picked by hand, no manual touch-up.</sub></p>
-
-## 🚀 Install in 30 seconds
-
-```bash
-git clone https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSkills
-python3 scripts/install_skill.py deck-studio      # -> ~/.claude/skills/deck-studio, then run /deck-studio
-```
-
-<details>
-<summary>Other install options (list all, per-project, manual)</summary>
-
-```bash
-python3 scripts/install_skill.py --list                  # see installable names
-python3 scripts/install_skill.py deep-research           # any skill by short name
-python3 scripts/install_skill.py deep-research --project # -> ./.claude/skills/ (project-level)
-```
-
-**Manual:** the installed *directory name* is the slash command, so copy **and rename**:
-
-```bash
-cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
-```
-
-Copy without renaming → the command becomes `/Geek-skills-deep-research`. Claude also auto-loads a skill when its `description` matches; `/command` is just the explicit way in.
-
-</details>
-
-## 📈 Don't take my word for it
-
-Four more real runs. Each cover was scored by an **independent blind judge on an absolute rubric** (10 = design studio, 7 = pro agency) — not by me.
-
-| | |
-|:---:|:---:|
-| <img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="100%"><br>**Constructivist Red** — 9 pages, **7.1/10**<br>highest of four rounds, first past the 7.0 studio line | <img src="skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/preview-cover.png" width="100%"><br>**Ink-White Consulting** — 3-judge blind eval<br>**42.3 vs 29.7** vs the old pipeline (position-swapped) |
-| <img src="skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/preview-cover.png" width="100%"><br>**Black-Gold Proposal** — **6.6/10** | <img src="skills/Geek-skills-deck-studio/examples/polar-night-ai-native/preview-cover.png" width="100%"><br>**Polar Night Tech** — **6.0/10** |
-
-Every example directory ships the full generator + rendered pages + the lessons the judge caught: [constructivist](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [moshiro](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [yinghuang](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [polar-night](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
-
-**Why the scores climb, run after run:** beauty is *inherited, not generated*. The skill freezes taste into a 17-style library with rendered template seeds, 14 registered layouts, and a 22-rule post-render visual gate. Trajectory on the same rubric: 6.0 → 6.6 → 6.6 → **7.1**.
-
-<p align="center">
-<img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" width="24%">
-</p>
-<p align="center"><sub>Four of the 17 styles — Bauhaus · Constructivist · Neubrutalism · Aicher — each a rendered, reusable seed.</sub></p>
-
-## ⭐ Featured Skills
-
-Four flagships — each an end-to-end workflow, not a single prompt:
-
-| Skill | What it does | Reach for it when |
-|-------|--------------|-------------------|
-| 🎞️ **[deck-studio](skills/Geek-skills-deck-studio/SKILL.md)** (v3) | PPT production agent: scene → 17-style library → outline → page schema (registered layouts) → rendered deck or per-page visuals, gated by a 22-rule visual checklist. | Making a report, pitch, course, or proposal deck — or turning an outline/article into slides or infographics. |
-| 🔬 **[deep-research](skills/Geek-skills-deep-research/SKILL.md)** (v8.1) | Evidence-based research pipeline: scoped plan → parallel investigation → verified citations → decision brief. Single-agent by default, fans out only when it pays off; ships with evals and a degraded mode. | You need a cited memo, literature review, market/tech landscape, or a decision brief — not a quick lookup. |
-| 📋 **[product-manager](skills/Geek-skills-product-manager/SKILL.md)** | Senior PM: PRD authoring & review, retention/growth diagnosis, competitive research, feature prioritization — with "dev can start from this" acceptance bars. | Writing/reviewing a PRD, diagnosing low retention, or prioritizing features. |
-| ✍️ **[wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md)** | Multi-style WeChat article writing with a built-in anti-translationese (反翻译腔) pass so Chinese long-form reads natively. | Turning material into a publishable Chinese article (tech blog, product intro, event recap). |
-
-## 🧪 What makes this repo different
-
-Most skill repos are prompt collections. This one is maintained like software:
-
-- **Skill Quality Standard v1.0** — every skill passes a D0 gate and carries the "三件套": checkable **acceptance criteria**, explicit **boundaries** (when *not* to use, with hand-offs), and **pitfall tables** drawn from real failures.
-- **Routing evals** — 113 cases across 14 skills (`evals/routing-evals.json`) proving each skill triggers when it should and defers when it shouldn't; mutually-exclusive pairs are mirrored on both sides.
-- **CI on every push** — [two L1 gates](.github/workflows/validate.yml) (structure + routing-eval consistency) plus a script compile check. Reproduce locally:
-
-  ```bash
-  python3 scripts/validate.py            # -> L1 PASS
-  python3 scripts/run_routing_evals.py   # -> L1 PASS
-  ```
-
-- **Evidence, not adjectives** — visual quality claims above come from blind, position-swapped, multi-judge evals; the score trajectory and every caught defect are recorded in [CHANGELOG.md](CHANGELOG.md) and the example READMEs.
-- **No stale hardcoding** — CVE numbers, years, platform paths replaced with live-search instructions or relative paths.
-- **Know what you install** — [SECURITY.md](SECURITY.md) gives a per-skill capability matrix (reads files / writes / network / shells out / needs credentials / can delete), derived by grepping the bundled scripts. 11 of 19 skills are prompt-only (ship zero code); exactly one can delete files, and it defaults to dry-run.
-
-> ⚠️ This is a **self-audit** by Claude (Fable 5), not a third-party certification. The two commands above let you re-run the gate yourself; full refactor record in [CHANGELOG.md](CHANGELOG.md).
-
-## 📚 All Skills
-
-<a id="-all-skills"></a>
-
-<details>
-<summary><b>19 curated skills by category</b> (click to expand)</summary>
-
-### Development & Architecture
-
-| Skill | Path | Description |
-|-------|------|-------------|
-| `pair-programming` | [skills/Geek-skills-pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | Pair-programming partner: delivers code with a structured self-review, focused on AI-specific defects |
-| `security-audit` | [skills/Geek-skills-security-audit](skills/Geek-skills-security-audit/SKILL.md) | Comprehensive code security audit |
-| `solution-architect` | [skills/Geek-skills-solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | System design, tech selection, and architecture review |
-| `threejs-performance` | [skills/Geek-skills-threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js performance optimization |
-
-### AI-Native Methodology
-
-| Skill | Path | Description |
-|-------|------|-------------|
-| `keqian-method` | [skills/Geek-skills-keqian-method](skills/Geek-skills-keqian-method/SKILL.md) | Keqian's AI-Native product dev methodology: single-agent, SDD, quality gates |
-| `xuefeng-method` | [skills/Geek-skills-xuefeng-method](skills/Geek-skills-xuefeng-method/SKILL.md) | Xuefeng's AI-Native methodology for open-behavior, model-driven products |
-| `ai-sales-champion` | [skills/Geek-skills-ai-sales-champion](skills/Geek-skills-ai-sales-champion/SKILL.md) | AI sales/consulting dialogue helper — turn tech into business language |
-
-### Product & Content
-
-| Skill | Path | Description |
-|-------|------|-------------|
-| `product-manager` | [skills/Geek-skills-product-manager](skills/Geek-skills-product-manager/SKILL.md) | PRD writing, requirement analysis, and product strategy |
-| `wechat-article-writer` | [skills/Geek-skills-wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | Multi-style WeChat article writing |
-| `deck-studio` | [skills/Geek-skills-deck-studio](skills/Geek-skills-deck-studio/SKILL.md) | PPT production agent: scene → style library → outline → page schema → deck or per-page visuals (v3) |
-| `podcast-generator` | [skills/Geek-skills-podcast-generator](skills/Geek-skills-podcast-generator/SKILL.md) | Volcano Engine dual-speaker AI podcast generator |
-
-### Tools & Utilities
-
-| Skill | Path | Description |
-|-------|------|-------------|
-| `a-share-analyst` | [skills/Geek-skills-a-share-analyst](skills/Geek-skills-a-share-analyst/SKILL.md) | A-share technical and fundamental analysis |
-| `c-drive-cleaner` | [skills/Geek-skills-c-drive-cleaner](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C drive cleanup and disk space management |
-| `mineru-pdf-parser` | [skills/Geek-skills-mineru-pdf-parser](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | PDF to Markdown or JSON for LLM workflows |
-| `seedream-imagegen` | [skills/Geek-skills-seedream-imagegen](skills/Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 image generation |
-
-### Education & Research
-
-| Skill | Path | Description |
-|-------|------|-------------|
-| `deep-research` | [skills/Geek-skills-deep-research](skills/Geek-skills-deep-research/SKILL.md) | Evidence-based research workflow with observability, evals, and decision briefs |
-| `gaokao-expert` | [skills/Geek-skills-gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | Gaokao question design expert |
-| `university-exam-prep` | [skills/Geek-skills-university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | University exam prep with Socratic learning |
-| `weather-forecast-report` | [skills/Geek-skills-weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | Weather element research report generator |
-
-### Upstream-Synced
-
-| Skill | Path | Notes |
-|-------|------|-------|
-| `llm-wiki` | [llm-wiki](llm-wiki/SKILL.md) | Preserved in original upstream layout at repo root |
-
-</details>
-
-## 🛠️ For Maintainers
-
-Repository conventions, layout rules, and the maintenance workflow live in [AGENTS.md](AGENTS.md). Pre-publish checks:
-
-```bash
-python3 scripts/validate.py && python3 scripts/run_routing_evals.py   # both must print L1 PASS
-git ls-files | rg '(^|/)\._'                                          # must print nothing
-```
-
-## License
-
-MIT
 
 ---
 
-<a id="中文"></a>
+## Start with the outcome
 
-<div align="center">
+You do not need to learn a framework first. Pick the artifact you need to deliver.
 
-# Geek Skills（中文）
+| I need to ship... | Start with | What it produces |
+|---|---|---|
+| A decision brief I can defend | [`deep-research`](skills/Geek-skills-deep-research/SKILL.md) **v8.1.1** | Research plan, source registry, verified citations, draft, evaluation, and run summary |
+| A product spec engineering can build | [`product-manager`](skills/Geek-skills-product-manager/SKILL.md) **v1.1.0** | PRD, acceptance criteria, review findings, product strategy, or prioritization |
+| A deck I can present | [`deck-studio`](skills/Geek-skills-deck-studio/SKILL.md) **v3.0.0** | Outline, page briefs, slide visuals, quality gates, and a reproducible deck workflow |
+| A Chinese article I can publish | [`wechat-article-writer`](skills/Geek-skills-wechat-article-writer/SKILL.md) | Article, title options, abstract, visual plan, and anti-translationese polish |
 
-**19 个把活真正干完的 Claude Code skills——做 deck、研究、PRD、文章、安全审计。**
+These four are the best entry points. The repository also covers architecture, security, pair programming, finance, education, image generation, podcasting, and more.
 
-端到端工作流,像软件一样被测过,不是 prompt 碎片。效果看结果不看吹——从下面这个开始。
+## Quick start
 
-</div>
-
-## 🎞️ 输入这一句 —
-
-```
-/deck-studio 把这份季度复盘做成一套咨询风 PPT
-```
-
-**— 就还你一整套 deck。** 这是一次真实运行的第一页：
-
-<p align="center">
-<img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="82%">
-</p>
-<p align="center"><sub>共 9 页,由 skill 自己生产——没有手挑模板,没有人工补妆。</sub></p>
-
-## 🚀 30 秒安装
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSkills
-python3 scripts/install_skill.py deck-studio      # -> ~/.claude/skills/deck-studio，然后运行 /deck-studio
+git clone https://github.com/staruhub/ClaudeSkills.git
+cd ClaudeSkills
+python3 scripts/install_skill.py --list
+```
+
+### 2. Install the one skill you need
+
+```bash
+# Install to ~/.claude/skills/<name>
+python3 scripts/install_skill.py deep-research
+
+# Other good starting points
+python3 scripts/install_skill.py product-manager
+python3 scripts/install_skill.py deck-studio
+python3 scripts/install_skill.py wechat-article-writer
+```
+
+### 3. Use it in Claude Code
+
+```text
+/deep-research Compare three local-first RAG architectures for a 20-person legal team.
+/product-manager Turn this feature idea into a build-ready PRD with acceptance criteria.
+/deck-studio Create a 12-slide investor update from this quarterly memo.
+/wechat-article-writer 把这份调研写成一篇有判断、可直接发布的公众号文章。
 ```
 
 <details>
-<summary>其他安装方式（列出全部、项目级、手动）</summary>
+<summary><strong>Project-scoped install</strong></summary>
+
+Install into `./.claude/skills/` so the skill travels with a single project:
 
 ```bash
-python3 scripts/install_skill.py --list                  # 查看可安装的名字
-python3 scripts/install_skill.py deep-research           # 任意 skill，用短名
-python3 scripts/install_skill.py deep-research --project # -> ./.claude/skills/（项目级）
+python3 scripts/install_skill.py deep-research --project
 ```
-
-**手动：** 安装后的**目录名**就是 slash command，所以复制时要改名：
-
-```bash
-cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
-```
-
-不改名直接复制 → 命令是 `/Geek-skills-deep-research`。Claude 也会在 `description` 匹配时自动加载，`/命令` 只是显式调用方式之一。
 
 </details>
 
-## 📈 别听我说,看盲评
+<details>
+<summary><strong>Manual install</strong></summary>
 
-另外四次真实运行。每张封面都由**独立盲评按绝对标准打分**（10 = 设计工作室,7 = 专业乙方）——不是我自己打的。
+Copy a skill directory and remove the `Geek-skills-` prefix:
 
-| | |
-|:---:|:---:|
-| <img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="100%"><br>**构成主义红** — 9 页，**7.1/10**<br>四轮最高，首破 7 分工作室线 | <img src="skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/preview-cover.png" width="100%"><br>**墨白咨询** — 三评委盲评<br>**42.3 vs 29.7** 击败旧实现（对调组一致） |
-| <img src="skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/preview-cover.png" width="100%"><br>**黑金提案** — **6.6/10** | <img src="skills/Geek-skills-deck-studio/examples/polar-night-ai-native/preview-cover.png" width="100%"><br>**极夜科技** — **6.0/10** |
+```bash
+cp -R skills/Geek-skills-deck-studio ~/.claude/skills/deck-studio
+```
 
-每套样例目录都含完整生成器 + 渲染页 + 评审抓出的教训：[构成主义](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [墨白](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [英黄](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [极夜](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
+Restart Claude Code after installing.
 
-**分数为什么一轮轮在涨：** 美是继承的,不是生成的。skill 把品味冻结进 17 套风格库（含已渲染模板种子）、14 个注册版式和渲染后 22 条视觉门禁。同一绝对标准下的轨迹：6.0 → 6.6 → 6.6 → **7.1**。
+</details>
 
-<p align="center">
-<img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" width="24%">
-</p>
-<p align="center"><sub>17 套风格中的 4 套——包豪斯 · 构成主义 · Neubrutalism · Aicher——每套带已渲染、可复用的模板种子。</sub></p>
+## See a real result
 
-## ⭐ 核心推荐
+### `deck-studio`: one brief in, a complete deck out
 
-四个旗舰 skill，每个都是端到端工作流，不是单条 prompt：
+Prompt:
 
-| Skill | 做什么 | 什么时候用 |
-|-------|--------|-----------|
-| 🎞️ **[deck-studio](skills/Geek-skills-deck-studio/SKILL.md)**（v3） | PPT 生产 Agent：场景 → 17 套风格库 → 大纲 → 页面语法（注册版式）→ 渲染成 deck 或逐页视觉图，出稿过 22 条视觉门禁。 | 做汇报/路演/课件/提案的 PPT，或把大纲、文章做成 slides、信息图。 |
-| 🔬 **[deep-research](skills/Geek-skills-deep-research/SKILL.md)**（v8.1） | 循证研究流水线：定范围 → 并行调查 → 校验引用 → 决策简报。默认单 Agent，值得时才并行；内置 evals 与降级模式。 | 需要带引用的备忘、综述、市场/技术全景或决策简报——而不是快速查一下。 |
-| 📋 **[product-manager](skills/Geek-skills-product-manager/SKILL.md)** | 资深 PM：PRD 创作与评审、留存/增长诊断、竞品研究、功能优先级——验收标准做到"开发照着就能动手"。 | 写/评审 PRD、诊断留存低、给功能排优先级。 |
-| ✍️ **[wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md)** | 多风格公众号文章创作，内置反翻译腔精修，让中文长文读起来是"人写的"。 | 把素材写成可发布的中文长文（技术博客、产品介绍、活动回顾）。 |
+```text
+Create a 9-page design constitution for an AI-native startup.
+Make every page visually distinct while preserving one coherent system.
+```
 
-## 🧪 这个仓库有什么不同
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" alt="Constructivist design constitution deck" width="100%" />
+      <br /><strong>Constructivist Red</strong><br />9-page design constitution
+    </td>
+    <td width="50%" align="center">
+      <img src="skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/preview-cover.png" alt="Ink-white consulting report deck" width="100%" />
+      <br /><strong>Ink-White Consulting</strong><br />Consulting report
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/preview-cover.png" alt="Black-gold proposal deck" width="100%" />
+      <br /><strong>Black-Gold Proposal</strong><br />Program proposal
+    </td>
+    <td width="50%" align="center">
+      <img src="skills/Geek-skills-deck-studio/examples/polar-night-ai-native/preview-cover.png" alt="Polar night AI-native methodology deck" width="100%" />
+      <br /><strong>Polar Night Tech</strong><br />AI-native methodology
+    </td>
+  </tr>
+</table>
 
-多数 skill 仓库是 prompt 合集，这个仓库按软件的方式维护：
+Each example includes its generator, rendered pages, and lessons learned. Browse the full [`deck-studio` example suite](skills/Geek-skills-deck-studio/examples/).
 
-- **Skill 质量标准 v1.0**——每个 skill 过 D0 门槛并带"三件套"：可判定的**验收标准**、明确的**边界**（何时不该用、移交给谁）、来自真实踩坑的**陷阱表**。
-- **路由 evals**——14 个 skill 共 113 条用例（`evals/routing-evals.json`），证明该触发时触发、不该触发时让路；互斥对双向镜像。
-- **每次 push 跑 CI**——[两个 L1 门禁](.github/workflows/validate.yml)（结构 + 路由 eval 一致性）+ 脚本编译检查。本地复现：
+<details>
+<summary><strong>How the deck workflow is evaluated</strong></summary>
+
+`deck-studio` v3 uses 22 visual gates and 14 registered layout families. The repository includes a blind comparison in which the workflow-oriented version scored **42.3/50** against **29.7/50** for the legacy prompt-oriented version.
+
+These are repository self-evaluations, including model-assisted visual review. They are useful engineering signals, not third-party certification. See the [`CHANGELOG`](CHANGELOG.md) for the full record.
+
+</details>
+
+## Why Geek Skills
+
+| Principle | What it means here |
+|---|---|
+| **Curated over bulk** | Nineteen maintained workflows are easier to inspect, learn, and improve than a directory of anonymous prompt snippets. |
+| **Artifacts over advice** | Each skill is designed around a concrete deliverable: a report, PRD, deck, audit, implementation, forecast, or media asset. |
+| **Workflow over one-shot prompting** | Strong skills define inputs, stages, intermediate artifacts, validation, and stopping conditions—not just a persona prompt. |
+| **Inspectable risk** | Network access, local execution, credentials, and destructive behavior are documented in a repository-wide capability matrix. |
+
+## Quality without the marketing fog
+
+- **113 routing cases across 14 skills** help catch false triggers and missed triggers.
+- **Continuous validation** checks metadata, paths, naming, internal links, and compilation where applicable.
+- **Canonical repository checks** are one command each:
 
   ```bash
-  python3 scripts/validate.py            # -> L1 PASS
-  python3 scripts/run_routing_evals.py   # -> L1 PASS
+  python3 scripts/validate.py
+  python3 scripts/run_routing_evals.py
   ```
 
-- **证据而非形容词**——上面的视觉质量结论来自盲评（对调分组、多评委）；分数轨迹与每条被抓缺陷都记录在 [CHANGELOG.md](CHANGELOG.md) 和样例 README 里。
-- **无过时硬编码**——写死的 CVE 编号、年份、平台路径全部改为实时搜索指令或相对路径。
-- **装之前先知道它能碰什么**——[SECURITY.md](SECURITY.md) 给出逐 skill 能力矩阵（读文件 / 写文件 / 联网 / 调外部命令 / 需凭证 / 可删文件），由 grep 打包脚本核实得出。19 个里 11 个是纯 prompt（零代码）；只有 1 个能删文件，且默认 dry-run。
+- **Explicit safety boundaries** live in [`SECURITY.md`](SECURITY.md). Eleven curated skills are prompt-only; the one skill with deletion behavior, `c-drive-cleaner`, defaults to dry-run.
+- **Changes are inspectable** in [`CHANGELOG.md`](CHANGELOG.md), including evaluation results and known limitations.
 
-> ⚠️ 这是 Claude（Fable 5）的**自审**，不是第三方认证。上面两条命令可自行复跑门禁；完整重构记录见 [CHANGELOG.md](CHANGELOG.md)。
+No quality claim here is a third-party certification. The goal is simpler: make the evidence visible enough that you can decide whether a skill deserves access to your work.
 
-## 📚 全部技能
+## All 19 curated skills
 
-<details>
-<summary><b>19 个自维护技能（按类别）</b>（点击展开）</summary>
+### Development & architecture
 
-### 开发与架构
+| Skill | Use it when you need... |
+|---|---|
+| [`pair-programming`](skills/Geek-skills-pair-programming/) | Structured collaborative coding, debugging, and review |
+| [`security-audit`](skills/Geek-skills-security-audit/) | A repository security audit with actionable findings |
+| [`solution-architect`](skills/Geek-skills-solution-architect/) | Architecture decisions, trade-offs, and implementation planning |
+| [`threejs-performance`](skills/Geek-skills-threejs-performance/) | Diagnosis and optimization of Three.js or WebGL performance |
 
-| 技能 | 路径 | 说明 |
-|------|------|------|
-| `pair-programming` | [skills/Geek-skills-pair-programming](skills/Geek-skills-pair-programming/SKILL.md) | 结对编程搭档，交付代码附带结构化自审，重点盯 AI 生成代码特有缺陷 |
-| `security-audit` | [skills/Geek-skills-security-audit](skills/Geek-skills-security-audit/SKILL.md) | 全面代码安全审计 |
-| `solution-architect` | [skills/Geek-skills-solution-architect](skills/Geek-skills-solution-architect/SKILL.md) | 系统设计与技术选型 |
-| `threejs-performance` | [skills/Geek-skills-threejs-performance](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js 性能优化 |
+### AI-native methods
 
-### AI-Native 方法论
+| Skill | Use it when you need... |
+|---|---|
+| [`keqian-method`](skills/Geek-skills-keqian-method/) | Systematic decomposition and first-principles reasoning |
+| [`xuefeng-method`](skills/Geek-skills-xuefeng-method/) | Structured analysis and decision support |
+| [`ai-sales-champion`](skills/Geek-skills-ai-sales-champion/) | AI-assisted sales discovery, messaging, and conversion work |
 
-| 技能 | 路径 | 说明 |
-|------|------|------|
-| `keqian-method` | [skills/Geek-skills-keqian-method](skills/Geek-skills-keqian-method/SKILL.md) | 克谦式 AI-Native 产品开发方法论：单 Agent、SDD、质量门禁 |
-| `xuefeng-method` | [skills/Geek-skills-xuefeng-method](skills/Geek-skills-xuefeng-method/SKILL.md) | 雪峰式 AI-Native 方法论，面向行为开放、模型驱动的产品 |
-| `ai-sales-champion` | [skills/Geek-skills-ai-sales-champion](skills/Geek-skills-ai-sales-champion/SKILL.md) | AI 销售/咨询对话助手，把技术讲成业务语言 |
+### Product & content
 
-### 产品与内容
+| Skill | Use it when you need... |
+|---|---|
+| [`product-manager`](skills/Geek-skills-product-manager/) | A PRD, product review, strategy, prioritization, or growth diagnosis |
+| [`wechat-article-writer`](skills/Geek-skills-wechat-article-writer/) | A polished, publishable Chinese long-form article |
+| [`deck-studio`](skills/Geek-skills-deck-studio/) | A planned, designed, and evaluated presentation workflow |
+| [`podcast-generator`](skills/Geek-skills-podcast-generator/) | A research-to-script-to-audio podcast pipeline |
 
-| 技能 | 路径 | 说明 |
-|------|------|------|
-| `product-manager` | [skills/Geek-skills-product-manager](skills/Geek-skills-product-manager/SKILL.md) | PRD 创作、需求分析与产品策略 |
-| `wechat-article-writer` | [skills/Geek-skills-wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md) | 多风格微信公众号文章创作 |
-| `deck-studio` | [skills/Geek-skills-deck-studio](skills/Geek-skills-deck-studio/SKILL.md) | PPT 生产 Agent：场景识别 → 风格库 → 大纲 → 页面语法 → 内容稿或逐页视觉图（v3） |
-| `podcast-generator` | [skills/Geek-skills-podcast-generator](skills/Geek-skills-podcast-generator/SKILL.md) | 火山引擎双人 AI 播客生成 |
+### Tools & data
 
-### 工具与效率
+| Skill | Use it when you need... |
+|---|---|
+| [`a-share-analyst`](skills/Geek-skills-a-share-analyst/) | Evidence-based analysis of China A-share companies |
+| [`c-drive-cleaner`](skills/Geek-skills-c-drive-cleaner/) | A safe, dry-run-first Windows C-drive cleanup plan |
+| [`mineru-pdf-parser`](skills/Geek-skills-mineru-pdf-parser/) | Structured extraction from complex PDF documents |
+| [`seedream-imagegen`](skills/Geek-skills-seedream-imagegen/) | Prompt design and generation workflows for Seedream images |
 
-| 技能 | 路径 | 说明 |
-|------|------|------|
-| `a-share-analyst` | [skills/Geek-skills-a-share-analyst](skills/Geek-skills-a-share-analyst/SKILL.md) | A 股技术面与基本面分析 |
-| `c-drive-cleaner` | [skills/Geek-skills-c-drive-cleaner](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C 盘清理与空间管理 |
-| `mineru-pdf-parser` | [skills/Geek-skills-mineru-pdf-parser](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | 面向 LLM 工作流的 PDF 解析 |
-| `seedream-imagegen` | [skills/Geek-skills-seedream-imagegen](skills/Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 图像生成 |
+### Education & research
 
-### 教育与研究
+| Skill | Use it when you need... |
+|---|---|
+| [`deep-research`](skills/Geek-skills-deep-research/) | Source-backed research with citations, artifacts, and evaluation |
+| [`gaokao-expert`](skills/Geek-skills-gaokao-expert/) | Chinese Gaokao planning and evidence-backed guidance |
+| [`university-exam-prep`](skills/Geek-skills-university-exam-prep/) | A structured university exam preparation plan |
+| [`weather-forecast-report`](skills/Geek-skills-weather-forecast-report/) | A cited, decision-oriented weather forecast report |
 
-| 技能 | 路径 | 说明 |
-|------|------|------|
-| `deep-research` | [skills/Geek-skills-deep-research](skills/Geek-skills-deep-research/SKILL.md) | 带可观测性、评估资产和决策简报能力的深度研究流水线 |
-| `gaokao-expert` | [skills/Geek-skills-gaokao-expert](skills/Geek-skills-gaokao-expert/SKILL.md) | 高考命题专家 |
-| `university-exam-prep` | [skills/Geek-skills-university-exam-prep](skills/Geek-skills-university-exam-prep/SKILL.md) | 大学备考苏格拉底式学习助手 |
-| `weather-forecast-report` | [skills/Geek-skills-weather-forecast-report](skills/Geek-skills-weather-forecast-report/SKILL.md) | 天气要素研究报告生成器 |
+### Upstream skill
 
-### 上游同步
+[`llm-wiki`](skills/llm-wiki/) is tracked separately from the 19 curated skills. It is an upstream, reusable workflow for turning a topic into a structured learning page.
 
-| 技能 | 路径 | 备注 |
-|------|------|------|
-| `llm-wiki` | [llm-wiki](llm-wiki/SKILL.md) | 保留上游原始目录结构，位于仓库根目录 |
+## Contributing
 
-</details>
+Good contributions make a skill easier to trust, not merely longer.
 
-## 🛠️ 维护者入口
+Before opening a pull request:
 
-目录约定、维护流程与提交规范见 [AGENTS.md](AGENTS.md)。发布前检查：
+1. Keep the skill focused on a concrete outcome.
+2. Document inputs, workflow stages, outputs, failure modes, and safety boundaries.
+3. Add or update routing cases when trigger behavior changes.
+4. Run both repository checks:
 
-```bash
-python3 scripts/validate.py && python3 scripts/run_routing_evals.py   # 两者都须打印 L1 PASS
-git ls-files | rg '(^|/)\._'                                          # 应无输出
-```
+   ```bash
+   python3 scripts/validate.py
+   python3 scripts/run_routing_evals.py
+   ```
+
+Found a rough edge? [Open an issue](https://github.com/staruhub/ClaudeSkills/issues). Have a tested improvement? [Open a pull request](https://github.com/staruhub/ClaudeSkills/pulls).
+
+## If this saved you time
+
+Star the repository so you can find it again—and so more builders discover a smaller, inspectable alternative to prompt collections.
 
 ## License
 
-MIT
+MIT © ChaoGeek
