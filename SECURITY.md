@@ -30,16 +30,16 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 
 | Tier | Meaning | Skills |
 |:---:|---|---|
-| 🟢 **T0 — Prompt only** | No bundled executable code. Pure instructions; all actions gated by Claude Code's permission system. | `ai-sales-champion` · `deck-studio`¹ · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
-| 🟡 **T1 — Local compute** | Ships scripts that read input and write output **on your machine only**. No network, no deletion, no credentials. | `gaokao-expert` · `university-exam-prep` |
-| 🟠 **T2 — Network / API** | Scripts reach the network. Some need API credentials (which you supply via env vars). | `a-share-analyst` · `deep-research` · `mineru-pdf-parser` · `podcast-generator` · `seedream-imagegen` |
+| 🟢 **T0 — Prompt only** | No bundled executable code. Pure instructions; all actions gated by Claude Code's permission system. | `ai-sales-champion` · `deck-studio`¹ · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` *(lab)* · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
+| 🟡 **T1 — Local compute** | Ships scripts that read input and write output **on your machine only**. No network, no deletion, no credentials. | `gaokao-expert` *(lab)* · `university-exam-prep` *(lab)* |
+| 🟠 **T2 — Network / API** | Scripts reach the network. Some need API credentials (which you supply via env vars). | `a-share-analyst` *(lab)* · `deep-research` · `mineru-pdf-parser` · `podcast-generator` *(lab)* · `seedream-imagegen` *(lab)* |
 | 🔴 **T3 — Shells out / can delete** | Runs external tools via `subprocess`, or deletes/moves files. Read the notes before running. | `security-audit` · `c-drive-cleaner` |
 
 ¹ `deck-studio` ships no Python. Its **render pipeline is opt-in** and, when you choose to run it, invokes Node.js + headless Chrome locally to screenshot HTML — no network, no data leaves your machine.
 
 ## Per-skill capability matrix
 
-Legend: ● = yes · ○ = no · — = n/a (no bundled code)
+Legend: ● = yes · ○ = no · — = n/a (no bundled code) · *(lab)* = experimental skill under `lab/`, not part of the curated set
 
 | Skill | Ships code | Reads files | Writes files | Network | Shells out | Needs creds | Can delete |
 |-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -50,17 +50,17 @@ Legend: ● = yes · ○ = no · — = n/a (no bundled code)
 | `product-manager` | ○ | — | — | — | — | — | — |
 | `solution-architect` | ○ | — | — | — | — | — | — |
 | `threejs-performance` | ○ | — | — | — | — | — | — |
-| `weather-forecast-report` | ○ | — | — | — | — | — | — |
+| `weather-forecast-report` *(lab)* | ○ | — | — | — | — | — | — |
 | `wechat-article-writer` | ○ | — | — | — | — | — | — |
 | `xuefeng-method` | ○ | — | — | — | — | — | — |
 | `llm-wiki` | ○ | — | — | — | — | — | — |
-| `gaokao-expert` | ● | ● | ● | ○ | ○ | ○ | ○ |
-| `university-exam-prep` | ● | ● | ● | ○ | ○ | ○ | ○ |
-| `a-share-analyst` | ● | ○ | ● | ● | ○ | ○² | ○ |
+| `gaokao-expert` *(lab)* | ● | ● | ● | ○ | ○ | ○ | ○ |
+| `university-exam-prep` *(lab)* | ● | ● | ● | ○ | ○ | ○ | ○ |
+| `a-share-analyst` *(lab)* | ● | ○ | ● | ● | ○ | ○² | ○ |
 | `deep-research` | ● | ● | ● | ● | ● | ○ | ○ |
 | `mineru-pdf-parser` | ● | ● | ● | ●³ | ○ | ○ | ○ |
-| `podcast-generator` | ● | ○ | ● | ● | ○ | ● | ○ |
-| `seedream-imagegen` | ● | ○ | ● | ● | ○ | ● | ○ |
+| `podcast-generator` *(lab)* | ● | ○ | ● | ● | ○ | ● | ○ |
+| `seedream-imagegen` *(lab)* | ● | ○ | ● | ● | ○ | ● | ○ |
 | `security-audit` | ● | ● | ● | ○⁴ | ● | ○ | ○ |
 | `c-drive-cleaner` | ● | ● | ○ | ○ | ○ | ○ | ●⁵ |
 
@@ -69,8 +69,8 @@ Legend: ● = yes · ○ = no · — = n/a (no bundled code)
 - **`c-drive-cleaner` (🔴 T3)** — the only skill that deletes files. Mitigations baked in: `safe_remove()` **defaults to `dry_run=True`** (simulates, deletes nothing) — you must pass `dry_run=False` explicitly to actually remove; and a hardcoded **protection list** (System32, WinSxS, Program Files, …) blocks system-critical directories. Windows-only; targets temp / recycle-bin / browser-cache paths.
 - **`security-audit` (🔴 T3)** — reads your codebase to scan it and shells out (`subprocess`) to invoke external scanners (e.g. `pip-audit`); if a scanner isn't installed it declares reduced coverage rather than silently passing. Secrets found in your code are **redacted in the report** (first/last chars + length only), never echoed in plaintext. Its offline CVE table is labeled a stale baseline, not a live feed.
 - **`deep-research` (🟠 T2)** — fetches URLs to verify citations and shells out for its run pipeline; writes run summaries to your working dir. No credentials required.
-- **`podcast-generator` / `seedream-imagegen` (🟠 T2)** — call third-party APIs (Volcano Engine / image-gen) and **require credentials you provide via environment variables** (e.g. `API_KEY`, `APP_ID`). Documented as placeholders — the repo ships **no real keys**. Your inputs are sent to those APIs; treat them as you would any cloud service.
-- **`a-share-analyst` (🟠 T2)** — pulls live market data via the `akshare` library (no key needed). Output is de-directivized (strength descriptions, not "buy/sell" instructions) and is **not investment advice**.
+- **`podcast-generator` *(lab)* / `seedream-imagegen` *(lab)* (🟠 T2)** — call third-party APIs (Volcano Engine / image-gen) and **require credentials you provide via environment variables** (e.g. `API_KEY`, `APP_ID`). Documented as placeholders — the repo ships **no real keys**. Your inputs are sent to those APIs; treat them as you would any cloud service.
+- **`a-share-analyst` *(lab)* (🟠 T2)** — pulls live market data via the `akshare` library (no key needed). Output is de-directivized (strength descriptions, not "buy/sell" instructions) and is **not investment advice**.
 - **`mineru-pdf-parser` (🟠 T2)** — parses PDFs with the local `mineru` library; first run may download models over the network.
 
 ## What this repo does and doesn't guarantee
@@ -118,16 +118,16 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 
 | 级别 | 含义 | Skills |
 |:---:|---|---|
-| 🟢 **T0 — 纯 prompt** | 不带任何可执行代码。纯指令,所有动作由 Claude Code 权限系统把关。 | `ai-sales-champion` · `deck-studio`¹ · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
-| 🟡 **T1 — 本地计算** | 带脚本,只在**你本机**读输入、写输出。不联网、不删除、不需凭证。 | `gaokao-expert` · `university-exam-prep` |
-| 🟠 **T2 — 网络 / API** | 脚本会联网。部分需要 API 凭证(由你通过环境变量提供)。 | `a-share-analyst` · `deep-research` · `mineru-pdf-parser` · `podcast-generator` · `seedream-imagegen` |
+| 🟢 **T0 — 纯 prompt** | 不带任何可执行代码。纯指令,所有动作由 Claude Code 权限系统把关。 | `ai-sales-champion` · `deck-studio`¹ · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` *(lab)* · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
+| 🟡 **T1 — 本地计算** | 带脚本,只在**你本机**读输入、写输出。不联网、不删除、不需凭证。 | `gaokao-expert` *(lab)* · `university-exam-prep` *(lab)* |
+| 🟠 **T2 — 网络 / API** | 脚本会联网。部分需要 API 凭证(由你通过环境变量提供)。 | `a-share-analyst` *(lab)* · `deep-research` · `mineru-pdf-parser` · `podcast-generator` *(lab)* · `seedream-imagegen` *(lab)* |
 | 🔴 **T3 — 调外部命令 / 可删文件** | 通过 `subprocess` 调外部工具,或删除/移动文件。运行前先看注释。 | `security-audit` · `c-drive-cleaner` |
 
 ¹ `deck-studio` 不带 Python。它的**渲染管线是可选的**,你选择运行时才在本地调 Node.js + headless Chrome 给 HTML 截图——不联网,数据不出本机。
 
 ## 逐 skill 能力矩阵
 
-图例:● = 是 · ○ = 否 · — = 不适用(无打包代码)
+图例:● = 是 · ○ = 否 · — = 不适用(无打包代码) · *(lab)* = 位于 `lab/` 的实验性 skill,不属于精选集
 
 | Skill | 带代码 | 读文件 | 写文件 | 联网 | 调外部命令 | 需凭证 | 可删文件 |
 |-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -138,17 +138,17 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 | `product-manager` | ○ | — | — | — | — | — | — |
 | `solution-architect` | ○ | — | — | — | — | — | — |
 | `threejs-performance` | ○ | — | — | — | — | — | — |
-| `weather-forecast-report` | ○ | — | — | — | — | — | — |
+| `weather-forecast-report` *(lab)* | ○ | — | — | — | — | — | — |
 | `wechat-article-writer` | ○ | — | — | — | — | — | — |
 | `xuefeng-method` | ○ | — | — | — | — | — | — |
 | `llm-wiki` | ○ | — | — | — | — | — | — |
-| `gaokao-expert` | ● | ● | ● | ○ | ○ | ○ | ○ |
-| `university-exam-prep` | ● | ● | ● | ○ | ○ | ○ | ○ |
-| `a-share-analyst` | ● | ○ | ● | ● | ○ | ○² | ○ |
+| `gaokao-expert` *(lab)* | ● | ● | ● | ○ | ○ | ○ | ○ |
+| `university-exam-prep` *(lab)* | ● | ● | ● | ○ | ○ | ○ | ○ |
+| `a-share-analyst` *(lab)* | ● | ○ | ● | ● | ○ | ○² | ○ |
 | `deep-research` | ● | ● | ● | ● | ● | ○ | ○ |
 | `mineru-pdf-parser` | ● | ● | ● | ●³ | ○ | ○ | ○ |
-| `podcast-generator` | ● | ○ | ● | ● | ○ | ● | ○ |
-| `seedream-imagegen` | ● | ○ | ● | ● | ○ | ● | ○ |
+| `podcast-generator` *(lab)* | ● | ○ | ● | ● | ○ | ● | ○ |
+| `seedream-imagegen` *(lab)* | ● | ○ | ● | ● | ○ | ● | ○ |
 | `security-audit` | ● | ● | ● | ○⁴ | ● | ○ | ○ |
 | `c-drive-cleaner` | ● | ● | ○ | ○ | ○ | ○ | ●⁵ |
 
@@ -157,8 +157,8 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 - **`c-drive-cleaner`(🔴 T3)**——唯一会删文件的 skill。内置缓解:`safe_remove()` **默认 `dry_run=True`**(只模拟,不删任何东西),必须显式传 `dry_run=False` 才真删;并带硬编码**保护清单**(System32、WinSxS、Program Files……)拦住系统关键目录。仅 Windows;针对 temp / 回收站 / 浏览器缓存路径。
 - **`security-audit`(🔴 T3)**——读你的代码库做扫描,并用 `subprocess` 调外部扫描器(如 `pip-audit`);扫描器没装时会声明覆盖缩窄而非静默放行。代码里扫到的密钥在报告里**脱敏**(只留首尾字符+长度),绝不回显明文。离线 CVE 表标注为过时基线,不是实时源。
 - **`deep-research`(🟠 T2)**——抓取 URL 校验引用,并为运行管线调外部命令;把 run summary 写到你的工作目录。无需凭证。
-- **`podcast-generator` / `seedream-imagegen`(🟠 T2)**——调第三方 API(火山引擎 / 图像生成),**需要你通过环境变量提供凭证**(如 `API_KEY`、`APP_ID`)。文档里是占位符,仓库**不含任何真实密钥**。你的输入会发送给这些 API,请按对待任何云服务的方式处理。
-- **`a-share-analyst`(🟠 T2)**——通过 `akshare` 库拉实时行情(不需 key)。输出已去指令化(强弱描述,而非"买/卖"指令),**不构成投资建议**。
+- **`podcast-generator` *(lab)* / `seedream-imagegen` *(lab)*(🟠 T2)**——调第三方 API(火山引擎 / 图像生成),**需要你通过环境变量提供凭证**(如 `API_KEY`、`APP_ID`)。文档里是占位符,仓库**不含任何真实密钥**。你的输入会发送给这些 API,请按对待任何云服务的方式处理。
+- **`a-share-analyst` *(lab)*(🟠 T2)**——通过 `akshare` 库拉实时行情(不需 key)。输出已去指令化(强弱描述,而非"买/卖"指令),**不构成投资建议**。
 - **`mineru-pdf-parser`(🟠 T2)**——用本地 `mineru` 库解析 PDF;首次运行可能联网下载模型。
 
 ## 本仓库保证什么、不保证什么

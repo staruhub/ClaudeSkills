@@ -14,8 +14,11 @@ skills/
 │   └── ...
 ```
 
+Curated skills live under `skills/` and must pass the L1 gates. Experimental or personal-use skills live under `lab/` (same directory layout, `Geek-skills-xxx` naming) — they are excluded from `scripts/validate.py`, `scripts/run_routing_evals.py`, and `scripts/install_skill.py`, and are not listed in the curated index on the homepage. Promote a lab skill by moving its directory into `skills/` and bringing it up to the quality standard; the reverse move demotes it.
+
 Other top-level files:
-- `README.md`: project overview and skill index
+- `README.md`: project overview and curated skill index (English); `README.zh-CN.md` is the Chinese version — keep both in sync
+- `lab/README.md`: index of experimental skills
 - `AGENTS.md`: repository guidelines (this file)
 
 Prefer iterating on existing skills instead of introducing new parallel variants.
