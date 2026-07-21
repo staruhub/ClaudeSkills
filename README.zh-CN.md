@@ -10,6 +10,7 @@
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
 [![skills](https://img.shields.io/badge/curated_skills-13-blue)](#-全部技能)
+[![evals](https://img.shields.io/badge/routing_evals-85_cases-blue)](scripts/run_routing_evals.py)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 </div>
@@ -62,11 +63,27 @@ cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
 
 不改名直接复制 → 命令是 `/Geek-skills-deep-research`。Claude 也会在 `description` 匹配时自动加载，`/命令` 只是显式调用方式之一。
 
+**更新 / 卸载：**
+
+```bash
+git pull && python3 scripts/install_skill.py deck-studio --force   # 更新（安装的是副本）
+rm -rf ~/.claude/skills/deck-studio                                # 卸载
+```
+
+</details>
+
+<details>
+<summary>常见问题</summary>
+
+- **装了但 `/deck-studio` 不出现**——slash command 来自安装后的**目录名**。手动复制没改名的话，命令是 `/Geek-skills-deck-studio`。用脚本重装，或给目录改名。
+- **skill 不自动触发**——自动加载靠 skill 的 `description` 与你的请求匹配，措辞有影响。`/命令` 形式永远有效。
+- **`git pull` 之后要重装吗？**——要：安装的是副本。重跑 `python3 scripts/install_skill.py <名字> --force`。
+
 </details>
 
 ## 📈 可复跑的质量，而非形容词
 
-Deck 质量由**独立盲评按绝对标准打分**（10 = 设计工作室，7 = 专业乙方）——不是我自己打的。同一标准下四轮发布的轨迹：6.0 → 6.6 → 6.6 → **7.1**，首次越过工作室线。三评委、对调分组的盲评中，当前实现以 **42.3 vs 29.7** 击败旧实现。
+Deck 质量由**独立盲评按绝对标准打分**（10 = 设计工作室，7 = 专业乙方）——不是我自己打的。同一标准下四轮发布的轨迹：6.0 → 6.6 → 6.6 → **7.1**，首次越过工作室线。三评委、对调分组的盲评中，当前实现以 **42.3 vs 29.7（领先 42%）** 击败旧实现，对调分组结论一致（[方法与评分](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/)）。
 
 每套样例目录都含完整生成器、渲染页和评审抓出的缺陷：
 [构成主义（7.1）](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [墨白（三评委盲评）](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [英黄](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [极夜](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
@@ -100,7 +117,7 @@ Deck 质量由**独立盲评按绝对标准打分**（10 = 设计工作室，7 =
 | [`security-audit`](skills/Geek-skills-security-audit/SKILL.md) | 全面代码安全审计 |
 | [`solution-architect`](skills/Geek-skills-solution-architect/SKILL.md) | 系统设计与技术选型 |
 | [`threejs-performance`](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js 性能优化 |
-| [`mineru-pdf-parser`](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | 面向 LLM 工作流的 PDF 解析 |
+| [`mineru-pdf-parser`](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | 面向 LLM 工作流的 PDF 解析（需本机安装 MinerU） |
 | [`ai-sales-champion`](skills/Geek-skills-ai-sales-champion/SKILL.md) | AI 销售/咨询对话助手，把技术讲成业务语言 |
 | [`keqian-method`](skills/Geek-skills-keqian-method/SKILL.md) | 克谦式 AI-Native 产品开发方法论：单 Agent、SDD、质量门禁 |
 | [`xuefeng-method`](skills/Geek-skills-xuefeng-method/SKILL.md) | 雪峰式 AI-Native 方法论，面向行为开放、模型驱动的产品 |
@@ -115,13 +132,13 @@ Deck 质量由**独立盲评按绝对标准打分**（10 = 设计工作室，7 =
 
 | 技能 | 备注 |
 |------|------|
-| [`llm-wiki`](llm-wiki/SKILL.md) | 保留上游原始目录结构，位于仓库根目录 |
+| [`llm-wiki`](llm-wiki/SKILL.md) | 代码库 wiki 构建器，基于 [Karpathy 的 LLM Wiki 模式](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)；保留上游原始目录结构，位于仓库根目录 |
 
 </details>
 
 ## 🤝 社区
 
-发现 bug，或用某个 skill 做出了东西？[提个 issue](https://github.com/staruhub/ClaudeSkills/issues)——维护约定见 [AGENTS.md](AGENTS.md)。如果某个 skill 帮你省下了一下午，点个 ⭐ 能让更多人找到它。
+发现 bug，或用某个 skill 做出了东西？[提个 issue](https://github.com/staruhub/ClaudeSkills/issues)。想投稿 skill 或改进？从 [CONTRIBUTING.md](CONTRIBUTING.md) 开始——新 skill 先进 [`lab/`](lab/) 孵化，通过质量门禁后毕业进精选集。如果某个 skill 帮你省下了一下午，点个 ⭐ 能让更多人找到它。
 
 ## License
 

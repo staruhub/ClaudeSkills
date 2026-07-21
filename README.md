@@ -10,6 +10,7 @@ End-to-end workflows tested like software, not prompt snippets.
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
 [![skills](https://img.shields.io/badge/curated_skills-13-blue)](#-all-skills)
+[![evals](https://img.shields.io/badge/routing_evals-85_cases-blue)](scripts/run_routing_evals.py)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 </div>
@@ -63,11 +64,27 @@ cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
 
 Copy without renaming → the command becomes `/Geek-skills-deep-research`. Claude also auto-loads a skill when its `description` matches; `/command` is just the explicit way in.
 
+**Update / uninstall:**
+
+```bash
+git pull && python3 scripts/install_skill.py deck-studio --force   # update (installed skills are copies)
+rm -rf ~/.claude/skills/deck-studio                                # uninstall
+```
+
+</details>
+
+<details>
+<summary>FAQ</summary>
+
+- **Installed, but `/deck-studio` doesn't appear** — the slash command comes from the installed **directory name**. If you copied manually without renaming, your command is `/Geek-skills-deck-studio`. Re-install with the script, or rename the directory.
+- **The skill doesn't trigger automatically** — auto-loading matches the skill's `description` against your request, so phrasing matters. The `/command` form always works.
+- **Do I need to re-install after `git pull`?** — yes: installed skills are copies. Re-run `python3 scripts/install_skill.py <name> --force`.
+
 </details>
 
 ## 📈 Quality you can re-run, not adjectives
 
-Deck quality is scored by **independent blind judges on an absolute rubric** (10 = design studio, 7 = pro agency) — not by me. The trajectory on the same rubric across four release rounds: 6.0 → 6.6 → 6.6 → **7.1**, first past the studio line. In a 3-judge, position-swapped blind eval, the current pipeline beat the previous one **42.3 vs 29.7**.
+Deck quality is scored by **independent blind judges on an absolute rubric** (10 = design studio, 7 = pro agency) — not by me. The trajectory on the same rubric across four release rounds: 6.0 → 6.6 → 6.6 → **7.1**, first past the studio line. In a 3-judge, position-swapped blind eval, the current pipeline beat the previous one **42.3 vs 29.7 — a 42% margin**, consistent across swapped positions ([method & scores](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/)).
 
 Every example directory ships the full generator, rendered pages, and the defects the judges caught:
 [constructivist (7.1)](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [moshiro (3-judge eval)](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [yinghuang](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [polar-night](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
@@ -101,7 +118,7 @@ Every example directory ships the full generator, rendered pages, and the defect
 | [`security-audit`](skills/Geek-skills-security-audit/SKILL.md) | Comprehensive code security audit |
 | [`solution-architect`](skills/Geek-skills-solution-architect/SKILL.md) | System design, tech selection, and architecture review |
 | [`threejs-performance`](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js performance optimization |
-| [`mineru-pdf-parser`](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | PDF to Markdown or JSON for LLM workflows |
+| [`mineru-pdf-parser`](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | PDF to Markdown or JSON for LLM workflows (requires a local MinerU install) |
 | [`ai-sales-champion`](skills/Geek-skills-ai-sales-champion/SKILL.md) | AI sales/consulting dialogue helper — turn tech into business language |
 | [`keqian-method`](skills/Geek-skills-keqian-method/SKILL.md) | Keqian's AI-Native product dev methodology: single-agent, SDD, quality gates |
 | [`xuefeng-method`](skills/Geek-skills-xuefeng-method/SKILL.md) | Xuefeng's AI-Native methodology for open-behavior, model-driven products |
@@ -116,13 +133,13 @@ Every example directory ships the full generator, rendered pages, and the defect
 
 | Skill | Notes |
 |-------|-------|
-| [`llm-wiki`](llm-wiki/SKILL.md) | Preserved in original upstream layout at repo root |
+| [`llm-wiki`](llm-wiki/SKILL.md) | Codebase wiki builder, based on [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f); kept in its original upstream layout at repo root |
 
 </details>
 
 ## 🤝 Community
 
-Found a bug, or built something with a skill? [Open an issue](https://github.com/staruhub/ClaudeSkills/issues) — maintainer conventions live in [AGENTS.md](AGENTS.md). If a skill saved you an afternoon, a ⭐ helps other people find it.
+Found a bug, or built something with a skill? [Open an issue](https://github.com/staruhub/ClaudeSkills/issues). Want to contribute a skill or a fix? Start with [CONTRIBUTING.md](CONTRIBUTING.md) — new skills incubate in [`lab/`](lab/) and graduate into the curated set by passing the quality gates. If a skill saved you an afternoon, a ⭐ helps other people find it.
 
 ## License
 
