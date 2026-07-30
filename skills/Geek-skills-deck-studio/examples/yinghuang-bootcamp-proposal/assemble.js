@@ -1,6 +1,10 @@
+const fs = require("fs");
+const path = require("path");
 const pptxgen = require("pptxgenjs");
 const p = new pptxgen();
 p.defineLayout({name:"W",width:13.333,height:7.5}); p.layout="W";
+const pngDir = path.join(__dirname, "png");
+const outputPath = path.join(__dirname, "chaogeek-bootcamp-proposal.pptx");
 const notes=[
  "开场不讲课程,先讲差距:把AI玩明白的人正在拉开差距。停两秒。",
  "三件事结构:为什么做、怎么做、怎么合作。",
@@ -11,5 +15,13 @@ const notes=[
  "六周节奏:每周指着交付物讲,'没有产出的那一周不该存在'。",
  "三种合作方式,按对方身份着重讲其中一种。",
  "收尾:别再收藏教程了,来交付一次。留repo地址。"];
-for(let i=1;i<=9;i++){const s=p.addSlide();s.addImage({path:`png/p${i}.png`,x:0,y:0,w:13.333,h:7.5});s.addNotes(notes[i-1]);}
-p.writeFile({fileName:"chaogeek-bootcamp-proposal.pptx"}).then(f=>console.log("生成:",f));
+for(let i=1;i<=9;i++){
+  const imagePath=path.join(pngDir,`p${i}.png`);
+  if(!fs.existsSync(imagePath)) throw new Error(`missing rendered page: ${imagePath}`);
+  const s=p.addSlide();
+  s.addImage({path:imagePath,x:0,y:0,w:13.333,h:7.5});
+  s.addNotes(notes[i-1]);
+}
+p.writeFile({fileName:outputPath})
+  .then(()=>console.log("生成:",outputPath))
+  .catch(error=>{console.error(error);process.exitCode=1;});

@@ -1,6 +1,6 @@
 ---
 name: deep-research
-version: 8.1.1
+version: 8.1.2
 description: >
   Use this skill when the user wants an evidence-based research memo, literature
   review, market/policy/technical landscape, or a multi-source decision brief
@@ -15,7 +15,7 @@ description: >
   "深度研究", "综述报告", "技术选型分析", "竞品研究", "政策分析".
 compatibility: Requires web search plus file read/write. Shell/scripts and subagents are optional accelerators, not hard requirements.
 metadata:
-  version: "8.1"
+  version: "8.1.2"
   owner: "enterprise-research"
   category: "research"
   maturity: "production-candidate"
@@ -190,7 +190,7 @@ Before finalization, check `references/quality-gates.md`:
 - output quality
 - efficiency and operational health
 
-### P6 — Publish, summarize, and learn
+### P6 — Finalize, summarize, and learn
 
 Emit:
 - final `draft.md`
@@ -200,12 +200,20 @@ Emit:
 In the run summary, record what actually helped: single-agent, subagents, tension discovery, landscape scan, reverse search, evaluator, or manual spot-checks.
 This is what makes the skill improve over time.
 
+“Finalize” means deliver research artifacts to the user. Do not publish to an
+external site, send messages, request credentials, or make irreversible changes
+unless a separate explicit user request and the host policy authorize it.
+
 ## Deterministic helpers
 
 Use scripts for the parts that should be boring and repeatable:
 - `scripts/source_evaluator.py` — baseline source scoring / diversity checks
-- `scripts/verify_citations.py` — citation integrity and source-pool checks
+- `scripts/verify_citations.py` — fail-closed citation integrity and source-pool checks
 - `scripts/emit_run_summary.py` — structured observability output for the run
+
+For reproducible recency scoring, pass an explicit evidence cutoff:
+`scripts/source_evaluator.py sources.json --as-of YYYY-MM-DD`. Record the same
+cutoff in the research plan and run summary.
 
 If a deterministic check fails, fix the artifact first. Do not argue with the script unless you have a concrete reason.
 

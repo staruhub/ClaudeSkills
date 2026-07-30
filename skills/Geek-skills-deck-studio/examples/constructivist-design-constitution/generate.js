@@ -1,6 +1,7 @@
 // 完整测试:构成主义红 · 9页 · 主题「设计宪法」(内容全部来自仓库真实资产)
 // 母题:红楔/黑圆/对角线/超大标点;节奏化(仅关键页用对角线,深色页做明暗节奏)
 const fs = require("fs");
+const path = require("path");
 const T = { red:"#D32F2F", ink:"#111111", paper:"#F5F1E8", dim:"#5A544A", faint:"#9A9284", line:"#2A2620", gold:"#E8B004" };
 const BASE = `*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
 html,body{width:1280px;height:720px;overflow:hidden;font-family:"PingFang SC","Hiragino Sans GB",sans-serif;}
@@ -136,6 +137,7 @@ pages.push(frame("Design Constitution", `
   </div>
   <div style="position:absolute;left:80px;bottom:110px;font-size:15px;color:${T.dim};z-index:2;">github.com/staruhub/ClaudeSkills · deck-studio</div>`, 9));
 
-fs.mkdirSync("html",{recursive:true});
-pages.forEach((h,i)=>fs.writeFileSync(`html/p${i+1}.html`,h));
+const outputDir = path.join(__dirname, "html");
+fs.mkdirSync(outputDir,{recursive:true});
+pages.forEach((h,i)=>fs.writeFileSync(path.join(outputDir, `p${i+1}.html`),h));
 console.log(pages.length+" 页构成主义 deck 生成");

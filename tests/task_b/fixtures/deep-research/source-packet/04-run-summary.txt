@@ -1,0 +1,1 @@
+Source D excerpt: A structured run summary records execution choices.

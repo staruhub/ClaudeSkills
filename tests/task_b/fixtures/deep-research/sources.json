@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://nist.gov/fixture/citation-contract",
+    "title": "Citation contract",
+    "date": "2026-07-01",
+    "sub_question": 1,
+    "notes": "Every inline citation must resolve to the approved source pool.",
+    "relevance_score": 10,
+    "depth_score": 9
+  },
+  {
+    "url": "https://acm.org/fixture/limitations",
+    "title": "Limitations",
+    "date": "2026-06-15",
+    "sub_question": 1,
+    "notes": "A decision artifact must state limitations.",
+    "relevance_score": 9,
+    "depth_score": 9
+  },
+  {
+    "url": "https://who.int/fixture/conflicts",
+    "title": "Conflicting evidence",
+    "date": "2026-05-20",
+    "sub_question": 2,
+    "notes": "Conflicting evidence remains explicit.",
+    "relevance_score": 9,
+    "depth_score": 8
+  },
+  {
+    "url": "https://reuters.com/fixture/run-summary",
+    "title": "Run summary",
+    "date": "2026-04-10",
+    "sub_question": 2,
+    "notes": "The run summary records execution choices.",
+    "relevance_score": 8,
+    "depth_score": 8
+  },
+  {
+    "url": "https://openai.com/fixture/routing",
+    "title": "Routing boundary",
+    "date": "2026-03-05",
+    "sub_question": 3,
+    "notes": "Routing separates quick answers from research artifacts.",
+    "relevance_score": 8,
+    "depth_score": 7
+  }
+]

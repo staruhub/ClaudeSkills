@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "manifest-invalid",
+  "article_id": "article-agent-contract",
+  "article_sha256": "not-a-real-sha",
+  "mode": "full-pipeline",
+  "provider_neutral": true,
+  "images": [
+    {
+      "id": "img-contract-cover",
+      "purpose": "cover",
+      "placement_anchor": "<!-- image:wrong-id -->",
+      "placeholder": "{{IMAGE:img-contract-cover}}",
+      "aspect_ratio": "16:9",
+      "width": 1600,
+      "positive_prompt": "too short",
+      "negative_prompt": "no watermark",
+      "alt": "封面",
+      "caption": "封面",
+      "provider_status": "generated"
+    }
+  ]
+}

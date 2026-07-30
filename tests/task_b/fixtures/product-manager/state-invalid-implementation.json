@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "trust-card-session",
+  "skill_version": "1.2.0",
+  "mode": "grill-me-to-doc",
+  "status": "approved",
+  "evidence": [],
+  "decision_log": [],
+  "unresolved_questions": [],
+  "completion_gate": {},
+  "product_doc": {
+    "draft_path": null,
+    "final_path": "PRODUCT-DOC.md",
+    "approved_by_user": true
+  },
+  "hard_stop": {
+    "implementation_allowed": true,
+    "reason": "invalid fixture intentionally authorizes implementation"
+  }
+}

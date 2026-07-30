@@ -1,0 +1,182 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "trust-card-session",
+  "events": [
+    {
+      "seq": 1,
+      "actor": "assistant",
+      "kind": "evidence_read",
+      "paths": [
+        {
+          "path": "repo/README.md",
+          "sha256": "1ddd8d3548fa02bc3e895b7c59a76ce79710f3c4788c388e45921027fcbac9b1"
+        },
+        {
+          "path": "repo/resource-contract.md",
+          "sha256": "66b132240c77666c3616afcdea09e8a8aef53b49feac4aea7a9350ac72574698"
+        },
+        {
+          "path": "repo/discovery-notes.md",
+          "sha256": "8609585782d8e51189ed89b9f1dbe3e442d23fccb37aa8f6a22215973a156cfb"
+        }
+      ],
+      "summary": "The repository is a static curated index, its current resource contract has no evaluation fields, and the synthetic discovery fixture shows users confuse listing with review."
+    },
+    {
+      "seq": 2,
+      "actor": "assistant",
+      "kind": "question",
+      "question_id": "q-outcome",
+      "evidence": [
+        "The index does not execute skills.",
+        "Eight of twelve synthetic participants assumed every entry was reviewed."
+      ],
+      "recommendation": {
+        "answer": "Use evidence comprehension as the product outcome.",
+        "reason": "Install conversion would reward confidence without proving that readers understood the limits."
+      },
+      "question": "这项功能的首要结果是否定为让读者准确理解“测过什么、没测什么”？"
+    },
+    {
+      "seq": 3,
+      "actor": "user",
+      "kind": "answer",
+      "question_id": "q-outcome",
+      "text": "是，先解决误以为全部都做过安全审查的问题，不追求安装转化。"
+    },
+    {
+      "seq": 4,
+      "actor": "assistant",
+      "kind": "question",
+      "question_id": "q-primary-user",
+      "evidence": [
+        "The existing card exposes only title, URL, and description.",
+        "The product is Chinese-first and serves WorkBuddy readers."
+      ],
+      "recommendation": {
+        "answer": "Choose non-developer WorkBuddy users comparing community skills.",
+        "reason": "They have the highest cost of misreading a listing as a safety verdict."
+      },
+      "question": "MVP 是否把“正在比较社区 Skill、但不会看源码的 WorkBuddy 用户”定为第一用户？"
+    },
+    {
+      "seq": 5,
+      "actor": "user",
+      "kind": "answer",
+      "question_id": "q-primary-user",
+      "text": "同意，开发者是次要用户，第一用户就是不会源码审查的人。"
+    },
+    {
+      "seq": 6,
+      "actor": "assistant",
+      "kind": "question",
+      "question_id": "q-mvp-scope",
+      "evidence": [
+        "Unknown resource fields are currently ignored.",
+        "Readers need version-specific evidence rather than a generic badge."
+      ],
+      "recommendation": {
+        "answer": "Limit MVP to evaluation status, tested version, test date, and limitations.",
+        "reason": "These four fields close the core comprehension gap without adding install or execution behavior."
+      },
+      "question": "MVP 是否只增加“评估状态、实测版本、测试日期、局限性”四项证据字段？"
+    },
+    {
+      "seq": 7,
+      "actor": "user",
+      "kind": "answer",
+      "question_id": "q-mvp-scope",
+      "text": "可以，先别做评分排行，也别接安装按钮。"
+    },
+    {
+      "seq": 8,
+      "actor": "system",
+      "kind": "interruption",
+      "reason": "simulated context interruption after the third decision"
+    },
+    {
+      "seq": 9,
+      "actor": "assistant",
+      "kind": "resume",
+      "state_path": "state-before-resume.json",
+      "state_sha256": "2263c9fd978331804bf1d6fc05e3cc396fa9f065cd32f229d852d4c07d52c045",
+      "from_next_question_id": "q-failure-state",
+      "summary": "Loaded three accepted decisions, kept two blocking decisions, and did not reopen the completed questions."
+    },
+    {
+      "seq": 10,
+      "actor": "assistant",
+      "kind": "question",
+      "question_id": "q-failure-state",
+      "evidence": [
+        "The repository cannot prove the safety of an unevaluated skill.",
+        "A negative label would also claim evidence that does not exist."
+      ],
+      "recommendation": {
+        "answer": "Show Not independently evaluated with neutral styling.",
+        "reason": "This exposes missing evidence without turning absence of evidence into a verdict."
+      },
+      "question": "没有评估材料的条目，是否统一显示“未独立评估”并取消安全色？"
+    },
+    {
+      "seq": 11,
+      "actor": "user",
+      "kind": "answer",
+      "question_id": "q-failure-state",
+      "text": "是，用中性灰，不要红色，也不要写不安全。"
+    },
+    {
+      "seq": 12,
+      "actor": "assistant",
+      "kind": "question",
+      "question_id": "q-success-metric",
+      "evidence": [
+        "The discovery fixture measures misunderstanding directly.",
+        "The desired outcome is comprehension rather than clicks."
+      ],
+      "recommendation": {
+        "answer": "Require 80% correct identification and zero safety-guarantee interpretations.",
+        "reason": "The threshold is testable and protects against the most harmful misunderstanding."
+      },
+      "question": "首轮验收是否采用“至少 80% 用户说对实测版本和局限，且无人把卡片理解成安全保证”？"
+    },
+    {
+      "seq": 13,
+      "actor": "user",
+      "kind": "answer",
+      "question_id": "q-success-metric",
+      "text": "采用，这两个指标都要满足。"
+    },
+    {
+      "seq": 14,
+      "actor": "assistant",
+      "kind": "document_draft",
+      "artifact_path": "PRODUCT-DOC-draft.md",
+      "gate_passed": true,
+      "recommendation": {
+        "answer": "Approve the draft.",
+        "reason": "All blocking decisions are resolved and the remaining placement question is explicitly non-blocking."
+      },
+      "question": "是否批准这份 PRODUCT-DOC 作为最终产品定义？"
+    },
+    {
+      "seq": 15,
+      "actor": "user",
+      "kind": "approval",
+      "approved": true,
+      "text": "批准，按这个文档定稿；先不要进入实现。"
+    },
+    {
+      "seq": 16,
+      "actor": "assistant",
+      "kind": "final",
+      "artifact_path": "PRODUCT-DOC.md",
+      "actions": [
+        "deliver_product_doc",
+        "deliver_decision_log"
+      ],
+      "implementation_started": false,
+      "text": "最终 PRODUCT-DOC 与决策记录已交付。根据硬停止规则，本会话没有创建代码、脚手架、分支或实现任务。"
+    }
+  ]
+}

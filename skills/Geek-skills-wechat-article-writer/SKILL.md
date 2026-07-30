@@ -1,7 +1,7 @@
 ---
 name: wechat-article-writer
-version: 1.1.0
-description: 专业的微信公众号文章创作助手。当用户提供网站链接、文本素材或图像，需要创作微信公众号文章时使用。支持多种写作风格——企业官号文案、个人技术博客、社区活动回顾、产品评测等。擅长AI/技术话题的深度内容创作，也能产出规范的企业宣传文案。通过搜索工具丰富内容，优化标题和结构。当用户提到"公众号"、"微信文章"、"写一篇推文"、"帮我写篇文章发公众号"等场景时触发。即使用户没有明确说"公众号"，但在要求创作中文长文（技术博客、产品介绍、活动回顾等）时也应考虑触发。不用于：带引用的研究报告（用deep-research）、把内容做成图或PPT（用deck-studio）、英文文章、只润色一小段文字。
+version: 1.2.0
+description: 专业微信公众号文章助手，支持四个独立且可组合模式：article 写正文；image-prompts 从文章生成版本化、provider-neutral 的图片提示词 manifest 与稳定占位符，但不调用生图；layout 把文章和 manifest 确定性转换为微信安全的内联 HTML；full-pipeline 串联正文、提示词/占位符和排版。用户提到公众号、微信文章、推文、配图提示词、图片 manifest、公众号排版、内联 HTML 或完整图文流水线时触发。支持企业官号、个人技术博客、活动回顾和产品评测。不用于：带引用的研究报告（用 deep-research）、PPT/组图（用 deck-studio）、英文文章、仅润色一小段。永不自动发布，永不把提示词或占位符声称为已生成图片。
 ---
 
 # 微信公众号文章创作助手
@@ -9,6 +9,22 @@ description: 专业的微信公众号文章创作助手。当用户提供网站�
 ## 概述
 
 帮助用户创作高质量的微信公众号文章。核心能力是**风格灵活适配**——同一个skill既能写企业官号的正式文案，也能写个人IP的技术博客。根据用户需求自动匹配最合适的风格和结构。
+
+## 先选执行模式
+
+用户未指定时默认 `article`。需要跨模式时按
+`references/PIPELINE-CONTRACT.md` 的文件接口交接，不靠对话隐含状态。
+
+| 模式 | 输入 | 必须输出 | 停止位置 |
+|---|---|---|---|
+| `article` | 素材/选题 | `article.md` | 正文完成 |
+| `image-prompts` | `article.md` | `image-manifest.json`，正文含稳定锚点与占位符 | 提示词完成，不生图 |
+| `layout` | `article.md` + 可选 manifest | `layout.html` | HTML 完成，不发布 |
+| `full-pipeline` | 素材/选题 | article + manifest + HTML | 三件套完成，不生图、不发布 |
+
+manifest 必须通过 `schemas/image-manifest.schema.json` 和
+`scripts/validate_image_manifest.py`。排版优先调用宿主的“排版输出” Skill；
+其接口不可用时，使用 `scripts/render_wechat_layout.py` 的确定性降级实现。
 
 ## 第一步：风格识别与素材分析
 
@@ -211,23 +227,30 @@ python main.py --port 8080
 ## 第五步：排版与交付
 
 **排版建议**（所有风格通用）：
-- 短段落：手机端每段不超过3-4行
-- 小标题：每500字左右一个小标题，可用emoji增强识别度
-- 重点加粗：核心观点、关键数据
-- 配图节奏：每500-800字配1张图（位置建议）
-- 代码块：技术文章的代码用等宽字体展示
+- 手机端短段落，每段不超过 3–4 行；约每 500 字设小标题。
+- 只加粗核心观点和数据；约每 500–800 字安排一张图。
+- 技术文章的代码使用等宽字体。
 
-**最终交付物**：
-1. 完整文章正文（含标题）
-2. 3个备选标题方案
-3. 摘要（100字以内，用于分享时的描述）
-4. 配图建议（封面图+正文配图位置）
-5. 发布时间建议
-6. 评论区互动话题建议
+**article 模式最终交付物**：
+1. 完整正文、主标题、3 个备选标题和 100 字内摘要。
+2. 封面/正文配图建议、发布时间建议和评论区互动话题。
 
 **输出格式**：
 - 短文（<1500字）→ 直接在对话中输出
 - 长文（>1500字）→ 建议生成 .md 或 .docx 文件
+
+`image-prompts`、`layout` 和 `full-pipeline` 不使用上面的口头“配图建议”作为机器接口；
+必须按 `references/PIPELINE-CONTRACT.md` 生成可校验文件。每张图使用稳定 ID，
+锚点固定为 `<!-- image:{id} -->`，占位符固定为 `{{IMAGE:{id}}}`。
+
+## 安全与真实性红线
+
+- 不自动登录或发布到公众号，不代替用户点击发布，不请求账号、Cookie、Token 或密钥。
+- 未调用并验证真实图片提供方时，`provider_status` 只能是 `not-requested` 或 `prompt-only`。
+- 不把 prompt、manifest、空 `img` 标签或灰色占位框描述成“图片已生成”。
+- layout 不执行正文中的 HTML/JavaScript；文本必须转义，只允许受控标签和内联样式。
+- 禁止 `<script>`、`<style>`、事件属性、外部 CSS/JS/字体和横向溢出。
+- 任何锚点、占位符或 manifest 图片 ID 未一一对应时，失败并停止交付。
 
 ## 第六步：质量自检
 
@@ -259,29 +282,18 @@ python main.py --port 8080
 
 ## 第七步（可选）：L4 反翻译腔 Polish
 
-当文章追求高标准的中文自然度时（ChaoGeek 深度文、观点文、品牌文案），在第六步自检通过后启用此步。对应 Li et al. (ACL 2025) 和 Raunak et al. (2024) 验证的 self-refinement 路径——让模型以独立审稿人身份改写自己的初稿，自然度跳一档。
-
-**工作方式**：把初稿作为输入，切换到「反翻译腔编辑」角色，执行以下操作：
-
-1. **体检**：按 §2.3 的五类标记逐条扫描初稿，列出每条的问题位置和片段。无问题则写"未检出"
-2. **改写**：给出一版彻底地道的改写。改写时走激进模式——允许以中文母语思维重新组织句子甚至整段话
-3. **逐句核对**：改写后检查：每句 ≤ 25 字或有自然停顿；每句 ≤ 2 个"的"；动词是实义动词不是"进行/作出/予以"；主语是人或具体事物不是抽象名词；段落内句长有长短交错
-4. **准确性兜底**：对每一处改动，如果原意变模糊就回退该处，保留初稿表达
-
-**触发条件**：
-- 用户指定"L4"或"深度润色"或"polish"
-- 文章属于 ChaoGeek 品牌（风格B个人技术博客 + 品牌调性文）
-- 用户明确要求"把翻译腔去干净"
-
-**不触发**：技术文档、PRD、学术翻译等准确性优先的场景，走第六步保守模式即可。
+当用户指定 “L4 / 深度润色 / polish”、要求彻底去翻译腔，或创作
+ChaoGeek 深度文、观点文、品牌文案时，在第六步后启用。按
+`references/quality-checklist.md` §2.3 的完整协议执行：独立体检、母语化
+改写、逐句复核、语义回退。技术文档、PRD、学术翻译等准确性优先场景
+不启用 L4，继续使用保守模式。
 
 ## 资源文档
 
-- `references/style-guide.md` — 官方文案语言风格指南。🏢官方风格创作时**必须参考**。
-- `references/writing-techniques.md` — 公众号写作技巧和开头公式。所有风格都可参考。
-- `references/title-formulas.md` — 50+标题模板。主要适用于官方和大众向文章。
-- `references/quality-checklist.md` — 内容质量审核清单。所有文章发布前参考。
-- `references/linguistic-background.md` — 反翻译腔的语言学根因。不影响执行，给维护者提供"为什么"。
-- `assets/template-structure.md` — 可复用的文章结构模板。
-- `assets/emoji-library.txt` — 适合公众号的emoji素材库。
+- `references/style-guide.md`（官方必读）与 `references/writing-techniques.md`（写作技巧）。
+- `references/title-formulas.md`（标题模板）与 `references/quality-checklist.md`（发布前检查）。
+- `references/linguistic-background.md`（语言学背景，维护者参考）。
+- `references/PIPELINE-CONTRACT.md`（非 article 模式必读）与 `schemas/image-manifest.schema.json`（provider-neutral schema）。
+- `scripts/validate_image_manifest.py` / `scripts/render_wechat_layout.py` — fail-closed 校验与安全排版降级器。
+- `assets/template-structure.md`（文章结构）与 `assets/emoji-library.txt`（emoji 素材）。
 - `evals/routing-evals.json` — 触发边界回归用例，改动 description 后用仓库根 `scripts/run_routing_evals.py` 校验。

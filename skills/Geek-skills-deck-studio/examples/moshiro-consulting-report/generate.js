@@ -1,6 +1,7 @@
 // deck-studio v3 · 墨白咨询「设计系统」版
 // 七原则:概念先行/极端对比/网格+破格/质感纵深/明暗节奏/文字主角/光学细节
 const fs = require("fs");
+const path = require("path");
 
 const CSS = `
 :root{
@@ -211,6 +212,7 @@ pages.push(P("GEEK SKILLS", `
     <div class="cap" style="margin-top:22px;font-size:14px;">github.com/staruhub/ClaudeSkills</div>
   </div>`, 9));
 
-fs.mkdirSync("html", { recursive: true });
-pages.forEach((h, i) => fs.writeFileSync(`html/p${i + 1}.html`, h));
+const outputDir = path.join(__dirname, "html");
+fs.mkdirSync(outputDir, { recursive: true });
+pages.forEach((h, i) => fs.writeFileSync(path.join(outputDir, `p${i + 1}.html`), h));
 console.log(pages.length + " 页 v3 HTML 生成");

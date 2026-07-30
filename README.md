@@ -4,46 +4,32 @@
 
 # Geek Skills
 
-**13 curated Claude Code skills that ship finished work — decks, research briefs, PRDs, articles, audits.**
+**13 curated Claude Code skills for turning real work into inspectable deliverables.**
 
-End-to-end workflows tested like software, not prompt snippets.
+Start with four flagship workflows for research, product documents, decks, and Chinese long-form writing. Then inspect the instructions, examples, checks, and capability boundaries before you install.
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
-[![skills](https://img.shields.io/badge/curated_skills-13-blue)](#-all-skills)
-[![evals](https://img.shields.io/badge/routing_evals-85_cases-blue)](scripts/run_routing_evals.py)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+[Website](https://staruhub.github.io/ClaudeSkills/) · [Install](#-install-in-30-seconds) · [All 13 skills](#-all-skills) · [Security](SECURITY.md)
 
 </div>
 
-## Type this —
+## Start with a flagship workflow
 
-```
-/deck-studio Turn this quarterly review into a consulting-style deck
-```
+| Your job | Workflow | Inspectable output |
+|----------|----------|--------------------|
+| Research a decision | 🔬 [`deep-research`](skills/Geek-skills-deep-research/SKILL.md) (v8.1) | A scoped memo or report with a source registry, citation checks, trade-offs, and stated limitations |
+| Write or review a product document | 📋 [`product-manager`](skills/Geek-skills-product-manager/SKILL.md) | A structured PRD or review with decision framing and checkable acceptance criteria |
+| Present, pitch, or teach | 🎞️ [`deck-studio`](skills/Geek-skills-deck-studio/SKILL.md) (v3) | An approved outline, page briefs, registered layouts, and a rendered visual path with an explicit QA checklist |
+| Draft a Chinese long-form article | ✍️ [`wechat-article-writer`](skills/Geek-skills-wechat-article-writer/SKILL.md) | A structured article draft with title, voice, and anti-translationese review |
 
-**— and get a full deck back.** Page one of a real run, scored **7.1/10** by an independent blind judge (7.0 = professional design-studio line):
-
-<!-- TODO: replace static cover with a 30-60s GIF of the run (vhs / ScreenToGif) — research shows animated demos convert measurably better -->
-<p align="center">
-<img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="82%">
-</p>
-<p align="center"><sub>9 pages, produced by the skill itself — no template picked by hand, no manual touch-up. <a href="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/">Full example →</a></sub></p>
-
-## What will you ship today?
-
-| I need to… | Skill | You get |
-|------------|-------|---------|
-| Research a decision properly | 🔬 [`deep-research`](skills/Geek-skills-deep-research/SKILL.md) (v8.1) | A cited decision brief — scoped plan → parallel investigation → verified citations |
-| Write or review a PRD | 📋 [`product-manager`](skills/Geek-skills-product-manager/SKILL.md) | A PRD your developers can start from, with checkable acceptance bars |
-| Present or pitch | 🎞️ [`deck-studio`](skills/Geek-skills-deck-studio/SKILL.md) (v3) | A rendered deck: 17-style library, registered layouts, 22-rule visual gate |
-| Publish a Chinese long-form article | ✍️ [`wechat-article-writer`](skills/Geek-skills-wechat-article-writer/SKILL.md) | A publishable article with a built-in anti-translationese pass |
-
-Each is an end-to-end workflow, not a single prompt. [All skills ↓](#-all-skills)
+These are repeatable instruction packages, not one-line prompt snippets. Capabilities still depend on the tools and permissions available in your Claude Code session.
 
 ## 🚀 Install in 30 seconds
 
 ```bash
-git clone https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSkills
+git clone --depth 1 https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSkills
 python3 scripts/install_skill.py deck-studio      # -> ~/.claude/skills/deck-studio, then run /deck-studio
 ```
 
@@ -82,32 +68,41 @@ rm -rf ~/.claude/skills/deck-studio                                # uninstall
 
 </details>
 
-## 📈 Quality you can re-run, not adjectives
+## 📈 Inspect an artifact, not a promise
 
-Deck quality is scored by **independent blind judges on an absolute rubric** (10 = design studio, 7 = pro agency) — not by me. The trajectory on the same rubric across four release rounds: 6.0 → 6.6 → 6.6 → **7.1**, first past the studio line. In a 3-judge, position-swapped blind eval, the current pipeline beat the previous one **42.3 vs 29.7 — a 42% margin**, consistent across swapped positions ([method & scores](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/)).
+The Deck Studio examples include generators, rendered pages, and judge feedback. In the repository's blind **model-based self-evaluation**, the Constructivist example scored **7.1/10** on the documented rubric; the position-swapped three-judge comparison scored the current pipeline **42.3 vs 29.7** ([method and scores](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/)). These results are reproducible project evidence, not third-party certification.
 
-Every example directory ships the full generator, rendered pages, and the defects the judges caught:
 [constructivist (7.1)](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [moshiro (3-judge eval)](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [yinghuang](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [polar-night](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
 
 <p align="center">
-<img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" width="24%">
+<img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" alt="Bauhaus deck style preview" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" alt="Constructivist deck style preview" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" alt="Neubrutalism deck style preview" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" alt="Aicher deck style preview" width="24%">
 </p>
-<p align="center"><sub>Four of the 17 styles — Bauhaus · Constructivist · Neubrutalism · Aicher — each a rendered, reusable seed. Beauty is <em>inherited, not generated</em>.</sub></p>
+<p align="center"><sub>Four of the 17 rendered style seeds: Bauhaus · Constructivist · Neubrutalism · Aicher.</sub></p>
 
-## 🧪 Maintained like software
+## 🧪 What the checks prove
 
-- **Skill Quality Standard v1.0** — every skill passes a D0 gate and carries checkable **acceptance criteria**, explicit **boundaries** (when *not* to use, with hand-offs), and **pitfall tables** drawn from real failures.
-- **Routing evals** — 85 cases across 10 skills (`skills/*/evals/routing-evals.json`) proving each skill triggers when it should and defers when it shouldn't.
-- **CI on every push** — [two L1 gates](.github/workflows/validate.yml) (structure + routing-eval consistency) plus a script compile check. Reproduce locally: `python3 scripts/validate.py && python3 scripts/run_routing_evals.py`.
-- **Know what you install** — [SECURITY.md](SECURITY.md) gives a per-skill capability matrix (reads / writes / network / shells out / credentials / can delete). 9 of the 13 curated skills ship zero code; exactly one can delete files, and it defaults to dry-run.
+| Check | Current repository evidence | Does not prove |
+|-------|-----------------------------|----------------|
+| `python3 scripts/validate.py` | Structural L1 assertions for all 13 curated skill directories | Output quality or live integrations |
+| `python3 scripts/run_routing_evals.py` | Schema, target, uniqueness, and conflict checks for 91 routing case definitions across 10 skills | Model-executed routing accuracy |
+| Python compile check in CI | All 10 bundled `skills/**/*.py` files parse and compile | Runtime behavior, network access, or external tools |
+| Deck example directories | Generators, rendered pages, rubrics, scores, and recorded defects | Independent external certification |
 
-> ⚠️ Quality gates are a **self-audit** by Claude, not third-party certification — the commands above let you re-run them yourself. Full refactor record: [CHANGELOG.md](CHANGELOG.md).
+Re-run the repository and site checks locally:
+
+```bash
+python3 scripts/validate.py
+python3 scripts/run_routing_evals.py
+python3 scripts/validate_site.py
+```
+
+Before installing, read the [per-skill capability matrix](SECURITY.md): it separates bundled-script risk from actions that still require Claude Code permissions. See [CHANGELOG.md](CHANGELOG.md) for the refactor record.
 
 ## 📚 All Skills
 
 <a id="-all-skills"></a>
 
-**Flagship** — the four end-to-end workflows above: [deck-studio](skills/Geek-skills-deck-studio/SKILL.md) · [deep-research](skills/Geek-skills-deep-research/SKILL.md) · [product-manager](skills/Geek-skills-product-manager/SKILL.md) · [wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md)
+**Flagship** — the four workflows above: [deck-studio](skills/Geek-skills-deck-studio/SKILL.md) · [deep-research](skills/Geek-skills-deep-research/SKILL.md) · [product-manager](skills/Geek-skills-product-manager/SKILL.md) · [wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md)
 
 <details>
 <summary><b>Core — professional work</b> (9 skills)</summary>

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://staruhub.github.io/ClaudeSkills/schemas/image-manifest.schema.json",
+  "title": "Provider-neutral WeChat image prompt manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "article_id",
+    "article_sha256",
+    "mode",
+    "provider_neutral",
+    "images"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "manifest_id": {
+      "type": "string",
+      "pattern": "^manifest-[a-z0-9][a-z0-9-]{2,63}$"
+    },
+    "article_id": {
+      "type": "string",
+      "pattern": "^article-[a-z0-9][a-z0-9-]{2,63}$"
+    },
+    "article_sha256": {
+      "description": "SHA-256 of strict UTF-8 article text after CRLF and bare CR are normalized to LF; no other normalization",
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "mode": {"enum": ["image-prompts", "full-pipeline"]},
+    "provider_neutral": {"const": true},
+    "images": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/image"}
+    }
+  },
+  "$defs": {
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "purpose",
+        "placement_anchor",
+        "placeholder",
+        "aspect_ratio",
+        "width",
+        "height",
+        "positive_prompt",
+        "negative_prompt",
+        "alt",
+        "caption",
+        "provider_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^img-[a-z0-9][a-z0-9-]{2,63}$"
+        },
+        "purpose": {
+          "enum": [
+            "cover",
+            "section",
+            "explainer",
+            "quote",
+            "data",
+            "case",
+            "cta"
+          ]
+        },
+        "placement_anchor": {
+          "type": "string",
+          "pattern": "^<!-- image:img-[a-z0-9][a-z0-9-]{2,63} -->$"
+        },
+        "placeholder": {
+          "type": "string",
+          "pattern": "^\\{\\{IMAGE:img-[a-z0-9][a-z0-9-]{2,63}\\}\\}$"
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]*:[1-9][0-9]*$"
+        },
+        "width": {"type": "integer", "minimum": 320, "maximum": 4096},
+        "height": {"type": "integer", "minimum": 320, "maximum": 4096},
+        "positive_prompt": {"type": "string", "minLength": 40},
+        "negative_prompt": {"type": "string", "minLength": 10},
+        "alt": {"type": "string", "minLength": 1, "maxLength": 160},
+        "caption": {"type": "string", "minLength": 1, "maxLength": 240},
+        "provider_status": {
+          "enum": [
+            "not-requested",
+            "prompt-only",
+            "generating",
+            "generated",
+            "failed",
+            "blocked"
+          ]
+        },
+        "asset_ref": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"provider_status": {"const": "generated"}},
+            "required": ["provider_status"]
+          },
+          "then": {"required": ["asset_ref"]}
+        }
+      ]
+    }
+  }
+}

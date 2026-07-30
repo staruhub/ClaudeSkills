@@ -1,0 +1,2 @@
+Source A excerpt: Every inline citation must resolve to the approved source
+pool. Local fixture only; the public URL is not fetched by this test.

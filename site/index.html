@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Geek Skills is a curated collection of Claude Code workflows for research, product documents, decks, Chinese long-form writing, and more.">
+  <meta name="theme-color" content="#0d5f3c">
+  <title>Geek Skills — Repeatable Claude Code workflows</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="./index.html" aria-label="Geek Skills home">
+      <span class="brand-mark" aria-hidden="true">G</span>
+      <span>Geek Skills</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#flagships">Flagships</a>
+      <a href="#install">Install</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#all-skills">All skills</a>
+      <a href="./zh-CN.html" lang="zh-CN">中文</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Open-source Claude Code workflows</p>
+        <h1 id="hero-title">Less prompting.<br><span>More finished work.</span></h1>
+        <p class="hero-lede">Thirteen curated skills turn recurring knowledge work into inspectable workflows—with instructions, boundaries, examples, and checks you can read before installing.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#install">Install a skill</a>
+          <a class="button button-secondary" href="https://github.com/staruhub/ClaudeSkills">View on GitHub</a>
+        </div>
+        <ul class="proof-strip" aria-label="Repository summary">
+          <li><strong>13</strong><span>curated skills</span></li>
+          <li><strong>4</strong><span>flagship workflows</span></li>
+          <li><strong>91</strong><span>routing case definitions</span></li>
+        </ul>
+      </div>
+
+      <aside class="hero-workflows" aria-label="Four flagship workflows">
+        <p class="panel-label">Start with the work</p>
+        <ol>
+          <li><a href="#deep-research"><span>01</span><strong>Research a decision</strong><small>Deep Research</small></a></li>
+          <li><a href="#product-manager"><span>02</span><strong>Specify a product</strong><small>Product Manager</small></a></li>
+          <li><a href="#deck-studio"><span>03</span><strong>Build a narrative</strong><small>Deck Studio</small></a></li>
+          <li><a href="#wechat-writer"><span>04</span><strong>Draft a Chinese article</strong><small>WeChat Writer</small></a></li>
+        </ol>
+      </aside>
+    </section>
+
+    <section id="flagships" class="section" aria-labelledby="flagships-title">
+      <div class="section-heading">
+        <p class="eyebrow">Flagship workflows</p>
+        <h2 id="flagships-title">Four ways to go from request to deliverable</h2>
+        <p>Each workflow makes its intermediate work visible. You can inspect how it scopes, decides, checks, and hands off.</p>
+      </div>
+
+      <div class="flagship-grid">
+        <article id="deep-research" class="flagship-card">
+          <div class="card-index">01 / Evidence</div>
+          <h3>Deep Research</h3>
+          <p>A brief or full report built from a research plan, source registry, citation checks, trade-offs, and explicit limitations.</p>
+          <code>/deep-research Compare three RAG architectures for our support team</code>
+          <a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-deep-research/SKILL.md">Inspect the workflow <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article id="product-manager" class="flagship-card">
+          <div class="card-index">02 / Decisions</div>
+          <h3>Product Manager</h3>
+          <p>A structured PRD or review with product framing, decision support, and acceptance criteria your team can check.</p>
+          <code>/product-manager Review this onboarding PRD and find the gaps</code>
+          <a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-product-manager/SKILL.md">Inspect the workflow <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article id="deck-studio" class="flagship-card">
+          <div class="card-index">03 / Narrative</div>
+          <h3>Deck Studio</h3>
+          <p>An outline-first deck path with page briefs, registered layouts, rendered style seeds, and an explicit visual QA checklist.</p>
+          <code>/deck-studio Turn this quarterly review into a consulting deck</code>
+          <a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-deck-studio/SKILL.md">Inspect the workflow <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article id="wechat-writer" class="flagship-card">
+          <div class="card-index">04 / Voice</div>
+          <h3>WeChat Article Writer</h3>
+          <p>A structured Chinese long-form draft with title development, voice guidance, and an anti-translationese review pass.</p>
+          <code>/wechat-article-writer Turn these notes into a technical article</code>
+          <a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-wechat-article-writer/SKILL.md">Inspect the workflow <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section id="install" class="section install-section" aria-labelledby="install-title">
+      <div class="section-heading">
+        <p class="eyebrow">30-second install</p>
+        <h2 id="install-title">Copy one skill. Keep control.</h2>
+        <p>The installer copies the selected skill into your Claude Code skill directory. Read its source and capability row first.</p>
+      </div>
+
+      <div class="terminal" aria-label="Installation command">
+        <div class="terminal-bar">
+          <span>Terminal</span>
+          <button class="copy-button js-only" type="button" data-copy-target="install-command" aria-label="Copy installation command">Copy</button>
+        </div>
+        <pre id="install-command"><code>git clone --depth 1 https://github.com/staruhub/ClaudeSkills.git
+cd ClaudeSkills
+python3 scripts/install_skill.py deck-studio</code></pre>
+      </div>
+
+      <div class="install-notes">
+        <p><strong>Choose another workflow:</strong> replace <code>deck-studio</code> with <code>deep-research</code>, <code>product-manager</code>, or <code>wechat-article-writer</code>.</p>
+        <p><strong>Project-only install:</strong> add <code>--project</code>. List every installable short name with <code>python3 scripts/install_skill.py --list</code>.</p>
+      </div>
+    </section>
+
+    <section id="evidence" class="section evidence-section" aria-labelledby="evidence-title">
+      <div class="section-heading">
+        <p class="eyebrow">Honest quality evidence</p>
+        <h2 id="evidence-title">Know what passed—and what it did not prove</h2>
+        <p>The repository separates static gates, model-based self-evaluation, and capability disclosure. It does not call them production proof.</p>
+      </div>
+
+      <div class="table-wrap" tabindex="0" aria-label="Quality evidence table">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Evidence</th>
+              <th scope="col">Current scope</th>
+              <th scope="col">Boundary</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><a href="https://github.com/staruhub/ClaudeSkills/blob/main/scripts/validate.py">Structural gate</a></th>
+              <td>Assertions for 13 curated skill directories</td>
+              <td>Not output-quality or live-integration proof</td>
+            </tr>
+            <tr>
+              <th scope="row"><a href="https://github.com/staruhub/ClaudeSkills/blob/main/scripts/run_routing_evals.py">Routing definitions</a></th>
+              <td>91 schema and conflict cases across 10 skills</td>
+              <td>Not model-executed routing accuracy</td>
+            </tr>
+            <tr>
+              <th scope="row"><a href="https://github.com/staruhub/ClaudeSkills/tree/main/skills/Geek-skills-deck-studio/examples">Deck artifacts</a></th>
+              <td>Generators, rendered pages, rubrics, scores, defects</td>
+              <td>Model-based self-evaluation, not external certification</td>
+            </tr>
+            <tr>
+              <th scope="row"><a href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">Capability matrix</a></th>
+              <td>Per-skill reads, writes, network, shell, credentials, deletion</td>
+              <td>Review third-party dependencies under your own policy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="evidence-callout">
+        <strong>Reproduce the repository gates</strong>
+        <code>python3 scripts/validate.py &amp;&amp; python3 scripts/run_routing_evals.py &amp;&amp; python3 scripts/validate_site.py</code>
+      </div>
+    </section>
+
+    <section id="all-skills" class="section" aria-labelledby="all-skills-title">
+      <div class="section-heading">
+        <p class="eyebrow">Curated catalog</p>
+        <h2 id="all-skills-title">All 13 skills</h2>
+        <p>Open the source before installing. Experimental and personal workflows stay in the separate <a href="https://github.com/staruhub/ClaudeSkills/tree/main/lab">lab</a>.</p>
+      </div>
+
+      <ul class="skill-grid">
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-deck-studio/SKILL.md"><strong>deck-studio</strong><span>Deck planning and visual delivery</span><em>Flagship</em></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-deep-research/SKILL.md"><strong>deep-research</strong><span>Evidence-backed research reports</span><em>Flagship</em></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-product-manager/SKILL.md"><strong>product-manager</strong><span>PRDs, reviews, and product strategy</span><em>Flagship</em></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-wechat-article-writer/SKILL.md"><strong>wechat-article-writer</strong><span>Chinese long-form article drafting</span><em>Flagship</em></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-pair-programming/SKILL.md"><strong>pair-programming</strong><span>Implementation with structured self-review</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-security-audit/SKILL.md"><strong>security-audit</strong><span>Code and dependency security review</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-solution-architect/SKILL.md"><strong>solution-architect</strong><span>Architecture and technology decisions</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-threejs-performance/SKILL.md"><strong>threejs-performance</strong><span>Three.js performance diagnosis</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-mineru-pdf-parser/SKILL.md"><strong>mineru-pdf-parser</strong><span>PDF to Markdown or JSON</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-ai-sales-champion/SKILL.md"><strong>ai-sales-champion</strong><span>Technical-to-business sales dialogue</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-keqian-method/SKILL.md"><strong>keqian-method</strong><span>Single-agent, SDD product workflow</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-xuefeng-method/SKILL.md"><strong>xuefeng-method</strong><span>Model-driven product methodology</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-c-drive-cleaner/SKILL.md"><strong>c-drive-cleaner</strong><span>Guarded Windows disk cleanup</span></a></li>
+      </ul>
+    </section>
+
+    <section class="section trust-section" aria-labelledby="trust-title">
+      <div>
+        <p class="eyebrow">Trust before automation</p>
+        <h2 id="trust-title">A skill is code-adjacent. Treat it that way.</h2>
+      </div>
+      <div>
+        <p>The <a href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">security guide</a> separates what bundled scripts can do from what Claude may ask permission to do. The one curated skill that can delete files defaults to dry-run and documents its safeguards.</p>
+        <a class="text-link" href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">Read the capability matrix <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="section faq-section" aria-labelledby="faq-title">
+      <div class="section-heading">
+        <p class="eyebrow">FAQ</p>
+        <h2 id="faq-title">Before you install</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>Is this a prompt collection?</summary>
+          <p>No. Each curated skill is a folder with a <code>SKILL.md</code> instruction contract and, when needed, references, scripts, assets, and routing cases.</p>
+        </details>
+        <details>
+          <summary>Do the checks mean every workflow is end-to-end verified?</summary>
+          <p>No. The current L1 gates verify structure and routing-case consistency. Python files are compile-checked. Some workflows include deeper artifacts, but the repository does not claim live E2E coverage for all four flagships.</p>
+        </details>
+        <details>
+          <summary>Why did my slash command get a long name?</summary>
+          <p>The installed directory name becomes the slash command. Use the installer, which copies <code>Geek-skills-deck-studio</code> to <code>deck-studio</code>, or rename a manual copy yourself.</p>
+        </details>
+        <details>
+          <summary>How do I contribute?</summary>
+          <p>Start with an issue. New skills incubate in <code>lab/</code> and graduate after they meet the repository's quality gates and capability disclosure rules.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Geek Skills</strong>
+      <p>Curated, inspectable workflows for Claude Code.</p>
+    </div>
+    <nav aria-label="Footer navigation">
+      <a href="https://github.com/staruhub/ClaudeSkills">GitHub</a>
+      <a href="https://github.com/staruhub/ClaudeSkills/blob/main/CONTRIBUTING.md">Contribute</a>
+      <a href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">Security</a>
+      <a href="https://github.com/staruhub/ClaudeSkills/blob/main/LICENSE">MIT License</a>
+      <a href="https://github.com/staruhub/ClaudeSkills/issues">Issues</a>
+    </nav>
+  </footer>
+</body>
+</html>

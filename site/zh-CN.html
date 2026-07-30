@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Geek Skills：面向 Claude Code 的精选工作流，覆盖深度研究、产品文档、演示文稿、中文长文等真实工作。">
+  <meta name="theme-color" content="#0d5f3c">
+  <title>Geek Skills — 可重复执行的 Claude Code 工作流</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+  <header class="site-header">
+    <a class="brand" href="./zh-CN.html" aria-label="Geek Skills 中文首页">
+      <span class="brand-mark" aria-hidden="true">G</span>
+      <span>Geek Skills</span>
+    </a>
+    <nav aria-label="主要导航">
+      <a href="#flagships">旗舰工作流</a>
+      <a href="#install">安装</a>
+      <a href="#evidence">质量证据</a>
+      <a href="#all-skills">全部 Skills</a>
+      <a href="./index.html" lang="en">English</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">开源 Claude Code 工作流</p>
+        <h1 id="hero-title">少聊提示词。<br><span>多交付成品。</span></h1>
+        <p class="hero-lede">13 个精选 skills，把反复出现的知识工作变成可检查的工作流。安装之前，指令、边界、样例和校验方式都摆在你面前。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#install">安装一个 Skill</a>
+          <a class="button button-secondary" href="https://github.com/staruhub/ClaudeSkills">查看 GitHub</a>
+        </div>
+        <ul class="proof-strip" aria-label="仓库概览">
+          <li><strong>13</strong><span>个精选 skills</span></li>
+          <li><strong>4</strong><span>条旗舰工作流</span></li>
+          <li><strong>91</strong><span>条路由用例定义</span></li>
+        </ul>
+      </div>
+
+      <aside class="hero-workflows" aria-label="四条旗舰工作流">
+        <p class="panel-label">先从工作出发</p>
+        <ol>
+          <li><a href="#deep-research"><span>01</span><strong>调研一个决策</strong><small>Deep Research</small></a></li>
+          <li><a href="#product-manager"><span>02</span><strong>把产品说清楚</strong><small>Product Manager</small></a></li>
+          <li><a href="#deck-studio"><span>03</span><strong>搭好汇报叙事</strong><small>Deck Studio</small></a></li>
+          <li><a href="#wechat-writer"><span>04</span><strong>写一篇中文长文</strong><small>WeChat Writer</small></a></li>
+        </ol>
+      </aside>
+    </section>
+
+    <section id="flagships" class="section" aria-labelledby="flagships-title">
+      <div class="section-heading">
+        <p class="eyebrow">旗舰工作流</p>
+        <h2 id="flagships-title">从一句需求，到可以检查的交付物</h2>
+        <p>中间过程不藏着：怎么定范围、怎么做决定、怎么校验、最后交什么，都能直接看。</p>
+      </div>
+
+      <div class="flagship-grid">
+        <article id="deep-research" class="flagship-card">
+          <div class="card-index">01 / 证据</div>
+          <h3>Deep Research</h3>
+          <p>从调研计划、来源登记到引用校验，最终交付简报或完整报告，并明确写出取舍与局限。</p>
+          <code>/deep-research 比较三种适合客服团队的 RAG 架构</code>
+          <a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-deep-research/SKILL.md">查看工作流 <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article id="product-manager" class="flagship-card">
+          <div class="card-index">02 / 决策</div>
+          <h3>Product Manager</h3>
+          <p>产出结构化 PRD 或评审稿，补齐产品判断、决策依据和团队可以核对的验收标准。</p>
+          <code>/product-manager 评审这份新手引导 PRD，找出缺口</code>
+          <a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-product-manager/SKILL.md">查看工作流 <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article id="deck-studio" class="flagship-card">
+          <div class="card-index">03 / 叙事</div>
+          <h3>Deck Studio</h3>
+          <p>先确认大纲，再做逐页 brief、注册版式和视觉交付，并用明确的检查表复核画面。</p>
+          <code>/deck-studio 把这份季度复盘做成咨询风 PPT</code>
+          <a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-deck-studio/SKILL.md">查看工作流 <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article id="wechat-writer" class="flagship-card">
+          <div class="card-index">04 / 口吻</div>
+          <h3>WeChat Article Writer</h3>
+          <p>产出结构化中文长文草稿，覆盖标题、口吻和“去翻译腔”复核。</p>
+          <code>/wechat-article-writer 把这些笔记写成一篇技术文章</code>
+          <a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-wechat-article-writer/SKILL.md">查看工作流 <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section id="install" class="section install-section" aria-labelledby="install-title">
+      <div class="section-heading">
+        <p class="eyebrow">30 秒安装</p>
+        <h2 id="install-title">只装你需要的，控制权还在你手里</h2>
+        <p>安装脚本只会把选中的 skill 复制到 Claude Code 的 skills 目录。动手前，先看源码和能力矩阵。</p>
+      </div>
+
+      <div class="terminal" aria-label="安装命令">
+        <div class="terminal-bar">
+          <span>终端</span>
+          <button class="copy-button js-only" type="button" data-copy-target="install-command" aria-label="复制安装命令">复制</button>
+        </div>
+        <pre id="install-command"><code>git clone --depth 1 https://github.com/staruhub/ClaudeSkills.git
+cd ClaudeSkills
+python3 scripts/install_skill.py deck-studio</code></pre>
+      </div>
+
+      <div class="install-notes">
+        <p><strong>换一条工作流：</strong>把 <code>deck-studio</code> 换成 <code>deep-research</code>、<code>product-manager</code> 或 <code>wechat-article-writer</code>。</p>
+        <p><strong>只装到当前项目：</strong>加上 <code>--project</code>。想看全部短名，运行 <code>python3 scripts/install_skill.py --list</code>。</p>
+      </div>
+    </section>
+
+    <section id="evidence" class="section evidence-section" aria-labelledby="evidence-title">
+      <div class="section-heading">
+        <p class="eyebrow">说清楚的质量证据</p>
+        <h2 id="evidence-title">哪些过了，哪些还不能证明</h2>
+        <p>仓库把静态门禁、模型自测和能力披露分开写，不拿它们冒充生产环境证明。</p>
+      </div>
+
+      <div class="table-wrap" tabindex="0" aria-label="质量证据表">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">证据</th>
+              <th scope="col">当前覆盖</th>
+              <th scope="col">边界</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><a href="https://github.com/staruhub/ClaudeSkills/blob/main/scripts/validate.py">结构门禁</a></th>
+              <td>检查 13 个精选 skill 目录</td>
+              <td>不等于产出质量或真实集成验证</td>
+            </tr>
+            <tr>
+              <th scope="row"><a href="https://github.com/staruhub/ClaudeSkills/blob/main/scripts/run_routing_evals.py">路由用例定义</a></th>
+              <td>10 个 skills、91 条 schema 与冲突用例</td>
+              <td>不等于大模型实际路由准确率</td>
+            </tr>
+            <tr>
+              <th scope="row"><a href="https://github.com/staruhub/ClaudeSkills/tree/main/skills/Geek-skills-deck-studio/examples">Deck 样例</a></th>
+              <td>生成器、渲染页、量表、分数和缺陷</td>
+              <td>模型自测，不是外部独立认证</td>
+            </tr>
+            <tr>
+              <th scope="row"><a href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">能力矩阵</a></th>
+              <td>逐 skill 披露读写、联网、命令、凭证和删除能力</td>
+              <td>第三方依赖仍需按你的制度审查</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="evidence-callout">
+        <strong>本地复跑仓库门禁</strong>
+        <code>python3 scripts/validate.py &amp;&amp; python3 scripts/run_routing_evals.py &amp;&amp; python3 scripts/validate_site.py</code>
+      </div>
+    </section>
+
+    <section id="all-skills" class="section" aria-labelledby="all-skills-title">
+      <div class="section-heading">
+        <p class="eyebrow">精选目录</p>
+        <h2 id="all-skills-title">全部 13 个 skills</h2>
+        <p>安装之前先看源码。实验性和个人向工作流单独放在 <a href="https://github.com/staruhub/ClaudeSkills/tree/main/lab">lab</a>。</p>
+      </div>
+
+      <ul class="skill-grid">
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-deck-studio/SKILL.md"><strong>deck-studio</strong><span>演示文稿策划与视觉交付</span><em>旗舰</em></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-deep-research/SKILL.md"><strong>deep-research</strong><span>有证据的研究报告</span><em>旗舰</em></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-product-manager/SKILL.md"><strong>product-manager</strong><span>PRD、评审和产品策略</span><em>旗舰</em></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-wechat-article-writer/SKILL.md"><strong>wechat-article-writer</strong><span>中文长文草稿</span><em>旗舰</em></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-pair-programming/SKILL.md"><strong>pair-programming</strong><span>带结构化自审的代码实现</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-security-audit/SKILL.md"><strong>security-audit</strong><span>代码与依赖安全审计</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-solution-architect/SKILL.md"><strong>solution-architect</strong><span>架构设计与技术选型</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-threejs-performance/SKILL.md"><strong>threejs-performance</strong><span>Three.js 性能诊断</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-mineru-pdf-parser/SKILL.md"><strong>mineru-pdf-parser</strong><span>PDF 转 Markdown 或 JSON</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-ai-sales-champion/SKILL.md"><strong>ai-sales-champion</strong><span>把技术话讲成业务话</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-keqian-method/SKILL.md"><strong>keqian-method</strong><span>单 Agent、SDD 产品工作流</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-xuefeng-method/SKILL.md"><strong>xuefeng-method</strong><span>模型驱动的产品方法论</span></a></li>
+        <li><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-c-drive-cleaner/SKILL.md"><strong>c-drive-cleaner</strong><span>带护栏的 Windows 磁盘清理</span></a></li>
+      </ul>
+    </section>
+
+    <section class="section trust-section" aria-labelledby="trust-title">
+      <div>
+        <p class="eyebrow">先信任，再自动化</p>
+        <h2 id="trust-title">Skill 离代码很近，别把它当普通文案</h2>
+      </div>
+      <div>
+        <p><a href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">安全说明</a>把“自带脚本会做什么”和“Claude 可能申请什么权限”分开披露。精选集中唯一能删文件的 skill 默认只演习，并公开写明护栏。</p>
+        <a class="text-link" href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">查看能力矩阵 <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="section faq-section" aria-labelledby="faq-title">
+      <div class="section-heading">
+        <p class="eyebrow">常见问题</p>
+        <h2 id="faq-title">安装前先看这几条</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>这是一个 prompt 合集吗？</summary>
+          <p>不是。每个精选 skill 都是一个独立目录，至少包含 <code>SKILL.md</code> 指令合同；需要时还会带 references、scripts、assets 和路由用例。</p>
+        </details>
+        <details>
+          <summary>门禁通过，等于四条工作流都做过端到端验证吗？</summary>
+          <p>不等于。当前 L1 门禁验证结构和路由用例定义一致性，Python 文件另做编译检查。部分工作流有更深的样例证据，但仓库没有宣称四旗舰都完成了真实运行 E2E。</p>
+        </details>
+        <details>
+          <summary>为什么我的斜杠命令名字很长？</summary>
+          <p>安装后的目录名就是命令名。用安装脚本会把 <code>Geek-skills-deck-studio</code> 复制成 <code>deck-studio</code>；手动复制时需要自己改名。</p>
+        </details>
+        <details>
+          <summary>怎么贡献？</summary>
+          <p>先提 issue。新 skill 从 <code>lab/</code> 开始，满足质量门禁和能力披露要求后再进入精选集。</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Geek Skills</strong>
+      <p>给 Claude Code 的精选、可检查工作流。</p>
+    </div>
+    <nav aria-label="页脚导航">
+      <a href="https://github.com/staruhub/ClaudeSkills">GitHub</a>
+      <a href="https://github.com/staruhub/ClaudeSkills/blob/main/CONTRIBUTING.md">参与贡献</a>
+      <a href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">安全</a>
+      <a href="https://github.com/staruhub/ClaudeSkills/blob/main/LICENSE">MIT License</a>
+      <a href="https://github.com/staruhub/ClaudeSkills/issues">Issues</a>
+    </nav>
+  </footer>
+</body>
+</html>

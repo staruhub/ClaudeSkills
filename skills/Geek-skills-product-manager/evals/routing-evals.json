@@ -44,5 +44,19 @@
     "should_trigger": true,
     "boundary": true,
     "reason": "两可：功能设计归本 skill，深度技术选型归 solution-architect；倾向本 skill 主导、选型部分声明移交"
+  },
+  {
+    "id": "pm-08",
+    "prompt": "别急着写代码，先读一下仓库，然后每次只问我一个问题，把这个模糊想法 grill 成产品文档。",
+    "should_trigger": true,
+    "expected_mode": "grill-me-to-doc",
+    "reason": "明确要求证据优先、单问题访谈和文档产出"
+  },
+  {
+    "id": "pm-09",
+    "prompt": "继续昨天没问完的产品访谈，从保存的状态接着来，不要重问。",
+    "should_trigger": true,
+    "expected_mode": "grill-me-to-doc",
+    "reason": "恢复 grill-me-to-doc 会话"
   }
 ]

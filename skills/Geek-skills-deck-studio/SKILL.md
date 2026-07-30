@@ -1,6 +1,6 @@
 ---
 name: deck-studio
-version: 3.0.0
+version: 3.0.1
 description: PPT 生产 Agent：理解场景 → 推荐风格 → 先出大纲 → 定义页面 → 双通路交付（PPT 内容稿 / 逐页视觉图 / 信息图组图）。当用户要做汇报、路演、培训课件、提案、咨询报告的演示文稿，或要把大纲/文章做成 slides、deck、PPT、信息图、小红书图文、可视化传播图时使用。支持指定风格或从风格库推荐，支持 image 模型逐页出视觉稿。前身为 notion-infographic（v2）并吸收 ppt-designer 的设计原则。不用于：pptx 文件的纯技术操作（拆分/合并/提取，用宿主 pptx skill）、演讲稿或文章本体的写作（用 wechat-article-writer）、需要先做研究的内容调研（先走 deep-research 再回来）、单张海报或 logo 设计。
 ---
 
@@ -32,6 +32,13 @@ description: PPT 生产 Agent：理解场景 → 推荐风格 → 先出大纲 �
 - 内容需要多源调研时 → 先移交 `deep-research`，拿到结论再回本流程
 - 单张海报、logo、纯装饰图 → 图像生成类 skill 直接处理
 - 用户只要"随便几页能用就行"时，压缩为：快速 outline → 模式 B 简化输出，不走完整六步
+
+## 执行与真实性边界
+
+- 仓库示例脚本只允许写入各自示例目录的 `html/`、`png/` 和明确命名的 `.pptx`；不得读取凭据、访问网络、执行 shell 或写到调用者当前目录。
+- HTML→PNG→PPTX 路线锁定视觉，但每页在 PPTX 中是整页栅格图，**不可编辑**。不得把它宣传为“可编辑 PPTX”。
+- 需要可编辑交付时走模式 B 的原生对象路线，并实际检查文字、形状、图表、speaker notes、溢出和渲染；未运行 Office/LibreOffice 时必须声明 fidelity 未验证。
+- 外部事实和图片必须在 speaker notes 记录来源。仅有文件存在、预览图或脚本退出 0，不代表视觉质量通过。
 
 ## 工作流程（六步）
 

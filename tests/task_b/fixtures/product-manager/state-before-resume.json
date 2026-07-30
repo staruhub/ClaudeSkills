@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "trust-card-session",
+  "skill_version": "1.2.0",
+  "mode": "grill-me-to-doc",
+  "status": "interviewing",
+  "next_question_id": "q-failure-state",
+  "evidence": [
+    {
+      "path": "repo/README.md",
+      "sha256": "1ddd8d3548fa02bc3e895b7c59a76ce79710f3c4788c388e45921027fcbac9b1",
+      "summary": "The product is a curated index and must not imply that entries are safe.",
+      "kind": "constraint"
+    },
+    {
+      "path": "repo/resource-contract.md",
+      "sha256": "66b132240c77666c3616afcdea09e8a8aef53b49feac4aea7a9350ac72574698",
+      "summary": "Current resources expose title, URL, and description only.",
+      "kind": "fact"
+    },
+    {
+      "path": "repo/discovery-notes.md",
+      "sha256": "8609585782d8e51189ed89b9f1dbe3e442d23fccb37aa8f6a22215973a156cfb",
+      "summary": "Synthetic discovery notes show readers confuse listing with review.",
+      "kind": "fact"
+    }
+  ],
+  "decision_log": [
+    {
+      "id": "d-outcome",
+      "question_id": "q-outcome",
+      "decision": "Optimize for correct evidence comprehension, not install conversion.",
+      "rationale": "The index does not execute skills and discovery notes show a trust-signaling problem.",
+      "source": "user",
+      "status": "accepted"
+    },
+    {
+      "id": "d-primary-user",
+      "question_id": "q-primary-user",
+      "decision": "Primary user is a non-developer WorkBuddy user comparing community skills.",
+      "rationale": "This group is most likely to mistake a listing for a safety verdict.",
+      "source": "user",
+      "status": "accepted"
+    },
+    {
+      "id": "d-mvp-scope",
+      "question_id": "q-mvp-scope",
+      "decision": "MVP shows evaluation status, tested commit/version, test date, and limitations.",
+      "rationale": "These fields answer what was tested and what remains unknown without adding installation behavior.",
+      "source": "user",
+      "status": "accepted"
+    }
+  ],
+  "unresolved_questions": [
+    {
+      "id": "q-failure-state",
+      "question": "How should entries without evaluation evidence appear?",
+      "blocking": true
+    },
+    {
+      "id": "q-success-metric",
+      "question": "What comprehension threshold defines success?",
+      "blocking": true
+    }
+  ],
+  "completion_gate": {
+    "problem": true,
+    "users_jtbd": true,
+    "evidence_assumptions": true,
+    "scope_non_goals": true,
+    "flows": false,
+    "requirements": false,
+    "success_metrics": false,
+    "risks": false,
+    "open_questions": false,
+    "acceptance_criteria": false
+  },
+  "product_doc": {
+    "draft_path": null,
+    "final_path": null,
+    "approved_by_user": false,
+    "approved_at_event": null
+  },
+  "hard_stop": {
+    "implementation_allowed": false,
+    "reason": "The interview and document approval are incomplete."
+  }
+}

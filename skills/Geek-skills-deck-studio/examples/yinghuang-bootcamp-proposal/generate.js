@@ -1,6 +1,7 @@
 // deck-studio 第三风格实战:英黄工作室 · ChaoGeek AI 训练营提案
 // 教训全带:重锚点+细体共存 / 内容即视觉 / 内部网格 / 全角标点 / 暖黄单点题母题
 const fs = require("fs");
+const path = require("path");
 
 const T = {
   ink:"#0D0D0D", ink2:"#161616", card:"#1A1A1A",
@@ -224,6 +225,7 @@ pages.push(P("ChaoGeek", `
     <span class="mono" style="font-size:13px;">github.com/staruhub/ClaudeSkills</span></div>
   </div>`, 9));
 
-fs.mkdirSync("html",{recursive:true});
-pages.forEach((h,i)=>fs.writeFileSync(`html/p${i+1}.html`,h));
+const outputDir = path.join(__dirname, "html");
+fs.mkdirSync(outputDir,{recursive:true});
+pages.forEach((h,i)=>fs.writeFileSync(path.join(outputDir, `p${i+1}.html`),h));
 console.log(pages.length+" 页英黄提案生成");

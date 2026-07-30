@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "trust-card-session",
+  "events": [
+    {
+      "seq": 1,
+      "actor": "assistant",
+      "kind": "question",
+      "question_id": "q-two-at-once",
+      "evidence": ["repo/README.md"],
+      "recommendation": {
+        "answer": "先确认目标",
+        "reason": "目标决定范围"
+      },
+      "question": "主要用户是谁？成功指标是什么？"
+    }
+  ]
+}

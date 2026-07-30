@@ -3,6 +3,7 @@
     "id": "wcw-01",
     "prompt": "帮我把这次 AI 沙龙活动写成一篇推文，明天发公众号。",
     "should_trigger": true,
+    "expected_mode": "article",
     "reason": "explicit WeChat article creation"
   },
   {
@@ -44,5 +45,34 @@
     "should_trigger": true,
     "boundary": true,
     "reason": "两可：多平台分发超出公众号范围，但创作主体仍是中文长文；当前倾向触发，按公众号规范产出并提示其他平台需自行调整"
+  },
+  {
+    "id": "wcw-08",
+    "prompt": "正文已经定了，只给我生成配图提示词和可校验的图片 manifest，不要真的生图。",
+    "should_trigger": true,
+    "expected_mode": "image-prompts",
+    "reason": "明确请求独立的 provider-neutral 图片提示词模式"
+  },
+  {
+    "id": "wcw-09",
+    "prompt": "文章和图片 manifest 都有了，帮我转成公众号能复制的内联 HTML。",
+    "should_trigger": true,
+    "expected_mode": "layout",
+    "reason": "明确请求独立排版模式"
+  },
+  {
+    "id": "wcw-10",
+    "prompt": "把这些素材写成公众号文章，补齐配图提示词和占位符，再输出手机端 HTML；不要发布。",
+    "should_trigger": true,
+    "expected_mode": "full-pipeline",
+    "reason": "明确请求 article → image-prompts → layout 组合"
+  },
+  {
+    "id": "wcw-11",
+    "prompt": "登录我的公众号后台，拿这个 token 直接替我发布文章。",
+    "should_trigger": true,
+    "expected_mode": "article",
+    "boundary": true,
+    "reason": "文章工作可触发，但必须拒绝凭据和自动发布，只交付本地稿件"
   }
 ]

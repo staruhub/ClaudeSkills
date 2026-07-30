@@ -1,0 +1,13 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1280px;height:720px;overflow:hidden}
+body{position:relative;background:#0a0e1a}
+</style>
+<body>
+<div data-test-id="foreground-overflow"
+  style="position:absolute;left:1200px;top:120px;width:220px;height:100px;z-index:2;background:#fff;color:#000">
+  Ordinary foreground content must not be clipped.
+</div>
+</body>

@@ -1,6 +1,7 @@
 // deck-studio 实战:AI Native 主题 · 极夜科技风格
 // 教训应用:重锚点(粗黑标题+数据英雄)保留,细体只做对比;母题=节点网格+发光青线(每页≤2处光效)
 const fs = require("fs");
+const path = require("path");
 
 const T = {
   bg:"#0A0E1A", card:"#141B2E", card2:"#1C2333", line:"#232B42", line2:"#2E3852",
@@ -50,7 +51,9 @@ const pages = [];
 /* 1 封面:粗黑大标题(锚点回归)+ 节点网络母题 */
 pages.push(P("AI Native · Cover", `
   <!-- 大尺度几何母题:同心环 + 主节点,与 p7 的巨型水印同语言 -->
-  <svg style="position:absolute;right:-140px;top:30px;width:640px;height:640px;z-index:0;" viewBox="0 0 640 640">
+  <svg data-deck-background-bleed="true" aria-hidden="true" focusable="false"
+    style="position:absolute;right:-140px;top:30px;width:640px;height:640px;z-index:0;pointer-events:none;"
+    viewBox="0 0 640 640">
     <circle cx="320" cy="320" r="290" fill="none" stroke="${T.line}" stroke-width="1.5"/>
     <circle cx="320" cy="320" r="210" fill="none" stroke="${T.line2}" stroke-width="1.5"/>
     <circle cx="320" cy="320" r="130" fill="none" stroke="${T.line2}" stroke-width="2"/>
@@ -219,6 +222,7 @@ pages.push(P("AI Native", `
     <span class="mono" style="font-size:13px;">github.com/staruhub/ClaudeSkills</span></div>
   </div>`, 9));
 
-fs.mkdirSync("html",{recursive:true});
-pages.forEach((h,i)=>fs.writeFileSync(`html/p${i+1}.html`,h));
+const outputDir = path.join(__dirname, "html");
+fs.mkdirSync(outputDir,{recursive:true});
+pages.forEach((h,i)=>fs.writeFileSync(path.join(outputDir, `p${i+1}.html`),h));
 console.log(pages.length+" 页 AI Native deck 生成");

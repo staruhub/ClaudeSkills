@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "manifest-edge-safe",
+  "article_id": "article-edge-safe",
+  "article_sha256": "49db600d37354430e181fc3b75287877d073c0f1e3c28faf5c612d65f52f784f",
+  "mode": "image-prompts",
+  "provider_neutral": true,
+  "images": [
+    {
+      "id": "img-edge-safe",
+      "purpose": "section",
+      "placement_anchor": "<!-- image:img-edge-safe -->",
+      "placeholder": "{{IMAGE:img-edge-safe}}",
+      "aspect_ratio": "1:1",
+      "width": 900,
+      "height": 900,
+      "positive_prompt": "安全边界概念图，白底，中央是一段被转义为普通文本的代码，外侧有绿色边框表示隔离，构图简洁，手机端清晰，文字区域留白，不包含任何可执行界面元素。",
+      "negative_prompt": "不要水印，不要品牌 logo，不要真实登录页，不要终端命令，不要脚本执行效果，不要伪造文字。",
+      "alt": "原始 HTML 被安全转义的边界图",
+      "caption": "素材中的原始 HTML 只能作为文本，不能执行。",
+      "provider_status": "prompt-only"
+    }
+  ]
+}

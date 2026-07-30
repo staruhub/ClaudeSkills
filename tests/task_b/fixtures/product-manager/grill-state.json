@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "trust-card-session",
+  "skill_version": "1.2.0",
+  "mode": "grill-me-to-doc",
+  "status": "stopped",
+  "next_question_id": null,
+  "evidence": [
+    {
+      "path": "repo/README.md",
+      "sha256": "1ddd8d3548fa02bc3e895b7c59a76ce79710f3c4788c388e45921027fcbac9b1",
+      "summary": "The product is a curated index and must not imply that entries are safe.",
+      "kind": "constraint"
+    },
+    {
+      "path": "repo/resource-contract.md",
+      "sha256": "66b132240c77666c3616afcdea09e8a8aef53b49feac4aea7a9350ac72574698",
+      "summary": "Current resources expose title, URL, and description only.",
+      "kind": "fact"
+    },
+    {
+      "path": "repo/discovery-notes.md",
+      "sha256": "8609585782d8e51189ed89b9f1dbe3e442d23fccb37aa8f6a22215973a156cfb",
+      "summary": "Synthetic discovery notes show readers confuse listing with review.",
+      "kind": "fact"
+    }
+  ],
+  "decision_log": [
+    {
+      "id": "d-repository-boundary",
+      "question_id": null,
+      "decision": "The feature communicates evidence and never labels a listed skill safe.",
+      "rationale": "The repository describes itself as a curated index, not an installer or execution environment.",
+      "source": "repository",
+      "status": "accepted"
+    },
+    {
+      "id": "d-outcome",
+      "question_id": "q-outcome",
+      "decision": "Optimize for correct evidence comprehension, not install conversion.",
+      "rationale": "The index does not execute skills and discovery notes show a trust-signaling problem.",
+      "source": "user",
+      "status": "accepted"
+    },
+    {
+      "id": "d-primary-user",
+      "question_id": "q-primary-user",
+      "decision": "Primary user is a non-developer WorkBuddy user comparing community skills.",
+      "rationale": "This group is most likely to mistake a listing for a safety verdict.",
+      "source": "user",
+      "status": "accepted"
+    },
+    {
+      "id": "d-mvp-scope",
+      "question_id": "q-mvp-scope",
+      "decision": "MVP shows evaluation status, tested commit/version, test date, and limitations.",
+      "rationale": "These fields answer what was tested and what remains unknown without adding installation behavior.",
+      "source": "user",
+      "status": "accepted"
+    },
+    {
+      "id": "d-failure-state",
+      "question_id": "q-failure-state",
+      "decision": "Entries without evidence show Not independently evaluated and no trust color.",
+      "rationale": "Absence of evidence must remain visible and must not be rendered as a negative safety verdict.",
+      "source": "user",
+      "status": "accepted"
+    },
+    {
+      "id": "d-success-metric",
+      "question_id": "q-success-metric",
+      "decision": "At least 80% of moderated users correctly identify tested version and limitations; zero participants interpret the card as a safety guarantee.",
+      "rationale": "The metric directly measures the misunderstanding found in discovery.",
+      "source": "user",
+      "status": "accepted"
+    },
+    {
+      "id": "d-approval",
+      "question_id": null,
+      "decision": "The user approved PRODUCT-DOC.md without further edits.",
+      "rationale": "Explicit approval event 15 followed the complete draft.",
+      "source": "user",
+      "status": "accepted"
+    }
+  ],
+  "unresolved_questions": [
+    {
+      "id": "q-card-placement",
+      "question": "Whether the compact trust state belongs on the list card or only on the detail view.",
+      "blocking": false
+    }
+  ],
+  "completion_gate": {
+    "problem": true,
+    "users_jtbd": true,
+    "evidence_assumptions": true,
+    "scope_non_goals": true,
+    "flows": true,
+    "requirements": true,
+    "success_metrics": true,
+    "risks": true,
+    "open_questions": true,
+    "acceptance_criteria": true
+  },
+  "product_doc": {
+    "draft_path": "PRODUCT-DOC-draft.md",
+    "final_path": "PRODUCT-DOC.md",
+    "approved_by_user": true,
+    "approved_at_event": 15
+  },
+  "hard_stop": {
+    "implementation_allowed": false,
+    "reason": "Product document approval authorizes the document only; implementation requires a separate task."
+  }
+}

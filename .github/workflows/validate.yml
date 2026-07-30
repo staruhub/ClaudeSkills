@@ -20,6 +20,9 @@ jobs:
       - name: Routing eval consistency (run_routing_evals.py)
         run: python3 scripts/run_routing_evals.py
 
+      - name: Static site assertions (validate_site.py)
+        run: python3 scripts/validate_site.py
+
       - name: Compile-check all skill scripts
         run: |
           fail=0

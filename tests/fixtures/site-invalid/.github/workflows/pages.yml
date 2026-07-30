@@ -1,0 +1,14 @@
+name: Invalid Pages fixture
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./wrong-directory

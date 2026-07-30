@@ -1,0 +1,1 @@
+Source C excerpt: Conflicting evidence remains visible and is not averaged away.

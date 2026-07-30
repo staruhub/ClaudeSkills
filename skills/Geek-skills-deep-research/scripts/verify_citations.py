@@ -43,7 +43,7 @@ def normalize_url(url: str) -> str:
 
 
 def get_url_signature(url: str) -> tuple:
-    """Extract (domain, path_segments[:3]) for robust matching.
+    """Extract (domain, all path segments) for robust matching.
 
     Instead of comparing full URLs (which may differ in query params,
     trailing slashes, or protocol), we compare the domain and first 3
@@ -51,6 +51,9 @@ def get_url_signature(url: str) -> tuple:
     - Same article with different tracking params
     - HTTP vs HTTPS variants
     - With/without www prefix
+
+    The complete path is retained. Matching only the first few path segments can
+    accept a different article from the same section.
     """
     parsed = urlparse(url.lower())
     hostname = parsed.hostname or ""
@@ -58,8 +61,7 @@ def get_url_signature(url: str) -> tuple:
     if hostname.startswith("www."):
         hostname = hostname[4:]
 
-    # Extract first 3 non-empty path segments
-    path_parts = [p for p in parsed.path.split("/") if p][:3]
+    path_parts = [p for p in parsed.path.split("/") if p]
     return (hostname, tuple(path_parts))
 
 
@@ -280,8 +282,9 @@ def verify(report_path: str, sources_path: str) -> dict:
             "unique_citation_numbers": len(inline),
             "reference_entries": unique_sources,
             "critical_issues": critical_count,
+            "issue_count": len(issues),
             "warnings": len(warnings),
-            "verdict": "PASS" if critical_count == 0 else "FAIL",
+            "verdict": "PASS" if not issues else "FAIL",
         },
         "issues": issues,
         "warnings": warnings,
@@ -313,7 +316,7 @@ def main():
     else:
         print(output)
 
-    # Exit with error code if critical issues found
+    # Fail closed on every structural issue; warnings remain non-fatal.
     if results["summary"]["verdict"] == "FAIL":
         sys.exit(1)
 

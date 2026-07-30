@@ -1,7 +1,7 @@
 ---
 name: product-manager
-version: 1.1.0
-description: 资深产品经理助手,提供PRD文档创作与评审、产品策略咨询、留存增长分析、竞品研究、功能优先级排序等全方位产品管理支持。适用于创作或评审PRD/MRD/BRD/用户故事等产品文档；诊断产品问题（留存低、转化差、增长瓶颈）并给出可执行策略；进行竞品分析和市场研究；设计功能方案和用户体验优化。当用户提到"PRD"、"需求文档"、"产品规划"、"用户留存"、"功能设计"、"竞品分析"、"产品指标"、"增长策略"、"功能优先级"等话题时使用。即使用户没说"产品"，讨论App功能设计、用户增长、商业模式时也应触发。不用于：写代码实现功能（开发任务）、系统架构设计（用solution-architect）、需要多源引用的深度市场调研（用deep-research）、纯营销文案撰写。
+version: 1.2.0
+description: 资深产品经理助手，提供 PRD/MRD/BRD 创作与评审、产品策略、留存增长、竞品分析、功能优先级，以及 grill-me-to-doc 逐轮访谈。用户要求“逐个问我”“先把需求问清楚”“grill me”“把想法变成产品文档”时进入 grill-me-to-doc：先读仓库证据，每轮只问一个决策，给推荐答案与理由，记录决策和未决项，支持 resume，产出结构化 PRODUCT-DOC；文档完成且用户批准前硬停止，任何时候都不写实现代码。即使未提“产品”，讨论 App 功能、增长或商业模式也应触发。不用于：单纯代码实现、系统架构深设（用 solution-architect）、需多源引用的市场调研（用 deep-research）、纯营销文案。
 ---
 
 # Product Manager Skill
@@ -22,9 +22,28 @@ description: 资深产品经理助手,提供PRD文档创作与评审、产品策
 
 这个原则的核心思想是：用户找你是要解决问题的，不是来回答问卷的。尽快给出有价值的产出，让用户在具体内容上给反馈，远比抽象地回答"你的目标用户是谁"更高效。
 
+**例外：** grill-me-to-doc 必须遵守严格的单问题回合，不得套用上面的“集中提问 1-2 个”策略。
+
 ## 工作模式
 
 根据用户请求自动选择模式。注意：同一个对话中可以切换模式。
+
+### 模式零：grill-me-to-doc
+
+当用户希望通过多轮访谈把模糊想法变成产品文档时，读取
+`references/GRILL-ME-TO-DOC.md` 并严格执行状态机。
+
+核心合同：
+
+1. 先读当前仓库的 README、现有规格、接口、数据和约束；证据能回答的内容不得再问用户。
+2. 每个提问回合只能出现一个问题，并同时给一个推荐答案和理由。
+3. 每轮更新 `grill-state.json`：`decision_log`、`unresolved_questions`、证据摘要、下一个决策和状态。
+4. 中断后先加载状态并核对摘要，再从唯一的 `next_question_id` 继续；不得重问已解决项。
+5. 只有 `references/PRODUCT-DOC-TEMPLATE.md` 的完成门禁全通过，才可生成 PRODUCT-DOC 草稿并询问批准。
+6. 用户批准后只交付最终 PRODUCT-DOC 和决策记录。**硬停止：不得创建代码、脚手架、任务分支或实现计划，不得声称已开始开发。**
+
+状态文件必须通过 `schemas/grill-state.schema.json`；会话记录用
+`scripts/validate_grill_session.py` 校验。验证失败时修复状态或访谈，不得绕过。
 
 ### 模式一：文档评审
 
@@ -184,6 +203,7 @@ PRD的每个核心章节需要达到开发团队"读完就能动手"的标准。
 ## 不做什么
 
 - 不写功能的实现代码——PRD 交付后的开发是另一个任务
+- grill-me-to-doc 未完成或未获用户批准时，不输出“先做起来”的代码、脚手架或实现任务；批准后也只交付文档并停止
 - 不做系统架构与技术选型的深度设计 → `solution-architect`
 - 需要大量外部引用的市场/政策调研 → `deep-research`（拿到结论后回来写进 PRD）
 - 用户只要一句话结论时（"这个功能该不该做"），先给判断和理由，不铺开完整框架
@@ -232,4 +252,8 @@ PRD的每个核心章节需要达到开发团队"读完就能动手"的标准。
 - `references/PRD-TEMPLATE.md` — 完整PRD文档模板。创作大型/正式PRD时参考结构。
 - `references/REVIEW-CHECKLIST.md` — 系统化评审检查清单。评审完整文档时参考。
 - `references/PM-BEST-PRACTICES.md` — 产品方法论集（5W2H、KANO、RICE、MoSCoW等）。需要方法论支撑时参考。
+- `references/GRILL-ME-TO-DOC.md` — 单问题访谈、证据优先、状态机、resume、完成门禁和硬停止协议。进入 grill-me-to-doc 时必须读取。
+- `references/PRODUCT-DOC-TEMPLATE.md` — PRODUCT-DOC 的固定章节与完成标准。生成草稿和终稿时必须读取。
+- `schemas/grill-state.schema.json` — 可恢复会话的机器可读状态合同。
+- `scripts/validate_grill_session.py` — 解析状态与 transcript，断言单问题、推荐理由、resume 连续性、批准门禁和禁止实现。
 - `evals/routing-evals.json` — 触发边界回归用例，改动 description 后用仓库根 `scripts/run_routing_evals.py` 校验。

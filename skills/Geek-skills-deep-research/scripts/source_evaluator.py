@@ -9,6 +9,7 @@ Options:
     --topic-velocity SPEED  Topic change speed: fast|medium|slow (default: medium)
     --min-score SCORE       Minimum composite score to keep (default: 5.0)
     --mode MODE             Research mode: standard|lightweight (default: standard)
+    --as-of DATE            Evidence cutoff YYYY-MM-DD for reproducible recency
     --output PATH           Output file path (default: stdout)
 
 Input JSON format:
@@ -28,7 +29,7 @@ Input JSON format:
 import json
 import sys
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from urllib.parse import urlparse
 from pathlib import Path
 
@@ -137,7 +138,11 @@ def score_authority(url: str) -> float:
     return 3.0
 
 
-def score_recency(date_str: str, topic_velocity: str = "medium") -> float:
+def score_recency(
+    date_str: str,
+    topic_velocity: str = "medium",
+    as_of: datetime | None = None,
+) -> float:
     """Score source recency (0-10) based on topic velocity."""
     if not date_str:
         return 3.0  # Unknown date = low score
@@ -153,7 +158,10 @@ def score_recency(date_str: str, topic_velocity: str = "medium") -> float:
             except ValueError:
                 return 3.0
 
-    age_days = (datetime.now() - pub_date).days
+    cutoff = as_of or datetime.now()
+    age_days = (cutoff - pub_date).days
+    if age_days < 0:
+        return 0.0
 
     thresholds = {
         "fast": [(180, 10), (365, 7), (730, 4), (float("inf"), 2)],
@@ -167,13 +175,17 @@ def score_recency(date_str: str, topic_velocity: str = "medium") -> float:
     return 2.0
 
 
-def score_source(source: dict, topic_velocity: str = "medium") -> dict:
+def score_source(
+    source: dict,
+    topic_velocity: str = "medium",
+    as_of: datetime | None = None,
+) -> dict:
     """Score a single source and return enriched dict."""
     url = source.get("url", "")
     date = source.get("date", "")
 
     authority = score_authority(url)
-    recency = score_recency(date, topic_velocity)
+    recency = score_recency(date, topic_velocity, as_of)
     # Relevance and depth must be scored by the LLM — use provided or defaults
     relevance = source.get("relevance_score", 5.0)
     depth = source.get("depth_score", 5.0)
@@ -254,13 +266,14 @@ def evaluate(
     topic_velocity: str = "medium",
     min_score: float = 5.0,
     mode: str = "standard",
+    as_of: datetime | None = None,
 ) -> dict:
     """Evaluate all sources and return ranked results."""
     # Adjust min_score for lightweight mode
     if mode == "lightweight" and min_score == 5.0:
         min_score = 4.5
 
-    scored = [score_source(s, topic_velocity) for s in sources]
+    scored = [score_source(s, topic_velocity, as_of) for s in sources]
     scored.sort(key=lambda x: x["scores"]["composite"], reverse=True)
 
     kept = [s for s in scored if s["scores"]["composite"] >= min_score]
@@ -289,6 +302,7 @@ def evaluate(
             "meets_diversity_threshold": diversity["unique_domains"] >= min_domains,
             "mode": mode,
             "topic_velocity": topic_velocity,
+            "as_of": (as_of or datetime.now()).strftime("%Y-%m-%d"),
         },
     }
 
@@ -303,6 +317,7 @@ def main():
     output_path = None
     topic_velocity = "medium"
     mode = "standard"
+    as_of = None
 
     i = 2
     while i < len(sys.argv):
@@ -324,13 +339,33 @@ def main():
                 print(f"Error: --mode must be standard|lightweight, got '{mode}'")
                 sys.exit(1)
             i += 2
+        elif sys.argv[i] == "--as-of" and i + 1 < len(sys.argv):
+            try:
+                as_of = datetime.strptime(sys.argv[i + 1], "%Y-%m-%d")
+            except ValueError:
+                print(f"Error: --as-of must be YYYY-MM-DD, got '{sys.argv[i + 1]}'")
+                sys.exit(1)
+            i += 2
         else:
             i += 1
 
-    with open(input_path) as f:
-        sources = json.load(f)
+    try:
+        with open(input_path, encoding="utf-8") as f:
+            sources = json.load(f)
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"Error: cannot parse sources JSON: {exc}")
+        sys.exit(1)
+    if not isinstance(sources, list) or not all(isinstance(item, dict) for item in sources):
+        print("Error: sources JSON must be an array of objects")
+        sys.exit(1)
 
-    results = evaluate(sources, topic_velocity=topic_velocity, min_score=min_score, mode=mode)
+    results = evaluate(
+        sources,
+        topic_velocity=topic_velocity,
+        min_score=min_score,
+        mode=mode,
+        as_of=as_of,
+    )
 
     output = json.dumps(results, indent=2, ensure_ascii=False)
     if output_path:

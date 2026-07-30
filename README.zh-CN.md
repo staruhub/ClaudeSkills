@@ -4,45 +4,32 @@
 
 # Geek Skills
 
-**13 个精选 Claude Code skills。每个都把活干完，交给你成品——deck、调研报告、PRD、公众号文章、安全审计。**
+**13 个精选 Claude Code skills，把真实工作变成看得见、查得清的交付物。**
 
-不是 prompt 合集。是完整的工作流，像软件一样测过。
+先从调研、产品文档、演示文稿和中文长文四条旗舰工作流开始。安装前，你可以直接查看指令、样例、校验脚本和能力边界。
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
-[![skills](https://img.shields.io/badge/curated_skills-13-blue)](#-全部技能)
-[![evals](https://img.shields.io/badge/routing_evals-85_cases-blue)](scripts/run_routing_evals.py)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+[官网](https://staruhub.github.io/ClaudeSkills/) · [30 秒安装](#-30-秒装好) · [全部 13 个 skills](#-全部技能) · [安全边界](SECURITY.md)
 
 </div>
 
-## 输入这一句 —
+## 先选一条旗舰工作流
 
-```
-/deck-studio 把这份季度复盘做成一套咨询风 PPT
-```
+| 你要完成的工作 | 工作流 | 可以检查的交付物 |
+|---------------|--------|------------------|
+| 调研一个重要决策 | 🔬 [`deep-research`](skills/Geek-skills-deep-research/SKILL.md)（v8.1） | 有范围、有来源登记、有引用校验、有取舍和局限说明的简报或报告 |
+| 写或评审产品文档 | 📋 [`product-manager`](skills/Geek-skills-product-manager/SKILL.md) | 结构化 PRD 或评审稿，包含决策框架和可核对的验收标准 |
+| 做汇报、路演或培训 | 🎞️ [`deck-studio`](skills/Geek-skills-deck-studio/SKILL.md)（v3） | 确认后的大纲、逐页 brief、注册版式，以及带明确视觉检查表的渲染路径 |
+| 写一篇中文长文 | ✍️ [`wechat-article-writer`](skills/Geek-skills-wechat-article-writer/SKILL.md) | 有标题、口吻和“去翻译腔”复核的结构化文章草稿 |
 
-**— 拿回一整套 deck。** 这是真实跑出来的第一页，盲评 **7.1 分**（7 分 = 专业设计公司的水平线）：
-
-<p align="center">
-<img src="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/preview-cover.png" width="82%">
-</p>
-<p align="center"><sub>9 页全部由 skill 自己生成。没挑模板，没补妆。<a href="skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/">完整样例 →</a></sub></p>
-
-## 你今天要交付什么？
-
-| 你要做的事 | 用这个 | 拿到手的 |
-|-----------|--------|---------|
-| 认真调研一个决策 | 🔬 [`deep-research`](skills/Geek-skills-deep-research/SKILL.md)（v8.1） | 一份决策简报，每个结论带出处，能核实 |
-| 写或评审 PRD | 📋 [`product-manager`](skills/Geek-skills-product-manager/SKILL.md) | 一份开发拿了就能开工的 PRD，验收标准可核对 |
-| 做汇报、路演、提案 | 🎞️ [`deck-studio`](skills/Geek-skills-deck-studio/SKILL.md)（v3） | 一套排好版的 deck，17 种风格任选，出稿过 22 条视觉门禁 |
-| 发一篇公众号长文 | ✍️ [`wechat-article-writer`](skills/Geek-skills-wechat-article-writer/SKILL.md) | 一篇查过翻译腔、可以直接发的文章 |
-
-每个都从头跑到尾，不是单条 prompt。[全部技能 ↓](#-全部技能)
+它们是可重复执行的指令包，不是一句话 prompt。最终能做到哪一步，仍取决于你的 Claude Code 会话里有哪些工具和权限。
 
 ## 🚀 30 秒装好
 
 ```bash
-git clone https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSkills
+git clone --depth 1 https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSkills
 python3 scripts/install_skill.py deck-studio      # 装到 ~/.claude/skills/deck-studio，然后就能用 /deck-studio
 ```
 
@@ -81,26 +68,35 @@ rm -rf ~/.claude/skills/deck-studio                                # 卸载
 
 </details>
 
-## 📈 分数是评出来的，不是吹的
+## 📈 看交付物，不听口号
 
-deck 的质量由盲评打分，标准是固定的：10 分 = 设计工作室，7 分 = 专业乙方。四轮发布，分数一路爬：6.0 → 6.6 → 6.6 → **7.1**，第一次过线。三个评委、对调分组再评一次，新实现 **42.3 比 29.7** 赢了旧实现，领先 42%（[方法和评分都在这 →](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/)）。
+Deck Studio 的样例目录保留了生成器、渲染页面和评审意见。在仓库记录的盲评**模型自测**中，构成主义样例按公开量表拿到 **7.1/10**；三评委、对调位置的比较中，新管线是 **42.3 比 29.7**（[方法和评分](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/)）。这些是可以复查的项目证据，不是第三方认证。
 
-每个样例目录里，生成器、渲染出的每一页、评审挑出的毛病，全都放着——不是只挑好看的截图：
 [构成主义（7.1）](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [墨白（三评委盲评）](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [英黄](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [极夜](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
 
 <p align="center">
-<img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" width="24%">
+<img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" alt="包豪斯 deck 风格预览" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" alt="构成主义 deck 风格预览" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" alt="新粗野主义 deck 风格预览" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" alt="Aicher deck 风格预览" width="24%">
 </p>
-<p align="center"><sub>17 套风格里的 4 套——包豪斯 · 构成主义 · Neubrutalism · Aicher。美是继承的，不是现生成的。</sub></p>
+<p align="center"><sub>17 套已渲染风格种子中的 4 套：包豪斯 · 构成主义 · Neubrutalism · Aicher。</sub></p>
 
-## 🧪 像软件一样维护
+## 🧪 这些检查到底证明了什么
 
-- **每个 skill 都带"三件套"**：验收标准能核对，边界写清楚（什么时候别用、该交给谁），坑全是真踩出来的。
-- **85 条路由测试用例管着 10 个 skill**（`skills/*/evals/routing-evals.json`）：该出手时出手，不该管的不插手。
-- **每次 push 跑 CI**——[两道 L1 门禁](.github/workflows/validate.yml)加脚本编译检查。想验证，本地跑：`python3 scripts/validate.py && python3 scripts/run_routing_evals.py`。
-- **装之前先知道它能碰什么**——[SECURITY.md](SECURITY.md) 逐个列了每个 skill 会不会读文件、联网、删东西。13 个里 9 个不带任何代码；只有 1 个能删文件，默认只演习、不真删。
+| 检查 | 当前仓库里的证据 | 不能证明什么 |
+|------|------------------|--------------|
+| `python3 scripts/validate.py` | 对 13 个精选 skill 目录做结构化 L1 断言 | 产出质量和真实集成 |
+| `python3 scripts/run_routing_evals.py` | 检查 10 个 skill、91 条路由用例定义的 schema、目标、唯一性和冲突 | 大模型实际执行时的路由准确率 |
+| CI 的 Python 编译检查 | 10 个 `skills/**/*.py` 文件都能解析和编译 | 运行行为、网络访问和外部工具可用性 |
+| Deck 样例目录 | 生成器、渲染页面、量表、分数和已记录缺陷 | 独立外部认证 |
 
-> ⚠️ 说清楚：质量门禁和盲评是 Claude 的**自审**，不是第三方认证。上面的命令你可以自己跑一遍验证，完整记录在 [CHANGELOG.md](CHANGELOG.md)。
+你可以在本地重跑仓库和网站检查：
+
+```bash
+python3 scripts/validate.py
+python3 scripts/run_routing_evals.py
+python3 scripts/validate_site.py
+```
+
+安装前先看[逐 skill 能力矩阵](SECURITY.md)：它把“skill 自带脚本的风险”和“仍需 Claude Code 权限确认的动作”分开写清楚。完整重构记录见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 📚 全部技能
 

@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "manifest-agent-contract",
+  "article_id": "article-agent-contract",
+  "article_sha256": "47eeb07ffdbada704b320c5eaa47a3723eec0ed0cd07674e001538b8a51f3982",
+  "mode": "full-pipeline",
+  "provider_neutral": true,
+  "images": [
+    {
+      "id": "img-contract-cover",
+      "purpose": "cover",
+      "placement_anchor": "<!-- image:img-contract-cover -->",
+      "placeholder": "{{IMAGE:img-contract-cover}}",
+      "aspect_ratio": "16:9",
+      "width": 1600,
+      "height": 900,
+      "positive_prompt": "公众号横版封面，深色编辑台中央放一份清晰的任务合同，左侧是冗长操作手册，右侧是简洁验收清单，用绿色结构线连接输入、交付物、验收和失败边界，现代克制，中文区域留白，不出现品牌标志。",
+      "negative_prompt": "不要水印，不要品牌 logo，不要伪文字，不要发光渐变，不要拥挤界面，不要人物手指。",
+      "alt": "任务合同取代冗长操作手册的封面概念图",
+      "caption": "过程可以变薄，结果边界必须说清楚。",
+      "provider_status": "prompt-only"
+    },
+    {
+      "id": "img-contract-structure",
+      "purpose": "explainer",
+      "placement_anchor": "<!-- image:img-contract-structure -->",
+      "placeholder": "{{IMAGE:img-contract-structure}}",
+      "aspect_ratio": "4:3",
+      "width": 1200,
+      "height": 900,
+      "positive_prompt": "信息解释图，白色背景，四个清晰模块依次表示输入证据、交付物、验收标准、失败停止，使用绿色细线和黑色粗标题形成结构，手机端仍可辨认，图形简洁，所有中文标签区域预留空白以便后期排字。",
+      "negative_prompt": "不要水印，不要品牌 logo，不要英文乱码，不要复杂阴影，不要装饰性 3D，不要超过四个模块。",
+      "alt": "任务合同四要素结构图",
+      "caption": "一份够用的任务合同：输入、交付、验收、失败。",
+      "provider_status": "prompt-only"
+    }
+  ]
+}
