@@ -8,6 +8,7 @@ Skills here are **not part of the curated set** on the repo homepage. They work,
 |-------|--------------|------|
 | [`a-share-analyst`](Geek-skills-a-share-analyst/SKILL.md) | A-share technical & fundamental analysis (research aid, **not investment advice**) | A 股技术面与基本面分析（研究辅助，**非投资建议**） |
 | [`gaokao-expert`](Geek-skills-gaokao-expert/SKILL.md) | Gaokao question design expert | 高考命题专家 |
+| [`hermes-tweet-xquik`](Geek-skills-hermes-tweet-xquik/SKILL.md) | Safe Hermes Tweet and Xquik workflows for X/Twitter agents | 面向 X/Twitter Agent 的安全 Hermes Tweet 与 Xquik 工作流 |
 | [`podcast-generator`](Geek-skills-podcast-generator/SKILL.md) | Volcano Engine dual-speaker AI podcast generator | 火山引擎双人 AI 播客生成 |
 | [`seedream-imagegen`](Geek-skills-seedream-imagegen/SKILL.md) | Seedream 4.0 image generation | Seedream 4.0 图像生成 |
 | [`university-exam-prep`](Geek-skills-university-exam-prep/SKILL.md) | University exam prep with Socratic learning | 大学备考苏格拉底式学习助手 |
@@ -16,6 +17,7 @@ Skills here are **not part of the curated set** on the repo homepage. They work,
 **Install | 安装** — the install script only covers `skills/`; lab skills are installed manually (remember: the installed **directory name** becomes the slash command):
 
 ```bash
+mkdir -p ~/.claude/skills
 cp -r lab/Geek-skills-gaokao-expert ~/.claude/skills/gaokao-expert
 ```
 

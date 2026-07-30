@@ -30,7 +30,7 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 
 | Tier | Meaning | Skills |
 |:---:|---|---|
-| 🟢 **T0 — Prompt only** | No bundled executable code. Pure instructions; all actions gated by Claude Code's permission system. | `ai-sales-champion` · `deck-studio`¹ · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` *(lab)* · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
+| 🟢 **T0 — Prompt only** | No bundled executable code. Pure instructions; all actions gated by Claude Code's permission system. | `ai-sales-champion` · `deck-studio`¹ · `hermes-tweet-xquik` *(lab)* · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` *(lab)* · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
 | 🟡 **T1 — Local compute** | Ships scripts that read input and write output **on your machine only**. No network, no deletion, no credentials. | `gaokao-expert` *(lab)* · `university-exam-prep` *(lab)* |
 | 🟠 **T2 — Network / API** | Scripts reach the network. Some need API credentials (which you supply via env vars). | `a-share-analyst` *(lab)* · `deep-research` · `mineru-pdf-parser` · `podcast-generator` *(lab)* · `seedream-imagegen` *(lab)* |
 | 🔴 **T3 — Shells out / can delete** | Runs external tools via `subprocess`, or deletes/moves files. Read the notes before running. | `security-audit` · `c-drive-cleaner` |
@@ -45,6 +45,7 @@ Legend: ● = yes · ○ = no · — = n/a (no bundled code) · *(lab)* = experi
 |-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | `ai-sales-champion` | ○ | — | — | — | — | — | — |
 | `deck-studio` | ○¹ | — | — | ○ | ○¹ | ○ | ○ |
+| `hermes-tweet-xquik` *(lab)* | ○ | — | — | — | — | — | — |
 | `keqian-method` | ○ | — | — | — | — | — | — |
 | `pair-programming` | ○ | — | — | — | — | — | — |
 | `product-manager` | ○ | — | — | — | — | — | — |
@@ -118,7 +119,7 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 
 | 级别 | 含义 | Skills |
 |:---:|---|---|
-| 🟢 **T0 — 纯 prompt** | 不带任何可执行代码。纯指令,所有动作由 Claude Code 权限系统把关。 | `ai-sales-champion` · `deck-studio`¹ · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` *(lab)* · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
+| 🟢 **T0 — 纯 prompt** | 不带任何可执行代码。纯指令,所有动作由 Claude Code 权限系统把关。 | `ai-sales-champion` · `deck-studio`¹ · `hermes-tweet-xquik` *(lab)* · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` *(lab)* · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
 | 🟡 **T1 — 本地计算** | 带脚本,只在**你本机**读输入、写输出。不联网、不删除、不需凭证。 | `gaokao-expert` *(lab)* · `university-exam-prep` *(lab)* |
 | 🟠 **T2 — 网络 / API** | 脚本会联网。部分需要 API 凭证(由你通过环境变量提供)。 | `a-share-analyst` *(lab)* · `deep-research` · `mineru-pdf-parser` · `podcast-generator` *(lab)* · `seedream-imagegen` *(lab)* |
 | 🔴 **T3 — 调外部命令 / 可删文件** | 通过 `subprocess` 调外部工具,或删除/移动文件。运行前先看注释。 | `security-audit` · `c-drive-cleaner` |
@@ -133,6 +134,7 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 |-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | `ai-sales-champion` | ○ | — | — | — | — | — | — |
 | `deck-studio` | ○¹ | — | — | ○ | ○¹ | ○ | ○ |
+| `hermes-tweet-xquik` *(lab)* | ○ | — | — | — | — | — | — |
 | `keqian-method` | ○ | — | — | — | — | — | — |
 | `pair-programming` | ○ | — | — | — | — | — | — |
 | `product-manager` | ○ | — | — | — | — | — | — |
