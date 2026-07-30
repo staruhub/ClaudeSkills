@@ -113,6 +113,28 @@ page exceptions, or console errors. The skip link was first in the tab order;
 copy feedback, FAQ mouse/keyboard activation, hash navigation, language
 switching, and external repository links were exercised.
 
+## Publication evidence
+
+- Implementation commit:
+  `6e8a137173a255731ce82b38b00b84f6a18ec0a7`
+- Validation workflow:
+  <https://github.com/staruhub/ClaudeSkills/actions/runs/30567321630> — success
+- Initial Pages workflow:
+  <https://github.com/staruhub/ClaudeSkills/actions/runs/30567321670> — expected
+  failure at `Configure Pages` because Pages was not yet enabled
+- Pages was then enabled through GitHub's authenticated API with
+  `build_type=workflow`; no token was stored or printed.
+- Successful Pages workflow:
+  <https://github.com/staruhub/ClaudeSkills/actions/runs/30567415798>
+- Published website: <https://staruhub.github.io/ClaudeSkills/>
+
+The live URL was rechecked in Google Chrome after deployment. English desktop
+at 1440x900 and Chinese mobile at 390x844 returned 200, rendered the expected
+titles, one H1, 91 routing definitions, and no horizontal overflow or page
+exceptions. Skip-link focus, copy feedback, FAQ keyboard activation, language
+loading, and all first-party assets were verified. A fresh diagnostic browser
+context recorded no failed or HTTP 4xx/5xx requests.
+
 ## Boundaries still requiring honest disclosure
 
 - The deterministic contracts exercise the skill workflows and their
@@ -122,5 +144,3 @@ switching, and external repository links were exercised.
   external research reachability was used.
 - The Deck PPTX passed structural and overflow checks, but Office/LibreOffice
   rendering fidelity was not separately verified.
-- Publication evidence is recorded only after the GitHub Pages workflow and
-  live URL have been independently checked.
