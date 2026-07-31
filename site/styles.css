@@ -178,6 +178,18 @@ h1 span {
   color: var(--green-700);
 }
 
+html[lang="zh-CN"] h1 {
+  max-width: none;
+  font-size: clamp(3.2rem, 5vw, 4.5rem);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+}
+
+html[lang="zh-CN"] h1 > span {
+  display: block;
+  white-space: nowrap;
+}
+
 .hero-lede {
   max-width: 43rem;
   margin: 2rem 0 0;
@@ -630,6 +642,13 @@ footer p {
 
   h1 {
     font-size: clamp(3.2rem, 16vw, 5rem);
+  }
+
+  html[lang="zh-CN"] h1 {
+    max-width: none;
+    font-size: clamp(2.15rem, 10.4vw, 2.55rem);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
   }
 
   .flagship-grid,

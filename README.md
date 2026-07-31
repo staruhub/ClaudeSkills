@@ -1,94 +1,127 @@
 [![en](https://img.shields.io/badge/lang-English-blue.svg)](README.md) [![zh-CN](https://img.shields.io/badge/语言-简体中文-red.svg)](README.zh-CN.md)
 
+<p align="center">
+  <img src="assets/claudeskills-readme-hero.png" alt="ClaudeSkills: help Claude Code finish work through repeatable workflows" width="100%">
+</p>
+
 <div align="center">
 
-# Geek Skills
+# ClaudeSkills
 
-**13 curated Claude Code skills for turning real work into inspectable deliverables.**
+**Give Claude Code workflows that finish the job.**
 
-Start with four flagship workflows for research, product documents, decks, and Chinese long-form writing. Then inspect the instructions, examples, checks, and capability boundaries before you install.
+Thirteen curated skills package the steps, templates, scripts, examples, and quality gates behind repeatable work—not just one-off prompts. Start with four flagship workflows for research, product documents, decks, and WeChat publishing.
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-[Website](https://staruhub.github.io/ClaudeSkills/) · [Install](#-install-in-30-seconds) · [All 13 skills](#-all-skills) · [Security](SECURITY.md)
+[Website](https://staruhub.github.io/ClaudeSkills/) · [30-second install](#-install-in-30-seconds) · [What's new](#four-flagship-workflows-rebuilt) · [All 13 skills](#-all-skills) · [Security](SECURITY.md)
 
 </div>
 
-## Start with a flagship workflow
+## Four flagship workflows, rebuilt
 
-| Your job | Workflow | Inspectable output |
-|----------|----------|--------------------|
-| Research a decision | 🔬 [`deep-research`](skills/Geek-skills-deep-research/SKILL.md) (v8.1) | A scoped memo or report with a source registry, citation checks, trade-offs, and stated limitations |
-| Write or review a product document | 📋 [`product-manager`](skills/Geek-skills-product-manager/SKILL.md) | A structured PRD or review with decision framing and checkable acceptance criteria |
-| Present, pitch, or teach | 🎞️ [`deck-studio`](skills/Geek-skills-deck-studio/SKILL.md) (v3) | An approved outline, page briefs, registered layouts, and a rendered visual path with an explicit QA checklist |
-| Draft a Chinese long-form article | ✍️ [`wechat-article-writer`](skills/Geek-skills-wechat-article-writer/SKILL.md) | A structured article draft with title, voice, and anti-translationese review |
+| You ask | The workflow does | You get |
+|---|---|---|
+| “Compare three RAG architectures for our support team.” | 🔬 [`deep-research`](skills/Geek-skills-deep-research/SKILL.md) scopes the question, gathers multiple sources, maintains a source registry, and checks citations | A decision memo or full report with conclusions, evidence, trade-offs, and explicit limitations |
+| “Don't code yet. Ask me one question at a time until the product is clear.” | 📋 [`product-manager`](skills/Geek-skills-product-manager/SKILL.md) enters **grill-me-to-doc**: it reads repository evidence first, asks one decision per turn, and can resume after interruption | A reviewable PRODUCT-DOC, decision log, and open questions—with a hard stop before implementation |
+| “Turn this quarterly review into a consulting-style deck.” | 🎞️ [`deck-studio`](skills/Geek-skills-deck-studio/SKILL.md) confirms the outline before page briefs, registered layouts, and visual QA | Deck content, per-slide visuals, or an infographic set, depending on the delivery mode |
+| “Turn these notes into a WeChat article, including image prompts and layout.” | ✍️ [`wechat-article-writer`](skills/Geek-skills-wechat-article-writer/SKILL.md) can run `article`, `image-prompts`, `layout`, or the full pipeline | An article, provider-neutral image-prompt manifest, and WeChat-safe inline HTML—without pretending prompts are images or auto-publishing |
 
-These are repeatable instruction packages, not one-line prompt snippets. Capabilities still depend on the tools and permissions available in your Claude Code session.
+Each flagship exposes the work between request and deliverable: when it asks, which references it loads, what it validates, and where it stops. You are installing an inspectable workflow, not a magic sentence.
 
 ## 🚀 Install in 30 seconds
 
+Start with one skill you will actually use:
+
 ```bash
 git clone --depth 1 https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSkills
-python3 scripts/install_skill.py deck-studio      # -> ~/.claude/skills/deck-studio, then run /deck-studio
+python3 scripts/install_skill.py deck-studio
 ```
+
+Then, in Claude Code:
+
+```text
+/deck-studio Turn this quarterly review into an 8-slide consulting deck
+```
+
+The installer copies it to `~/.claude/skills/deck-studio`. Replace `deck-studio` with `deep-research`, `product-manager`, or `wechat-article-writer` to install another flagship.
 
 <details>
-<summary>Other install options (list all, per-project, manual)</summary>
+<summary><b>Other install options, updates, removal, and FAQ</b></summary>
 
 ```bash
-python3 scripts/install_skill.py --list                  # see installable names
-python3 scripts/install_skill.py deep-research           # any skill by short name
-python3 scripts/install_skill.py deep-research --project # -> ./.claude/skills/ (project-level)
+python3 scripts/install_skill.py --list                  # list short names
+python3 scripts/install_skill.py deep-research           # install any skill
+python3 scripts/install_skill.py deep-research --project # install for this project only
 ```
 
-**Manual:** the installed *directory name* is the slash command, so copy **and rename**:
+For a manual install, copy **and rename** the directory:
 
 ```bash
 cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
 ```
 
-Copy without renaming → the command becomes `/Geek-skills-deep-research`. Claude also auto-loads a skill when its `description` matches; `/command` is just the explicit way in.
-
-**Update / uninstall:**
+The installed directory name becomes the slash command. Without the rename, the command is `/Geek-skills-deep-research`.
 
 ```bash
-git pull && python3 scripts/install_skill.py deck-studio --force   # update (installed skills are copies)
+git pull && python3 scripts/install_skill.py deck-studio --force   # update
 rm -rf ~/.claude/skills/deck-studio                                # uninstall
 ```
 
-</details>
-
-<details>
-<summary>FAQ</summary>
-
-- **Installed, but `/deck-studio` doesn't appear** — the slash command comes from the installed **directory name**. If you copied manually without renaming, your command is `/Geek-skills-deck-studio`. Re-install with the script, or rename the directory.
-- **The skill doesn't trigger automatically** — auto-loading matches the skill's `description` against your request, so phrasing matters. The `/command` form always works.
-- **Do I need to re-install after `git pull`?** — yes: installed skills are copies. Re-run `python3 scripts/install_skill.py <name> --force`.
+- **Installed but no command?** Check the installed directory name.
+- **No automatic trigger?** Auto-loading matches the skill `description` against your wording. The explicit `/command` is the reliable path.
+- **Re-install after `git pull`?** Yes. Installed skills are copies.
 
 </details>
 
-## 📈 Inspect an artifact, not a promise
+## Not another prompt dump
 
-The Deck Studio examples include generators, rendered pages, and judge feedback. In the repository's blind **model-based self-evaluation**, the Constructivist example scored **7.1/10** on the documented rubric; the position-swapped three-judge comparison scored the current pipeline **42.3 vs 29.7** ([method and scores](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/)). These results are reproducible project evidence, not third-party certification.
+| A disposable prompt | ClaudeSkills |
+|---|---|
+| The conversation ends; next time you start over | Workflows, templates, and references live in version control |
+| The model improvises every intermediate step | Inputs, stages, stop conditions, and deliverables are explicit |
+| An interruption can erase decisions | Stateful workflows write resumable handoff files, including grill-me-to-doc and research delta updates |
+| “Looks good” is the only test | Deterministic parts use schemas, scripts, fixtures, and negative cases; subjective quality stays subject to review |
+| You discover file, network, or shell access after install | [`SECURITY.md`](SECURITY.md) discloses reads, writes, network, commands, credentials, and deletion per skill |
 
-[constructivist (7.1)](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [moshiro (3-judge eval)](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [yinghuang](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [polar-night](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
+Actual capabilities still depend on the tools and permissions available in your Claude Code session. This repository makes the workflow and its boundaries inspectable; it does not bypass permissions or market static checks as production performance.
+
+## Try one in 60 seconds
+
+| If you are working on | Start with | Inspect first |
+|---|---|---|
+| Technical, competitive, or policy research | `/deep-research Compare… and produce a cited decision memo for leadership` | [Research workflow and artifacts](skills/Geek-skills-deep-research/SKILL.md) |
+| Turning an early idea into a product document | `/product-manager grill me to doc: I want to build…` | [One-question interview contract](skills/Geek-skills-product-manager/references/GRILL-ME-TO-DOC.md) |
+| A presentation, pitch, or training deck | `/deck-studio Turn… into a 10-slide …-style deck` | [Delivery modes and layout system](skills/Geek-skills-deck-studio/SKILL.md) |
+| WeChat copy, image prompts, and inline HTML | `/wechat-article-writer full-pipeline: turn… into…` | [Four execution modes](skills/Geek-skills-wechat-article-writer/SKILL.md) |
+
+Do not install all 13 at once. Run one workflow against a real task this week; keep it if it earns the slot.
+
+## Inspect the artifacts before you install
+
+Deck Studio keeps generators, rendered pages, rubrics, and judge feedback in the repository. Here are four of its 17 rendered style seeds:
 
 <p align="center">
 <img src="skills/Geek-skills-deck-studio/style-library/creative/bauhaus-preview.png" alt="Bauhaus deck style preview" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/creative/constructivist-preview.png" alt="Constructivist deck style preview" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/media/neubrutalism-preview.png" alt="Neubrutalism deck style preview" width="24%"> <img src="skills/Geek-skills-deck-studio/style-library/business/aicher-preview.png" alt="Aicher deck style preview" width="24%">
 </p>
-<p align="center"><sub>Four of the 17 rendered style seeds: Bauhaus · Constructivist · Neubrutalism · Aicher.</sub></p>
 
-## 🧪 What the checks prove
+[Constructivist](skills/Geek-skills-deck-studio/examples/constructivist-design-constitution/) · [Moshiro consulting report](skills/Geek-skills-deck-studio/examples/moshiro-consulting-report/) · [Yinghuang bootcamp proposal](skills/Geek-skills-deck-studio/examples/yinghuang-bootcamp-proposal/) · [Polar Night AI Native](skills/Geek-skills-deck-studio/examples/polar-night-ai-native/)
 
-| Check | Current repository evidence | Does not prove |
-|-------|-----------------------------|----------------|
-| `python3 scripts/validate.py` | Structural L1 assertions for all 13 curated skill directories | Output quality or live integrations |
-| `python3 scripts/run_routing_evals.py` | Schema, target, uniqueness, and conflict checks for 91 routing case definitions across 10 skills | Model-executed routing accuracy |
-| Python compile check in CI | All 10 bundled `skills/**/*.py` files parse and compile | Runtime behavior, network access, or external tools |
-| Deck example directories | Generators, rendered pages, rubrics, scores, and recorded defects | Independent external certification |
+In the repository's blind **model-based self-evaluation**, the Constructivist example scored **7.1/10** on the documented rubric; a position-swapped three-judge comparison scored the current pipeline **42.3 vs 29.7**. These are reproducible project artifacts, not third-party certification.
 
-Re-run the repository and site checks locally:
+<details>
+<summary><b>How the four flagship workflows were tested</b></summary>
+
+| Check | What it establishes | What it does not establish |
+|---|---|---|
+| `python3 tests/task_b/run_contract_tests.py` | 17 deterministic contract cases cover success, resume, and failure paths across the four flagships; Deck also uses real Chrome rendering and PPTX assembly | Subjective quality from an arbitrary future model, a live image provider, or WeChat publishing |
+| `python3 scripts/validate.py` | All 13 curated skill directories satisfy the repository structure contract | Live business-task E2E for every skill |
+| `python3 scripts/run_routing_evals.py` | Schema, target, uniqueness, and conflict checks pass for 91 routing case definitions across 10 skills | Model-executed routing accuracy |
+| Python / Node compile checks | 13 bundled Python files and 7 related JavaScript files parse | Network, external-tool, or production availability |
+| Deck example directories | Generators, rendered pages, rubrics, scores, and recorded defects are present | Independent external certification |
+
+Re-run the baseline gates:
 
 ```bash
 python3 scripts/validate.py
@@ -96,45 +129,53 @@ python3 scripts/run_routing_evals.py
 python3 scripts/validate_site.py
 ```
 
-Before installing, read the [per-skill capability matrix](SECURITY.md): it separates bundled-script risk from actions that still require Claude Code permissions. See [CHANGELOG.md](CHANGELOG.md) for the refactor record.
+See [`verification/2026-07-30/README.md`](verification/2026-07-30/README.md) for the independent acceptance record.
+
+</details>
 
 ## 📚 All Skills
 
 <a id="-all-skills"></a>
 
-**Flagship** — the four workflows above: [deck-studio](skills/Geek-skills-deck-studio/SKILL.md) · [deep-research](skills/Geek-skills-deep-research/SKILL.md) · [product-manager](skills/Geek-skills-product-manager/SKILL.md) · [wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md)
+**Flagships (4)**
+
+[deck-studio](skills/Geek-skills-deck-studio/SKILL.md) · [deep-research](skills/Geek-skills-deep-research/SKILL.md) · [product-manager](skills/Geek-skills-product-manager/SKILL.md) · [wechat-article-writer](skills/Geek-skills-wechat-article-writer/SKILL.md)
 
 <details>
-<summary><b>Core — professional work</b> (9 skills)</summary>
+<summary><b>Professional work (9)</b></summary>
 
-| Skill | Description |
-|-------|-------------|
-| [`pair-programming`](skills/Geek-skills-pair-programming/SKILL.md) | Pair-programming partner: delivers code with a structured self-review, focused on AI-specific defects |
-| [`security-audit`](skills/Geek-skills-security-audit/SKILL.md) | Comprehensive code security audit |
-| [`solution-architect`](skills/Geek-skills-solution-architect/SKILL.md) | System design, tech selection, and architecture review |
-| [`threejs-performance`](skills/Geek-skills-threejs-performance/SKILL.md) | Three.js performance optimization |
-| [`mineru-pdf-parser`](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | PDF to Markdown or JSON for LLM workflows (requires a local MinerU install) |
-| [`ai-sales-champion`](skills/Geek-skills-ai-sales-champion/SKILL.md) | AI sales/consulting dialogue helper — turn tech into business language |
-| [`keqian-method`](skills/Geek-skills-keqian-method/SKILL.md) | Keqian's AI-Native product dev methodology: single-agent, SDD, quality gates |
-| [`xuefeng-method`](skills/Geek-skills-xuefeng-method/SKILL.md) | Xuefeng's AI-Native methodology for open-behavior, model-driven products |
-| [`c-drive-cleaner`](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Windows C drive cleanup and disk space management (dry-run by default) |
+| Skill | What it does |
+|---|---|
+| [`pair-programming`](skills/Geek-skills-pair-programming/SKILL.md) | Implements code with structured self-review for common AI-code defects |
+| [`security-audit`](skills/Geek-skills-security-audit/SKILL.md) | Reviews code and dependencies for security issues |
+| [`solution-architect`](skills/Geek-skills-solution-architect/SKILL.md) | Supports system design, technology choices, and architecture reviews |
+| [`threejs-performance`](skills/Geek-skills-threejs-performance/SKILL.md) | Diagnoses and improves Three.js performance |
+| [`mineru-pdf-parser`](skills/Geek-skills-mineru-pdf-parser/SKILL.md) | Converts PDF to Markdown or JSON with a local MinerU installation |
+| [`ai-sales-champion`](skills/Geek-skills-ai-sales-champion/SKILL.md) | Turns technical capabilities into customer-facing business value |
+| [`keqian-method`](skills/Geek-skills-keqian-method/SKILL.md) | Uses a single-agent, SDD, quality-gated product-development method |
+| [`xuefeng-method`](skills/Geek-skills-xuefeng-method/SKILL.md) | Applies an open-behavior, model-driven AI-native product method |
+| [`c-drive-cleaner`](skills/Geek-skills-c-drive-cleaner/SKILL.md) | Performs guarded Windows C-drive cleanup, dry-run by default |
 
 </details>
 
-**Lab** — experimental and personal skills (exam prep, weather reports, image/podcast generation, A-share analysis) live in [`lab/`](lab/). They are **not part of the curated set**, are excluded from the quality gates above, and may graduate into `skills/` or move out of this repo.
+**Lab**
+
+Personal and experimental workflows—exam prep, weather reports, image and podcast generation, and A-share analysis—live in [`lab/`](lab/). They are not part of the 13-skill curated set or its gates.
 
 <details>
-<summary><b>Upstream-synced</b> (1)</summary>
+<summary><b>Upstream-synced (1)</b></summary>
 
-| Skill | Notes |
-|-------|-------|
-| [`llm-wiki`](llm-wiki/SKILL.md) | Codebase wiki builder, based on [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f); kept in its original upstream layout at repo root |
+[`llm-wiki`](llm-wiki/SKILL.md) builds a codebase wiki from [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) and keeps the upstream layout at the repository root.
 
 </details>
 
-## 🤝 Community
+## Help make it better
 
-Found a bug, or built something with a skill? [Open an issue](https://github.com/staruhub/ClaudeSkills/issues). Want to contribute a skill or a fix? Start with [CONTRIBUTING.md](CONTRIBUTING.md) — new skills incubate in [`lab/`](lab/) and graduate into the curated set by passing the quality gates. If a skill saved you an afternoon, a ⭐ helps other people find it.
+Found a bug, or built something with a skill? [Open an issue](https://github.com/staruhub/ClaudeSkills/issues) with a redacted input, output, and reproduction steps when possible. To contribute a skill, start with [CONTRIBUTING.md](CONTRIBUTING.md): new work incubates in [`lab/`](lab/) and graduates after meeting the repository gates.
+
+If a workflow genuinely saved you time, leave a ⭐ and send it to someone still rebuilding the same prompts every week. Stars help discovery; they are not a quality certificate.
+
+The WeChat launch poster and ready-to-send copy live in [`assets/social/`](assets/social/).
 
 ## License
 
