@@ -129,7 +129,7 @@ python3 scripts/run_routing_evals.py
 python3 scripts/validate_site.py
 ```
 
-完整的独立验收记录在 [`verification/2026-07-30/README.md`](verification/2026-07-30/README.md)。
+完整的独立验收记录在 [`verification/2026-07-31/README.md`](verification/2026-07-31/README.md)。
 
 </details>
 

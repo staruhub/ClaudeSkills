@@ -129,7 +129,7 @@ python3 scripts/run_routing_evals.py
 python3 scripts/validate_site.py
 ```
 
-See [`verification/2026-07-30/README.md`](verification/2026-07-30/README.md) for the independent acceptance record.
+See [`verification/2026-07-31/README.md`](verification/2026-07-31/README.md) for the independent acceptance record.
 
 </details>
 

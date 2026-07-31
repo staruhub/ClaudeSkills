@@ -8,20 +8,33 @@ README 横版头图：[`../claudeskills-readme-hero.png`](../claudeskills-readme
 
 把 Claude Code 从“会回答”，升级成“会按流程把活做完”。
 
-ClaudeSkills 这次重点打磨了 4 条工作流：
+ClaudeSkills 这次不是简单加几个 prompt，而是把 4 条核心 Skill 升级成了完整、可检查的工作流。
 
-- 🔬 Deep Research：从调研范围、来源登记到引用核对，最后交付能复查的报告
-- 📋 Product Manager：用 grill-me-to-doc 一轮只问一个关键决策，把模糊想法问成产品文档
-- 🎞️ Deck Studio：先理清大纲和逐页内容，再走版式、视觉稿与画面复核
-- ✍️ WeChat Article Writer：正文、配图提示词清单和微信安全排版可以串成一条流水线
+主要升级点：
 
-仓库一共收录 13 个精选 Skill。它不是一堆零散 prompt：每条主线都把步骤、产物、校验方式和能力边界写进了仓库。
+1. **Deep Research：新增更完整的调研闭环**
+
+   从问题拆解、研究范围、多源检索、来源登记，到引用核对、局限说明和增量续研，最终交付能复查的研究报告。
+
+2. **Product Manager：加入 grill-me-to-doc 模式**
+
+   Agent 会先读现有资料，每轮只追问一个关键决策，并给出推荐答案和理由；中断后可以继续，最后形成 PRODUCT-DOC，在批准前停止，不会擅自开始写代码。
+
+3. **Deck Studio：从“做 PPT”升级为整套演示生产流程**
+
+   先确认叙事和大纲，再生成逐页 brief、注册版式和视觉页面，最后通过真实浏览器渲染与画面检查，组装成 PPTX。
+
+4. **WeChat Article Writer：新增四种执行模式**
+
+   支持 `article`、`image-prompts`、`layout` 和 `full-pipeline`。可以一次交付文章、与生图平台无关的配图提示词清单，以及适合微信公众号的内联 HTML 排版；不会把提示词冒充成成图，也不会自动发布。
+
+README 和中英文官网也全部重做了：安装后第一条命令更清楚，13 个精选 Skill 的用途、安全边界和验证结果都可以直接查看。
 
 官网：https://staruhub.github.io/ClaudeSkills/
 
 GitHub：https://github.com/staruhub/ClaudeSkills
 
-开源免费。建议先看源码和安全说明，再挑一个最常用的装起来。
+开源免费。建议先看源码和安全说明，再挑一个最常用的装起来。这次不是“看起来更丰富”，而是让 Claude Code 真正能按流程把活做完。
 
 ## 一句话版本
 
