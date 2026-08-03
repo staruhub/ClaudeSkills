@@ -139,7 +139,7 @@ def emit_prompts(data) -> int:
                 candidates.add(route)
     print("# Routing eval bundle\n")
     print("## PROMPTS (give this section to a fresh agent)\n")
-    print("你是 Claude Code 的 skill 路由器。已安装以下 skill（只有 description 可见）。")
+    print("你是兼容 Agent Skills 的客户端路由器。已安装以下 skill（只有 description 可见）。")
     print("对每条用户输入，判断应触发哪个 skill；都不合适则回答 none。")
     print('只输出 JSON 数组：[{"n": 1, "skill": "<name-or-none>"}, ...]\n')
     for s in sorted(candidates):

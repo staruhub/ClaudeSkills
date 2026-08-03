@@ -1,16 +1,12 @@
 [![en](https://img.shields.io/badge/lang-English-blue.svg)](README.md) [![zh-CN](https://img.shields.io/badge/语言-简体中文-red.svg)](README.zh-CN.md)
 
-<p align="center">
-  <img src="assets/claudeskills-readme-hero.png" alt="ClaudeSkills：让 Claude Code 按流程把活做完" width="100%">
-</p>
-
 <div align="center">
 
 # ClaudeSkills
 
-**给 Claude Code 装上真正能把活做完的工作流。**
+**给各类 Agent 一套能复用、能检查、能交付的 Skills。**
 
-13 个精选 Skill，不是零散提示词，而是把步骤、模板、脚本、样例和质量门槛一起装进仓库。先从深度研究、产品文档、演示文稿和微信公众号四条主线开始。
+13 个精选 [Agent Skills](https://agentskills.io/)，遵循开放的 `SKILL.md` 格式，把步骤、模板、脚本、样例和质量门槛一起装进仓库，可在兼容 Agent Skills 的客户端之间复用。先从深度研究、产品文档、演示文稿和微信公众号四条主线开始。
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
 [![release](https://img.shields.io/badge/release-1.0.0-2746d8)](https://github.com/staruhub/ClaudeSkills/releases/tag/1.0.0)
@@ -40,13 +36,13 @@ git clone --depth 1 https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSki
 python3 scripts/install_skill.py deck-studio
 ```
 
-然后在 Claude Code 里输入：
+然后在任意兼容 Agent Skills 的客户端里说：
 
 ```text
-/deck-studio 把这份季度复盘做成一套 8 页的咨询风汇报
+使用 deck-studio，把这份季度复盘做成一套 8 页的咨询风汇报
 ```
 
-安装脚本会把它复制到 `~/.claude/skills/deck-studio`。想换别的，把 `deck-studio` 改成 `deep-research`、`product-manager` 或 `wechat-article-writer`。
+安装脚本默认复制到跨客户端约定目录 `~/.agents/skills/deck-studio`。想换别的，把 `deck-studio` 改成 `deep-research`、`product-manager` 或 `wechat-article-writer`。
 
 <details>
 <summary><b>其他装法、更新、卸载与常见问题</b></summary>
@@ -55,23 +51,25 @@ python3 scripts/install_skill.py deck-studio
 python3 scripts/install_skill.py --list                  # 查看全部短名
 python3 scripts/install_skill.py deep-research           # 安装任意一个
 python3 scripts/install_skill.py deep-research --project # 只装到当前项目
+python3 scripts/install_skill.py deep-research --client claude-code # Claude Code 原生目录
 ```
 
-手动复制时，记得把目录改成你想要的命令名：
+手动复制时，记得把目录改成简短、稳定的 Skill 名称：
 
 ```bash
-cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
+cp -r skills/Geek-skills-deep-research ~/.agents/skills/deep-research
 ```
 
-装好后的**目录名**就是斜杠命令名。没有改名，命令就会是 `/Geek-skills-deep-research`。
+装好后的**目录名**是客户端发现 Skill 时使用的身份。具体调用方式由客户端决定：有的按自然语言自动选择，也有的额外提供斜杠命令。
 
 ```bash
 git pull && python3 scripts/install_skill.py deck-studio --force   # 更新
-rm -rf ~/.claude/skills/deck-studio                                # 卸载
+rm -rf ~/.agents/skills/deck-studio                                # 卸载
 ```
 
-- **装了却看不到命令？** 先检查安装后的目录名。
-- **没有自动触发？** 自动加载会匹配 Skill 的 `description` 和你的说法；直接输入 `/命令` 最稳。
+- **装了却没被发现？** 先确认客户端会扫描 `.agents/skills/`，或改用它的原生目录。
+- **使用 Claude Code？** 加上 `--client claude-code`，会安装到 `.claude/skills/`。
+- **没有自动触发？** 在请求里直接点名 Skill，并检查客户端的发现规则；不同产品的调用入口和显式命令并不相同。
 - **`git pull` 后要重装吗？** 要。安装的是一份副本。
 
 </details>
@@ -86,16 +84,16 @@ rm -rf ~/.claude/skills/deck-studio                                # 卸载
 | “看起来不错”就是唯一标准 | 能确定的部分交给 schema、脚本、fixture 和失败用例；主观质量仍明确留给人审 |
 | 装完才发现它要联网、跑命令或写文件 | [`SECURITY.md`](SECURITY.md) 逐个说明读写、联网、命令、凭证和删除能力 |
 
-Skill 能做到哪一步，仍取决于当前 Claude Code 会话里的工具和权限。这个仓库负责把流程和边界说清楚，不替你绕过权限，也不把静态门禁包装成生产效果。
+Skill 能做到哪一步，仍取决于宿主 Agent 提供的工具和权限模型。这个仓库负责把流程和边界说清楚，不替你绕过客户端权限，也不把静态门禁包装成生产效果。
 
 ## 60 秒试一条
 
 | 如果你正在做 | 直接这样说 | 先看哪里 |
 |---|---|---|
-| 技术选型、竞品或政策研究 | `/deep-research 对比……，给管理层一份带引用的决策简报` | [研究方法与产物](skills/Geek-skills-deep-research/SKILL.md) |
-| 把模糊想法变成产品文档 | `/product-manager grill me to doc：我想做一个……` | [单问题访谈协议](skills/Geek-skills-product-manager/references/GRILL-ME-TO-DOC.md) |
-| 做汇报、路演或培训材料 | `/deck-studio 把……做成 10 页……风格的 deck` | [版式库与交付模式](skills/Geek-skills-deck-studio/SKILL.md) |
-| 写公众号正文、配图提示词和 HTML | `/wechat-article-writer full-pipeline：把……写成……` | [四种执行模式](skills/Geek-skills-wechat-article-writer/SKILL.md) |
+| 技术选型、竞品或政策研究 | `使用 deep-research 对比……，给管理层一份带引用的决策简报` | [研究方法与产物](skills/Geek-skills-deep-research/SKILL.md) |
+| 把模糊想法变成产品文档 | `使用 product-manager 的 grill-me-to-doc 模式：我想做一个……` | [单问题访谈协议](skills/Geek-skills-product-manager/references/GRILL-ME-TO-DOC.md) |
+| 做汇报、路演或培训材料 | `使用 deck-studio 把……做成 10 页……风格的 deck` | [版式库与交付模式](skills/Geek-skills-deck-studio/SKILL.md) |
+| 写公众号正文、配图提示词和 HTML | `使用 wechat-article-writer 的 full-pipeline，把……写成……` | [四种执行模式](skills/Geek-skills-wechat-article-writer/SKILL.md) |
 
 不用一次装完 13 个。挑一个你本周就会用到的，跑通，再决定要不要留下。
 

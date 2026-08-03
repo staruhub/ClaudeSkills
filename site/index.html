@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ClaudeSkills is a curated collection of 13 inspectable Claude Code workflows for research, product decisions, decks, publishing, and professional work.">
+  <meta name="description" content="ClaudeSkills is a curated collection of 13 portable, inspectable Agent Skills for research, product decisions, decks, publishing, and professional work.">
   <meta name="version" content="1.0.0">
   <meta name="theme-color" content="#f7f6f2">
-  <title>ClaudeSkills — Inspectable workflows for Claude Code</title>
+  <title>ClaudeSkills — Portable, inspectable Agent Skills</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css?v=1.0.0">
   <script src="./script.js?v=1.0.0" defer></script>
@@ -38,15 +38,15 @@
   <main id="main-content">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">Open source · inspectable · install one at a time</p>
-        <h1 id="hero-title">Reusable workflows for Claude Code.</h1>
-        <p class="hero-lede">Thirteen curated skills turn recurring work into explicit steps, checkpoints, and deliverables. Start with research, product decisions, decks, or a complete WeChat content pipeline.</p>
+        <p class="eyebrow">Open Agent Skills format · inspectable · portable</p>
+        <h1 id="hero-title">Agent Skills for work that needs a process.</h1>
+        <p class="hero-lede">Thirteen curated skills follow the open <a href="https://agentskills.io/specification">Agent Skills specification</a>, packaging recurring work as explicit steps, checkpoints, and deliverables. Install them in any skills-compatible agent.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#flagships">Browse flagship skills</a>
           <a class="button button-secondary" href="#install">Install in 30 seconds</a>
         </div>
         <ul class="proof-strip" aria-label="Repository summary">
-          <li><strong>13</strong><span>curated skills</span></li>
+          <li><strong>13</strong><span>portable Agent Skills</span></li>
           <li><strong>4</strong><span>flagship workflows</span></li>
           <li><strong>91</strong><span>routing case definitions</span></li>
           <li><strong>MIT</strong><span>open source</span></li>
@@ -89,7 +89,7 @@
             <p class="workflow-kicker">Research</p>
             <h3>Deep Research</h3>
             <p>Scope the question, gather multiple sources, maintain a registry, check citations, and deliver a report with conclusions, trade-offs, and explicit limitations.</p>
-            <code>/deep-research Compare three RAG architectures for our support team</code>
+            <code>Use deep-research to compare three RAG architectures for our support team</code>
           </div>
           <div class="workflow-output">
             <span>Input</span><p>A decision, scope, constraints</p>
@@ -104,7 +104,7 @@
             <p class="workflow-kicker">Decision interview</p>
             <h3>Product Manager</h3>
             <p><code>grill-me-to-doc</code> reads available evidence first, asks one decision per turn, explains its recommendation, resumes from saved state, and delivers <code>PRODUCT-DOC</code> before a hard approval stop.</p>
-            <code>/product-manager grill me to doc: I want to build an AI hiring product</code>
+            <code>Use product-manager in grill-me-to-doc mode for an AI hiring product</code>
           </div>
           <div class="workflow-output">
             <span>Input</span><p>An idea that needs hard decisions</p>
@@ -119,7 +119,7 @@
             <p class="workflow-kicker">Presentation</p>
             <h3>Deck Studio</h3>
             <p>Confirm the story before polishing slides, then move through page briefs, registered layouts, visual drafts, and explicit visual QA.</p>
-            <code>/deck-studio Turn this quarterly review into a consulting deck</code>
+            <code>Use deck-studio to turn this quarterly review into a consulting deck</code>
           </div>
           <div class="workflow-output">
             <span>Input</span><p>Source material, audience, goal</p>
@@ -134,7 +134,7 @@
             <p class="workflow-kicker">Content pipeline</p>
             <h3>WeChat Article Writer</h3>
             <p>Run <code>article</code>, <code>image-prompts</code>, <code>layout</code>, or <code>full-pipeline</code> to produce an article, provider-neutral image manifest, and WeChat-safe inline HTML. Prompts are not generated images, and nothing is auto-published.</p>
-            <code>/wechat-article-writer full-pipeline: turn these notes into a WeChat article</code>
+            <code>Use wechat-article-writer full-pipeline for these notes</code>
           </div>
           <div class="workflow-output">
             <span>Input</span><p>Notes, outline, or source material</p>
@@ -149,7 +149,7 @@
       <div class="install-intro">
         <p class="eyebrow">30-second install</p>
         <h2 id="install-title">Install one.<br>Use it on real work.</h2>
-        <p>Do not load all 13 by default. Pick one workflow you will use this week; the installer copies only that skill.</p>
+        <p>Do not load all 13 by default. Pick one workflow you will use this week; the installer copies only that skill to the cross-client <code>.agents/skills</code> directory.</p>
         <a class="text-link" href="https://github.com/staruhub/ClaudeSkills#-install-in-30-seconds">Read the install guide ↗</a>
       </div>
 
@@ -163,17 +163,18 @@ cd ClaudeSkills
 python3 scripts/install_skill.py deep-research</code></pre>
         <div class="console-result">
           <span aria-hidden="true">✓</span>
-          <p>Installed as <code>/deep-research</code></p>
+          <p>Installed at <code>~/.agents/skills/deep-research</code></p>
         </div>
         <div class="first-run">
           <span>First run</span>
-          <code>/deep-research Compare three options and write a cited decision memo</code>
+          <code>Use deep-research to compare three options and write a cited decision memo</code>
         </div>
       </div>
 
       <div class="install-notes">
         <p><strong>Choose another workflow:</strong> replace <code>deep-research</code> with <code>product-manager</code>, <code>deck-studio</code>, or <code>wechat-article-writer</code>.</p>
         <p><strong>Project-only install:</strong> add <code>--project</code>. List every short name with <code>python3 scripts/install_skill.py --list</code>.</p>
+        <p><strong>Claude Code native path:</strong> add <code>--client claude-code</code>. Invocation and discovery behavior otherwise depend on the host agent.</p>
       </div>
     </section>
 
@@ -266,7 +267,7 @@ python3 scripts/install_skill.py deep-research</code></pre>
         <h2 id="trust-title">Know what a skill can do.</h2>
       </div>
       <div>
-        <p>Skills can read files and run scripts. The <a href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">security guide</a> separates bundled script behavior from permissions Claude may request, with a capability matrix for every curated skill.</p>
+        <p>Skills can read files and run scripts. The <a href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">security guide</a> separates bundled script behavior from permissions the host agent may request, with a capability matrix for every curated skill.</p>
         <div class="trust-links">
           <a class="button button-light" href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">Read security guide</a>
           <a class="text-link" href="https://github.com/staruhub/ClaudeSkills/blob/main/CONTRIBUTING.md">Contribution rules ↗</a>
@@ -289,8 +290,8 @@ python3 scripts/install_skill.py deep-research</code></pre>
           <p>No. The four flagships have deterministic contract tests, and Deck also uses real Chrome rendering plus PPTX assembly. Subjective future-model quality, live image providers, and WeChat publishing still require separate verification.</p>
         </details>
         <details>
-          <summary>Why did my slash command get a long name?</summary>
-          <p>The installed directory name becomes the slash command. Use the installer, which copies <code>Geek-skills-deck-studio</code> to <code>deck-studio</code>, or rename a manual copy yourself.</p>
+          <summary>Why was the skill not discovered?</summary>
+          <p>Confirm that the client scans <code>.agents/skills</code>, or use its native directory. The installer also strips the repository prefix so <code>Geek-skills-deck-studio</code> becomes the stable identity <code>deck-studio</code>.</p>
         </details>
         <details>
           <summary>How do I contribute?</summary>
@@ -313,7 +314,7 @@ python3 scripts/install_skill.py deep-research</code></pre>
   <footer>
     <div class="footer-brand">
       <strong>ClaudeSkills</strong>
-      <p>Inspectable workflows for Claude Code.</p>
+      <p>Portable, inspectable Agent Skills.</p>
       <a href="https://github.com/staruhub/ClaudeSkills/releases/tag/1.0.0">Release 1.0.0</a>
     </div>
     <nav aria-label="Footer navigation">

@@ -4,7 +4,7 @@
 
 <a id="english"></a>
 
-Installing a Claude Code skill means dropping instructions — and sometimes executable scripts — into your `~/.claude/skills/`. You should know exactly what each one can touch **before** you install it. This page is the honest, per-skill answer.
+Installing an Agent Skill means giving a host agent instructions — and sometimes executable scripts. The cross-client convention is `~/.agents/skills/`; individual clients may also use native directories such as Claude Code's `~/.claude/skills/`. You should know exactly what each skill can touch **before** you install it. This page is the honest, per-skill answer.
 
 ## How to read this
 
@@ -24,13 +24,13 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 **Two kinds of risk, kept separate:**
 
 1. **Bundled-script risk** — what the skill's own `scripts/*.py` do when run. This is the supply-chain surface and the focus of the matrix below.
-2. **Agent-behavior risk** — a prompt-only skill can still *instruct Claude* to search the web or write a file, but those actions go through **Claude Code's own permission prompts**, which you approve case by case. A prompt-only skill ships **no code of its own**.
+2. **Agent-behavior risk** — a prompt-only skill can still instruct the host agent to search the web or write a file. Those actions are governed by **that client's permission model**, which varies by product. A prompt-only skill ships **no code of its own**.
 
 ## Risk tiers
 
 | Tier | Meaning | Skills |
 |:---:|---|---|
-| 🟢 **T0 — Prompt only** | No bundled executable code. Pure instructions; all actions gated by Claude Code's permission system. | `ai-sales-champion` · `deck-studio`¹ · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` *(lab)* · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
+| 🟢 **T0 — Prompt only** | No bundled executable code. Pure instructions; all actions are governed by the host agent's tools and permission model. | `ai-sales-champion` · `deck-studio`¹ · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` *(lab)* · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
 | 🟡 **T1 — Local compute** | Ships scripts that read input and write output **on your machine only**. No network, no deletion, no credentials. | `gaokao-expert` *(lab)* · `university-exam-prep` *(lab)* |
 | 🟠 **T2 — Network / API** | Scripts reach the network. Some need API credentials (which you supply via env vars). | `a-share-analyst` *(lab)* · `deep-research` · `mineru-pdf-parser` · `podcast-generator` *(lab)* · `seedream-imagegen` *(lab)* |
 | 🔴 **T3 — Shells out / can delete** | Runs external tools via `subprocess`, or deletes/moves files. Read the notes before running. | `security-audit` · `c-drive-cleaner` |
@@ -78,9 +78,9 @@ Legend: ● = yes · ○ = no · — = n/a (no bundled code) · *(lab)* = experi
 - ✅ **No secrets committed** — no real API keys, tokens, or private data live in the repo; credential needs are documented as env-var placeholders.
 - ✅ **Reproducible audit** — the grep commands above and `python3 scripts/validate.py` let you re-derive every claim here yourself.
 - ✅ **Deletion is opt-in and guarded** — the one destructive skill defaults to dry-run and protects system dirs.
-- ⚠️ **This is a self-audit, not a third-party certification.** Skills are reviewed by the maintainer (with Claude); there is no external security attestation.
+- ⚠️ **This is a self-audit, not a third-party certification.** Skills receive maintainer and AI-assisted review; there is no external security attestation.
 - ⚠️ **Third-party libraries are trusted as-is.** Where a skill imports `akshare`, `mineru`, an API SDK, or an external scanner, that dependency's own supply chain is out of scope here — pin and vet them per your own policy.
-- ⚠️ **Claude Code's permission system is your backstop.** Even a T0 skill runs under Claude Code; keep file-write and command-execution prompts on if you want a per-action gate.
+- ⚠️ **The host agent's permission model is your backstop.** Review the client's tool, file-write, command-execution, network, and approval settings before running a skill.
 
 ## Reporting a concern
 
@@ -92,7 +92,7 @@ Found something that doesn't match this page — a script that reaches the netwo
 
 # 安全与信任
 
-装一个 Claude Code skill,等于把指令——有时还有可执行脚本——放进你的 `~/.claude/skills/`。你有权在**安装之前**就知道每个 skill 能碰什么。这一页给出诚实的、逐 skill 的答案。
+安装 Agent Skill，等于把指令——有时还有可执行脚本——交给宿主 Agent。跨客户端约定目录是 `~/.agents/skills/`；不同客户端也可能使用自己的原生目录，例如 Claude Code 的 `~/.claude/skills/`。你有权在**安装之前**就知道每个 Skill 能碰什么。这一页给出诚实的逐项答案。
 
 ## 怎么读这张表
 
@@ -112,13 +112,13 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 **两种风险,分开看:**
 
 1. **打包脚本风险**——skill 自己的 `scripts/*.py` 运行时干了什么。这是供应链风险面,也是下面矩阵的重点。
-2. **Agent 行为风险**——纯 prompt skill 仍可能*指示 Claude* 去联网搜索或写文件,但这些动作都走 **Claude Code 自己的权限弹窗**,由你逐次批准。纯 prompt skill **本身不带任何代码**。
+2. **Agent 行为风险**——纯 prompt Skill 仍可能指示宿主 Agent 去联网搜索或写文件；这些动作由**当前客户端的权限模型**控制，不同产品并不相同。纯 prompt Skill **本身不带任何代码**。
 
 ## 风险分级
 
 | 级别 | 含义 | Skills |
 |:---:|---|---|
-| 🟢 **T0 — 纯 prompt** | 不带任何可执行代码。纯指令,所有动作由 Claude Code 权限系统把关。 | `ai-sales-champion` · `deck-studio`¹ · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` *(lab)* · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
+| 🟢 **T0 — 纯 prompt** | 不带任何可执行代码。纯指令，所有动作由宿主 Agent 的工具和权限模型把关。 | `ai-sales-champion` · `deck-studio`¹ · `keqian-method` · `pair-programming` · `product-manager` · `solution-architect` · `threejs-performance` · `weather-forecast-report` *(lab)* · `wechat-article-writer` · `xuefeng-method` · `llm-wiki` |
 | 🟡 **T1 — 本地计算** | 带脚本,只在**你本机**读输入、写输出。不联网、不删除、不需凭证。 | `gaokao-expert` *(lab)* · `university-exam-prep` *(lab)* |
 | 🟠 **T2 — 网络 / API** | 脚本会联网。部分需要 API 凭证(由你通过环境变量提供)。 | `a-share-analyst` *(lab)* · `deep-research` · `mineru-pdf-parser` · `podcast-generator` *(lab)* · `seedream-imagegen` *(lab)* |
 | 🔴 **T3 — 调外部命令 / 可删文件** | 通过 `subprocess` 调外部工具,或删除/移动文件。运行前先看注释。 | `security-audit` · `c-drive-cleaner` |
@@ -166,9 +166,9 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 - ✅ **不含任何密钥**——仓库里没有真实 API key、token 或私有数据;凭证需求都以环境变量占位符记录。
 - ✅ **审计可复现**——上面的 grep 命令和 `python3 scripts/validate.py` 让你自己复算此页每一条结论。
 - ✅ **删除是可选且有护栏的**——唯一破坏性 skill 默认 dry-run 并保护系统目录。
-- ⚠️ **这是自审,不是第三方认证。** skill 由维护者(借助 Claude)审阅,没有外部安全背书。
+- ⚠️ **这是自审，不是第三方认证。** Skill 经过维护者与 AI 辅助审阅，没有外部安全背书。
 - ⚠️ **第三方库按原样信任。** skill 引入 `akshare`、`mineru`、API SDK 或外部扫描器时,这些依赖自身的供应链不在本页范围内——请按你自己的策略 pin 与审查。
-- ⚠️ **Claude Code 的权限系统是你的兜底。** 即使 T0 skill 也在 Claude Code 下运行;想要逐动作把关,就保持文件写入与命令执行的弹窗开启。
+- ⚠️ **宿主 Agent 的权限模型是你的兜底。** 运行 Skill 前，请检查当前客户端对工具、文件写入、命令执行、联网和审批的设置。
 
 ## 反馈问题
 

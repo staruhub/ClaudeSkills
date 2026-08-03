@@ -52,6 +52,21 @@ class SiteValidationTests(unittest.TestCase):
             any("missing release 1.0.0 link" in error for error in readme_errors)
         )
 
+    def test_agent_skills_positioning_is_cross_client(self) -> None:
+        for filename in ("README.md", "README.zh-CN.md"):
+            text = (REPO_ROOT / filename).read_text(encoding="utf-8")
+            for marker in validate_site.AGENT_SKILLS_MARKERS:
+                self.assertIn(marker, text)
+            for phrase in validate_site.LEGACY_EXCLUSIVE_POSITIONING[filename]:
+                self.assertNotIn(phrase, text)
+
+        for filename in validate_site.SITE_PAGES:
+            text = (REPO_ROOT / "site" / filename).read_text(encoding="utf-8")
+            for marker in validate_site.AGENT_SKILLS_MARKERS:
+                self.assertIn(marker, text)
+            for phrase in validate_site.LEGACY_EXCLUSIVE_POSITIONING[filename]:
+                self.assertNotIn(phrase, text)
+
     def test_invalid_fixture_fails_for_project_path_and_contract(self) -> None:
         fixture = REPO_ROOT / "tests" / "fixtures" / "site-invalid"
         errors = validate_site.validate_repo(fixture)

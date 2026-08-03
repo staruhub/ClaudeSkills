@@ -2,6 +2,17 @@
 
 本仓库遵循语义化的变更记录。日期为 `YYYY-MM-DD`（本地时区）。
 
+## [Unreleased]
+
+### Agent Skills 定位纠偏
+
+- 官网与双语 README 改以开放的 Agent Skills 格式和跨客户端复用为主语，
+  不再把项目描述成 Claude Code 专属工作流集合。
+- 默认安装目录改为跨客户端约定的 `.agents/skills/`；Claude Code 保留为
+  `--client claude-code` 显式兼容目标。
+- 示例调用改用自然语言，避免把某个客户端的斜杠命令误写成 Agent Skills 标准能力。
+- 安全说明改为宿主 Agent 的工具与权限模型，并明确不同客户端的能力边界不同。
+
 ## [1.0.0] — 2026-08-03
 
 ClaudeSkills 首个正式版本。官网改为更克制的开发者产品站：首页先说明能解决什么问题，

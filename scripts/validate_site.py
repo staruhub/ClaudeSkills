@@ -15,6 +15,23 @@ EXPECTED_SITE_URL = "https://staruhub.github.io/ClaudeSkills/"
 RELEASE_VERSION = "1.0.0"
 RELEASE_URL = f"https://github.com/staruhub/ClaudeSkills/releases/tag/{RELEASE_VERSION}"
 SITE_PAGES = ("index.html", "zh-CN.html")
+AGENT_SKILLS_MARKERS = (
+    "Agent Skills",
+    ".agents/skills",
+    "--client claude-code",
+)
+LEGACY_EXCLUSIVE_POSITIONING = {
+    "index.html": (
+        "workflows for Claude Code",
+        "permissions Claude may request",
+    ),
+    "zh-CN.html": (
+        "给 Claude Code 一套能交付的工作流",
+        "Claude 可能向你申请什么权限",
+    ),
+    "README.md": ("Give Claude Code workflows that finish the job.",),
+    "README.zh-CN.md": ("给 Claude Code 装上真正能把活做完的工作流。",),
+}
 REQUIRED_REPOSITORY_LINKS = (
     "https://github.com/staruhub/ClaudeSkills",
     RELEASE_URL,
@@ -144,6 +161,13 @@ def validate_html_page(page: Path, site_root: Path) -> list[str]:
     parser.feed(text)
 
     prefix = page.relative_to(site_root)
+    for marker in AGENT_SKILLS_MARKERS:
+        if marker not in text:
+            errors.append(f"{prefix}: missing Agent Skills positioning marker: {marker}")
+    for phrase in LEGACY_EXCLUSIVE_POSITIONING.get(page.name, ()):
+        if phrase in text:
+            errors.append(f"{prefix}: legacy single-client positioning remains: {phrase}")
+
     if not re.match(r"(?is)^\s*<!doctype html>", text):
         errors.append(f"{prefix}: missing HTML5 doctype")
     if parser.html_lang not in {"en", "zh-CN"}:
@@ -284,6 +308,16 @@ def validate_readmes(repo_root: Path) -> list[str]:
             errors.append(f"{filename}: missing README")
             continue
         text = path.read_text(encoding="utf-8")
+        for marker in AGENT_SKILLS_MARKERS:
+            if marker not in text:
+                errors.append(
+                    f"{filename}: missing Agent Skills positioning marker: {marker}"
+                )
+        for phrase in LEGACY_EXCLUSIVE_POSITIONING.get(filename, ()):
+            if phrase in text:
+                errors.append(
+                    f"{filename}: legacy single-client positioning remains: {phrase}"
+                )
         counts[filename] = text.count(EXPECTED_SITE_URL)
         if counts[filename] != 1:
             errors.append(

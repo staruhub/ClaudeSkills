@@ -1,16 +1,12 @@
 [![en](https://img.shields.io/badge/lang-English-blue.svg)](README.md) [![zh-CN](https://img.shields.io/badge/语言-简体中文-red.svg)](README.zh-CN.md)
 
-<p align="center">
-  <img src="assets/claudeskills-readme-hero.png" alt="ClaudeSkills: help Claude Code finish work through repeatable workflows" width="100%">
-</p>
-
 <div align="center">
 
 # ClaudeSkills
 
-**Give Claude Code workflows that finish the job.**
+**Portable Agent Skills for work that needs a process—not just a prompt.**
 
-Thirteen curated skills package the steps, templates, scripts, examples, and quality gates behind repeatable work—not just one-off prompts. Start with four flagship workflows for research, product documents, decks, and WeChat publishing.
+Thirteen curated [Agent Skills](https://agentskills.io/) package the steps, templates, scripts, examples, and quality gates behind repeatable work. They follow the open `SKILL.md` format and are designed for reuse across skills-compatible agents. Start with four flagship workflows for research, product documents, decks, and WeChat publishing.
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
 [![release](https://img.shields.io/badge/release-1.0.0-2746d8)](https://github.com/staruhub/ClaudeSkills/releases/tag/1.0.0)
@@ -40,13 +36,13 @@ git clone --depth 1 https://github.com/staruhub/ClaudeSkills.git && cd ClaudeSki
 python3 scripts/install_skill.py deck-studio
 ```
 
-Then, in Claude Code:
+Then ask any skills-compatible agent:
 
 ```text
-/deck-studio Turn this quarterly review into an 8-slide consulting deck
+Use deck-studio to turn this quarterly review into an 8-slide consulting deck
 ```
 
-The installer copies it to `~/.claude/skills/deck-studio`. Replace `deck-studio` with `deep-research`, `product-manager`, or `wechat-article-writer` to install another flagship.
+The installer defaults to the cross-client convention at `~/.agents/skills/deck-studio`. Replace `deck-studio` with `deep-research`, `product-manager`, or `wechat-article-writer` to install another flagship.
 
 <details>
 <summary><b>Other install options, updates, removal, and FAQ</b></summary>
@@ -55,23 +51,25 @@ The installer copies it to `~/.claude/skills/deck-studio`. Replace `deck-studio`
 python3 scripts/install_skill.py --list                  # list short names
 python3 scripts/install_skill.py deep-research           # install any skill
 python3 scripts/install_skill.py deep-research --project # install for this project only
+python3 scripts/install_skill.py deep-research --client claude-code # Claude Code native path
 ```
 
 For a manual install, copy **and rename** the directory:
 
 ```bash
-cp -r skills/Geek-skills-deep-research ~/.claude/skills/deep-research
+cp -r skills/Geek-skills-deep-research ~/.agents/skills/deep-research
 ```
 
-The installed directory name becomes the slash command. Without the rename, the command is `/Geek-skills-deep-research`.
+The installed directory name is the skill identity clients discover. Invocation syntax is client-specific; some clients select skills from natural language, while others also expose slash commands.
 
 ```bash
 git pull && python3 scripts/install_skill.py deck-studio --force   # update
-rm -rf ~/.claude/skills/deck-studio                                # uninstall
+rm -rf ~/.agents/skills/deck-studio                                # uninstall
 ```
 
-- **Installed but no command?** Check the installed directory name.
-- **No automatic trigger?** Auto-loading matches the skill `description` against your wording. The explicit `/command` is the reliable path.
+- **Installed but not discovered?** Confirm that your client scans `.agents/skills/`, or use its native target.
+- **Using Claude Code?** Add `--client claude-code`; this installs to `.claude/skills/`.
+- **No automatic trigger?** Name the skill in your request and check the client's discovery rules; activation UI and explicit commands vary by product.
 - **Re-install after `git pull`?** Yes. Installed skills are copies.
 
 </details>
@@ -86,16 +84,16 @@ rm -rf ~/.claude/skills/deck-studio                                # uninstall
 | “Looks good” is the only test | Deterministic parts use schemas, scripts, fixtures, and negative cases; subjective quality stays subject to review |
 | You discover file, network, or shell access after install | [`SECURITY.md`](SECURITY.md) discloses reads, writes, network, commands, credentials, and deletion per skill |
 
-Actual capabilities still depend on the tools and permissions available in your Claude Code session. This repository makes the workflow and its boundaries inspectable; it does not bypass permissions or market static checks as production performance.
+Actual capabilities still depend on the tools and permission model of the host agent. This repository makes the workflow and its boundaries inspectable; it does not bypass client permissions or market static checks as production performance.
 
 ## Try one in 60 seconds
 
 | If you are working on | Start with | Inspect first |
 |---|---|---|
-| Technical, competitive, or policy research | `/deep-research Compare… and produce a cited decision memo for leadership` | [Research workflow and artifacts](skills/Geek-skills-deep-research/SKILL.md) |
-| Turning an early idea into a product document | `/product-manager grill me to doc: I want to build…` | [One-question interview contract](skills/Geek-skills-product-manager/references/GRILL-ME-TO-DOC.md) |
-| A presentation, pitch, or training deck | `/deck-studio Turn… into a 10-slide …-style deck` | [Delivery modes and layout system](skills/Geek-skills-deck-studio/SKILL.md) |
-| WeChat copy, image prompts, and inline HTML | `/wechat-article-writer full-pipeline: turn… into…` | [Four execution modes](skills/Geek-skills-wechat-article-writer/SKILL.md) |
+| Technical, competitive, or policy research | `Use deep-research to compare… and produce a cited decision memo` | [Research workflow and artifacts](skills/Geek-skills-deep-research/SKILL.md) |
+| Turning an early idea into a product document | `Use product-manager in grill-me-to-doc mode: I want to build…` | [One-question interview contract](skills/Geek-skills-product-manager/references/GRILL-ME-TO-DOC.md) |
+| A presentation, pitch, or training deck | `Use deck-studio to turn… into a 10-slide …-style deck` | [Delivery modes and layout system](skills/Geek-skills-deck-studio/SKILL.md) |
+| WeChat copy, image prompts, and inline HTML | `Use wechat-article-writer full-pipeline to turn… into…` | [Four execution modes](skills/Geek-skills-wechat-article-writer/SKILL.md) |
 
 Do not install all 13 at once. Run one workflow against a real task this week; keep it if it earns the slot.
 
