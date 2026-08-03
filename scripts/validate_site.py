@@ -12,9 +12,12 @@ from urllib.parse import urlsplit
 
 
 EXPECTED_SITE_URL = "https://staruhub.github.io/ClaudeSkills/"
+RELEASE_VERSION = "1.0.0"
+RELEASE_URL = f"https://github.com/staruhub/ClaudeSkills/releases/tag/{RELEASE_VERSION}"
 SITE_PAGES = ("index.html", "zh-CN.html")
 REQUIRED_REPOSITORY_LINKS = (
     "https://github.com/staruhub/ClaudeSkills",
+    RELEASE_URL,
     "https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md",
     "https://github.com/staruhub/ClaudeSkills/blob/main/CONTRIBUTING.md",
     "https://github.com/staruhub/ClaudeSkills/blob/main/LICENSE",
@@ -33,6 +36,7 @@ REQUIRED_WORKFLOW_MARKERS = (
     "name: github-pages",
     "needs: build",
     "workflow_dispatch:",
+    '"VERSION"',
 )
 
 
@@ -168,6 +172,10 @@ def validate_html_page(page: Path, site_root: Path) -> list[str]:
         errors.append(f"{prefix}: missing viewport meta tag")
     if "description" not in parser.meta_names:
         errors.append(f"{prefix}: missing description meta tag")
+    if parser.meta_names.get("version") != RELEASE_VERSION:
+        errors.append(
+            f"{prefix}: version meta must be '{RELEASE_VERSION}'"
+        )
     if any(scope not in {"col", "row"} for scope in parser.th_scopes):
         errors.append(f"{prefix}: every table header needs scope='col' or scope='row'")
 
@@ -281,9 +289,32 @@ def validate_readmes(repo_root: Path) -> list[str]:
             errors.append(
                 f"{filename}: expected one canonical website link, found {counts[filename]}"
             )
+        if RELEASE_URL not in text:
+            errors.append(
+                f"{filename}: missing release {RELEASE_VERSION} link"
+            )
 
     if len(counts) == 2 and len(set(counts.values())) != 1:
         errors.append("README website links are not synchronized")
+
+    return errors
+
+
+def validate_release_version(repo_root: Path) -> list[str]:
+    errors: list[str] = []
+    version_path = repo_root / "VERSION"
+    if not version_path.is_file():
+        errors.append("VERSION: missing canonical release version file")
+    elif version_path.read_text(encoding="utf-8").strip() != RELEASE_VERSION:
+        errors.append(f"VERSION: expected '{RELEASE_VERSION}'")
+
+    changelog = repo_root / "CHANGELOG.md"
+    if not changelog.is_file():
+        errors.append("CHANGELOG.md: missing changelog")
+    elif f"## [{RELEASE_VERSION}]" not in changelog.read_text(encoding="utf-8"):
+        errors.append(
+            f"CHANGELOG.md: missing release heading for {RELEASE_VERSION}"
+        )
 
     return errors
 
@@ -327,6 +358,7 @@ def validate_repo(repo_root: Path) -> list[str]:
     errors.extend(validate_css(site_root))
     errors.extend(validate_skill_links(repo_root, site_root))
     errors.extend(validate_readmes(repo_root))
+    errors.extend(validate_release_version(repo_root))
     errors.extend(validate_pages_workflow(repo_root))
     errors.extend(validate_dependency_free_site(repo_root, site_root))
     return errors

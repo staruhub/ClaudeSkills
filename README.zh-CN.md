@@ -13,9 +13,10 @@
 13 个精选 Skill，不是零散提示词，而是把步骤、模板、脚本、样例和质量门槛一起装进仓库。先从深度研究、产品文档、演示文稿和微信公众号四条主线开始。
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
+[![release](https://img.shields.io/badge/release-1.0.0-2746d8)](https://github.com/staruhub/ClaudeSkills/releases/tag/1.0.0)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-[官网](https://staruhub.github.io/ClaudeSkills/) · [30 秒安装](#-30-秒装好) · [这次更新了什么](#这次更新重点打磨-4-条主线) · [全部 13 个 Skill](#-全部-skill) · [安全说明](SECURITY.md)
+[官网](https://staruhub.github.io/ClaudeSkills/) · [1.0.0 正式版](https://github.com/staruhub/ClaudeSkills/releases/tag/1.0.0) · [30 秒安装](#-30-秒装好) · [这次更新了什么](#这次更新重点打磨-4-条主线) · [全部 13 个 Skill](#-全部-skill) · [安全说明](SECURITY.md)
 
 </div>
 

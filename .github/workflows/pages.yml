@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - "site/**"
+      - "VERSION"
+      - "README.md"
+      - "README.zh-CN.md"
+      - "CHANGELOG.md"
       - "scripts/validate_site.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:

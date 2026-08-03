@@ -13,9 +13,10 @@
 Thirteen curated skills package the steps, templates, scripts, examples, and quality gates behind repeatable work—not just one-off prompts. Start with four flagship workflows for research, product documents, decks, and WeChat publishing.
 
 [![validate](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml/badge.svg)](https://github.com/staruhub/ClaudeSkills/actions/workflows/validate.yml)
+[![release](https://img.shields.io/badge/release-1.0.0-2746d8)](https://github.com/staruhub/ClaudeSkills/releases/tag/1.0.0)
 [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-[Website](https://staruhub.github.io/ClaudeSkills/) · [30-second install](#-install-in-30-seconds) · [What's new](#four-flagship-workflows-rebuilt) · [All 13 skills](#-all-skills) · [Security](SECURITY.md)
+[Website](https://staruhub.github.io/ClaudeSkills/) · [Release 1.0.0](https://github.com/staruhub/ClaudeSkills/releases/tag/1.0.0) · [30-second install](#-install-in-30-seconds) · [What's new](#four-flagship-workflows-rebuilt) · [All 13 skills](#-all-skills) · [Security](SECURITY.md)
 
 </div>
 
