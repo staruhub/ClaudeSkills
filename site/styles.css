@@ -13,8 +13,9 @@
   --terminal: #0d1117;
   --terminal-line: #30363d;
   --terminal-ok: #3fb950;
-  --focus: #c62f2f;
+  --focus: #2240f0;
   --content: 78rem;
+  --header-offset: 5.5rem;
   --radius: 2px;
 }
 
@@ -24,6 +25,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-offset);
 }
 
 body {
@@ -197,8 +199,13 @@ footer nav a {
   font-weight: 800;
 }
 
-.language-switch strong {
+.language-switch a {
   color: var(--muted);
+}
+
+.language-switch strong {
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--accent);
 }
 
 .site-header nav a:hover,
@@ -247,6 +254,7 @@ h1 {
   max-width: 12ch;
   margin: 0;
   font-size: clamp(3.5rem, 6.9vw, 6.8rem);
+  font-weight: 900;
   line-height: 0.93;
   letter-spacing: -0.068em;
 }
@@ -255,7 +263,11 @@ html[lang="zh-CN"] h1 {
   max-width: none;
   font-size: clamp(3.4rem, 5vw, 5.2rem);
   line-height: 1.08;
-  letter-spacing: -0.035em;
+  letter-spacing: 0;
+}
+
+.hero-title-line {
+  display: block;
 }
 
 .hero-lede {
@@ -482,7 +494,7 @@ html[lang="zh-CN"] h1 {
 
 .section {
   padding-block: clamp(5rem, 9vw, 8.5rem);
-  scroll-margin-top: 5.5rem;
+  scroll-margin-top: var(--header-offset);
   border-top: 1px solid var(--line);
 }
 
@@ -505,6 +517,7 @@ html[lang="zh-CN"] h1 {
 .contribute-section h2 {
   margin: 0;
   font-size: clamp(2.5rem, 5.4vw, 5rem);
+  font-weight: 900;
   line-height: 0.98;
   letter-spacing: -0.058em;
 }
@@ -514,6 +527,7 @@ html[lang="zh-CN"] .install-intro h2,
 html[lang="zh-CN"] .trust-section h2,
 html[lang="zh-CN"] .contribute-section h2 {
   line-height: 1.05;
+  letter-spacing: 0;
 }
 
 .section-heading > p,
@@ -1011,6 +1025,18 @@ html[lang="zh-CN"] .contribute-section h2 {
   letter-spacing: 0.04em;
 }
 
+.capability-note {
+  margin: 0.75rem 0 0;
+  color: #bdc0c8;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.7rem;
+}
+
+.capability-note sup {
+  color: var(--signal);
+  font-weight: 850;
+}
+
 .trust-section .text-link {
   color: #cfd6ff;
 }
@@ -1122,6 +1148,10 @@ footer {
 }
 
 @media (max-width: 68rem) {
+  :root {
+    --header-offset: 7.5rem;
+  }
+
   .header-inner {
     align-items: flex-start;
     flex-wrap: wrap;
@@ -1132,6 +1162,10 @@ footer {
     width: 100%;
     order: 3;
     margin-left: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
   }
 
   .hero {
@@ -1167,13 +1201,20 @@ footer {
     display: none;
   }
 
+  .header-inner {
+    align-items: center;
+    gap: 0.55rem;
+    padding-block: 0.6rem;
+  }
+
   .site-header nav {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.45rem;
+    display: flex;
+    gap: 0.4rem;
+    padding-bottom: 0.15rem;
   }
 
   .site-header nav a {
+    flex: 0 0 auto;
     min-height: 2.75rem;
     display: inline-flex;
     align-items: center;
@@ -1190,12 +1231,13 @@ footer {
   }
 
   .language-switch {
+    flex: 0 0 auto;
     min-height: 2.75rem;
     justify-content: center;
   }
 
   .hero {
-    padding-block: 4rem 5rem;
+    padding-block: 3rem 5rem;
   }
 
   h1 {
@@ -1205,9 +1247,13 @@ footer {
 
   html[lang="zh-CN"] h1 {
     max-width: none;
-    font-size: clamp(2.65rem, 11vw, 4.1rem);
+    font-size: clamp(2.05rem, 10.2vw, 4.1rem);
     line-height: 1.1;
-    letter-spacing: -0.025em;
+    letter-spacing: 0;
+  }
+
+  html[lang="zh-CN"] .hero-title-line {
+    white-space: nowrap;
   }
 
   .proof-strip {
@@ -1348,10 +1394,6 @@ footer {
   .section,
   footer {
     width: min(calc(100% - 1.25rem), var(--content));
-  }
-
-  .site-header nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .language-switch {

@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#f5f1e8">
   <title>ClaudeSkills｜可移植、可检查的 Agent Skills</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css?v=1.0.0-r2">
+  <link rel="stylesheet" href="./styles.css?v=1.0.0-r3">
   <script src="./script.js?v=1.0.0" defer></script>
 </head>
 <body>
@@ -39,7 +39,7 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow">开放 Agent Skills 格式 · 可检查 · 可移植</p>
-        <h1 id="hero-title">让 Agent 按工作流<br>把活做完。</h1>
+        <h1 id="hero-title"><span class="hero-title-line">让 Agent 按工作流</span><span class="hero-title-line">把活做完。</span></h1>
         <p class="hero-lede">13 个精选 Skill 遵循开放的 <a href="https://agentskills.io/specification">Agent Skills 规范</a>，把常做的工作拆成明确的步骤、检查点和交付物，可在兼容客户端之间复用。</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#flagships">看看四条旗舰主线</a>
@@ -286,6 +286,7 @@ python3 scripts/install_skill.py deep-research</code></pre>
           <li><code>security-audit</code><span>读取 · 写入 · 命令</span></li>
           <li><code>c-drive-cleaner</code><span>读取 · 删除*</span></li>
         </ul>
+        <p class="capability-note"><sup>*</sup> 删除操作受护栏保护：每次破坏性操作前都必须明确确认。</p>
         <div class="trust-links">
           <a class="button button-light" href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">查看安全说明</a>
           <a class="text-link" href="https://github.com/staruhub/ClaudeSkills/blob/main/CONTRIBUTING.md">贡献规则 ↗</a>

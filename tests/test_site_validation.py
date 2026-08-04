@@ -78,12 +78,38 @@ class SiteValidationTests(unittest.TestCase):
         chinese = (REPO_ROOT / "site" / "zh-CN.html").read_text(
             encoding="utf-8"
         )
-        self.assertIn("让 Agent 按工作流<br>把活做完。", chinese)
+        self.assertIn(
+            '<span class="hero-title-line">让 Agent 按工作流</span>',
+            chinese,
+        )
         for filename in validate_site.SITE_PAGES:
             page = (REPO_ROOT / "site" / filename).read_text(encoding="utf-8")
             self.assertIn('class="language-switch"', page)
             self.assertIn('class="artifact-index"', page)
             self.assertIn('class="capability-preview"', page)
+
+    def test_mobile_navigation_and_title_regressions_stay_fixed(self) -> None:
+        css = (REPO_ROOT / "site" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn("--header-offset:", css)
+        self.assertIn("scroll-margin-top: var(--header-offset)", css)
+        self.assertIn("overflow-x: auto", css)
+        self.assertIn("white-space: nowrap", css)
+        self.assertIn("--focus: #2240f0", css)
+        self.assertIn('html[lang="zh-CN"] h1', css)
+        self.assertIn("letter-spacing: 0", css)
+
+        chinese = (REPO_ROOT / "site" / "zh-CN.html").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(
+            '<span class="hero-title-line">让 Agent 按工作流</span>',
+            chinese,
+        )
+        self.assertNotIn("让 Agent 按工作流<br>把活做完。", chinese)
+
+        for filename in validate_site.SITE_PAGES:
+            page = (REPO_ROOT / "site" / filename).read_text(encoding="utf-8")
+            self.assertIn('class="capability-note"', page)
 
     def test_invalid_fixture_fails_for_project_path_and_contract(self) -> None:
         fixture = REPO_ROOT / "tests" / "fixtures" / "site-invalid"
