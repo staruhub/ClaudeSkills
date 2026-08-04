@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="ClaudeSkills 收录 13 个可移植、可检查的 Agent Skills，覆盖深度研究、产品决策、演示文稿、内容流水线与专业工作。">
   <meta name="version" content="1.0.0">
-  <meta name="theme-color" content="#f7f6f2">
+  <meta name="theme-color" content="#f5f1e8">
   <title>ClaudeSkills｜可移植、可检查的 Agent Skills</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css?v=1.0.0">
+  <link rel="stylesheet" href="./styles.css?v=1.0.0-r2">
   <script src="./script.js?v=1.0.0" defer></script>
 </head>
 <body>
@@ -29,7 +29,7 @@
         <a href="#install">安装</a>
         <a href="#evidence">实物与验证</a>
         <a href="#all-skills">全部 Skill</a>
-        <a href="./index.html" lang="en">English</a>
+        <span class="language-switch" aria-label="语言"><a href="./index.html" lang="en">EN</a><span aria-hidden="true">/</span><strong aria-current="page">中</strong></span>
         <a class="nav-github" href="https://github.com/staruhub/ClaudeSkills">GitHub ↗</a>
       </nav>
     </div>
@@ -39,7 +39,7 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow">开放 Agent Skills 格式 · 可检查 · 可移植</p>
-        <h1 id="hero-title">让 Agent 按工作流把活做完。</h1>
+        <h1 id="hero-title">让 Agent 按工作流<br>把活做完。</h1>
         <p class="hero-lede">13 个精选 Skill 遵循开放的 <a href="https://agentskills.io/specification">Agent Skills 规范</a>，把常做的工作拆成明确的步骤、检查点和交付物，可在兼容客户端之间复用。</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#flagships">看看四条旗舰主线</a>
@@ -47,9 +47,9 @@
         </div>
         <ul class="proof-strip" aria-label="仓库概览">
           <li><strong>13</strong><span>个可移植 Agent Skills</span></li>
-          <li><strong>4</strong><span>条旗舰工作流</span></li>
           <li><strong>91</strong><span>条路由用例定义</span></li>
-          <li><strong>MIT</strong><span>开源许可</span></li>
+          <li><strong><a href="https://agentskills.io/specification">开放 ↗</a></strong><span>Agent Skills 规范</span></li>
+          <li><strong><a href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">审计 ↗</a></strong><span>逐 Skill 能力披露</span></li>
         </ul>
       </div>
 
@@ -89,7 +89,7 @@
             <p class="workflow-kicker">深度研究</p>
             <h3>Deep Research</h3>
             <p>先把问题和范围说清，再做多源检索、来源登记和引用核对，最后交付有结论、有出处，也敢写局限的报告。</p>
-            <code>使用 deep-research 比较三种适合客服团队的 RAG 架构</code>
+            <div class="workflow-command"><span aria-hidden="true">$</span><code id="workflow-command-01">使用 deep-research 比较三种适合客服团队的 RAG 架构</code><button class="copy-button js-only" type="button" data-copy-target="workflow-command-01" aria-label="复制 Deep Research 示例">复制</button></div>
           </div>
           <div class="workflow-output">
             <span>你给</span><p>待拍板的问题、范围和限制</p>
@@ -104,7 +104,7 @@
             <p class="workflow-kicker">决策访谈</p>
             <h3>Product Manager</h3>
             <p><code>grill-me-to-doc</code> 会先读现有证据，每轮只追问一个决策，并给出推荐选项和理由。中断后可以继续；通过文档完成门槛后输出 <code>PRODUCT-DOC</code>，到批准环节硬停止。</p>
-            <code>使用 product-manager 的 grill-me-to-doc 模式梳理 AI 招聘产品</code>
+            <div class="workflow-command"><span aria-hidden="true">$</span><code id="workflow-command-02">使用 product-manager 的 grill-me-to-doc 模式梳理 AI 招聘产品</code><button class="copy-button js-only" type="button" data-copy-target="workflow-command-02" aria-label="复制 Product Manager 示例">复制</button></div>
           </div>
           <div class="workflow-output">
             <span>你给</span><p>还没问清楚的产品想法</p>
@@ -119,7 +119,7 @@
             <p class="workflow-kicker">演示文稿</p>
             <h3>Deck Studio</h3>
             <p>不是先美化几页 PPT。它先把故事讲顺，再做逐页 brief、注册版式、视觉稿和画面复核。</p>
-            <code>使用 deck-studio 把这份季度复盘做成咨询风 PPT</code>
+            <div class="workflow-command"><span aria-hidden="true">$</span><code id="workflow-command-03">使用 deck-studio 把这份季度复盘做成咨询风 PPT</code><button class="copy-button js-only" type="button" data-copy-target="workflow-command-03" aria-label="复制 Deck Studio 示例">复制</button></div>
           </div>
           <div class="workflow-output">
             <span>你给</span><p>零散材料、听众和汇报目的</p>
@@ -134,7 +134,7 @@
             <p class="workflow-kicker">内容流水线</p>
             <h3>WeChat Article Writer</h3>
             <p>可单独运行 <code>article</code>、<code>image-prompts</code>、<code>layout</code> 或 <code>full-pipeline</code>，交付文章、与供应商无关的配图清单和微信安全内联 HTML。提示词不是成图，流程也不会自动发布。</p>
-            <code>使用 wechat-article-writer full-pipeline 处理这些笔记</code>
+            <div class="workflow-command"><span aria-hidden="true">$</span><code id="workflow-command-04">使用 wechat-article-writer full-pipeline 处理这些笔记</code><button class="copy-button js-only" type="button" data-copy-target="workflow-command-04" aria-label="复制公众号文章工作流示例">复制</button></div>
           </div>
           <div class="workflow-output">
             <span>你给</span><p>笔记、提纲或已有素材</p>
@@ -189,21 +189,34 @@ python3 scripts/install_skill.py deep-research</code></pre>
 
       <div class="artifact-gallery" aria-label="Deck Studio 产物预览">
         <figure>
-          <img src="./showcase/bauhaus-preview.png" alt="Deck Studio 风格库中的包豪斯演示文稿版式" width="1200" height="675">
+          <img src="./showcase/bauhaus-preview.png" alt="Deck Studio 风格库中的包豪斯演示文稿版式" width="800" height="450">
           <figcaption><span>包豪斯</span><a href="https://github.com/staruhub/ClaudeSkills/tree/main/skills/Geek-skills-deck-studio/style-library/creative">查看源码 ↗</a></figcaption>
         </figure>
         <figure>
-          <img src="./showcase/constructivist-preview.png" alt="Deck Studio 风格库中的构成主义演示文稿版式" width="1200" height="675">
+          <img src="./showcase/constructivist-preview.png" alt="Deck Studio 风格库中的构成主义演示文稿版式" width="800" height="450">
           <figcaption><span>构成主义</span><a href="https://github.com/staruhub/ClaudeSkills/tree/main/skills/Geek-skills-deck-studio/examples/constructivist-design-constitution">查看样例 ↗</a></figcaption>
         </figure>
         <figure>
-          <img src="./showcase/neubrutalism-preview.png" alt="Deck Studio 风格库中的新粗野主义演示文稿版式" width="1200" height="675">
+          <img src="./showcase/neubrutalism-preview.png" alt="Deck Studio 风格库中的新粗野主义演示文稿版式" width="800" height="450">
           <figcaption><span>新粗野主义</span><a href="https://github.com/staruhub/ClaudeSkills/tree/main/skills/Geek-skills-deck-studio/style-library/media">查看源码 ↗</a></figcaption>
         </figure>
         <figure>
-          <img src="./showcase/aicher-preview.png" alt="Deck Studio 风格库中的信息系统演示文稿版式" width="1200" height="675">
+          <img src="./showcase/aicher-preview.png" alt="Deck Studio 风格库中的信息系统演示文稿版式" width="800" height="450">
           <figcaption><span>信息系统</span><a href="https://github.com/staruhub/ClaudeSkills/tree/main/skills/Geek-skills-deck-studio/style-library/business">查看源码 ↗</a></figcaption>
         </figure>
+      </div>
+
+      <div class="artifact-index" aria-label="非视觉产物样例">
+        <article>
+          <span>05</span>
+          <h3><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-deep-research/assets/report_template.md">研究报告合同 ↗</a></h3>
+          <p>Deep Research 的真实报告模板，明确要求结论、引用、权衡和局限。</p>
+        </article>
+        <article>
+          <span>06</span>
+          <h3><a href="https://github.com/staruhub/ClaudeSkills/blob/main/skills/Geek-skills-product-manager/references/PRODUCT-DOC-TEMPLATE.md">PRODUCT-DOC 合同 ↗</a></h3>
+          <p>Product Manager 的真实交付模板，保留决策、未决问题和批准边界。</p>
+        </article>
       </div>
 
       <div class="evidence-ledger" aria-label="质量证据">
@@ -231,7 +244,7 @@ python3 scripts/install_skill.py deep-research</code></pre>
 
       <div class="evidence-callout">
         <strong>自己重跑仓库门禁</strong>
-        <code>python3 scripts/validate.py &amp;&amp; python3 scripts/run_routing_evals.py &amp;&amp; python3 scripts/validate_site.py</code>
+        <div class="evidence-command"><span aria-hidden="true">$</span><code id="evidence-command">python3 scripts/validate.py &amp;&amp; python3 scripts/run_routing_evals.py &amp;&amp; python3 scripts/validate_site.py</code><button class="copy-button js-only" type="button" data-copy-target="evidence-command" aria-label="复制仓库验证命令">复制</button></div>
       </div>
     </section>
 
@@ -268,6 +281,11 @@ python3 scripts/install_skill.py deep-research</code></pre>
       </div>
       <div>
         <p>Skill 可能读文件，也可能运行脚本。<a href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">安全说明</a>把“仓库脚本自己会做什么”和“宿主 Agent 可能向你申请什么权限”分开写，并为每个精选 Skill 列出能力矩阵。</p>
+        <ul class="capability-preview" aria-label="部分 Skill 能力">
+          <li><code>deep-research</code><span>读取 · 写入 · 联网 · 命令</span></li>
+          <li><code>security-audit</code><span>读取 · 写入 · 命令</span></li>
+          <li><code>c-drive-cleaner</code><span>读取 · 删除*</span></li>
+        </ul>
         <div class="trust-links">
           <a class="button button-light" href="https://github.com/staruhub/ClaudeSkills/blob/main/SECURITY.md">查看安全说明</a>
           <a class="text-link" href="https://github.com/staruhub/ClaudeSkills/blob/main/CONTRIBUTING.md">贡献规则 ↗</a>
@@ -314,8 +332,9 @@ python3 scripts/install_skill.py deep-research</code></pre>
   <footer>
     <div class="footer-brand">
       <strong>ClaudeSkills</strong>
-      <p>可移植、可检查的 Agent Skills。</p>
+      <p>开放、可移植、可检查的 Agent Skills，面向所有兼容 Skills 的 Agent。</p>
       <a href="https://github.com/staruhub/ClaudeSkills/releases/tag/1.0.0">1.0.0 正式版</a>
+      <small class="footer-note">ChaoGeek 项目，由 staruhub 维护。与 Anthropic 无隶属或背书关系。</small>
     </div>
     <nav aria-label="页脚导航">
       <a href="https://github.com/staruhub/ClaudeSkills">GitHub</a>

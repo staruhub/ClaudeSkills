@@ -252,10 +252,10 @@ def validate_css(site_root: Path) -> list[str]:
 
     variables = _css_variables(css)
     required_pairs = (
-        ("ink", "canvas"),
-        ("muted", "canvas"),
-        ("paper", "green-700"),
-        ("paper", "ink"),
+        ("ink", "paper"),
+        ("muted", "paper"),
+        ("surface", "accent"),
+        ("surface", "ink"),
     )
     for foreground, background in required_pairs:
         if foreground not in variables or background not in variables:
@@ -267,6 +267,12 @@ def validate_css(site_root: Path) -> list[str]:
         if ratio < 4.5:
             errors.append(
                 f"site/styles.css: {foreground}/{background} contrast {ratio:.2f} is below 4.5"
+            )
+
+    for legacy_token in ("green-700", "green-600", "green-100"):
+        if legacy_token in variables:
+            errors.append(
+                f"site/styles.css: misleading legacy color token remains: {legacy_token}"
             )
 
     return errors

@@ -67,6 +67,24 @@ class SiteValidationTests(unittest.TestCase):
             for phrase in validate_site.LEGACY_EXCLUSIVE_POSITIONING[filename]:
                 self.assertNotIn(phrase, text)
 
+    def test_chaogeek_design_contract_stays_coherent(self) -> None:
+        css = (REPO_ROOT / "site" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn("--accent: #2240f0", css)
+        self.assertIn("--signal: #ff4444", css)
+        self.assertIn("--terminal: #0d1117", css)
+        self.assertNotIn("--green-", css)
+        self.assertNotIn('a[href="#evidence"] {\n    display: none', css)
+
+        chinese = (REPO_ROOT / "site" / "zh-CN.html").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("让 Agent 按工作流<br>把活做完。", chinese)
+        for filename in validate_site.SITE_PAGES:
+            page = (REPO_ROOT / "site" / filename).read_text(encoding="utf-8")
+            self.assertIn('class="language-switch"', page)
+            self.assertIn('class="artifact-index"', page)
+            self.assertIn('class="capability-preview"', page)
+
     def test_invalid_fixture_fails_for_project_path_and_contract(self) -> None:
         fixture = REPO_ROOT / "tests" / "fixtures" / "site-invalid"
         errors = validate_site.validate_repo(fixture)

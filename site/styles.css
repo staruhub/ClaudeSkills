@@ -1,23 +1,21 @@
 :root {
   color-scheme: light;
-  --canvas: #f7f6f2;
-  --paper: #ffffff;
-  --ink: #15161a;
-  --muted: #5b5e67;
-  --line: #d8d7d1;
-  --line-strong: #b7b7b0;
-  --green-700: #2746d8;
-  --green-600: #1935b6;
-  --green-100: #e8ecff;
-  --accent: #2746d8;
-  --accent-dark: #1935b6;
-  --accent-soft: #e8ecff;
-  --signal: #ff5a36;
-  --code: #111318;
-  --code-line: #32353d;
-  --focus: #9c3300;
+  --paper: #f5f1e8;
+  --surface: #ffffff;
+  --ink: #101319;
+  --muted: #595d66;
+  --line: #dcd5c6;
+  --line-strong: #aaa18f;
+  --accent: #2240f0;
+  --accent-deep: #1935b6;
+  --accent-wash: #e8ecff;
+  --signal: #ff4444;
+  --terminal: #0d1117;
+  --terminal-line: #30363d;
+  --terminal-ok: #3fb950;
+  --focus: #c62f2f;
   --content: 78rem;
-  --radius: 0.45rem;
+  --radius: 2px;
 }
 
 * {
@@ -30,19 +28,23 @@ html {
 
 body {
   margin: 0;
-  background: var(--canvas);
+  background: var(--paper);
   color: var(--ink);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.6;
+}
+
+html[lang="zh-CN"] body {
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Inter, ui-sans-serif, system-ui, sans-serif;
 }
 
 body::selection {
   background: var(--accent);
-  color: var(--paper);
+  color: var(--surface);
 }
 
 a {
-  color: var(--accent-dark);
+  color: var(--accent-deep);
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.18em;
 }
@@ -59,7 +61,7 @@ a:hover {
 
 code,
 pre {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
 code {
@@ -85,13 +87,13 @@ p {
   left: 0.75rem;
   padding: 0.7rem 1rem;
   background: var(--ink);
-  color: var(--paper);
+  color: var(--surface);
   border-radius: var(--radius);
   transform: translateY(-150%);
 }
 
 .skip-link:focus {
-  color: var(--paper);
+  color: var(--surface);
   transform: translateY(0);
 }
 
@@ -99,7 +101,7 @@ p {
   position: sticky;
   z-index: 20;
   top: 0;
-  background: rgba(247, 246, 242, 0.96);
+  background: rgba(245, 241, 232, 0.96);
   border-bottom: 1px solid var(--line);
 }
 
@@ -128,9 +130,9 @@ p {
   width: 2rem;
   height: 2rem;
   background: var(--ink);
-  color: var(--paper);
-  border-radius: 0.25rem;
-  font-family: "SFMono-Regular", Consolas, monospace;
+  color: var(--surface);
+  border-radius: var(--radius);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.92rem;
 }
 
@@ -139,11 +141,11 @@ p {
   align-items: center;
   gap: 0.42rem;
   padding: 0.28rem 0.58rem;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  border: 1px solid #b8c3ff;
-  border-radius: 99rem;
-  font-family: "SFMono-Regular", Consolas, monospace;
+  background: var(--accent-wash);
+  color: var(--accent-deep);
+  border: 1px solid #aebaff;
+  border-radius: var(--radius);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.72rem;
   font-weight: 750;
   text-decoration: none;
@@ -154,7 +156,7 @@ p {
   width: 0.42rem;
   height: 0.42rem;
   background: var(--accent);
-  border-radius: 50%;
+  border-radius: 0;
 }
 
 .site-header nav,
@@ -175,6 +177,28 @@ footer nav a {
   font-size: 0.88rem;
   font-weight: 720;
   text-decoration: none;
+}
+
+.language-switch {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.32rem;
+  padding-inline: 0.5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.75rem;
+}
+
+.language-switch a,
+.language-switch strong {
+  font-size: inherit;
+  font-weight: 800;
+}
+
+.language-switch strong {
+  color: var(--muted);
 }
 
 .site-header nav a:hover,
@@ -202,7 +226,7 @@ footer {
 .hero {
   min-height: calc(100vh - 4.5rem);
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(24rem, 0.92fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(22rem, 0.8fr);
   align-items: center;
   gap: clamp(3rem, 7vw, 7rem);
   padding-block: clamp(4.5rem, 9vw, 8rem);
@@ -212,7 +236,7 @@ footer {
 .panel-label,
 .workflow-kicker {
   margin: 0 0 1rem;
-  color: var(--accent-dark);
+  color: var(--accent-deep);
   font-size: 0.76rem;
   font-weight: 850;
   letter-spacing: 0.12em;
@@ -228,10 +252,10 @@ h1 {
 }
 
 html[lang="zh-CN"] h1 {
-  max-width: 10ch;
-  font-size: clamp(3.4rem, 6vw, 6rem);
-  line-height: 1;
-  letter-spacing: -0.065em;
+  max-width: none;
+  font-size: clamp(3.4rem, 5vw, 5.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
 }
 
 .hero-lede {
@@ -254,7 +278,7 @@ html[lang="zh-CN"] h1 {
   align-items: center;
   justify-content: center;
   padding: 0.72rem 1.05rem;
-  border: 1px solid var(--ink);
+  border: 2px solid var(--ink);
   border-radius: var(--radius);
   font-weight: 800;
   text-decoration: none;
@@ -262,13 +286,13 @@ html[lang="zh-CN"] h1 {
 
 .button-primary {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--surface);
 }
 
 .button-primary:hover {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--paper);
+  color: var(--surface);
 }
 
 .button-secondary {
@@ -277,20 +301,20 @@ html[lang="zh-CN"] h1 {
 }
 
 .button-secondary:hover {
-  background: var(--paper);
-  color: var(--accent-dark);
+  background: var(--surface);
+  color: var(--accent-deep);
 }
 
 .button-light {
-  background: var(--paper);
-  border-color: var(--paper);
+  background: var(--surface);
+  border-color: var(--surface);
   color: var(--ink);
 }
 
 .button-light:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent-soft);
-  color: var(--accent-dark);
+  background: var(--accent-wash);
+  border-color: var(--accent-wash);
+  color: var(--accent-deep);
 }
 
 .proof-strip {
@@ -308,7 +332,7 @@ html[lang="zh-CN"] h1 {
 }
 
 .proof-strip strong {
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 1.12rem;
   line-height: 1.2;
 }
@@ -318,11 +342,22 @@ html[lang="zh-CN"] h1 {
   font-size: 0.79rem;
 }
 
+.proof-strip a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.proof-strip a:hover {
+  color: var(--accent);
+}
+
 .quickstart-panel {
   overflow: hidden;
-  background: var(--code);
-  color: var(--paper);
-  border: 1px solid var(--code-line);
+  max-width: 42rem;
+  justify-self: end;
+  background: var(--terminal);
+  color: var(--surface);
+  border: 1px solid var(--terminal-line);
   border-radius: var(--radius);
 }
 
@@ -333,9 +368,9 @@ html[lang="zh-CN"] h1 {
   justify-content: space-between;
   min-height: 3rem;
   padding: 0.65rem 1rem;
-  border-bottom: 1px solid var(--code-line);
+  border-bottom: 1px solid var(--terminal-line);
   color: #b6bac4;
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.76rem;
 }
 
@@ -349,12 +384,12 @@ html[lang="zh-CN"] h1 {
   align-items: center;
   gap: 0.7rem;
   padding: 1rem;
-  border-bottom: 1px solid var(--code-line);
+  border-bottom: 1px solid var(--terminal-line);
 }
 
 .quickstart-command .prompt {
   color: #8d99ff;
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-weight: 850;
 }
 
@@ -372,7 +407,7 @@ html[lang="zh-CN"] h1 {
   background: transparent;
   color: #d9dce5;
   border: 1px solid #555963;
-  border-radius: 0.25rem;
+  border-radius: var(--radius);
   font: inherit;
   font-size: 0.73rem;
   font-weight: 800;
@@ -417,7 +452,7 @@ html[lang="zh-CN"] h1 {
 }
 
 .job-list li + li {
-  border-top: 1px solid var(--code-line);
+  border-top: 1px solid var(--terminal-line);
 }
 
 .job-list a {
@@ -425,14 +460,14 @@ html[lang="zh-CN"] h1 {
   grid-template-columns: 2rem 1fr;
   gap: 0 0.65rem;
   padding: 1.05rem 0;
-  color: var(--paper);
+  color: var(--surface);
   text-decoration: none;
 }
 
 .job-list a > span {
   grid-row: 1 / 3;
   color: #8d99ff;
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.72rem;
 }
 
@@ -442,7 +477,7 @@ html[lang="zh-CN"] h1 {
 
 .job-list small {
   color: #989daa;
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
 }
 
 .section {
@@ -496,7 +531,7 @@ html[lang="zh-CN"] .contribute-section h2 {
 
 .workflow-row {
   display: grid;
-  grid-template-columns: 4rem minmax(0, 1.35fr) minmax(17rem, 0.65fr);
+  grid-template-columns: 5rem minmax(0, 1.35fr) minmax(17rem, 0.65fr);
   gap: clamp(1.25rem, 4vw, 4rem);
   padding: clamp(2rem, 4vw, 3.5rem) 0;
   border-bottom: 1px solid var(--line-strong);
@@ -504,9 +539,10 @@ html[lang="zh-CN"] .contribute-section h2 {
 
 .workflow-number {
   color: var(--accent);
-  font-family: "SFMono-Regular", Consolas, monospace;
-  font-size: 0.9rem;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 850;
+  line-height: 0.9;
 }
 
 .workflow-kicker {
@@ -525,16 +561,41 @@ html[lang="zh-CN"] .contribute-section h2 {
   color: var(--muted);
 }
 
-.workflow-main > code {
-  display: block;
-  width: fit-content;
-  max-width: 100%;
+.workflow-command {
+  display: grid;
+  width: 100%;
+  max-width: 46rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
   margin-top: 1.25rem;
-  padding: 0.7rem 0.8rem;
-  background: var(--paper);
+  padding: 0.55rem 0.55rem 0.55rem 0.8rem;
+  background: var(--surface);
   border: 1px solid var(--line);
   color: var(--ink);
+}
+
+.workflow-command > span {
+  color: var(--accent);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-weight: 850;
+}
+
+.workflow-command code {
+  min-width: 0;
   font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.workflow-command .copy-button {
+  min-height: 2.5rem;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.workflow-command .copy-button:hover {
+  background: var(--accent-wash);
+  border-color: var(--accent);
 }
 
 .workflow-output {
@@ -549,7 +610,7 @@ html[lang="zh-CN"] .contribute-section h2 {
 
 .workflow-output > span {
   color: var(--muted);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -574,7 +635,7 @@ html[lang="zh-CN"] .contribute-section h2 {
 
 .install-section {
   display: grid;
-  grid-template-columns: minmax(18rem, 0.78fr) minmax(26rem, 1.22fr);
+  grid-template-columns: minmax(18rem, 0.9fr) minmax(26rem, 1.1fr);
   gap: clamp(2.5rem, 8vw, 8rem);
   align-items: start;
 }
@@ -590,9 +651,9 @@ html[lang="zh-CN"] .contribute-section h2 {
 
 .install-console {
   overflow: hidden;
-  background: var(--code);
-  color: var(--paper);
-  border: 1px solid var(--code-line);
+  background: var(--terminal);
+  color: var(--surface);
+  border: 1px solid var(--terminal-line);
   border-radius: var(--radius);
 }
 
@@ -614,9 +675,9 @@ html[lang="zh-CN"] .contribute-section h2 {
   align-items: center;
   gap: 0.7rem;
   padding: 0.85rem 1.2rem;
-  background: #1d2b23;
-  border-top: 1px solid #31483a;
-  color: #baf5ce;
+  background: #102619;
+  border-top: 1px solid #245532;
+  color: var(--terminal-ok);
 }
 
 .console-result p {
@@ -624,19 +685,19 @@ html[lang="zh-CN"] .contribute-section h2 {
 }
 
 .console-result code {
-  color: var(--paper);
+  color: var(--surface);
 }
 
 .first-run {
   display: grid;
   gap: 0.55rem;
   padding: 1.2rem;
-  border-top: 1px solid var(--code-line);
+  border-top: 1px solid var(--terminal-line);
 }
 
 .first-run span {
   color: #989daa;
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -669,7 +730,7 @@ html[lang="zh-CN"] .contribute-section h2 {
 
 .artifact-gallery figure {
   margin: 0;
-  background: var(--paper);
+  background: var(--surface);
   border: 1px solid var(--line);
 }
 
@@ -696,6 +757,45 @@ html[lang="zh-CN"] .contribute-section h2 {
 .artifact-gallery figcaption a {
   font-size: 0.82rem;
   font-weight: 750;
+}
+
+.artifact-index {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: -2rem 0 clamp(3rem, 6vw, 5.5rem);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.artifact-index article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem 1rem;
+  padding: 1.35rem 1.5rem 1.5rem 0;
+}
+
+.artifact-index article + article {
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--line);
+}
+
+.artifact-index span {
+  grid-row: 1 / 3;
+  color: var(--accent);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+
+.artifact-index h3 {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.artifact-index p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .evidence-ledger {
@@ -732,11 +832,15 @@ html[lang="zh-CN"] .contribute-section h2 {
   display: inline-block;
   min-width: 4.5rem;
   color: var(--ink);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.evidence-ledger article p:last-child span {
+  color: var(--signal);
 }
 
 .evidence-callout {
@@ -745,12 +849,28 @@ html[lang="zh-CN"] .contribute-section h2 {
   gap: 1rem;
   margin-top: 1rem;
   padding: 1.15rem;
-  background: var(--accent-soft);
-  border: 1px solid #b8c3ff;
+  background: var(--terminal);
+  border: 1px solid var(--terminal-line);
+  color: var(--surface);
+}
+
+.evidence-command {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.evidence-command > span {
+  color: var(--terminal-ok);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-weight: 850;
 }
 
 .evidence-callout code {
   overflow-wrap: anywhere;
+  color: var(--surface);
+  font-size: 0.76rem;
 }
 
 .skill-grid {
@@ -782,18 +902,18 @@ html[lang="zh-CN"] .contribute-section h2 {
 }
 
 .skill-grid a:hover {
-  background: var(--paper);
-  color: var(--accent-dark);
+  background: var(--surface);
+  color: var(--accent-deep);
 }
 
 .skill-index {
   color: var(--muted);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.7rem;
 }
 
 .skill-grid strong {
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.87rem;
 }
 
@@ -804,10 +924,10 @@ html[lang="zh-CN"] .contribute-section h2 {
 
 .skill-grid em {
   padding: 0.14rem 0.45rem;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
+  background: var(--accent-wash);
+  color: var(--accent-deep);
   border: 1px solid #c5ceff;
-  border-radius: 99rem;
+  border-radius: var(--radius);
   font-size: 0.65rem;
   font-style: normal;
   font-weight: 850;
@@ -826,7 +946,7 @@ html[lang="zh-CN"] .contribute-section h2 {
   gap: clamp(2rem, 7vw, 7rem);
   padding-block: clamp(5rem, 9vw, 8rem);
   background: var(--ink);
-  color: var(--paper);
+  color: var(--surface);
   border-top: 0;
 }
 
@@ -843,7 +963,7 @@ html[lang="zh-CN"] .contribute-section h2 {
 }
 
 .trust-section h2 {
-  color: var(--paper);
+  color: var(--surface);
 }
 
 .trust-section p {
@@ -862,6 +982,35 @@ html[lang="zh-CN"] .contribute-section h2 {
   margin-top: 1.5rem;
 }
 
+.capability-preview {
+  display: grid;
+  gap: 0;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  border-top: 1px solid #3b404b;
+  list-style: none;
+}
+
+.capability-preview li {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  min-height: 3.1rem;
+  border-bottom: 1px solid #3b404b;
+}
+
+.capability-preview code {
+  color: var(--surface);
+}
+
+.capability-preview span {
+  color: #b9c4ff;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
 .trust-section .text-link {
   color: #cfd6ff;
 }
@@ -873,18 +1022,47 @@ html[lang="zh-CN"] .contribute-section h2 {
 }
 
 .faq-list {
+  counter-reset: faq;
   border-top: 1px solid var(--ink);
 }
 
 .faq-list details {
+  counter-increment: faq;
   border-bottom: 1px solid var(--line-strong);
 }
 
 .faq-list summary {
+  position: relative;
   padding: 1.25rem 2.5rem 1.25rem 0;
   cursor: pointer;
   font-size: 1.02rem;
   font-weight: 800;
+  list-style: none;
+}
+
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-list summary::before {
+  content: "Q" counter(faq) " · ";
+  color: var(--accent);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.76rem;
+}
+
+.faq-list summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  color: var(--accent);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.faq-list details[open] summary::after {
+  content: "−";
 }
 
 .faq-list details p {
@@ -933,8 +1111,14 @@ footer {
 
 .footer-brand a {
   width: fit-content;
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.76rem;
+}
+
+.footer-note {
+  max-width: 42rem;
+  color: var(--muted);
+  font-size: 0.78rem;
 }
 
 @media (max-width: 68rem) {
@@ -961,6 +1145,7 @@ footer {
 
   .quickstart-panel {
     max-width: 46rem;
+    justify-self: start;
   }
 
   .workflow-row {
@@ -973,34 +1158,40 @@ footer {
   }
 
   .skill-grid a {
-    grid-template-columns: 2rem minmax(8rem, 0.9fr) minmax(9rem, 1.1fr);
-  }
-
-  .skill-grid em {
-    display: none;
+    grid-template-columns: 2rem minmax(8rem, 0.9fr) minmax(9rem, 1.1fr) auto;
   }
 }
 
 @media (max-width: 50rem) {
   .release-pill {
-    margin-left: auto;
-  }
-
-  .site-header nav {
-    gap: 0.5rem 0.75rem;
-  }
-
-  .site-header nav a {
-    font-size: 0.78rem;
-  }
-
-  .site-header nav a[href="#evidence"] {
     display: none;
   }
 
+  .site-header nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .site-header nav a {
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem 0.45rem;
+    border: 1px solid var(--line);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
   .site-header .nav-github {
-    padding: 0;
-    border: 0;
+    padding: 0.3rem 0.45rem;
+    border: 1px solid var(--line);
+  }
+
+  .language-switch {
+    min-height: 2.75rem;
+    justify-content: center;
   }
 
   .hero {
@@ -1013,9 +1204,10 @@ footer {
   }
 
   html[lang="zh-CN"] h1 {
-    max-width: 9ch;
-    font-size: clamp(2.85rem, 12vw, 4.2rem);
-    line-height: 1.02;
+    max-width: none;
+    font-size: clamp(2.65rem, 11vw, 4.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
   }
 
   .proof-strip {
@@ -1028,6 +1220,15 @@ footer {
   }
 
   .quickstart-command .copy-button {
+    grid-column: 1 / -1;
+    width: fit-content;
+  }
+
+  .workflow-command {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .workflow-command .copy-button {
     grid-column: 1 / -1;
     width: fit-content;
   }
@@ -1064,9 +1265,24 @@ footer {
   }
 
   .artifact-gallery,
+  .artifact-index,
   .skill-grid,
   .evidence-ledger {
     grid-template-columns: 1fr;
+  }
+
+  .artifact-index {
+    margin-top: -1.5rem;
+  }
+
+  .artifact-index article,
+  .artifact-index article + article {
+    padding-inline: 0;
+    border-left: 0;
+  }
+
+  .artifact-index article + article {
+    border-top: 1px solid var(--line);
   }
 
   .evidence-ledger article,
@@ -1089,6 +1305,12 @@ footer {
     grid-column: 2;
   }
 
+  .skill-grid em {
+    grid-column: 2;
+    width: fit-content;
+    margin-top: 0.35rem;
+  }
+
   .trust-section {
     grid-template-columns: 1rem minmax(0, 1fr) 1rem;
     gap: 2rem 0;
@@ -1101,6 +1323,15 @@ footer {
 
   .evidence-callout {
     grid-template-columns: 1fr;
+  }
+
+  .evidence-command {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .evidence-command .copy-button {
+    grid-column: 1 / -1;
+    width: fit-content;
   }
 
   footer {
@@ -1119,15 +1350,12 @@ footer {
     width: min(calc(100% - 1.25rem), var(--content));
   }
 
-  .site-header nav a {
-    min-height: 2rem;
-    display: inline-flex;
-    align-items: center;
+  .site-header nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .site-header .nav-github {
-    padding: 0;
-    border: 0;
+  .language-switch {
+    min-height: 2.75rem;
   }
 
   .workflow-row {
