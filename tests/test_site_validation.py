@@ -79,14 +79,28 @@ class SiteValidationTests(unittest.TestCase):
             encoding="utf-8"
         )
         self.assertIn(
-            '<span class="hero-title-line">让 Agent 按工作流</span>',
+            '<span class="hero-title-line">让 Agent 做事，</span>',
             chinese,
         )
+        self.assertIn(
+            '<span class="hero-title-line hero-title-accent">有章法。</span>',
+            chinese,
+        )
+        self.assertIn("OPEN AGENT SKILLS · 13 SKILLS ·", chinese)
+        self.assertNotIn('class="release-pill"', chinese)
+        for asset in (
+            "assets/masthead-pixels.png",
+            "assets/proof-pixels.png",
+            "fonts/noto-sans-sc-900.woff2",
+            "fonts/jetbrains-mono-400.woff2",
+        ):
+            self.assertTrue((REPO_ROOT / "site" / asset).is_file(), asset)
         for filename in validate_site.SITE_PAGES:
             page = (REPO_ROOT / "site" / filename).read_text(encoding="utf-8")
             self.assertIn('class="language-switch"', page)
             self.assertIn('class="artifact-index"', page)
             self.assertIn('class="capability-preview"', page)
+            self.assertIn('class="section-rail', page)
 
     def test_mobile_navigation_and_title_regressions_stay_fixed(self) -> None:
         css = (REPO_ROOT / "site" / "styles.css").read_text(encoding="utf-8")
@@ -102,7 +116,7 @@ class SiteValidationTests(unittest.TestCase):
             encoding="utf-8"
         )
         self.assertIn(
-            '<span class="hero-title-line">让 Agent 按工作流</span>',
+            '<span class="hero-title-line">让 Agent 做事，</span>',
             chinese,
         )
         self.assertNotIn("让 Agent 按工作流<br>把活做完。", chinese)

@@ -1,3 +1,43 @@
+@font-face {
+  font-family: "Noto Sans SC";
+  src: url("./fonts/noto-sans-sc-900.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans SC";
+  src: url("./fonts/noto-sans-sc-900.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans SC";
+  src: url("./fonts/noto-sans-sc-900.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./fonts/jetbrains-mono-400.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./fonts/jetbrains-mono-400.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --paper: #f5f1e8;
@@ -64,6 +104,7 @@ a:hover {
 code,
 pre {
   font-family: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-variant-ligatures: none;
 }
 
 code {
@@ -1407,6 +1448,625 @@ footer {
   .workflow-number,
   .workflow-output {
     grid-column: 1;
+  }
+}
+
+/* Fable 5 final direction: technical weekly front page × workbench. */
+:root {
+  --header-offset: 6rem;
+}
+
+.site-header {
+  min-height: calc(6rem - 1px);
+  background-color: var(--ink);
+  background-image: url("./assets/masthead-pixels.png");
+  background-position: center;
+  background-size: cover;
+  border-bottom-color: var(--ink);
+}
+
+.header-inner {
+  width: min(calc(100% - 3.5rem), 86rem);
+  min-height: calc(6rem - 1px);
+  gap: 1.25rem;
+}
+
+.brand {
+  flex: 0 0 auto;
+  color: var(--surface);
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.brand-mark {
+  width: 2.65rem;
+  height: 2.65rem;
+  object-fit: cover;
+  background: transparent;
+}
+
+.brand-meta {
+  margin: 0;
+  color: #c7cad2;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.035em;
+  white-space: nowrap;
+}
+
+.brand-meta a {
+  color: #8d99ff;
+  text-decoration: none;
+}
+
+.site-header nav {
+  flex-wrap: nowrap;
+  gap: 0.35rem 1.25rem;
+}
+
+.site-header nav a {
+  color: #f4f5f8;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.site-header nav a:hover {
+  color: #8d99ff;
+}
+
+.site-header .language-switch {
+  min-height: 2.55rem;
+  border-color: #454a56;
+  color: #aeb3bf;
+}
+
+.site-header .language-switch a {
+  color: #aeb3bf;
+}
+
+.site-header .language-switch strong {
+  color: var(--surface);
+}
+
+.site-header .nav-github {
+  padding: 0.6rem 0.85rem;
+  border-color: #9298a5;
+}
+
+.hero,
+.section {
+  width: min(calc(100% - 3.5rem), 86rem);
+}
+
+.hero {
+  min-height: 0;
+  grid-template-columns: minmax(0, 1.05fr) minmax(24rem, 0.95fr);
+  align-items: start;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  padding-block: clamp(3.5rem, 6vw, 4.75rem) 3rem;
+}
+
+.hero-copy {
+  min-width: 0;
+}
+
+.eyebrow,
+.panel-label,
+.workflow-kicker {
+  color: var(--accent);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  text-transform: none;
+}
+
+.hero .eyebrow {
+  margin-bottom: 1.65rem;
+}
+
+h1,
+html[lang="zh-CN"] h1 {
+  max-width: 10ch;
+  font-size: clamp(3.5rem, 5.2vw, 4.75rem);
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+}
+
+html[lang="zh-CN"] h1 {
+  max-width: none;
+  letter-spacing: 0;
+}
+
+.hero-title-accent {
+  color: var(--accent);
+}
+
+.hero-lede {
+  max-width: 38em;
+  margin-top: 1.5rem;
+  color: #3f434b;
+  font-size: clamp(1rem, 1.35vw, 1.16rem);
+  line-height: 1.75;
+}
+
+.hero-actions {
+  margin-top: 1.7rem;
+}
+
+.button {
+  min-height: 3.15rem;
+  padding-inline: 1.35rem;
+}
+
+.button-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.button-secondary {
+  background: transparent;
+}
+
+.proof-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 2.25rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.proof-strip li {
+  min-width: 0;
+  grid-template-columns: 1fr;
+  align-content: start;
+  padding: 0 1rem;
+  border-left: 1px solid var(--line-strong);
+}
+
+.proof-strip li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.proof-strip img {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-bottom: 0.55rem;
+  image-rendering: pixelated;
+}
+
+.proof-strip strong {
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.proof-strip span {
+  margin-top: 0.22rem;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.quickstart-panel {
+  width: 100%;
+  max-width: 38rem;
+  margin-top: 3.25rem;
+  border-color: var(--ink);
+  box-shadow: none;
+}
+
+.panel-topline {
+  min-height: 3.2rem;
+  padding-inline: 1.25rem;
+}
+
+.quickstart-panel > .panel-label {
+  padding: 1.5rem 1.35rem 0.55rem;
+}
+
+.quickstart-command {
+  padding: 0.5rem 1.35rem 1.5rem;
+  border-bottom: 1px solid var(--terminal-line);
+}
+
+.hero-example {
+  padding: 1.45rem 1.35rem 1.2rem;
+}
+
+.hero-example .panel-label {
+  padding: 0;
+  margin-bottom: 0.9rem;
+}
+
+.hero-example > code {
+  display: block;
+  padding: 1rem;
+  border: 1px solid #5a606b;
+  color: #f4f5f8;
+  font-size: 0.86rem;
+  line-height: 1.75;
+}
+
+.terminal-cursor {
+  margin: 0;
+  padding: 0.95rem 1.35rem 1.35rem;
+  color: #d9dce5;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.82rem;
+}
+
+.terminal-cursor span {
+  color: #8d99ff;
+  font-weight: 700;
+}
+
+.section {
+  padding-block: clamp(3.5rem, 6vw, 6rem);
+  border-top: 0;
+}
+
+.section-rail {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 0.75rem auto minmax(2rem, 1fr);
+  gap: 0.8rem;
+  align-items: center;
+  margin-bottom: 2.2rem;
+  color: var(--ink);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
+.section-rail img {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.section-rail i {
+  height: 1px;
+  background: var(--line-strong);
+}
+
+.section-heading {
+  margin-bottom: clamp(2.5rem, 4vw, 3.75rem);
+}
+
+.section-heading h2,
+.install-intro h2,
+.trust-section h2 {
+  font-size: clamp(2.45rem, 4.2vw, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+html[lang="zh-CN"] .section-heading h2,
+html[lang="zh-CN"] .install-intro h2,
+html[lang="zh-CN"] .trust-section h2 {
+  line-height: 1.15;
+}
+
+.split-heading {
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  gap: clamp(2rem, 7vw, 7rem);
+}
+
+.split-heading > p {
+  max-width: 38em;
+  line-height: 1.75;
+}
+
+.workflow-row {
+  grid-template-columns: 4.5rem minmax(0, 1.35fr) minmax(17rem, 0.65fr);
+  gap: clamp(1.25rem, 3vw, 3rem);
+  padding-block: clamp(2rem, 3vw, 3rem);
+}
+
+.workflow-number {
+  font-size: clamp(2.25rem, 3.5vw, 3rem);
+}
+
+.workflow-main h3 {
+  font-size: clamp(1.85rem, 3vw, 2.8rem);
+}
+
+.workflow-main > p:not(.workflow-kicker) {
+  line-height: 1.75;
+}
+
+.workflow-output {
+  padding-left: 1.25rem;
+}
+
+.install-section {
+  grid-template-columns: minmax(18rem, 0.8fr) minmax(28rem, 1.2fr);
+  gap: clamp(2.5rem, 7vw, 7rem);
+}
+
+.install-intro {
+  top: 8rem;
+}
+
+.artifact-gallery figure {
+  border-color: var(--ink);
+}
+
+.artifact-gallery figcaption {
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.74rem;
+}
+
+.trust-section {
+  grid-template-columns:
+    minmax(1.75rem, 1fr)
+    minmax(0, calc(86rem * 0.44))
+    minmax(0, calc(86rem * 0.56))
+    minmax(1.75rem, 1fr);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.trust-section > .section-rail {
+  grid-column: 2 / 4;
+  width: 100%;
+  margin-bottom: 0;
+  color: var(--surface);
+}
+
+.trust-section > div:nth-child(2) {
+  grid-column: 2;
+}
+
+.trust-section > div:nth-child(3) {
+  grid-column: 3;
+}
+
+.trust-section > div:first-child {
+  grid-column: 2 / 4;
+}
+
+.section-rail-dark i {
+  background: #4a4f5a;
+}
+
+.section-rail-dark img {
+  border: 1px solid #626874;
+}
+
+.faq-section > .section-rail {
+  grid-column: 1 / -1;
+}
+
+.contribute-section {
+  max-width: none;
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.75fr) minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: center;
+  padding-block: 2.25rem;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  text-align: left;
+}
+
+.contribute-section h2 {
+  font-size: clamp(1.35rem, 2.1vw, 2rem);
+  line-height: 1.25;
+}
+
+.contribute-section > p {
+  margin: 0;
+}
+
+.contribute-section .hero-actions {
+  justify-content: flex-end;
+  margin-top: 0;
+}
+
+footer {
+  width: 100%;
+  max-width: none;
+  min-height: 14rem;
+  margin-top: 0;
+  padding-inline: max(1.75rem, calc((100% - 86rem) / 2));
+  background: var(--ink);
+  color: var(--surface);
+  border-top: 0;
+}
+
+.footer-brand p,
+.footer-note {
+  color: #b9bdc7;
+}
+
+footer nav a,
+.footer-brand a {
+  color: #c7d0ff;
+}
+
+@media (max-width: 74rem) {
+  :root {
+    --header-offset: 7.1rem;
+  }
+
+  .header-inner {
+    align-items: center;
+    flex-wrap: wrap;
+    padding-block: 0.75rem;
+  }
+
+  .brand-meta {
+    margin-left: auto;
+  }
+
+  .site-header nav {
+    width: 100%;
+    order: 3;
+    margin-left: 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-copy,
+  .quickstart-panel {
+    max-width: 58rem;
+  }
+
+  .quickstart-panel {
+    margin-top: 0;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 50rem) {
+  :root {
+    --header-offset: 7rem;
+  }
+
+  .site-header {
+    min-height: 6.5rem;
+  }
+
+  .header-inner,
+  .hero,
+  .section {
+    width: min(calc(100% - 1.5rem), 86rem);
+  }
+
+  .header-inner {
+    min-height: 6.5rem;
+    gap: 0.4rem 0.75rem;
+    padding-block: 0.5rem;
+  }
+
+  .brand {
+    font-size: 1.05rem;
+  }
+
+  .brand-mark {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .brand-meta {
+    display: none;
+  }
+
+  .site-header nav {
+    gap: 0.4rem;
+    padding-bottom: 0;
+  }
+
+  .site-header nav a,
+  .site-header .nav-github,
+  .site-header .language-switch {
+    min-height: 2.45rem;
+    border-color: #454a56;
+    color: #eef0f4;
+  }
+
+  .hero {
+    padding-block: 2.65rem 2.75rem;
+  }
+
+  .hero .eyebrow {
+    margin-bottom: 1.15rem;
+    line-height: 1.55;
+  }
+
+  h1,
+  html[lang="zh-CN"] h1 {
+    max-width: none;
+    font-size: clamp(2.4rem, 11.5vw, 3.25rem);
+    line-height: 1.1;
+  }
+
+  .hero-lede {
+    margin-top: 1.2rem;
+    font-size: 0.98rem;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .proof-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.25rem;
+  }
+
+  .proof-strip li:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .quickstart-panel {
+    width: 100%;
+  }
+
+  .quickstart-command {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .quickstart-command .copy-button {
+    grid-column: 1 / -1;
+  }
+
+  .section {
+    padding-block: 3.5rem;
+  }
+
+  .section-rail {
+    margin-bottom: 1.7rem;
+  }
+
+  .section-heading h2,
+  .install-intro h2,
+  .trust-section h2 {
+    font-size: clamp(2.15rem, 10vw, 3rem);
+  }
+
+  .install-section,
+  .faq-section,
+  .split-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-section {
+    grid-template-columns: 1.25rem minmax(0, 1fr) 1.25rem;
+    gap: 2rem 0;
+  }
+
+  .trust-section > .section-rail,
+  .trust-section > div:first-child {
+    grid-column: 2;
+  }
+
+  .trust-section > div:nth-child(2),
+  .trust-section > div:nth-child(3) {
+    grid-column: 2;
+  }
+
+  .contribute-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .contribute-section .hero-actions {
+    justify-content: start;
+  }
+
+  footer {
+    padding-inline: 1.25rem;
   }
 }
 
