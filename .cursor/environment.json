@@ -1,0 +1,17 @@
+{
+  "name": "ClaudeSkills",
+  "install": "bash .cursor/install.sh",
+  "terminals": [
+    {
+      "name": "website-dev",
+      "command": "npm --prefix website run dev -- --host",
+      "description": "Vite dev server for the ClaudeSkills website on http://localhost:3000"
+    }
+  ],
+  "ports": [
+    {
+      "name": "website",
+      "port": 3000
+    }
+  ]
+}
