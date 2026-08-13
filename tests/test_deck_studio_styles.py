@@ -40,6 +40,8 @@ class StyleMeta(NamedTuple):
     title: str
     fields: dict[str, str]
     has_style_brief: bool
+    has_page_recipe: bool
+    has_forbidden_layouts: bool
     colors: list[str]
 
 
@@ -65,10 +67,16 @@ def parse_style_file(path: Path) -> StyleMeta:
     # Check for Style Brief section - allow variants
     has_style_brief = bool(re.search(r"^## Style Brief[（(]注入生成器[）)]$", text, re.MULTILINE))
     
+    # Check for 页型配方 section (optional, for picker styles)
+    has_page_recipe = bool(re.search(r"^## 页型配方$", text, re.MULTILINE))
+    
+    # Check for 禁止构图 section (optional, for picker styles)
+    has_forbidden_layouts = bool(re.search(r"^## 禁止构图$", text, re.MULTILINE))
+    
     # Extract hex colors
     colors = re.findall(r"`#([0-9A-Fa-f]{3,6})`", text)
     
-    return StyleMeta(path, title, fields, has_style_brief, colors)
+    return StyleMeta(path, title, fields, has_style_brief, has_page_recipe, has_forbidden_layouts, colors)
 
 
 def validate_hex_color(color: str) -> bool:
@@ -305,6 +313,7 @@ def main() -> int:
         test_schema()
         test_colors()
         test_uniqueness()
+        test_picker_style_identity()
         test_negative()
         test_existing_styles()
         
@@ -322,6 +331,47 @@ def main() -> int:
         import traceback
         traceback.print_exc()
         return 1
+
+
+def test_picker_style_identity() -> None:
+    """Test picker styles have required 页型配方 and 禁止构图 sections."""
+    print("\n=== Test: Picker Style Identity (9 styles) ===")
+    
+    # The 9 picker styles that must have page recipes and forbidden layouts
+    picker_styles = [
+        STYLE_LIB / "creative" / "coral-night.md",
+        STYLE_LIB / "creative" / "yinghuang-studio.md",
+        STYLE_LIB / "business" / "heibai-ledger.md",
+        STYLE_LIB / "creative" / "tanghe-frame.md",
+        STYLE_LIB / "creative" / "huabu-stamp.md",
+        STYLE_LIB / "media" / "classic-desktop.md",
+        STYLE_LIB / "tech" / "electric-grid.md",
+        STYLE_LIB / "business" / "cobalt-brief.md",
+        STYLE_LIB / "business" / "emerald-gazette.md",
+    ]
+    
+    missing_recipe = []
+    missing_forbidden = []
+    
+    for style_path in picker_styles:
+        if not style_path.exists():
+            raise AssertionError(f"Picker style not found: {style_path}")
+        
+        meta = parse_style_file(style_path)
+        
+        if not meta.has_page_recipe:
+            missing_recipe.append(style_path.name)
+        
+        if not meta.has_forbidden_layouts:
+            missing_forbidden.append(style_path.name)
+    
+    if missing_recipe:
+        raise AssertionError(f"Picker styles missing '## 页型配方' section: {missing_recipe}")
+    
+    if missing_forbidden:
+        raise AssertionError(f"Picker styles missing '## 禁止构图' section: {missing_forbidden}")
+    
+    print(f"✓ All 9 picker styles have required identity sections (页型配方 + 禁止构图)")
 
 
 if __name__ == "__main__":

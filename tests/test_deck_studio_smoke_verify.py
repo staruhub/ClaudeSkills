@@ -20,6 +20,12 @@ NEW_STYLES = {
     "emerald-gazette": "翡翠公报 - 翡翠绿刊头杂志式商务",
 }
 
+IDENTITY_EXAMPLES = {
+    "coral-night-numbers-correct": "珊瑚夜色数字页正确示例 - 一个巨型数字",
+    "yinghuang-numbers-correct": "荧黄工作室数字页正确示例 - 一句话结论",
+    "huabu-stamp-cover-correct": "画布彩章封面正确示例 - 不规则印章",
+}
+
 
 def main() -> int:
     print("\n=== Smoke Test: New Style Cover Verification ===\n")
@@ -30,6 +36,7 @@ def main() -> int:
     
     html_count = 0
     
+    print("Style Covers (6):")
     for style, description in NEW_STYLES.items():
         html_file = SMOKE_DIR / f"{style}-cover.html"
         
@@ -41,16 +48,33 @@ def main() -> int:
         else:
             print(f"✗ {description}: HTML not found")
     
+    print("\nIdentity Verification Examples (3):")
+    identity_count = 0
+    for basename, description in IDENTITY_EXAMPLES.items():
+        html_file = SMOKE_DIR / f"{basename}.html"
+        
+        if html_file.exists():
+            size_kb = html_file.stat().st_size / 1024
+            print(f"✓ {description}")
+            print(f"  HTML: {html_file.name} ({size_kb:.1f} KB)")
+            identity_count += 1
+        else:
+            print(f"✗ {description}: HTML not found")
+    
+    total_expected = len(NEW_STYLES) + len(IDENTITY_EXAMPLES)
+    total_found = html_count + identity_count
+    
     print(f"\n{'='*60}")
-    print(f"Smoke test summary: {html_count}/{len(NEW_STYLES)} HTML covers created")
+    print(f"Smoke test summary: {total_found}/{total_expected} HTML files verified")
     
     print("\nVisual verification:")
     print("  - Open HTML files in browser to verify style tokens")
     print("  - Each cover uses the style's core palette, fonts, and layout")
+    print("  - Identity examples demonstrate correct vs incorrect layouts")
     print("  - PNG rendering via Playwright requires additional setup")
     print(f"\nSmoke directory: {SMOKE_DIR.relative_to(REPO)}")
     
-    return 0 if html_count == len(NEW_STYLES) else 1
+    return 0 if total_found == total_expected else 1
 
 
 if __name__ == "__main__":

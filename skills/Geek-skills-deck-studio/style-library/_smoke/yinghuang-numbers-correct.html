@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>荧黄工作室数字页 - 正确示例</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 1280px;
+            height: 720px;
+            background: #0D0D0D;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Arial Black', sans-serif;
+        }
+        .content {
+            text-align: left;
+            max-width: 900px;
+        }
+        .big-number {
+            font-size: 160px;
+            font-weight: 900;
+            color: #F5F0E6;
+            line-height: 0.9;
+        }
+        .keyword {
+            color: #E8B004;
+        }
+        .conclusion {
+            font-size: 32px;
+            color: #F5F0E6;
+            margin-top: 50px;
+            font-family: 'Arial', sans-serif;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+        .accent-line {
+            width: 4px;
+            height: 120px;
+            background: #E8B004;
+            position: absolute;
+            left: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="accent-line"></div>
+    <div class="content">
+        <div class="big-number"><span class="keyword">3</span>倍</div>
+        <div class="conclusion">转化率是行业平均的三倍</div>
+    </div>
+</body>
+</html>
