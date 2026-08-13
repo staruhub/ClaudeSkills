@@ -94,8 +94,13 @@ def test_inventory() -> None:
     if missing:
         raise AssertionError(f"Missing style files referenced in SKILL.md: {missing}")
     
-    # Check that all actual files are listed
-    actual_files = sorted(STYLE_LIB.rglob("*.md"))
+    # Check that all actual style files are listed (exclude _smoke and other non-style files)
+    actual_files = []
+    for category in ["business", "creative", "education", "tech", "media", "custom"]:
+        category_dir = STYLE_LIB / category
+        if category_dir.exists():
+            actual_files.extend(category_dir.glob("*.md"))
+    
     actual_rel = [str(f.relative_to(STYLE_LIB)) for f in actual_files]
     
     unlisted = [f for f in actual_rel if f not in table_paths]
@@ -110,7 +115,13 @@ def test_schema() -> None:
     """Test 2: Verify every style has required fields and Style Brief."""
     print("\n=== Test 2: Schema Validation ===")
     
-    style_files = sorted(STYLE_LIB.rglob("*.md"))
+    # Only check actual style files in category directories
+    style_files = []
+    for category in ["business", "creative", "education", "tech", "media", "custom"]:
+        category_dir = STYLE_LIB / category
+        if category_dir.exists():
+            style_files.extend(sorted(category_dir.glob("*.md")))
+    
     errors = []
     
     for path in style_files:
@@ -140,7 +151,13 @@ def test_colors() -> None:
     """Test 3: Verify hex colors are well-formed."""
     print("\n=== Test 3: Color Validation ===")
     
-    style_files = sorted(STYLE_LIB.rglob("*.md"))
+    # Only check actual style files in category directories
+    style_files = []
+    for category in ["business", "creative", "education", "tech", "media", "custom"]:
+        category_dir = STYLE_LIB / category
+        if category_dir.exists():
+            style_files.extend(sorted(category_dir.glob("*.md")))
+    
     errors = []
     
     for path in style_files:
@@ -165,7 +182,13 @@ def test_uniqueness() -> None:
     """Test 4: Verify no duplicate H1 titles."""
     print("\n=== Test 4: Title Uniqueness ===")
     
-    style_files = sorted(STYLE_LIB.rglob("*.md"))
+    # Only check actual style files in category directories
+    style_files = []
+    for category in ["business", "creative", "education", "tech", "media", "custom"]:
+        category_dir = STYLE_LIB / category
+        if category_dir.exists():
+            style_files.extend(sorted(category_dir.glob("*.md")))
+    
     titles = {}
     
     for path in style_files:

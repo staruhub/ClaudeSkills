@@ -129,6 +129,7 @@ description: PPT 生产 Agent：理解场景 → 推荐风格 → 先出大纲 �
 | `templates/outline-template.md` | Step 4 |
 | `templates/page-brief-template.md` | Step 5 |
 | `templates/image-prompt-template.md` | 模式 C 逐页出 prompt 时 |
+| `style-library/_smoke/` | 新风格视觉验证；README.md 索引 6 个 HTML 封面 smoke test |
 | `examples/moshiro-consulting-report/` | 明色系标杆样例（墨白咨询 9 页，HTML→截图管线，盲评验证），改内容不破坏设计要点 |
 | `examples/polar-night-ai-native/` | 暗色系样例（极夜科技 AI Native 9 页，含 assemble.js 出 pptx + speaker notes），暗色 deck 照此起步 |
 | `examples/yinghuang-bootcamp-proposal/` | 黑金提案系样例（英黄工作室 9 页商业提案，评审 6.6/10），提案类 deck 照此起步 |
