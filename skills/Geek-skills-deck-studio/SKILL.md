@@ -14,6 +14,7 @@ description: PPT 生产 Agent：理解场景 → 推荐风格 → 先出大纲 �
 1. **先 outline，后一切**。视觉图模式（模式 C）必须在大纲经用户确认后才启动；image 模型只负责"把已定义的页画出来"，永远不决定 deck 讲什么。用户要求"跳过大纲直接画"时，解释原因并先给大纲。
 2. **每页先有 page brief，再有 image prompt**，禁止跳级。
 3. **一套 deck 一个风格**。风格参数从 style brief 统一注入每页，不允许逐页漂移。
+4. **风格身份优先于版式注册表**。若某风格的密度/版式特征与候选 layout 冲突，换 layout 或换风格，**禁止换皮**。低密度风格（如 coral-night / yinghuang-studio）禁止套进咨询三栏 KPI / 左右对照骨架。
 
 ## 验收标准（交付前逐条自查）
 
@@ -23,7 +24,8 @@ description: PPT 生产 Agent：理解场景 → 推荐风格 → 先出大纲 �
 - [ ] 模式 C 的每页 prompt 包含风格名、构图、标题文案、正文文案、禁止项
 - [ ] 交付物包含 speaker notes（用户明确不要时除外）
 - [ ] 没有 emoji 充当功能图标；配色来自所选风格色板而非临场发挥
-- [ ] 视觉产出（模式 B/C）渲染后过了 `references/visual-checklist.md`（原典量化 12 条 + 实战 10 条），每页声明了注册版式 `layout: LXX`
+- [ ] 视觉产出（模式 B/C）渲染后过了 `references/visual-checklist.md`（原典量化 12 条 + 实战 11 条），每页声明了注册版式 `layout: LXX`
+- [ ] **风格身份检查**：蒙住色板仍能从构图认出风格；9 套 picker 风格禁止共用同一套 3 栏 KPI + 左右对照页（见 `references/style-identity.md`）
 
 ## 不做什么
 
@@ -32,6 +34,13 @@ description: PPT 生产 Agent：理解场景 → 推荐风格 → 先出大纲 �
 - 内容需要多源调研时 → 先移交 `deep-research`，拿到结论再回本流程
 - 单张海报、logo、纯装饰图 → 图像生成类 skill 直接处理
 - 用户只要"随便几页能用就行"时，压缩为：快速 outline → 模式 B 简化输出，不走完整六步
+
+## 已知陷阱（实战教训）
+
+1. **「正交拆维被执行成换皮」** — 低密度风格（珊瑚夜色 / 荧黄工作室）套进咨询三栏 KPI / 左右对照骨架，蒙住色板认不出风格。修复：Step 5 选版式前先过滤该风格的禁止 layout（见 `references/style-identity.md`）。
+2. **「持续 sidebar 伪装成印章」** — 画布彩章风格被执行成每页 full-height 左色条。修复：印章是不规则、逐页变化位置的色块，不是 UI chrome。
+3. **「时尚大数字替代表格」** — 黑白账本数字页用巨型孤立数字代替表格。修复：账本数字页必须是表格（斑马纹 + 小数点对齐 + 页脚口径）。
+4. **「窗口 chrome 缺失」** — 经典桌面风格退化成平面卡片。修复：每页必须是窗口（蓝标题栏 + 3D bevel 边框 + 系统按钮）。
 
 ## 执行与真实性边界
 
@@ -68,24 +77,30 @@ description: PPT 生产 Agent：理解场景 → 推荐风格 → 先出大纲 �
 | **B. 内容稿** | 交给 PPT 生成器/前端引擎，或用 PptxGenJS 直接产 pptx | slide schema JSON + 可读 Markdown + 风格参数；PptxGenJS 路线见 `references/v2-pipeline/pptx-generation.md` |
 | **C. 视觉图** | 逐页出图（image 模型），或信息图组图 | 每页 page brief → image prompt → 出图；流程与引擎适配见 `references/image-branch.md` |
 
-## 风格库（style-library/，当前 17 个；扩张按 `references/style-roadmap.md` 策展，终态 ≤14 正式 + 特例）
+## 风格库（style-library/，当前 23 个；扩张按 `references/style-roadmap.md` 策展，终态 ≤14 正式 + 特例 + 用户定制）
 
 | 类别 | 风格 | 一句话 |
 |------|------|--------|
 | 通用商务 | `business/moshiro-consulting.md` 墨白咨询 | 黑白灰+单强调色，咨询报告的克制感 |
-| 通用商务 | `business/heibai-ledger.md` 黑白账本 | 表格与数字为主角的数据汇报风（默认模式 B） |
+| 通用商务 | `business/heibai-ledger.md` 黑白账本 | 象牙纸 + Lora 标题，典雅数据账本（默认模式 B） |
 | 通用商务 | `business/aicher-system.md` Aicher 信息系统 | 功能分色+网格图标（慕尼黑 1972），含模板种子 |
-| 品牌创意 | `creative/yinghuang-studio.md` 英黄工作室 | 黑+暖黄，高端提案感，大字留白 |
+| 通用商务 | `business/cobalt-brief.md` 钴蓝简报 | 奶油纸+电光钴蓝，现代专业简报感 |
+| 通用商务 | `business/emerald-gazette.md` 翡翠公报 | 翡翠绿+深海军蓝，杂志刊头式商务模板 |
+| 品牌创意 | `creative/yinghuang-studio.md` 荧黄工作室 | 黑底配电光黄大字，高能设计工作室感 |
 | 品牌创意 | `creative/bauhaus-geometric.md` Bauhaus 几何 | 三原色+圆方三角构成，含模板种子 |
 | 品牌创意 | `creative/constructivist-red.md` 构成主义红 | 红黑白+对角线能量，含模板种子 |
-| 品牌创意 | `creative/tanghe-frame.md` 糖盒彩框 | 奶油底+彩色块边框，新潮杂志感 |
+| 品牌创意 | `creative/tanghe-frame.md` 糖盒彩框 | 软霓虹+粗黑描边，Neo-Brutalist 高能量感 |
+| 品牌创意 | `creative/huabu-stamp.md` 画布彩章 | 奶油画布+大胆彩色印章，杂志海报能量感 |
+| 品牌创意 | `creative/coral-night.md` 珊瑚夜色 | 近黑底+珊瑚奶油大字，暗色高对比路演感 |
 | 教育培训 | `education/qingfeng-classroom.md` 清风讲堂 | 水蓝清爽，低压迫感课件 |
 | 教育培训 | `education/academic-bluegray.md` 学术蓝灰 | 论文答辩与学术报告（默认模式 B） |
 | 科技未来 | `tech/polar-night.md` 极夜科技 | 深底霓虹，AI/数据产品发布 |
 | 科技未来 | `tech/platinum-future.md` 铂灰未来 | 浅色金属质感，投影友好的科技感 |
+| 科技未来 | `tech/electric-grid.md` 电光网格 | 方格纸+钴蓝衬线+像素故障，科技实验感 |
 | 内容传播 | `media/hot-card.md` 热帖卡片 | 小红书式高对比卡片组图 |
 | 内容传播 | `media/notion-handdrawn.md` Notion 手绘 | v2 招牌：手绘线条+便签质感知识图解 |
 | 内容传播 | `media/neubrutalism-pop.md` Neubrutalism 硬糖 | 黑描边+硬阴影+撞色贴纸感，含模板种子 |
+| 内容传播 | `media/classic-desktop.md` 经典桌面 | Windows 95 灰色窗口，复古操作系统怀旧感 |
 | 定制品牌 | `custom/chaogeek-pixel.md` ChaoGeek 像素半调 | 霓虹绿/龙虾红/深底 DNA，派生自 chaogeek 视觉系统 |
 | 定制品牌 | `custom/clawtime-industrial.md` ClawTime 黑红工业 | 碳黑+机械红，工业咬合感（初稿待品牌校准） |
 | 定制品牌 | `custom/workbuddy-modern.md` WorkBuddy 绿色现代 | 生产力绿，效率工具官网感（初稿待品牌校准） |
@@ -123,6 +138,7 @@ description: PPT 生产 Agent：理解场景 → 推荐风格 → 先出大纲 �
 | `templates/outline-template.md` | Step 4 |
 | `templates/page-brief-template.md` | Step 5 |
 | `templates/image-prompt-template.md` | 模式 C 逐页出 prompt 时 |
+| `style-library/_smoke/` | 新风格视觉验证；README.md 索引 6 个 HTML 封面 smoke test |
 | `examples/moshiro-consulting-report/` | 明色系标杆样例（墨白咨询 9 页，HTML→截图管线，盲评验证），改内容不破坏设计要点 |
 | `examples/polar-night-ai-native/` | 暗色系样例（极夜科技 AI Native 9 页，含 assemble.js 出 pptx + speaker notes），暗色 deck 照此起步 |
 | `examples/yinghuang-bootcamp-proposal/` | 黑金提案系样例（英黄工作室 9 页商业提案，评审 6.6/10），提案类 deck 照此起步 |

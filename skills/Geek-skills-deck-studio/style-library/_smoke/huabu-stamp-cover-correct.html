@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>画布彩章封面 - 正确示例</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            width: 1280px;
+            height: 720px;
+            background: #F5F1E8;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Arial Black', sans-serif;
+        }
+        .title {
+            position: absolute;
+            left: 100px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 96px;
+            font-weight: 900;
+            color: #111111;
+            line-height: 1.1;
+            max-width: 700px;
+        }
+        .stamp {
+            position: absolute;
+            bottom: -40px;
+            right: 80px;
+            width: 200px;
+            height: 280px;
+            background: #1B5E20;
+            transform: rotate(-8deg);
+        }
+        .subtitle {
+            position: absolute;
+            left: 100px;
+            bottom: 100px;
+            font-size: 24px;
+            color: #111111;
+            font-family: 'Arial', sans-serif;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div class="stamp"></div>
+    <div class="title">创意<br>即态度</div>
+    <div class="subtitle">品牌视觉提案 2026</div>
+</body>
+</html>
