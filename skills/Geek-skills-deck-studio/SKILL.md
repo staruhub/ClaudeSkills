@@ -68,24 +68,30 @@ description: PPT 生产 Agent：理解场景 → 推荐风格 → 先出大纲 �
 | **B. 内容稿** | 交给 PPT 生成器/前端引擎，或用 PptxGenJS 直接产 pptx | slide schema JSON + 可读 Markdown + 风格参数；PptxGenJS 路线见 `references/v2-pipeline/pptx-generation.md` |
 | **C. 视觉图** | 逐页出图（image 模型），或信息图组图 | 每页 page brief → image prompt → 出图；流程与引擎适配见 `references/image-branch.md` |
 
-## 风格库（style-library/，当前 17 个；扩张按 `references/style-roadmap.md` 策展，终态 ≤14 正式 + 特例）
+## 风格库（style-library/，当前 23 个；扩张按 `references/style-roadmap.md` 策展，终态 ≤14 正式 + 特例 + 用户定制）
 
 | 类别 | 风格 | 一句话 |
 |------|------|--------|
 | 通用商务 | `business/moshiro-consulting.md` 墨白咨询 | 黑白灰+单强调色，咨询报告的克制感 |
-| 通用商务 | `business/heibai-ledger.md` 黑白账本 | 表格与数字为主角的数据汇报风（默认模式 B） |
+| 通用商务 | `business/heibai-ledger.md` 黑白账本 | 象牙纸 + Lora 标题，典雅数据账本（默认模式 B） |
 | 通用商务 | `business/aicher-system.md` Aicher 信息系统 | 功能分色+网格图标（慕尼黑 1972），含模板种子 |
-| 品牌创意 | `creative/yinghuang-studio.md` 英黄工作室 | 黑+暖黄，高端提案感，大字留白 |
+| 通用商务 | `business/cobalt-brief.md` 钴蓝简报 | 奶油纸+电光钴蓝，现代专业简报感 |
+| 通用商务 | `business/emerald-gazette.md` 翡翠公报 | 翡翠绿+深海军蓝，杂志刊头式商务模板 |
+| 品牌创意 | `creative/yinghuang-studio.md` 荧黄工作室 | 黑底配电光黄大字，高能设计工作室感 |
 | 品牌创意 | `creative/bauhaus-geometric.md` Bauhaus 几何 | 三原色+圆方三角构成，含模板种子 |
 | 品牌创意 | `creative/constructivist-red.md` 构成主义红 | 红黑白+对角线能量，含模板种子 |
-| 品牌创意 | `creative/tanghe-frame.md` 糖盒彩框 | 奶油底+彩色块边框，新潮杂志感 |
+| 品牌创意 | `creative/tanghe-frame.md` 糖盒彩框 | 软霓虹+粗黑描边，Neo-Brutalist 高能量感 |
+| 品牌创意 | `creative/huabu-stamp.md` 画布彩章 | 奶油画布+大胆彩色印章，杂志海报能量感 |
+| 品牌创意 | `creative/coral-night.md` 珊瑚夜色 | 近黑底+珊瑚奶油大字，暗色高对比路演感 |
 | 教育培训 | `education/qingfeng-classroom.md` 清风讲堂 | 水蓝清爽，低压迫感课件 |
 | 教育培训 | `education/academic-bluegray.md` 学术蓝灰 | 论文答辩与学术报告（默认模式 B） |
 | 科技未来 | `tech/polar-night.md` 极夜科技 | 深底霓虹，AI/数据产品发布 |
 | 科技未来 | `tech/platinum-future.md` 铂灰未来 | 浅色金属质感，投影友好的科技感 |
+| 科技未来 | `tech/electric-grid.md` 电光网格 | 方格纸+钴蓝衬线+像素故障，科技实验感 |
 | 内容传播 | `media/hot-card.md` 热帖卡片 | 小红书式高对比卡片组图 |
 | 内容传播 | `media/notion-handdrawn.md` Notion 手绘 | v2 招牌：手绘线条+便签质感知识图解 |
 | 内容传播 | `media/neubrutalism-pop.md` Neubrutalism 硬糖 | 黑描边+硬阴影+撞色贴纸感，含模板种子 |
+| 内容传播 | `media/classic-desktop.md` 经典桌面 | Windows 95 灰色窗口，复古操作系统怀旧感 |
 | 定制品牌 | `custom/chaogeek-pixel.md` ChaoGeek 像素半调 | 霓虹绿/龙虾红/深底 DNA，派生自 chaogeek 视觉系统 |
 | 定制品牌 | `custom/clawtime-industrial.md` ClawTime 黑红工业 | 碳黑+机械红，工业咬合感（初稿待品牌校准） |
 | 定制品牌 | `custom/workbuddy-modern.md` WorkBuddy 绿色现代 | 生产力绿，效率工具官网感（初稿待品牌校准） |
