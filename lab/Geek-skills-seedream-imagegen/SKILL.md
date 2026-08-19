@@ -1,7 +1,7 @@
 ---
 name: seedream-imagegen
-version: 1.1.0
-description: 用 ByteDance Seedream 4.0 API（经 Segmind）生成 AI 图像。当用户要从文字描述生成营销素材、海报、产品图、概念图、社交媒体配图等高质量图像，且环境配有 SEGMIND_API_KEY 时使用。支持 2K/4K、多比例、单次最多 15 张批量、最多 3 张参考图控风格。不用于：修改/编辑已有图片（用图像编辑类 skill）、视频生成、无 API 环境下的快速配图需求。
+version: 1.2.0
+description: 用 ByteDance Seedream 4.0 API（经 Segmind 或可选 Atlas Cloud provider）生成 AI 图像。当用户要从文字描述生成营销素材、海报、产品图、概念图、社交媒体配图等高质量图像，且环境配有 SEGMIND_API_KEY 或 ATLASCLOUD_API_KEY 时使用。支持 2K/4K、多比例和单次最多 15 张批量；Segmind 另支持最多 3 张参考图控风格。不用于：修改/编辑已有图片（用图像编辑类 skill）、视频生成、无 API 环境下的快速配图需求。
 ---
 
 # Seedream 4.0 图像生成
@@ -19,7 +19,7 @@ description: 用 ByteDance Seedream 4.0 API（经 Segmind）生成 AI 图像。�
 ## 不做什么
 
 - 不编辑、重绘、扩展已有图片——只做文生图（参考图仅用于风格指导）
-- 无 `SEGMIND_API_KEY` 时不硬试：告知用户去 segmind.com 获取，或改用环境内其他生图 skill
+- 无 `SEGMIND_API_KEY` / `ATLASCLOUD_API_KEY` 时不硬试：告知用户配置所选 provider，或改用环境内其他生图 skill
 - 不对生成内容的版权归属下结论
 - 用户只要一张随手配图时,不展开完整需求问卷,合理默认直接出
 
@@ -53,7 +53,18 @@ python scripts/generate_image.py \
 # API key 从环境变量 SEGMIND_API_KEY 读取，或用 --api-key 传入
 ```
 
-高级用法（参考图 `image_input` ≤3 张 / 顺序批量 `sequential=True` 保持系列一致 / `size=custom` 自定义宽高）：
+Atlas Cloud 是可选 provider，只有显式选择时才使用，不改变默认 Segmind 路径：
+
+```bash
+python scripts/generate_image.py \
+  --provider atlas \
+  --prompt "优化后的提示词" \
+  --size 2K --aspect-ratio 16:9 --max-images 1 \
+  --output-dir ./outputs
+# API key 从 ATLASCLOUD_API_KEY 读取；每张图只提交一次 POST，随后有界轮询 GET
+```
+
+高级用法（Segmind 参考图 `image_input` ≤3 张 / Segmind 顺序批量 `sequential=True` 保持系列一致 / `size=custom` 自定义宽高）：
 Python 调用示例见 `references/quick_start.md`，参数完整说明见 `references/api_reference.md`。
 
 ### 4. 迭代
@@ -64,6 +75,8 @@ Python 调用示例见 `references/quick_start.md`，参数完整说明见 `refe
 | 陷阱 | 具体表现 | 应对 |
 |------|---------|------|
 | 401 / 额度耗尽 | API 报 401 或 quota 错误 | 检查 SEGMIND_API_KEY；额度问题如实告知用户，不静默重试烧额度 |
+| Atlas 异步任务超时 | POST 已返回任务 id，但状态一直为 processing | 不重复 POST；只对结果 GET 做最长 5 分钟的有界轮询，超时后报告任务 id |
+| Atlas 使用参考图/顺序模式 | Atlas v4 文生图 schema 不含 `image_input` / `sequential` | 改用 Segmind provider，脚本会在提交前明确拒绝不支持的组合 |
 | 内容审核拒绝 | 提示词含敏感元素被拒 | 告知被拒原因类别，改写提示词规避后重试一次；连续被拒则停下与用户确认 |
 | 图内文字模糊 | 生成的海报文字发虚、错字 | 提示词明确指定文字内容+字体风格，加 "high contrast, bold typography"；升 4K；仍不行改"留位后期加字" |
 | 4K 时间预期 | 用户以为卡住 | 提前说明 2K 约 2 秒、4K 约 4-6 秒，批量线性叠加 |

@@ -1,8 +1,10 @@
 # Seedream 4.0 API 参考文档
 
-## API 概述
+## Provider 概述
 
-Seedream 4.0 是 ByteDance 开发的下一代图像生成模型,通过 Segmind API 提供服务。该模型支持文本到图像生成、图像编辑和批量生成,具有高分辨率(最高 4K)、优秀的文本渲染能力和专业级视觉质量。
+Seedream 4.0 是 ByteDance 开发的图像生成模型。本 skill 默认使用 Segmind，也可显式选择 Atlas Cloud。两者都保留为独立 provider；选择 Atlas 不会改写默认行为。
+
+### Segmind
 
 **API 端点**: `https://api.segmind.com/v1/seedream-4`
 
@@ -10,7 +12,19 @@ Seedream 4.0 是 ByteDance 开发的下一代图像生成模型,通过 Segmind A
 
 **定价**: 约 $0.027-0.035 每张图片
 
-## 请求参数
+### Atlas Cloud
+
+**生成端点**: `POST https://api.atlascloud.ai/api/v1/model/generateImage`
+
+**结果端点**: `GET https://api.atlascloud.ai/api/v1/model/result/{request_id}`
+
+**模型 ID**: `bytedance/seedream-v4`
+
+**认证方式**: Bearer Token (通过 `Authorization` 请求头传递)
+
+Atlas 请求只包含 `model`、`prompt` 和像素尺寸 `size`（例如 `2048*1152`）。生成是异步任务：脚本不会自动重试 POST，只对结果 GET 做有界轮询。该 schema 不支持参考图或顺序生成；需要这些能力时继续使用 Segmind。
+
+## Segmind 请求参数
 
 ### 必需参数
 
@@ -91,3 +105,18 @@ Seedream 4.0 是 ByteDance 开发的下一代图像生成模型,通过 Segmind A
 - **最大分辨率**: 4096 x 4096 像素
 - **批量限制**: 单次请求最多 15 张图像
 - **参考图限制**: 最多 3 张参考图像
+
+## Atlas 尺寸映射
+
+脚本会把 `2K` / `4K` 与 `aspect_ratio` 转成 Atlas 接受的 `宽*高` 字符串。自定义尺寸要求宽高都在 1024-4096 之间。
+
+| 比例 | 2K | 4K |
+|------|----|----|
+| 1:1 | 2048*2048 | 4096*4096 |
+| 16:9 | 2048*1152 | 4096*2304 |
+| 9:16 | 1152*2048 | 2304*4096 |
+| 4:3 | 2048*1536 | 4096*3072 |
+| 3:2 | 2016*1344 | 4032*2688 |
+| 3:4 | 1536*2048 | 3072*4096 |
+| 2:3 | 1344*2016 | 2688*4032 |
+| 21:9 | 2688*1152 | 4032*1728 |

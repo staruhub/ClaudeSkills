@@ -20,6 +20,12 @@ pip install requests --break-system-packages
 export SEGMIND_API_KEY="your_api_key_here"
 ```
 
+Atlas Cloud（可选 provider）：
+
+```bash
+export ATLASCLOUD_API_KEY="your_api_key_here"
+```
+
 ## 基础使用
 
 ### 交互式模式
@@ -41,6 +47,16 @@ python scripts/generate_image.py
 python scripts/generate_image.py \
   --prompt "A serene mountain landscape at sunset" \
   --api-key YOUR_API_KEY
+```
+
+**Atlas Cloud 示例**（默认仍为 Segmind）：
+
+```bash
+python scripts/generate_image.py \
+  --provider atlas \
+  --prompt "A serene mountain landscape at sunset" \
+  --size 2K \
+  --aspect-ratio 16:9
 ```
 
 **高清图像**:
@@ -66,7 +82,7 @@ python scripts/generate_image.py \
 from scripts.generate_image import SeedreamImageGenerator
 
 # 初始化生成器
-generator = SeedreamImageGenerator(api_key="your_api_key")
+generator = SeedreamImageGenerator(api_key="your_api_key")  # 默认 Segmind
 
 # 生成图像
 paths = generator.generate(
@@ -79,6 +95,24 @@ paths = generator.generate(
 
 print(f"生成的图像路径: {paths}")
 ```
+
+Atlas Cloud Python 调用：
+
+```python
+generator = SeedreamImageGenerator(
+    api_key="your_api_key",
+    provider="atlas",
+)
+paths = generator.generate(
+    prompt="A futuristic city at night, neon lights, cyberpunk style",
+    size="2K",
+    aspect_ratio="16:9",
+    max_images=1,
+    output_dir="./outputs",
+)
+```
+
+Atlas 的 Seedream v4 文生图接口为异步任务：脚本只提交一次生成 POST，然后轮询结果 GET；不支持 `image_input` 或 `sequential=True`。
 
 ## 常见提示词示例
 
