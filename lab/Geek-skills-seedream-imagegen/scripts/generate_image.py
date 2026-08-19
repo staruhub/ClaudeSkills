@@ -2,40 +2,87 @@
 """
 Seedream 4.0 图像生成脚本
 
-这个脚本通过 Segmind API 调用 ByteDance 的 Seedream 4.0 模型生成高质量图像。
+这个脚本通过 Segmind 或 Atlas Cloud API 调用 ByteDance 的 Seedream 4.0 模型生成高质量图像。
 支持多种尺寸、纵横比和批量生成选项。
 """
 
+import argparse
+import json
 import os
 import sys
-import json
-import requests
-import argparse
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
+
+import requests
+
+if __package__:
+    from .atlas_provider import AtlasSeedreamProvider
+else:
+    from atlas_provider import AtlasSeedreamProvider
+
+
+SEGMIND_API_URL = "https://api.segmind.com/v1/seedream-4"
 
 
 class SeedreamImageGenerator:
     """Seedream 4.0 图像生成器类"""
     
-    def __init__(self, api_key=None):
+    def __init__(
+        self,
+        api_key=None,
+        provider="segmind",
+        atlas_base_url=None,
+        session=None,
+        poll_interval=2,
+        poll_timeout=300,
+    ):
         """
         初始化生成器
         
         Args:
-            api_key: Segmind API 密钥,如果未提供则从环境变量读取
+            api_key: 所选 provider 的 API 密钥,如果未提供则从环境变量读取
+            provider: "segmind" 或 "atlas"
+            atlas_base_url: Atlas API 基础地址,默认使用 ATLASCLOUD_API_BASE 或官方地址
+            session: requests 兼容的会话,主要用于测试
+            poll_interval: Atlas 结果轮询间隔（秒）
+            poll_timeout: Atlas 结果轮询总超时（秒）
         """
-        self.api_key = api_key or os.getenv('SEGMIND_API_KEY')
+        self.provider = provider.lower()
+        if self.provider not in {"segmind", "atlas"}:
+            raise ValueError("provider 必须是 segmind 或 atlas")
+
+        if self.provider == "atlas":
+            self.api_key = (
+                api_key
+                or os.getenv("ATLASCLOUD_API_KEY")
+                or os.getenv("ATLAS_CLOUD_API_KEY")
+            )
+            env_name = "ATLASCLOUD_API_KEY"
+        else:
+            self.api_key = api_key or os.getenv("SEGMIND_API_KEY")
+            env_name = "SEGMIND_API_KEY"
+
         if not self.api_key:
             raise ValueError(
-                "需要 API 密钥。请设置 SEGMIND_API_KEY 环境变量或通过参数传递"
+                f"需要 API 密钥。请设置 {env_name} 环境变量或通过参数传递"
             )
-        
-        self.api_url = "https://api.segmind.com/v1/seedream-4"
-        self.headers = {
-            'x-api-key': self.api_key,
-            'Content-Type': 'application/json'
-        }
+
+        self.session = session or requests
+
+        if self.provider == "atlas":
+            self.atlas = AtlasSeedreamProvider(
+                api_key=self.api_key,
+                base_url=atlas_base_url,
+                session=self.session,
+                poll_interval=poll_interval,
+                poll_timeout=poll_timeout,
+            )
+        else:
+            self.api_url = SEGMIND_API_URL
+            self.headers = {
+                "x-api-key": self.api_key,
+                "Content-Type": "application/json",
+            }
     
     def generate(
         self,
@@ -66,7 +113,23 @@ class SeedreamImageGenerator:
         Returns:
             生成的图像文件路径列表
         """
-        # 构建请求数据
+        if not 1 <= max_images <= 15:
+            raise ValueError("生成图像数量必须在 1-15 之间")
+
+        if self.provider == "atlas":
+            return self._generate_atlas(
+                prompt=prompt,
+                size=size,
+                width=width,
+                height=height,
+                aspect_ratio=aspect_ratio,
+                max_images=max_images,
+                image_input=image_input,
+                sequential=sequential,
+                output_dir=output_dir,
+            )
+
+        # 构建 Segmind 请求数据
         data = {
             "prompt": prompt,
             "size": size,
@@ -97,7 +160,7 @@ class SeedreamImageGenerator:
         print(f"   数量: {max_images}")
         
         try:
-            response = requests.post(
+            response = self.session.post(
                 self.api_url,
                 json=data,
                 headers=self.headers,
@@ -131,6 +194,61 @@ class SeedreamImageGenerator:
         except Exception as e:
             print(f"❌ 生成图像时发生错误: {e}")
             raise
+
+    def _generate_atlas(
+        self,
+        prompt,
+        size,
+        width,
+        height,
+        aspect_ratio,
+        max_images,
+        image_input,
+        sequential,
+        output_dir,
+    ):
+        """通过 Atlas 创建任务并有界轮询结果。POST 不做自动重试。"""
+        atlas_size = self.atlas.resolve_size(size, aspect_ratio, width, height)
+        print("🎨 正在通过 Atlas Cloud 生成图像...")
+        print(f"   提示词: {prompt[:100]}{'...' if len(prompt) > 100 else ''}")
+        print(f"   尺寸: {atlas_size}")
+        print(f"   数量: {max_images}")
+
+        output_urls, _ = self.atlas.generate(
+            prompt=prompt,
+            size=size,
+            aspect_ratio=aspect_ratio,
+            max_images=max_images,
+            width=width,
+            height=height,
+            image_input=image_input,
+            sequential=sequential,
+        )
+
+        paths = self._download_images(output_urls, prompt, output_dir)
+        print(f"✅ 成功生成 {len(paths)} 张图像")
+        return paths
+
+    def _download_images(self, urls, prompt, output_dir):
+        output_path = Path(output_dir)
+        output_path.mkdir(parents=True, exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        prompt_short = "".join(
+            char if char.isalnum() or char in (" ", "-", "_") else ""
+            for char in prompt[:30]
+        ).strip().replace(" ", "_")
+        saved_paths = []
+
+        for index, image_url in enumerate(urls, start=1):
+            suffix = f"_{index}" if len(urls) > 1 else ""
+            filepath = output_path / f"seedream_{timestamp}_{prompt_short}{suffix}.png"
+            image_response = self.session.get(image_url, timeout=60)
+            image_response.raise_for_status()
+            filepath.write_bytes(image_response.content)
+            saved_paths.append(str(filepath))
+            print(f"   💾 已保存: {filepath}")
+
+        return saved_paths
     
     def _save_images(self, content, prompt, output_dir, count):
         """
@@ -174,7 +292,8 @@ class SeedreamImageGenerator:
                     for i, img_url in enumerate(result):
                         filename = f"seedream_{timestamp}_{prompt_short}_{i+1}.png"
                         filepath = output_path / filename
-                        img_response = requests.get(img_url, timeout=30)
+                        img_response = self.session.get(img_url, timeout=30)
+                        img_response.raise_for_status()
                         with open(filepath, 'wb') as f:
                             f.write(img_response.content)
                         saved_paths.append(str(filepath))
@@ -198,15 +317,19 @@ def interactive_mode():
     print("=" * 60)
     print()
     
+    provider_choice = input("选择 provider (segmind/atlas) [默认: segmind]: ").strip()
+    provider = provider_choice.lower() or "segmind"
+    env_name = "ATLASCLOUD_API_KEY" if provider == "atlas" else "SEGMIND_API_KEY"
+
     # 获取 API 密钥
-    api_key = os.getenv('SEGMIND_API_KEY')
+    api_key = os.getenv(env_name)
     if not api_key:
-        api_key = input("请输入 Segmind API 密钥: ").strip()
+        api_key = input(f"请输入 {provider} API 密钥: ").strip()
         if not api_key:
             print("❌ 需要 API 密钥才能继续")
             return
     
-    generator = SeedreamImageGenerator(api_key)
+    generator = SeedreamImageGenerator(api_key, provider=provider)
     
     # 获取提示词
     print("\n📝 请描述您想要生成的图像:")
@@ -286,6 +409,9 @@ def main():
   
   # 命令行模式 - 基础用法
   python generate_image.py --prompt "未来城市日落" --api-key YOUR_KEY
+
+  # 使用 Atlas Cloud
+  python generate_image.py --provider atlas --prompt "未来城市日落"
   
   # 高清图像
   python generate_image.py --prompt "赛博朋克街景" --size 4K --api-key YOUR_KEY
@@ -303,8 +429,14 @@ def main():
         help='图像描述提示词'
     )
     parser.add_argument(
+        '--provider',
+        choices=['segmind', 'atlas'],
+        default='segmind',
+        help='API provider (默认: segmind)'
+    )
+    parser.add_argument(
         '--api-key', '-k',
-        help='Segmind API 密钥 (或设置 SEGMIND_API_KEY 环境变量)'
+        help='所选 provider 的 API 密钥 (也可使用对应环境变量)'
     )
     parser.add_argument(
         '--size', '-s',
@@ -318,7 +450,7 @@ def main():
         help='自定义宽度 (1024-4096, size=custom 时需要)'
     )
     parser.add_argument(
-        '--height', '-h',
+        '--height', '-H',
         type=int,
         help='自定义高度 (1024-4096, size=custom 时需要)'
     )
@@ -359,7 +491,7 @@ def main():
     
     # 命令行模式
     try:
-        generator = SeedreamImageGenerator(args.api_key)
+        generator = SeedreamImageGenerator(args.api_key, provider=args.provider)
         paths = generator.generate(
             prompt=args.prompt,
             size=args.size,

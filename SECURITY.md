@@ -69,7 +69,7 @@ Legend: ● = yes · ○ = no · — = n/a (no bundled code) · *(lab)* = experi
 - **`c-drive-cleaner` (🔴 T3)** — the only skill that deletes files. Mitigations baked in: `safe_remove()` **defaults to `dry_run=True`** (simulates, deletes nothing) — you must pass `dry_run=False` explicitly to actually remove; and a hardcoded **protection list** (System32, WinSxS, Program Files, …) blocks system-critical directories. Windows-only; targets temp / recycle-bin / browser-cache paths.
 - **`security-audit` (🔴 T3)** — reads your codebase to scan it and shells out (`subprocess`) to invoke external scanners (e.g. `pip-audit`); if a scanner isn't installed it declares reduced coverage rather than silently passing. Secrets found in your code are **redacted in the report** (first/last chars + length only), never echoed in plaintext. Its offline CVE table is labeled a stale baseline, not a live feed.
 - **`deep-research` (🟠 T2)** — fetches URLs to verify citations and shells out for its run pipeline; writes run summaries to your working dir. No credentials required.
-- **`podcast-generator` *(lab)* / `seedream-imagegen` *(lab)* (🟠 T2)** — call third-party APIs (Volcano Engine / image-gen) and **require credentials you provide via environment variables** (e.g. `API_KEY`, `APP_ID`). Documented as placeholders — the repo ships **no real keys**. Your inputs are sent to those APIs; treat them as you would any cloud service.
+- **`podcast-generator` *(lab)* / `seedream-imagegen` *(lab)* (🟠 T2)** — call third-party APIs (Volcano Engine / Segmind / optional Atlas Cloud) and **require credentials you provide via environment variables** (e.g. `SEGMIND_API_KEY`, `ATLASCLOUD_API_KEY`, `APP_ID`). Documented as placeholders — the repo ships **no real keys**. Your inputs are sent to those APIs; treat them as you would any cloud service.
 - **`a-share-analyst` *(lab)* (🟠 T2)** — pulls live market data via the `akshare` library (no key needed). Output is de-directivized (strength descriptions, not "buy/sell" instructions) and is **not investment advice**.
 - **`mineru-pdf-parser` (🟠 T2)** — parses PDFs with the local `mineru` library; first run may download models over the network.
 
@@ -157,7 +157,7 @@ grep -rE 'subprocess|os\.system|exec\('       skills/Geek-skills-<name>/scripts/
 - **`c-drive-cleaner`(🔴 T3)**——唯一会删文件的 skill。内置缓解:`safe_remove()` **默认 `dry_run=True`**(只模拟,不删任何东西),必须显式传 `dry_run=False` 才真删;并带硬编码**保护清单**(System32、WinSxS、Program Files……)拦住系统关键目录。仅 Windows;针对 temp / 回收站 / 浏览器缓存路径。
 - **`security-audit`(🔴 T3)**——读你的代码库做扫描,并用 `subprocess` 调外部扫描器(如 `pip-audit`);扫描器没装时会声明覆盖缩窄而非静默放行。代码里扫到的密钥在报告里**脱敏**(只留首尾字符+长度),绝不回显明文。离线 CVE 表标注为过时基线,不是实时源。
 - **`deep-research`(🟠 T2)**——抓取 URL 校验引用,并为运行管线调外部命令;把 run summary 写到你的工作目录。无需凭证。
-- **`podcast-generator` *(lab)* / `seedream-imagegen` *(lab)*(🟠 T2)**——调第三方 API(火山引擎 / 图像生成),**需要你通过环境变量提供凭证**(如 `API_KEY`、`APP_ID`)。文档里是占位符,仓库**不含任何真实密钥**。你的输入会发送给这些 API,请按对待任何云服务的方式处理。
+- **`podcast-generator` *(lab)* / `seedream-imagegen` *(lab)*(🟠 T2)**——调第三方 API(火山引擎 / Segmind / 可选 Atlas Cloud),**需要你通过环境变量提供凭证**(如 `SEGMIND_API_KEY`、`ATLASCLOUD_API_KEY`、`APP_ID`)。文档里是占位符,仓库**不含任何真实密钥**。你的输入会发送给这些 API,请按对待任何云服务的方式处理。
 - **`a-share-analyst` *(lab)*(🟠 T2)**——通过 `akshare` 库拉实时行情(不需 key)。输出已去指令化(强弱描述,而非"买/卖"指令),**不构成投资建议**。
 - **`mineru-pdf-parser`(🟠 T2)**——用本地 `mineru` 库解析 PDF;首次运行可能联网下载模型。
 
