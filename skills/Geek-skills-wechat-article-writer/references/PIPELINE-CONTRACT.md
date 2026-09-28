@@ -28,12 +28,22 @@ call an image provider and do not claim an image exists.
 
 ### `layout`
 
-Input: `article.md` and, when placeholders exist,
+Input: `article.md`; when placeholder anchors exist, also a validated
 `image-manifest.json`.
 
-Output: a single `<section>` fragment in `layout.html` using inline styles.
-Every manifest item becomes one traceable placeholder block unless a verified
-generated asset was explicitly supplied.
+Output: a single `<section>` fragment in `layout.html` using inline styles,
+written next to the article so relative image paths resolve when the file is
+opened in a browser.
+
+Real images (v1.3.0+): a standalone Markdown image line `![caption](path)`
+maps to one styled real `<img>` figure, using the alt text as the image note.
+A manifest item with `provider_status: generated` and a local `asset_ref`
+that exists also renders as a real `<img>`; every other manifest item becomes
+one traceable dashed placeholder block. Image sources must be local files
+resolved against the article's directory; external http(s) URLs and missing
+files are hard failures — never emit a broken or external image. Pasting into
+the WeChat editor still requires re-uploading local images there (WeChat
+blocks external images).
 
 ### `full-pipeline`
 
@@ -108,6 +118,9 @@ core Markdown needed by the example and safely escapes unsupported raw HTML.
 
 - Missing manifest with article placeholders: stop and request or rebuild the
   manifest.
+- Real image referenced but missing, or an external http(s) URL used as an
+  image source: fail before writing any output; do not render a broken or
+  external `<img>`.
 - Invalid manifest: show the validator errors; do not render partial HTML.
 - Layout adapter unavailable: use the deterministic fallback and disclose the
   reduced Markdown feature set.

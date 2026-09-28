@@ -1,7 +1,7 @@
 ---
 name: wechat-article-writer
-version: 1.2.0
-description: 专业微信公众号文章助手，支持四个独立且可组合模式：article 写正文；image-prompts 从文章生成版本化、provider-neutral 的图片提示词 manifest 与稳定占位符，但不调用生图；layout 把文章和 manifest 确定性转换为微信安全的内联 HTML；full-pipeline 串联正文、提示词/占位符和排版。用户提到公众号、微信文章、推文、配图提示词、图片 manifest、公众号排版、内联 HTML 或完整图文流水线时触发。支持企业官号、个人技术博客、活动回顾和产品评测。不用于：带引用的研究报告（用 deep-research）、PPT/组图（用 deck-studio）、英文文章、仅润色一小段。永不自动发布，永不把提示词或占位符声称为已生成图片。
+version: 1.3.0
+description: 专业微信公众号文章助手，支持四个独立且可组合模式：article 写正文；image-prompts 从文章生成版本化、provider-neutral 的图片提示词 manifest 与稳定占位符，但不调用生图；layout 把文章与可选 manifest 确定性转换为微信安全的内联 HTML，真实本地截图/图片直接内嵌为 img（含图注），浏览器打开即得发布预览，仅 prompt-only 才降级为占位框；full-pipeline 串联正文、提示词/占位符和排版。用户提到公众号、微信文章、推文、配图提示词、图片 manifest、公众号排版、内联 HTML 或完整图文流水线时触发。支持企业官号、个人技术博客、活动回顾和产品评测。不用于：带引用的研究报告（用 deep-research）、PPT/组图（用 deck-studio）、英文文章、仅润色一小段。永不自动发布，永不把提示词或占位符声称为已生成图片。
 ---
 
 # 微信公众号文章创作助手
@@ -19,7 +19,7 @@ description: 专业微信公众号文章助手，支持四个独立且可组合�
 |---|---|---|---|
 | `article` | 素材/选题 | `article.md` | 正文完成 |
 | `image-prompts` | `article.md` | `image-manifest.json`，正文含稳定锚点与占位符 | 提示词完成，不生图 |
-| `layout` | `article.md` + 可选 manifest | `layout.html` | HTML 完成，不发布 |
+| `layout` | `article.md` + 可选 manifest（或正文内嵌 `![图注](图片文件)`） | `layout.html`，真实图片内嵌、可直接预览 | HTML 完成，不发布 |
 | `full-pipeline` | 素材/选题 | article + manifest + HTML | 三件套完成，不生图、不发布 |
 
 manifest 必须通过 `schemas/image-manifest.schema.json` 和
@@ -241,7 +241,7 @@ python main.py --port 8080
 
 `image-prompts`、`layout` 和 `full-pipeline` 不使用上面的口头“配图建议”作为机器接口；
 必须按 `references/PIPELINE-CONTRACT.md` 生成可校验文件。每张图使用稳定 ID，
-锚点固定为 `<!-- image:{id} -->`，占位符固定为 `{{IMAGE:{id}}}`。
+锚点固定为 `<!-- image:{id} -->`，占位符固定为 `{{IMAGE:{id}}}`。**layout 真实图片直排（v1.3.0+）**：已持有真实截图时，在正文位置写独立一行 `![图注](图名)`（图与 article.md 同目录；外链与缺图一律 fail-fast），渲染器直接内嵌 `<img>`+图注，浏览器打开 layout.html 即为发布预览；manifest 条目 `generated`+本地 `asset_ref` 亦渲染真图，其余保持占位框；粘贴进公众号编辑器后本地图片仍需重新上传。细则见 `references/PIPELINE-CONTRACT.md`。
 
 ## 安全与真实性红线
 
@@ -294,6 +294,6 @@ ChaoGeek 深度文、观点文、品牌文案时，在第六步后启用。按
 - `references/title-formulas.md`（标题模板）与 `references/quality-checklist.md`（发布前检查）。
 - `references/linguistic-background.md`（语言学背景，维护者参考）。
 - `references/PIPELINE-CONTRACT.md`（非 article 模式必读）与 `schemas/image-manifest.schema.json`（provider-neutral schema）。
-- `scripts/validate_image_manifest.py` / `scripts/render_wechat_layout.py` — fail-closed 校验与安全排版降级器。
+- `scripts/validate_image_manifest.py` / `scripts/render_wechat_layout.py` — fail-closed 校验与安全排版渲染器（真实图片内嵌 + 占位框双模式，manifest 仅在正文含占位符时必填）。
 - `assets/template-structure.md`（文章结构）与 `assets/emoji-library.txt`（emoji 素材）。
 - `evals/routing-evals.json` — 触发边界回归用例，改动 description 后用仓库根 `scripts/run_routing_evals.py` 校验。
